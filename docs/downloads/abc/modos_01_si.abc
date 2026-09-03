@@ -1,0 +1,104 @@
+X:1
+T:Modo 1: Si (B3 - Pata de Si) Jónico (Mayor)
+% Familia Mayor | Carácter: Brillante y luminoso | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:B
+V:1 clef=treble
+%%score 1
+(B,CDE FGAB) (cBAG FEDC) | (DEFG ABcd) (edcB AGFE) |
+(FGAB cdef) (gfed cBAG) | (ABcd efga) (bagf edcB) |
+(ABcd efga) (gfed cBAG) | (FGAB cdef) (edcB AGFE) |
+(DEFG ABcd) (cBAG FEDC) | (B,CDE FGAB) (AGFE DCB,2) |]
+
+X:2
+T:Modo 2: Si (B3 - Pata de Si) Lidio
+% Familia Mayor | Carácter: Etéreo y soñador | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:B
+V:1 clef=treble
+%%score 1
+(B,CD^E FGAB) (cBAG F^EDC) | (D^EFG ABcd) (^edcB AGF^E) |
+(FGAB cd^ef) (gf^ed cBAG) | (ABcd ^efga) (bagf ^edcB) |
+(ABcd ^efga) (gf^ed cBAG) | (FGAB cd^ef) (^edcB AGF^E) |
+(D^EFG ABcd) (cBAG F^EDC) | (B,CD^E FGAB) (AGF^E DCB,2) |]
+
+X:3
+T:Modo 3: Si (B3 - Pata de Si) Mixolidio
+% Familia Mayor | Carácter: Festivo y folclórico | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:B
+V:1 clef=treble
+%%score 1
+(B,CDE FG=AB) (cB=AG FEDC) | (DEFG =ABcd) (edcB =AGFE) |
+(FG=AB cdef) (gfed cB=AG) | (=ABcd efg=a) (b=agf edcB) |
+(=ABcd efg=a) (gfed cB=AG) | (FG=AB cdef) (edcB =AGFE) |
+(DEFG =ABcd) (cB=AG FEDC) | (B,CDE FG=AB) (=AGFE DCB,2) |]
+
+X:4
+T:Modo 4: Si (B3 - Pata de Si) Dórico
+% Familia Menor | Carácter: Melancólico y noble | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Bm
+V:1 clef=treble
+%%score 1
+(B,CDE F^GAB) (cBA^G FEDC) | (DEF^G ABcd) (edcB A^GFE) |
+(F^GAB cdef) (^gfed cBA^G) | (ABcd ef^ga) (ba^gf edcB) |
+(ABcd ef^ga) (^gfed cBA^G) | (F^GAB cdef) (edcB A^GFE) |
+(DEF^G ABcd) (cBA^G FEDC) | (B,CDE F^GAB) (A^GFE DCB,2) |]
+
+X:5
+T:Modo 5: Si (B3 - Pata de Si) Eólico (Menor Natural)
+% Familia Menor | Carácter: Triste e introspectivo | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Bm
+V:1 clef=treble
+%%score 1
+(B,CDE FGAB) (cBAG FEDC) | (DEFG ABcd) (edcB AGFE) |
+(FGAB cdef) (gfed cBAG) | (ABcd efga) (bagf edcB) |
+(ABcd efga) (gfed cBAG) | (FGAB cdef) (edcB AGFE) |
+(DEFG ABcd) (cBAG FEDC) | (B,CDE FGAB) (AGFE DCB,2) |]
+
+X:6
+T:Modo 6: Si (B3 - Pata de Si) Frigio
+% Familia Menor | Carácter: Oscuro y exótico | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Bm
+V:1 clef=treble
+%%score 1
+(B,=CDE FGAB) (=cBAG FED=C) | (DEFG AB=cd) (ed=cB AGFE) |
+(FGAB =cdef) (gfed =cBAG) | (AB=cd efga) (bagf ed=cB) |
+(AB=cd efga) (gfed =cBAG) | (FGAB =cdef) (ed=cB AGFE) |
+(DEFG AB=cd) (=cBAG FED=C) | (B,=CDE FGAB) (AGFE D=CB,2) |]
+
+X:7
+T:Modo 7: Si (B3 - Pata de Si) Lócrio
+% Familia Menor | Carácter: Inestable y tenso | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Bm
+V:1 clef=treble
+%%score 1
+(B,=CDE =FGAB) (=cBAG =FED=C) | (DE=FG AB=cd) (ed=cB AG=FE) |
+(=FGAB =cde=f) (g=fed =cBAG) | (AB=cd e=fga) (bag=f ed=cB) |
+(AB=cd e=fga) (g=fed =cBAG) | (=FGAB =cde=f) (ed=cB AG=FE) |
+(DE=FG AB=cd) (=cBAG =FED=C) | (B,=CDE =FGAB) (AG=FE D=CB,2) |]

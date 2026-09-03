@@ -1,0 +1,104 @@
+X:1
+T:Modo 1: Sol Jónico (Mayor)
+% Familia Mayor | Carácter: Brillante y luminoso | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:G
+V:1 clef=treble
+%%score 1
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (fgab c'd'e'f') (g'f'e'd' c'bag) |
+(fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fedc BAG2) |]
+
+X:2
+T:Modo 2: Sol Lidio
+% Familia Mayor | Carácter: Etéreo y soñador | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:G
+V:1 clef=treble
+%%score 1
+(GAB^c defg) (agfe d^cBA) | (B^cde fgab) (^c'bag fed^c) |
+(defg ab^c'd') (e'd'^c'b agfe) | (fgab ^c'd'e'f') (g'f'e'd' ^c'bag) |
+(fgab ^c'd'e'f') (e'd'^c'b agfe) | (defg ab^c'd') (^c'bag fed^c) |
+(B^cde fgab) (agfe d^cBA) | (GAB^c defg) (fed^c BAG2) |]
+
+X:3
+T:Modo 3: Sol Mixolidio
+% Familia Mayor | Carácter: Festivo y folclórico | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:G
+V:1 clef=treble
+%%score 1
+(GABc de=fg) (ag=fe dcBA) | (Bcde =fgab) (c'bag =fedc) |
+(de=fg abc'd') (e'd'c'b ag=fe) | (=fgab c'd'e'=f') (g'=f'e'd' c'bag) |
+(=fgab c'd'e'=f') (e'd'c'b ag=fe) | (de=fg abc'd') (c'bag =fedc) |
+(Bcde =fgab) (ag=fe dcBA) | (GABc de=fg) (=fedc BAG2) |]
+
+X:4
+T:Modo 4: Sol Dórico
+% Familia Menor | Carácter: Melancólico y noble | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Gm
+V:1 clef=treble
+%%score 1
+(GABc d=efg) (agf=e dcBA) | (Bcd=e fgab) (c'bag f=edc) |
+(d=efg abc'd') (=e'd'c'b agf=e) | (fgab c'd'=e'f') (g'f'=e'd' c'bag) |
+(fgab c'd'=e'f') (=e'd'c'b agf=e) | (d=efg abc'd') (c'bag f=edc) |
+(Bcd=e fgab) (agf=e dcBA) | (GABc d=efg) (f=edc BAG2) |]
+
+X:5
+T:Modo 5: Sol Eólico (Menor Natural)
+% Familia Menor | Carácter: Triste e introspectivo | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Gm
+V:1 clef=treble
+%%score 1
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (fgab c'd'e'f') (g'f'e'd' c'bag) |
+(fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fedc BAG2) |]
+
+X:6
+T:Modo 6: Sol Frigio
+% Familia Menor | Carácter: Oscuro y exótico | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Gm
+V:1 clef=treble
+%%score 1
+(G_ABc defg) (_agfe dcB_A) | (Bcde fg_ab) (c'b_ag fedc) |
+(defg _abc'd') (e'd'c'b _agfe) | (fg_ab c'd'e'f') (g'f'e'd' c'b_ag) |
+(fg_ab c'd'e'f') (e'd'c'b _agfe) | (defg _abc'd') (c'b_ag fedc) |
+(Bcde fg_ab) (_agfe dcB_A) | (G_ABc defg) (fedc B_AG2) |]
+
+X:7
+T:Modo 7: Sol Lócrio
+% Familia Menor | Carácter: Inestable y tenso | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Gm
+V:1 clef=treble
+%%score 1
+(G_ABc _defg) (_agfe _dcB_A) | (Bc_de fg_ab) (c'b_ag fe_dc) |
+(_defg _abc'_d') (e'_d'c'b _agfe) | (fg_ab c'_d'e'f') (g'f'e'_d' c'b_ag) |
+(fg_ab c'_d'e'f') (e'_d'c'b _agfe) | (_defg _abc'_d') (c'b_ag fe_dc) |
+(Bc_de fg_ab) (_agfe _dcB_A) | (G_ABc _defg) (fe_dc B_AG2) |]

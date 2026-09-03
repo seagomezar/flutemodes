@@ -1,0 +1,104 @@
+X:1
+T:Modo 1: La bemol (La♭) Jónico (Mayor)
+% Familia Mayor | Carácter: Brillante y luminoso | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Ab
+V:1 clef=treble
+%%score 1
+(ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+(efga bc'd'e') (f'e'd'c' bagf) | (gabc' d'e'f'g') (a'g'f'e' d'c'ba) |
+(gabc' d'e'f'g') (f'e'd'c' bagf) | (efga bc'd'e') (d'c'ba gfed) |
+(cdef gabc') (bagf edcB) | (ABcd efga) (gfed cBA2) |]
+
+X:2
+T:Modo 2: La bemol (La♭) Lidio
+% Familia Mayor | Carácter: Etéreo y soñador | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Ab
+V:1 clef=treble
+%%score 1
+(ABc=d efga) (bagf e=dcB) | (c=def gabc') (=d'c'ba gfe=d) |
+(efga bc'=d'e') (f'e'=d'c' bagf) | (gabc' =d'e'f'g') (a'g'f'e' =d'c'ba) |
+(gabc' =d'e'f'g') (f'e'=d'c' bagf) | (efga bc'=d'e') (=d'c'ba gfe=d) |
+(c=def gabc') (bagf e=dcB) | (ABc=d efga) (gfe=d cBA2) |]
+
+X:3
+T:Modo 3: La bemol (La♭) Mixolidio
+% Familia Mayor | Carácter: Festivo y folclórico | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Ab
+V:1 clef=treble
+%%score 1
+(ABcd ef_ga) (ba_gf edcB) | (cdef _gabc') (d'c'ba _gfed) |
+(ef_ga bc'd'e') (f'e'd'c' ba_gf) | (_gabc' d'e'f'_g') (a'_g'f'e' d'c'ba) |
+(_gabc' d'e'f'_g') (f'e'd'c' ba_gf) | (ef_ga bc'd'e') (d'c'ba _gfed) |
+(cdef _gabc') (ba_gf edcB) | (ABcd ef_ga) (_gfed cBA2) |]
+
+X:4
+T:Modo 4: La bemol (La♭) Dórico
+% Familia Menor | Carácter: Melancólico y noble | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Abm
+V:1 clef=treble
+%%score 1
+(ABcd e=fga) (bag=f edcB) | (cde=f gabc') (d'c'ba g=fed) |
+(e=fga bc'd'e') (=f'e'd'c' bag=f) | (gabc' d'e'=f'g') (a'g'=f'e' d'c'ba) |
+(gabc' d'e'=f'g') (=f'e'd'c' bag=f) | (e=fga bc'd'e') (d'c'ba g=fed) |
+(cde=f gabc') (bag=f edcB) | (ABcd e=fga) (g=fed cBA2) |]
+
+X:5
+T:Modo 5: La bemol (La♭) Eólico (Menor Natural)
+% Familia Menor | Carácter: Triste e introspectivo | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Abm
+V:1 clef=treble
+%%score 1
+(ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+(efga bc'd'e') (f'e'd'c' bagf) | (gabc' d'e'f'g') (a'g'f'e' d'c'ba) |
+(gabc' d'e'f'g') (f'e'd'c' bagf) | (efga bc'd'e') (d'c'ba gfed) |
+(cdef gabc') (bagf edcB) | (ABcd efga) (gfed cBA2) |]
+
+X:6
+T:Modo 6: La bemol (La♭) Frigio
+% Familia Menor | Carácter: Oscuro y exótico | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Abm
+V:1 clef=treble
+%%score 1
+(A_Bcd efga) (_bagf edc_B) | (cdef ga_bc') (d'c'_ba gfed) |
+(efga _bc'd'e') (f'e'd'c' _bagf) | (ga_bc' d'e'f'g') (a'g'f'e' d'c'_ba) |
+(ga_bc' d'e'f'g') (f'e'd'c' _bagf) | (efga _bc'd'e') (d'c'_ba gfed) |
+(cdef ga_bc') (_bagf edc_B) | (A_Bcd efga) (gfed c_BA2) |]
+
+X:7
+T:Modo 7: La bemol (La♭) Lócrio
+% Familia Menor | Carácter: Inestable y tenso | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Abm
+V:1 clef=treble
+%%score 1
+(A_Bcd _efga) (_bagf _edc_B) | (cd_ef ga_bc') (d'c'_ba gf_ed) |
+(_efga _bc'd'_e') (f'_e'd'c' _bagf) | (ga_bc' d'_e'f'g') (a'g'f'_e' d'c'_ba) |
+(ga_bc' d'_e'f'g') (f'_e'd'c' _bagf) | (_efga _bc'd'_e') (d'c'_ba gf_ed) |
+(cd_ef ga_bc') (_bagf _edc_B) | (A_Bcd _efga) (gf_ed c_BA2) |]

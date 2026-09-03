@@ -1,0 +1,104 @@
+X:1
+T:Modo 1: Do Jónico (Mayor)
+% Familia Mayor | Carácter: Brillante y luminoso | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:C
+V:1 clef=treble
+%%score 1
+(CDEF GABc) (dcBA GFED) | (EFGA Bcde) (fedc BAGF) |
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fedc BAGF) |
+(EFGA Bcde) (dcBA GFED) | (CDEF GABc) (BAGF EDC2) |]
+
+X:2
+T:Modo 2: Do Lidio
+% Familia Mayor | Carácter: Etéreo y soñador | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:C
+V:1 clef=treble
+%%score 1
+(CDE^F GABc) (dcBA G^FED) | (E^FGA Bcde) (^fedc BAG^F) |
+(GABc de^fg) (ag^fe dcBA) | (Bcde ^fgab) (c'bag ^fedc) |
+(Bcde ^fgab) (ag^fe dcBA) | (GABc de^fg) (^fedc BAG^F) |
+(E^FGA Bcde) (dcBA G^FED) | (CDE^F GABc) (BAG^F EDC2) |]
+
+X:3
+T:Modo 3: Do Mixolidio
+% Familia Mayor | Carácter: Festivo y folclórico | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:C
+V:1 clef=treble
+%%score 1
+(CDEF GA_Bc) (dc_BA GFED) | (EFGA _Bcde) (fedc _BAGF) |
+(GA_Bc defg) (agfe dc_BA) | (_Bcde fga_b) (c'_bag fedc) |
+(_Bcde fga_b) (agfe dc_BA) | (GA_Bc defg) (fedc _BAGF) |
+(EFGA _Bcde) (dc_BA GFED) | (CDEF GA_Bc) (_BAGF EDC2) |]
+
+X:4
+T:Modo 4: Do Dórico
+% Familia Menor | Carácter: Melancólico y noble | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Cm
+V:1 clef=treble
+%%score 1
+(CDEF G=ABc) (dcB=A GFED) | (EFG=A Bcde) (fedc B=AGF) |
+(G=ABc defg) (=agfe dcB=A) | (Bcde fg=ab) (c'b=ag fedc) |
+(Bcde fg=ab) (=agfe dcB=A) | (G=ABc defg) (fedc B=AGF) |
+(EFG=A Bcde) (dcB=A GFED) | (CDEF G=ABc) (B=AGF EDC2) |]
+
+X:5
+T:Modo 5: Do Eólico (Menor Natural)
+% Familia Menor | Carácter: Triste e introspectivo | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Cm
+V:1 clef=treble
+%%score 1
+(CDEF GABc) (dcBA GFED) | (EFGA Bcde) (fedc BAGF) |
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fedc BAGF) |
+(EFGA Bcde) (dcBA GFED) | (CDEF GABc) (BAGF EDC2) |]
+
+X:6
+T:Modo 6: Do Frigio
+% Familia Menor | Carácter: Oscuro y exótico | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Cm
+V:1 clef=treble
+%%score 1
+(C_DEF GABc) (_dcBA GFE_D) | (EFGA Bc_de) (fe_dc BAGF) |
+(GABc _defg) (agfe _dcBA) | (Bc_de fgab) (c'bag fe_dc) |
+(Bc_de fgab) (agfe _dcBA) | (GABc _defg) (fe_dc BAGF) |
+(EFGA Bc_de) (_dcBA GFE_D) | (C_DEF GABc) (BAGF E_DC2) |]
+
+X:7
+T:Modo 7: Do Lócrio
+% Familia Menor | Carácter: Inestable y tenso | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=90
+K:Cm
+V:1 clef=treble
+%%score 1
+(C_DEF _GABc) (_dcBA _GFE_D) | (EF_GA Bc_de) (fe_dc BA_GF) |
+(_GABc _def_g) (a_gfe _dcBA) | (Bc_de f_gab) (c'ba_g fe_dc) |
+(Bc_de f_gab) (a_gfe _dcBA) | (_GABc _def_g) (fe_dc BA_GF) |
+(EF_GA Bc_de) (_dcBA _GFE_D) | (C_DEF _GABc) (BA_GF E_DC2) |]
