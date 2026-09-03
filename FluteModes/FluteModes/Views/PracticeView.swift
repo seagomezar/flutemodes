@@ -6,6 +6,12 @@ public struct PracticeView: View {
     @ObservedObject var scorePlayer: ScoreAudioPlayer
     @ObservedObject var loc = LocalizationManager.shared
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @State private var navigateToMatrix = false
+
+    private var isCompact: Bool {
+        horizontalSizeClass == .compact
+    }
 
     public init(viewModel: PracticeViewModel) {
         self.viewModel = viewModel
@@ -16,7 +22,12 @@ public struct PracticeView: View {
     public var body: some View {
         VStack(spacing: 0) {
             // Top Navigation & Mode Information Bar
-            topBar
+            if isCompact {
+                mobileTopBar
+                mobileModeHeaderCard
+            } else {
+                topBar
+            }
 
             Divider()
 
@@ -26,7 +37,7 @@ public struct PracticeView: View {
                     .ignoresSafeArea()
 
                 ScoreWebView(abcString: viewModel.currentAbcScore)
-                    .padding(.horizontal, 8)
+                    .padding(isCompact ? 4 : 12)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -38,10 +49,17 @@ public struct PracticeView: View {
             Divider()
 
             // Bottom Integrated Toolbar (Metronome + Actions)
-            controlToolbar
+            if isCompact {
+                mobileControlToolbar
+            } else {
+                controlToolbar
+            }
         }
         .navigationBarBackButtonHidden(true)
         .background(Color(uiColor: .systemBackground))
+        .navigationDestination(isPresented: $navigateToMatrix) {
+            ProgressMatrixView(viewModel: viewModel)
+        }
         .onAppear {
             viewModel.updateScore()
         }
@@ -66,7 +84,102 @@ public struct PracticeView: View {
         }
     }
 
-    // MARK: - Top Bar
+    // MARK: - Mobile Top Navigation Bar
+    private var mobileTopBar: some View {
+        HStack(alignment: .center) {
+            Button {
+                dismiss()
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                    Text("FluteModes")
+                        .font(.headline)
+                }
+                .foregroundColor(.primary)
+            }
+
+            Spacer()
+
+            Button {
+                navigateToMatrix = true
+            } label: {
+                Image(systemName: "square.grid.3x3.fill")
+                    .font(.subheadline)
+                    .padding(8)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .foregroundColor(.primary)
+                    .clipShape(Circle())
+            }
+
+            Button {
+                loc.toggleLanguage()
+            } label: {
+                HStack(spacing: 4) {
+                    Text(loc.currentLanguage.flag)
+                    Text(loc.currentLanguage.displayName)
+                        .font(.caption.bold())
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(Color(uiColor: .tertiarySystemFill))
+                .foregroundColor(.primary)
+                .cornerRadius(12)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color(uiColor: .secondarySystemBackground))
+    }
+
+    // MARK: - Mobile Mode Header Card
+    private var mobileModeHeaderCard: some View {
+        VStack(spacing: 6) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.name)")
+                        .font(.system(size: 19, weight: .bold))
+                        .foregroundColor(.primary)
+
+                    Text(viewModel.currentMode.keyDescription(for: viewModel.currentTonic))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                // Progress badge (e.g. 3/7)
+                Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                    .font(.caption2.bold().monospacedDigit())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(viewModel.areAllModesInCurrentTonicPracticed ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                    .foregroundColor(viewModel.areAllModesInCurrentTonicPracticed ? Color.green : Color.blue)
+                    .cornerRadius(8)
+            }
+
+            HStack(spacing: 6) {
+                Text(viewModel.currentMode.family.rawValue)
+                    .font(.caption2.bold())
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .foregroundColor(.secondary)
+                    .cornerRadius(6)
+
+                Text(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))
+                    .font(.caption2.weight(.medium))
+                    .foregroundColor(.secondary)
+
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Color(uiColor: .systemBackground))
+    }
+
+    // MARK: - Top Bar (Tablet)
     private var topBar: some View {
         HStack(alignment: .center, spacing: 14) {
             Button {
@@ -308,6 +421,141 @@ public struct PracticeView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 12)
+        .background(Color(uiColor: .secondarySystemBackground))
+    }
+
+    // MARK: - Mobile Control Toolbar (2 Rows, Thumb-Friendly)
+    private var mobileControlToolbar: some View {
+        VStack(spacing: 10) {
+            // Row 1: Metronome controls + BPM Stepper + Play Piano button
+            HStack(spacing: 10) {
+                // Metronome button
+                Button {
+                    metronome.toggle()
+                } label: {
+                    Image(systemName: metronome.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 30))
+                        .foregroundColor(.primary)
+                }
+
+                // 4 Beat Dots
+                HStack(spacing: 5) {
+                    ForEach(1...4, id: \.self) { beat in
+                        Circle()
+                            .fill(metronome.isPlaying && metronome.currentBeat == beat ? Color.primary : Color(uiColor: .tertiaryLabel))
+                            .frame(width: 7, height: 7)
+                            .scaleEffect(metronome.isPlaying && metronome.currentBeat == beat ? 1.3 : 1.0)
+                    }
+                }
+
+                // BPM Stepper
+                HStack(spacing: 4) {
+                    Button {
+                        metronome.setTempo(metronome.tempoBPM - 2)
+                        viewModel.updateScore()
+                    } label: {
+                        Image(systemName: "minus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+                    }
+
+                    Text("\(metronome.tempoBPM)")
+                        .font(.caption.bold().monospacedDigit())
+                        .frame(minWidth: 28)
+
+                    Button {
+                        metronome.setTempo(metronome.tempoBPM + 2)
+                        viewModel.updateScore()
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+                    }
+                }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 3)
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
+                .cornerRadius(8)
+
+                Spacer()
+
+                // Play Piano button
+                Button {
+                    viewModel.toggleScorePlayback()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: scorePlayer.isPlaying ? "stop.circle.fill" : "pianokeys")
+                        Text(scorePlayer.isPlaying ? loc.t("stop_piano") : loc.t("play_piano"))
+                            .font(.caption.bold())
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 7)
+                    .background(scorePlayer.isPlaying ? Color.red : Color.indigo)
+                    .foregroundColor(.white)
+                    .cornerRadius(14)
+                }
+            }
+
+            // Row 2: Thumb-friendly main actions
+            HStack(spacing: 10) {
+                // Next articulation button
+                Button {
+                    let all = ArticulationPattern.allCases
+                    if let idx = all.firstIndex(of: viewModel.currentArticulation) {
+                        let nextIdx = (idx + 1) % all.count
+                        viewModel.selectArticulation(all[nextIdx])
+                    }
+                } label: {
+                    Text(loc.t("next_art"))
+                        .font(.caption.bold())
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 12)
+                        .background(Color(uiColor: .secondarySystemFill))
+                        .foregroundColor(.primary)
+                        .cornerRadius(16)
+                }
+
+                // Primary Complete & Next button
+                if viewModel.areAllModesInCurrentTonicPracticed {
+                    Button {
+                        viewModel.showCompletionDialog = true
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "checkmark.seal.fill")
+                            Text("✓ \(loc.t("seven_modes_completed"))")
+                                .font(.subheadline.bold())
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(16)
+                        .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
+                    }
+                } else {
+                    Button {
+                        viewModel.markCurrentCompletedAndAdvanceMode()
+                    } label: {
+                        HStack(spacing: 6) {
+                            Text("\(loc.t("complete_and_next")) (\(viewModel.practicedModesCountInCurrentTonic)/7)")
+                                .font(.subheadline.bold())
+                            Image(systemName: "arrow.right")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.primary)
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .cornerRadius(16)
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
         .background(Color(uiColor: .secondarySystemBackground))
     }
 }

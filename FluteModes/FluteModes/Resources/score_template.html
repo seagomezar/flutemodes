@@ -9,31 +9,34 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
-    padding: 12px 16px;
+    padding: 8px 12px;
     background: #ffffff;
     color: #000000;
-    overflow-x: hidden;
-  }
-  @media (prefers-color-scheme: dark) {
-    body {
-      background: #1c1c1e;
-      color: #ffffff;
-    }
-    svg path, svg text {
-      fill: currentColor !important;
-      stroke: currentColor !important;
-    }
-    svg line {
-      stroke: currentColor !important;
-    }
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   #score-container {
     width: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
   #paper {
     width: 100%;
+    background: #ffffff;
+  }
+  #paper svg {
+    fill: #000000 !important;
+  }
+  #paper svg path {
+    fill: #000000 !important;
+  }
+  #paper svg text {
+    fill: #000000 !important;
+  }
+  #paper svg line {
+    stroke: #000000 !important;
   }
 </style>
 <script>
@@ -48,14 +51,20 @@
   </div>
   <script>
     function renderScore(abcString) {
-      const containerWidth = document.getElementById("score-container").clientWidth || 800;
-      const targetWidth = Math.max(containerWidth - 32, 600);
+      const container = document.getElementById("score-container");
+      const containerWidth = container.clientWidth || window.innerWidth || 360;
+      const isMobile = containerWidth < 600;
+      const scaleFactor = isMobile ? 0.84 : 0.94;
+      const targetWidth = Math.max(containerWidth - 20, 300);
+
       ABCJS.renderAbc("paper", abcString, {
         responsive: "resize",
         staffwidth: targetWidth,
-        paddingtop: 4,
-        paddingbottom: 4,
-        scale: 0.92
+        paddingtop: 6,
+        paddingbottom: 6,
+        paddingleft: 2,
+        paddingright: 2,
+        scale: scaleFactor
       });
     }
     window.addEventListener("resize", () => {

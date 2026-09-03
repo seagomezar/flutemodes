@@ -4,9 +4,14 @@ public struct ProgressMatrixView: View {
     @ObservedObject var viewModel: PracticeViewModel
     @ObservedObject var loc = LocalizationManager.shared
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @State private var filterSelection: FilterOption = .todos
     @State private var showResetConfirmation = false
+
+    private var isCompact: Bool {
+        horizontalSizeClass == .compact
+    }
 
     enum FilterOption: String, CaseIterable, Identifiable {
         case todos = "Todos"
@@ -30,97 +35,116 @@ public struct ProgressMatrixView: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // Top Navigation Bar
-                HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        HStack(spacing: 6) {
-                            Image(systemName: "chevron.left")
-                            Text(loc.t("back"))
-                        }
-                        .foregroundColor(.primary)
+        VStack(spacing: 0) {
+            // Top Navigation Bar
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chevron.left")
+                        Text(loc.t("back"))
                     }
-
-                    Spacer()
-
-                    Text(loc.t("matrix_title"))
-                        .font(.headline)
-
-                    Spacer()
-
-                    Button(role: .destructive) {
-                        showResetConfirmation = true
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrow.counterclockwise")
-                            Text(loc.t("reset_all"))
-                        }
-                        .font(.subheadline)
-                    }
+                    .foregroundColor(.primary)
                 }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 14)
-                .background(Color(uiColor: .secondarySystemBackground))
 
-                Divider()
+                Spacer()
 
-                ScrollView {
-                    VStack(spacing: 20) {
-                        // Summary KPI Cards
-                        kpiSection
+                Text(loc.t("matrix_title"))
+                    .font(.headline)
 
-                        // Segmented Filter
-                        Picker("Filtro", selection: $filterSelection) {
-                            ForEach(FilterOption.allCases) { opt in
-                                Text(opt.localizedTitle).tag(opt)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                        .padding(.horizontal, 24)
+                Spacer()
 
-                        // 12x7 Matrix Table
-                        matrixTable
-
-                        // Legend Bar
-                        legendBar
+                Button(role: .destructive) {
+                    showResetConfirmation = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.counterclockwise")
+                        Text(loc.t("reset_all"))
                     }
-                    .padding(.vertical, 20)
+                    .font(.subheadline)
                 }
-                .background(Color(uiColor: .systemGroupedBackground))
             }
-            .confirmationDialog(
-                loc.t("reset_confirm_title"),
-                isPresented: $showResetConfirmation,
-                titleVisibility: .visible
-            ) {
-                Button(loc.t("reset_all"), role: .destructive) {
-                    viewModel.store.resetAll()
+            .padding(.horizontal, isCompact ? 16 : 24)
+            .padding(.vertical, 14)
+            .background(Color(uiColor: .secondarySystemBackground))
+
+            Divider()
+
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Summary KPI Cards
+                    kpiSection
+
+                    // Segmented Filter
+                    Picker("Filtro", selection: $filterSelection) {
+                        ForEach(FilterOption.allCases) { opt in
+                            Text(opt.localizedTitle).tag(opt)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal, isCompact ? 16 : 24)
+
+                    // 12x7 Matrix Table
+                    matrixTable
+
+                    // Legend Bar
+                    legendBar
                 }
-                Button(loc.t("cancel"), role: .cancel) {}
-            } message: {
-                Text(loc.t("reset_confirm_msg"))
+                .padding(.vertical, 20)
             }
+            .background(Color(uiColor: .systemGroupedBackground))
+        }
+        .navigationBarBackButtonHidden(true)
+        .confirmationDialog(
+            loc.t("reset_confirm_title"),
+            isPresented: $showResetConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(loc.t("reset_all"), role: .destructive) {
+                viewModel.store.resetAll()
+            }
+            Button(loc.t("cancel"), role: .cancel) {}
+        } message: {
+            Text(loc.t("reset_confirm_msg"))
         }
     }
 
     // MARK: - KPI Section
     private var kpiSection: some View {
-        HStack(spacing: 16) {
-            kpiCard(title: "Total Modos", value: "\(viewModel.store.totalModesCount)")
-            kpiCard(
-                title: "Completados",
-                value: "\(viewModel.store.completedModesCount) / \(viewModel.store.totalModesCount)",
-                subtitle: "\(completionPercentage)%"
-            )
-            kpiCard(
-                title: "Articulaciones",
-                value: "\(viewModel.store.totalPracticedArticulationsCount) / 672"
-            )
+        Group {
+            if isCompact {
+                VStack(spacing: 8) {
+                    HStack(spacing: 10) {
+                        kpiCard(title: loc.currentLanguage == .english ? "Total Modes" : "Total Modos", value: "\(viewModel.store.totalModesCount)")
+                        kpiCard(
+                            title: loc.currentLanguage == .english ? "Completed" : "Completados",
+                            value: "\(viewModel.store.completedModesCount) / \(viewModel.store.totalModesCount)",
+                            subtitle: "\(completionPercentage)%"
+                        )
+                    }
+                    kpiCard(
+                        title: loc.currentLanguage == .english ? "Articulations Practiced" : "Articulaciones Practicadas",
+                        value: "\(viewModel.store.totalPracticedArticulationsCount) / 672"
+                    )
+                }
+                .padding(.horizontal, 16)
+            } else {
+                HStack(spacing: 16) {
+                    kpiCard(title: loc.currentLanguage == .english ? "Total Modes" : "Total Modos", value: "\(viewModel.store.totalModesCount)")
+                    kpiCard(
+                        title: loc.currentLanguage == .english ? "Completed" : "Completados",
+                        value: "\(viewModel.store.completedModesCount) / \(viewModel.store.totalModesCount)",
+                        subtitle: "\(completionPercentage)%"
+                    )
+                    kpiCard(
+                        title: loc.currentLanguage == .english ? "Articulations" : "Articulaciones",
+                        value: "\(viewModel.store.totalPracticedArticulationsCount) / 672"
+                    )
+                }
+                .padding(.horizontal, 24)
+            }
         }
-        .padding(.horizontal, 24)
     }
 
     private func kpiCard(title: String, value: String, subtitle: String? = nil) -> some View {
@@ -138,7 +162,7 @@ public struct ProgressMatrixView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 16)
+        .padding(.vertical, 14)
         .background(Color(uiColor: .secondarySystemGroupedBackground))
         .cornerRadius(14)
         .overlay(
@@ -149,58 +173,60 @@ public struct ProgressMatrixView: View {
 
     // MARK: - Matrix Grid
     private var matrixTable: some View {
-        VStack(spacing: 0) {
-            // Table Header (Mode Column Names)
-            HStack(spacing: 0) {
-                Text("Tónica")
-                    .font(.caption.bold())
-                    .frame(width: 80, alignment: .leading)
-                    .padding(.leading, 12)
-
-                ForEach(ModeType.allCases) { mode in
-                    Text(mode.name.components(separatedBy: " ").first ?? "")
+        ScrollView(.horizontal, showsIndicators: true) {
+            VStack(spacing: 0) {
+                // Table Header (Mode Column Names)
+                HStack(spacing: 0) {
+                    Text(loc.currentLanguage == .english ? "Tonic" : "Tónica")
                         .font(.caption.bold())
-                        .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.vertical, 12)
-            .background(Color(uiColor: .tertiarySystemFill))
+                        .frame(width: 80, alignment: .leading)
+                        .padding(.leading, 12)
 
-            Divider()
-
-            // 12 Rows of Tonics
-            ForEach(Tonic.allCases) { tonic in
-                if shouldShowRow(tonic: tonic) {
-                    HStack(spacing: 0) {
-                        Text(tonic.rawValue)
-                            .font(.subheadline.bold())
-                            .frame(width: 80, alignment: .leading)
-                            .padding(.leading, 12)
-
-                        ForEach(ModeType.allCases) { mode in
-                            let count = viewModel.store.completedArticulationsCount(tonic: tonic, mode: mode)
-                            Button {
-                                viewModel.selectMode(tonic: tonic, mode: mode)
-                                dismiss()
-                            } label: {
-                                cellView(completedCount: count)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
+                    ForEach(ModeType.allCases) { mode in
+                        Text(mode.name.components(separatedBy: " ").first ?? "")
+                            .font(.caption.bold())
+                            .frame(width: isCompact ? 68 : 80)
                     }
-                    .padding(.vertical, 10)
+                }
+                .padding(.vertical, 12)
+                .background(Color(uiColor: .tertiarySystemFill))
 
-                    Divider()
+                Divider()
+
+                // 12 Rows of Tonics
+                ForEach(Tonic.allCases) { tonic in
+                    if shouldShowRow(tonic: tonic) {
+                        HStack(spacing: 0) {
+                            Text(tonic.rawValue)
+                                .font(.subheadline.bold())
+                                .frame(width: 80, alignment: .leading)
+                                .padding(.leading, 12)
+
+                            ForEach(ModeType.allCases) { mode in
+                                let count = viewModel.store.completedArticulationsCount(tonic: tonic, mode: mode)
+                                Button {
+                                    viewModel.selectMode(tonic: tonic, mode: mode)
+                                    dismiss()
+                                } label: {
+                                    cellView(completedCount: count)
+                                }
+                                .frame(width: isCompact ? 68 : 80)
+                            }
+                        }
+                        .padding(.vertical, 10)
+
+                        Divider()
+                    }
                 }
             }
+            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color(uiColor: .separator), lineWidth: 0.5)
+            )
+            .padding(.horizontal, isCompact ? 16 : 24)
         }
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(uiColor: .separator), lineWidth: 0.5)
-        )
-        .padding(.horizontal, 24)
     }
 
     private func cellView(completedCount: Int) -> some View {

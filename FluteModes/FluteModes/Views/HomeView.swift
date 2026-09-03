@@ -3,8 +3,13 @@ import SwiftUI
 public struct HomeView: View {
     @ObservedObject var viewModel: PracticeViewModel
     @ObservedObject var loc = LocalizationManager.shared
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var navigateToPractice = false
     @State private var navigateToMatrix = false
+
+    private var isCompact: Bool {
+        horizontalSizeClass == .compact
+    }
 
     public init(viewModel: PracticeViewModel) {
         self.viewModel = viewModel
@@ -17,10 +22,31 @@ public struct HomeView: View {
                     .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 24) {
-                        // Top Bar with Language Switcher
+                    VStack(spacing: isCompact ? 18 : 24) {
+                        // Top Bar with Language Switcher & Quick Matrix
                         HStack {
+                            if isCompact {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "music.note.list")
+                                        .foregroundColor(.accentColor)
+                                    Text(loc.t("app_name"))
+                                        .font(.headline.weight(.bold))
+                                }
+                            }
+
                             Spacer()
+
+                            Button {
+                                navigateToMatrix = true
+                            } label: {
+                                Image(systemName: "square.grid.3x3.fill")
+                                    .font(.subheadline)
+                                    .padding(8)
+                                    .background(Color(uiColor: .tertiarySystemFill))
+                                    .foregroundColor(.primary)
+                                    .clipShape(Circle())
+                            }
+
                             Button {
                                 loc.toggleLanguage()
                             } label: {
@@ -39,21 +65,25 @@ public struct HomeView: View {
                             }
                         }
                         .padding(.horizontal, 4)
-                        .padding(.top, 8)
+                        .padding(.top, isCompact ? 4 : 8)
 
                         // Header / Hero
                         VStack(spacing: 6) {
-                            Text(loc.t("app_name"))
-                                .font(.system(size: 32, weight: .bold))
-                                .foregroundColor(.primary)
+                            if !isCompact {
+                                Text(loc.t("app_name"))
+                                    .font(.system(size: 32, weight: .bold))
+                                    .foregroundColor(.primary)
+                            }
 
                             Text(loc.t("subtitle"))
-                                .font(.subheadline.weight(.medium))
+                                .font(isCompact ? .subheadline.weight(.semibold) : .headline)
                                 .foregroundColor(.primary)
+                                .multilineTextAlignment(.center)
 
                             Text(loc.t("sub_desc"))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
                         }
 
                         // SELECT TONIC (Horizontal Chip Bar)
@@ -88,20 +118,16 @@ public struct HomeView: View {
                         }
 
                         // TWO PARALLEL FAMILIES (Mayor & Menor)
-                        HStack(alignment: .top, spacing: 16) {
-                            // Familia Mayor Card
-                            familyCard(
-                                title: loc.t("major_family"),
-                                keyDesc: "\(loc.t("fixed_key")) \(viewModel.currentTonic.majorKey) (\(viewModel.currentTonic.majorDesc))",
-                                modes: [.ionian, .lydian, .mixolydian]
-                            )
-
-                            // Familia Menor Card
-                            familyCard(
-                                title: loc.t("minor_family"),
-                                keyDesc: "\(loc.t("fixed_key")) \(viewModel.currentTonic.minorKey) (\(viewModel.currentTonic.minorDesc))",
-                                modes: [.dorian, .aeolian, .phrygian, .locrian]
-                            )
+                        if isCompact {
+                            VStack(spacing: 14) {
+                                majorFamilyCard
+                                minorFamilyCard
+                            }
+                        } else {
+                            HStack(alignment: .top, spacing: 16) {
+                                majorFamilyCard
+                                minorFamilyCard
+                            }
                         }
 
                         // Actions Section
@@ -176,7 +202,7 @@ public struct HomeView: View {
                                 .stroke(Color(uiColor: .separator), lineWidth: 0.5)
                         )
                     }
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, isCompact ? 16 : 28)
                     .padding(.bottom, 24)
                 }
             }
@@ -186,7 +212,34 @@ public struct HomeView: View {
             .navigationDestination(isPresented: $navigateToMatrix) {
                 ProgressMatrixView(viewModel: viewModel)
             }
+            .onAppear {
+                if CommandLine.arguments.contains("-openPractice") {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        navigateToPractice = true
+                    }
+                } else if CommandLine.arguments.contains("-openMatrix") {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        navigateToMatrix = true
+                    }
+                }
+            }
         }
+    }
+
+    private var majorFamilyCard: some View {
+        familyCard(
+            title: loc.t("major_family"),
+            keyDesc: "\(loc.t("fixed_key")) \(viewModel.currentTonic.majorKey) (\(viewModel.currentTonic.majorDesc))",
+            modes: [.ionian, .lydian, .mixolydian]
+        )
+    }
+
+    private var minorFamilyCard: some View {
+        familyCard(
+            title: loc.t("minor_family"),
+            keyDesc: "\(loc.t("fixed_key")) \(viewModel.currentTonic.minorKey) (\(viewModel.currentTonic.minorDesc))",
+            modes: [.dorian, .aeolian, .phrygian, .locrian]
+        )
     }
 
     private func familyCard(title: String, keyDesc: String, modes: [ModeType]) -> some View {
