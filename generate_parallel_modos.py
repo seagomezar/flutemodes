@@ -677,11 +677,11 @@ V:1 clef=treble
     <div class="header">
       <div class="title-area">
         <h1>Estudio Didáctico de Modos Paralelos: {t_name}</h1>
-        <p>Cuaderno técnico para flauta traversa con pata de Si — Sistema Modal Paralelo</p>
+        <p>Sistema Paralelo del Maestro León Giraldo · Basado en P. Taffanel &amp; Ph. Gaubert (E.J. 4)</p>
       </div>
       <div class="author-area">
-        <p class="orig">Basado en el P. Taffanel &amp; Ph. Gaubert</p>
-        <p class="arr">Arreglista: Sebastián Gómez</p>
+        <p class="orig">Pedagogía: Maestro León Giraldo</p>
+        <p class="arr">Arreglos y edición: Sebastián Gómez</p>
       </div>
     </div>
 
@@ -729,8 +729,8 @@ V:1 clef=treble
   <!-- ================= PÁGINA 2 (10 Sistemas) ================= -->
   <div class="sheet-page">
     <div class="running-header">
-      <span>Estudio Didáctico de Modos Paralelos: {t_name}</span>
-      <span>Arreglista: Sebastián Gómez</span>
+      <span>Estudio Didáctico de Modos Paralelos: {t_name} · Maestro León Giraldo</span>
+      <span>Arreglos: Sebastián Gómez</span>
     </div>
 
     <!-- MODO 3: MIXOLIDIO (4 sistemas) -->
@@ -784,8 +784,8 @@ V:1 clef=treble
   <!-- ================= PÁGINA 3 (10 Sistemas) ================= -->
   <div class="sheet-page">
     <div class="running-header">
-      <span>Estudio Didáctico de Modos Paralelos: {t_name}</span>
-      <span>Arreglista: Sebastián Gómez</span>
+      <span>Estudio Didáctico de Modos Paralelos: {t_name} · Maestro León Giraldo</span>
+      <span>Arreglos: Sebastián Gómez</span>
     </div>
 
     <!-- MODO 5: EÓLICO (Parte 2: cc. 5-8) (2 sistemas) -->

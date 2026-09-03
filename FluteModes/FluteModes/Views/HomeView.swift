@@ -48,7 +48,11 @@ public struct HomeView: View {
                                 .foregroundColor(.primary)
 
                             Text(loc.t("subtitle"))
-                                .font(.subheadline)
+                                .font(.subheadline.weight(.medium))
+                                .foregroundColor(.primary)
+
+                            Text(loc.t("sub_desc"))
+                                .font(.caption)
                                 .foregroundColor(.secondary)
                         }
 

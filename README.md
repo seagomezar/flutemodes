@@ -1,7 +1,7 @@
 # FluteModes 🎶
 
 > **Estudio Didáctico de Modos Paralelos para Flauta Traversa**  
-> *Basado en el canon de Paul Taffanel & Philippe Gaubert (E.J. 4) y el Sistema Paralelo del Maestro.*
+> *Basado en el canon de Paul Taffanel & Philippe Gaubert (E.J. 4) y el Sistema Paralelo del Maestro León Giraldo.*
 
 [![iOS / iPadOS](https://img.shields.io/badge/Platform-iOS%20%7C%20iPadOS%2017.0%2B-blue?logo=apple)](https://developer.apple.com)
 [![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-orange?logo=swift)](https://swift.org)
@@ -22,7 +22,7 @@
 
 ## 🇪🇸 Descripción en Español
 
-**FluteModes** es una aplicación nativa para iPad y un compendio pedagógico diseñado para transformar el estudio técnico de la flauta traversa. Tomando como base la estructura periódica del célebre **Ejercicio Diario N° 4** de Paul Taffanel y Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes aplica el **Sistema Paralelo del Maestro** a lo largo de las 12 notas cromáticas.
+**FluteModes** es una aplicación nativa para iPad y un compendio pedagógico diseñado para transformar el estudio técnico de la flauta traversa. Tomando como base la estructura periódica del célebre **Ejercicio Diario N° 4** de Paul Taffanel y Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes aplica el **Sistema Paralelo del Maestro León Giraldo** a lo largo de las 12 notas cromáticas.
 
 ### 🌟 Características Principales
 
@@ -47,7 +47,7 @@
 
 ## 🇬🇧 English Overview
 
-**FluteModes** is a native iPad application and pedagogical sheet music compendium that reinvents daily woodwind technique. Adapting the classical periodic phrasing of **Daily Exercise No. 4** by Paul Taffanel & Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes implements the **Maestro's Parallel Modal Routine** across all 12 chromatic tonics.
+**FluteModes** is a native iPad application and pedagogical sheet music compendium that reinvents daily woodwind technique. Adapting the classical periodic phrasing of **Daily Exercise No. 4** by Paul Taffanel & Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes implements **Maestro León Giraldo's Parallel Modal Routine** across all 12 chromatic tonics.
 
 ### 🌟 Key Features
 
@@ -136,7 +136,7 @@ flutemodes/
 ## 📜 Licencia y Créditos / License & Credits
 
 - **Pedagogía Original:** Paul Taffanel & Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*, 1958, Alphonse Leduc / Dominio Público).
-- **Adaptación Didáctica de Modos Paralelos:** Inspirado en la metodología pedagógica del Maestro.
+- **Metodología y Sistema Paralelo:** Maestro León Giraldo.
 - **Desarrollo, Diseño y Síntesis de Audio:** [Sebastián Gómez](https://github.com/seagomezar) (`seagomezar@gmail.com`).
 
 © 2026 Sebastián Gómez. Todos los derechos reservados.

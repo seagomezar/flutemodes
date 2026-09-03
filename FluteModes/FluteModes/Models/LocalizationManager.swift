@@ -54,8 +54,8 @@ public class LocalizationManager: ObservableObject {
             "Daily Exercise No. 4 · Paul Taffanel & Philippe Gaubert"
         ],
         "sub_desc": [
-            "Sistema paralelo del Maestro · 84 Modos (12 Tónicas × 7 Modos)",
-            "The Maestro's Parallel System · 84 Modes (12 Tonics × 7 Modes)"
+            "Sistema paralelo del Maestro León Giraldo · 84 Modos (12 Tónicas × 7 Modos)",
+            "Maestro León Giraldo's Parallel System · 84 Modes (12 Tonics × 7 Modes)"
         ],
 
         // Home View
