@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FluteModes · Estudio de Modos Paralelos para Flauta Traversa</title>
+  <title>FluteModes · Estudio de Modos Paralelos del Maestro León Giraldo</title>
   <link rel="icon" type="image/jpeg" href="app_icon.jpg" />
   <script src="abcjs-basic-min.js"></script>
+  <script src="modes_data.js"></script>
   <style>
     :root {
       --bg: #07080d;
@@ -16,6 +17,7 @@
       --accent-blue: #38bdf8;
       --accent-indigo: #6366f1;
       --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
       --glow: rgba(56, 189, 248, 0.15);
     }
     * { box-sizing: border-box; }
@@ -28,23 +30,21 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-    /* Ambient background gradient lights */
     .ambient-glow {
       position: fixed;
       top: -200px;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(56, 189, 248, 0.1) 40%, transparent 70%);
+      width: 850px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.28) 0%, rgba(56, 189, 248, 0.12) 40%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
-    /* Nav */
     nav {
       position: sticky;
       top: 0;
-      background: rgba(7, 8, 13, 0.85);
+      background: rgba(7, 8, 13, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -106,7 +106,6 @@
       background: rgba(255, 255, 255, 0.16);
     }
 
-    /* Container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -118,15 +117,15 @@
     /* Hero */
     .hero {
       text-align: center;
-      padding: 90px 0 60px;
+      padding: 85px 0 50px;
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 7px 18px;
       background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: 30px;
       font-size: 13px;
       font-weight: 600;
@@ -146,7 +145,7 @@
     .hero-subtitle {
       font-size: clamp(17px, 2.2vw, 21px);
       color: var(--text-muted);
-      max-width: 780px;
+      max-width: 820px;
       margin: 0 auto 36px;
       font-weight: 400;
     }
@@ -166,6 +165,7 @@
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
+      cursor: pointer;
     }
     .btn-primary {
       background: #ffffff;
@@ -186,66 +186,307 @@
       transform: translateY(-2px);
     }
 
-    /* Score Interactive Preview */
+    /* Maestro Leon Giraldo Card */
+    .maestro-section {
+      margin: 40px 0 60px;
+    }
+    .maestro-card {
+      background: linear-gradient(145deg, rgba(28, 25, 45, 0.85) 0%, rgba(15, 17, 26, 0.95) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 24px;
+      padding: 36px 40px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .maestro-badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.2);
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .maestro-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 12px;
+    }
+    .maestro-text {
+      color: #cbd5e1;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .maestro-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .pillar-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .pillar-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #a78bfa;
+      margin-bottom: 6px;
+    }
+    .pillar-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .pillar-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Interactive Score Preview & Audio Player */
     .score-section {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 30px;
+      padding: 32px;
       margin: 50px 0;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      backdrop-filter: blur(14px);
     }
-    .score-header {
+    .score-header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
     .score-title {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       color: #fff;
     }
-    .score-chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+    .score-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
     }
-    .score-chip {
-      background: rgba(255,255,255,0.06);
+
+    /* Tonics row */
+    .selector-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .tonic-bar {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .tonic-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tonic-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .tonic-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(255,255,255,0.3);
+    }
+
+    /* Modes row */
+    .mode-bar {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+    .mode-btn {
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 6px 14px;
-      border-radius: 16px;
+      padding: 7px 15px;
+      border-radius: 18px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      white-space: nowrap;
       transition: all 0.2s;
     }
-    .score-chip.active {
-      background: var(--accent-blue);
-      color: #000;
-      border-color: var(--accent-blue);
+    .mode-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
     }
+    .mode-btn.active {
+      background: var(--accent-blue);
+      color: #000000;
+      border-color: var(--accent-blue);
+      box-shadow: 0 2px 12px rgba(56, 189, 248, 0.35);
+    }
+
+    /* Player Controls Bar */
+    .player-controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 20px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .play-audio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #6366f1;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+    .play-audio-btn:hover {
+      background: #4f46e5;
+      transform: scale(1.02);
+    }
+    .play-audio-btn.playing {
+      background: var(--accent-rose);
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.6);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    .tempo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tempo-slider {
+      width: 110px;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .measure-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      font-family: monospace;
+    }
+
+    .action-links-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tool-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tool-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* Score Meta Card */
+    .score-meta-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .meta-mode-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .meta-formula {
+      font-family: monospace;
+      font-size: 13.5px;
+      color: var(--accent-blue);
+      font-weight: 700;
+    }
+    .meta-badge {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      font-style: italic;
+    }
+
+    /* Clean Paper Canvas */
     #paper {
       background: #ffffff;
       color: #000000;
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 24px 30px;
       overflow-x: auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.5);
     }
     #paper svg {
-      fill: #000000;
+      fill: #000000 !important;
     }
     #paper svg text {
-      fill: #000000;
+      fill: #000000 !important;
     }
     #paper svg path {
-      fill: #000000;
+      fill: #000000 !important;
     }
 
     /* Features Grid */
@@ -359,8 +600,9 @@
         <span class="brand-title">FluteModes</span>
       </a>
       <div class="nav-links">
+        <a href="#maestro" class="i18n" data-es="El Maestro" data-en="The Maestro">El Maestro</a>
+        <a href="#preview" class="i18n" data-es="Atril & Audio" data-en="Score & Audio">Atril & Audio</a>
         <a href="#features" class="i18n" data-es="Características" data-en="Features">Características</a>
-        <a href="#preview" class="i18n" data-es="Partituras" data-en="Scores">Partituras</a>
         <a href="#downloads" class="i18n" data-es="Descargas" data-en="Downloads">Descargas</a>
         <a href="support.html" class="i18n" data-es="Soporte" data-en="Support">Soporte</a>
         <button class="lang-toggle" onclick="toggleLanguage()" id="lang-btn">🇺🇸 English</button>
@@ -373,7 +615,11 @@
     <section class="hero">
       <div class="hero-badge">
         <span>✨</span>
-        <span class="i18n" data-es="MÉTODO MODAL PARA FLAUTA TRAVERSA · 84 MODOS · 8 ARTICULACIONES" data-en="MODAL ROUTINE FOR CONCERT FLUTE · 84 MODES · 8 ARTICULATIONS">MÉTODO MODAL PARA FLAUTA TRAVERSA · 84 MODOS · 8 ARTICULACIONES</span>
+        <span class="i18n" 
+              data-es="METODOLOGÍA DEL MAESTRO LEÓN GIRALDO · 84 MODOS · 8 ARTICULACIONES" 
+              data-en="MAESTRO LEÓN GIRALDO'S METHODOLOGY · 84 MODES · 8 ARTICULATIONS">
+          METODOLOGÍA DEL MAESTRO LEÓN GIRALDO · 84 MODOS · 8 ARTICULACIONES
+        </span>
       </div>
       <h1 class="hero-title i18n" 
           data-es="Domina todos los Modos en la Flauta Traversa con el Sistema Paralelo" 
@@ -386,13 +632,13 @@
         Basado en el canon de Paul Taffanel y Philippe Gaubert (E.J. 4) y la visión pedagógica del Maestro León Giraldo. Aplicación nativa para iPad con sintetizador acústico de piano de cola, metrónomo uniforme, partituras dinámicas y seguimiento completo.
       </p>
       <div class="cta-group">
-        <a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download class="btn btn-primary">
-          <span>📥</span>
-          <span class="i18n" data-es="Descargar Libro PDF (36 Págs)" data-en="Download Complete PDF (36 Pages)">Descargar Libro PDF (36 Págs)</span>
-        </a>
-        <a href="#downloads" class="btn btn-secondary">
+        <a href="#preview" class="btn btn-primary">
           <span>🎼</span>
-          <span class="i18n" data-es="Ver Archivos ABC & PDFs" data-en="Browse ABC & PDF Files">Ver Archivos ABC & PDFs</span>
+          <span class="i18n" data-es="Probar Atril & Audio en Vivo" data-en="Try Live Stand & Audio">Probar Atril & Audio en Vivo</span>
+        </a>
+        <a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download class="btn btn-secondary">
+          <span>📥</span>
+          <span class="i18n" data-es="Descargar Libro PDF (36 Págs)" data-en="Download Master PDF (36 Pages)">Descargar Libro PDF (36 Págs)</span>
         </a>
         <a href="https://testflight.apple.com" class="btn btn-secondary">
           <span>🍏</span>
@@ -401,22 +647,110 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE SCORE PREVIEW -->
-    <section id="preview" class="score-section">
-      <div class="score-header">
-        <div>
-          <div class="score-title i18n" data-es="Atril Interactivo en Vivo" data-en="Live Interactive Sheet Music">Atril Interactivo en Vivo</div>
-          <div style="font-size:13.5px; color:var(--text-muted);" class="i18n" data-es="Compás 4/2 · 8 compases periódicos · Notación ABC dinámica" data-en="4/2 Time · 8 Periodic Measures · Dynamic ABC Notation">Compás 4/2 · 8 compases periódicos · Notación ABC dinámica</div>
-        </div>
-        <div class="score-chips">
-          <button class="score-chip active" onclick="loadMode('ionian', this)">1. Jónico (Mayor)</button>
-          <button class="score-chip" onclick="loadMode('lydian', this)">2. Lidio (♯4)</button>
-          <button class="score-chip" onclick="loadMode('mixolydian', this)">3. Mixolidio (♭7)</button>
-          <button class="score-chip" onclick="loadMode('dorian', this)">4. Dórico (6)</button>
-          <button class="score-chip" onclick="loadMode('phrygian', this)">6. Frigio (♭2)</button>
-          <button class="score-chip" onclick="loadMode('locrian', this)">7. Lócrio (♭2, ♭5)</button>
+    <!-- SECCIÓN MAESTRO LEÓN GIRALDO -->
+    <section id="maestro" class="maestro-section">
+      <div class="maestro-card">
+        <div class="maestro-badge i18n" data-es="METODOLOGÍA PEDAGÓGICA CANÓNICA" data-en="CANONICAL PEDAGOGICAL METHODOLOGY">METODOLOGÍA PEDAGÓGICA CANÓNICA</div>
+        <h2 class="maestro-title i18n" 
+            data-es="La Visión Pedagógica del Maestro León Giraldo" 
+            data-en="The Pedagogical Vision of Maestro León Giraldo">
+          La Visión Pedagógica del Maestro León Giraldo
+        </h2>
+        <p class="maestro-text i18n"
+           data-es="En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Maestro León Giraldo concibió un sistema transformador para vientos madera: construir los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura."
+           data-en="In traditional academic flute education, musical modes are typically taught as relative permutations of a major scale, which dilutes the distinct harmonic flavor of each individual mode. Maestro León Giraldo developed a transformative woodwind methodology: constructing all 7 modes from the exact same fundamental root (parallel tonics). By anchoring the pitch and varying only the modal intervals, the flutist instantly internalizes scale colors, pitch sensitivity, and embouchure flexibility.">
+          En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Maestro León Giraldo concibió un sistema transformador para vientos madera: construir los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura.
+        </p>
+        <div class="maestro-pillars">
+          <div class="pillar-box">
+            <div class="pillar-num">01</div>
+            <div class="pillar-title i18n" data-es="Conciencia Tonal Inmediata" data-en="Instant Tonal Awareness">Conciencia Tonal Inmediata</div>
+            <p class="pillar-desc i18n" data-es="Al mantener fija la nota tónica, el oído y los labios perciben al instante el brillo de la ♯4 en el Lidio o la sombra de la ♭2 en el Frigio." data-en="By anchoring the tonic pitch, the ear and embouchure immediately register the brightness of a Lydian ♯4 or the darkness of a Phrygian ♭2.">Al mantener fija la nota tónica, el oído y los labios perciben al instante el brillo de la ♯4 en el Lidio o la sombra de la ♭2 en el Frigio.</p>
+          </div>
+          <div class="pillar-box">
+            <div class="pillar-num">02</div>
+            <div class="pillar-title i18n" data-es="Mecánica Canónica (EJ 4)" data-en="Canonical Mechanics (EJ 4)">Mecánica Canónica (EJ 4)</div>
+            <p class="pillar-desc i18n" data-es="Construido sobre el patrón periódico de 8 compases de Taffanel & Gaubert, recorriendo 3 octavas con perfecta simetría y resolución a tónica." data-en="Built on Taffanel & Gaubert's 8-measure periodic phrasing, traversing 3 octaves with flawless symmetry and resolution.">Construido sobre el patrón periódico de 8 compases de Taffanel & Gaubert, recorriendo 3 octavas con perfecta simetría y resolución a tónica.</p>
+          </div>
+          <div class="pillar-box">
+            <div class="pillar-num">03</div>
+            <div class="pillar-title i18n" data-es="Armaduras Paralelas Fijas" data-en="Fixed Parallel Key Signatures">Armaduras Paralelas Fijas</div>
+            <p class="pillar-desc i18n" data-es="Estandariza armaduras de Mayor (Jónico, Lidio, Mixolidio) y Menor (Dórico, Eólico, Frigio, Lócrio) con alteraciones modales explícitas." data-en="Standardizes fixed Major and Minor key signatures, writing every distinctive modal accidental explicitly in the score.">Estandariza armaduras de Mayor (Jónico, Lidio, Mixolidio) y Menor (Dórico, Eólico, Frigio, Lócrio) con alteraciones modales explícitas.</p>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- ATRIL INTERACTIVO & REPRODUCTOR DE AUDIO -->
+    <section id="preview" class="score-section">
+      <div class="score-header-top">
+        <div>
+          <div class="score-title i18n" 
+               data-es="Atril Interactivo de los 84 Modos (Maestro León Giraldo)" 
+               data-en="84 Modes Interactive Stand (Maestro León Giraldo)">
+            Atril Interactivo de los 84 Modos (Maestro León Giraldo)
+          </div>
+          <div class="score-subtitle i18n" 
+               data-es="Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real" 
+               data-en="Live ABC music notation engraving with real-time acoustic grand piano synthesis">
+            Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. TÓNICA SELECTOR -->
+      <div class="selector-label i18n" data-es="1. Seleccionar Tónica (12 Notas Cromáticas):" data-en="1. Select Tonic (12 Chromatic Roots):">1. Seleccionar Tónica (12 Notas Cromáticas):</div>
+      <div class="tonic-bar" id="tonic-buttons-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- 2. MODO SELECTOR -->
+      <div class="selector-label i18n" data-es="2. Seleccionar Modo (Sistema Paralelo):" data-en="2. Select Mode (Parallel System):">2. Seleccionar Modo (Sistema Paralelo):</div>
+      <div class="mode-bar" id="mode-buttons-container">
+        <button class="mode-btn active" onclick="setMode(1, this)">1. Jónico (Mayor)</button>
+        <button class="mode-btn" onclick="setMode(2, this)">2. Lidio (♯4)</button>
+        <button class="mode-btn" onclick="setMode(3, this)">3. Mixolidio (♭7)</button>
+        <button class="mode-btn" onclick="setMode(4, this)">4. Dórico (6)</button>
+        <button class="mode-btn" onclick="setMode(5, this)">5. Eólico (Menor)</button>
+        <button class="mode-btn" onclick="setMode(6, this)">6. Frigio (♭2)</button>
+        <button class="mode-btn" onclick="setMode(7, this)">7. Lócrio (♭2, ♭5)</button>
+      </div>
+
+      <!-- PLAYER CONTROLS BAR -->
+      <div class="player-controls-bar">
+        <button id="play-btn" class="play-audio-btn" onclick="togglePlay()">
+          <span id="play-icon">▶</span>
+          <span id="play-text" class="i18n" data-es="Reproducir Piano" data-en="Play Piano">Reproducir Piano</span>
+        </button>
+
+        <div class="tempo-wrapper">
+          <span class="i18n" data-es="Tempo:" data-en="Tempo:">Tempo:</span>
+          <input type="range" min="50" max="140" value="90" class="tempo-slider" id="tempo-slider" oninput="updateTempo(this.value)">
+          <span id="tempo-val">90 BPM</span>
+        </div>
+
+        <div id="measure-indicator" class="measure-badge">Compás: 1 / 8</div>
+
+        <div class="action-links-group">
+          <a id="download-abc-btn" href="#" download class="tool-btn">
+            <span>📥</span>
+            <span class="i18n" data-es="Descargar .ABC" data-en="Download .ABC">Descargar .ABC</span>
+          </a>
+          <button class="tool-btn" onclick="copyAbcCode()">
+            <span>📋</span>
+            <span id="copy-btn-text" class="i18n" data-es="Copiar ABC" data-en="Copy ABC">Copiar ABC</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SCORE META BANNER -->
+      <div class="score-meta-card">
+        <div id="current-mode-title" class="meta-mode-name">Do Jónico (Mayor)</div>
+        <div id="current-mode-formula" class="meta-formula">1 - 2 - 3 - 4 - 5 - 6 - 7</div>
+        <div id="current-mode-badge" class="meta-badge">Escala base mayor sin alteraciones</div>
+      </div>
+
+      <!-- PARCHMENT SCORE CANVAS -->
       <div id="paper"></div>
     </section>
 
@@ -500,7 +834,7 @@
         <tbody>
           <tr>
             <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos)</td>
-            <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos corregidos y sin cortes." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes, unclipped and layout-corrected.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos corregidos y sin cortes.</td>
+            <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes by Maestro León Giraldo.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo.</td>
             <td>PDF (7.0 MB)</td>
             <td><a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download>📥 Descargar PDF Maestro</a></td>
           </tr>
@@ -600,7 +934,7 @@
   </footer>
 
   <script>
-    // i18n switch
+    // --- BILINGUAL SWITCHER ---
     let currentLang = 'es';
     function toggleLanguage() {
       currentLang = (currentLang === 'es') ? 'en' : 'es';
@@ -609,27 +943,219 @@
         if (text) el.innerText = text;
       });
       document.getElementById('lang-btn').innerText = (currentLang === 'es') ? '🇺🇸 English' : '🇪🇸 Español';
+      updatePlayButton(isPlaying);
     }
 
-    // Interactive ABC previews
-    const scores = {
-      ionian: `X:1\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDEF GABc dcBA GFED) | (EFGA Bcde fedc BAGF) |\n(GABc defg agfe dcBA) | (cdef gabc' d'c'ba gfed) |\n(cdef gabc' agfe dcBA) | (GABc defg fedc BAGF) |\n(EFGA Bcde dcBA GFED) | (CDEF GABc BAGF EDCB,) | C4 |]`,
-      lydian: `X:2\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDE^F GABc dcBA G^FED) | (E^FGA Bcde fedc BAG^F) |\n(GABc defg agfe dcBA) | (cde^f gabc' d'c'ba g^fed) |\n(cde^f gabc' agfe dcBA) | (GABc defg fedc BAG^F) |\n(E^FGA Bcde dcBA G^FED) | (CDE^F GABc BAG^F EDCB,) | C4 |]`,
-      mixolydian: `X:3\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDEF GA_Bc d_cBA GFED) | (EFGA _Bcde fed_c BAGF) |\n(GA_Bc defg agfe d_cBA) | (cdef ga_bc' d'_c'ba gfed) |\n(cdef ga_bc' agfe d_cBA) | (GA_Bc defg fed_c BAGF) |\n(EFGA _Bcde d_cBA GFED) | (CDEF GA_Bc BA_GF EDCB,) | C4 |]`,
-      dorian: `X:4\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(CDE=F GABc dcBA G=FED) | (E=FGA Bcde fedc BAG=F) |\n(GABc defg agfe dcBA) | (cde=f gabc' d'c'ba g=fed) |\n(cde=f gabc' agfe dcBA) | (GABc defg fedc BAG=F) |\n(E=FGA Bcde dcBA G=FED) | (CDE=F GABc BAG=F EDCB,) | C4 |]`,
-      phrygian: `X:6\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(C_DEF GABc dcBA GF_ED) | (_EFGA Bcde fedc BAG_F) |\n(GABc defg agfe dcBA) | (c_def gabc' d'c'ba gf_ed) |\n(c_def gabc' agfe dcBA) | (GABc defg fedc BAG_F) |\n(_EFGA Bcde dcBA GF_ED) | (C_DEF GABc BAG_F EDCB,) | C4 |]`,
-      locrian: `X:7\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(C_DE_F GABc dcBA G_F_ED) | (_E_FGA Bcde fedc BAG_F) |\n(GABc defg agfe dcBA) | (c_de_f gabc' d'c'ba g_f_ed) |\n(c_de_f gabc' agfe dcBA) | (GABc defg fedc BAG_F) |\n(_E_FGA Bcde dcBA G_F_ED) | (C_DE_F GABc BAG_F EDCB,) | C4 |]`
-    };
+    // --- TONICS DATA ---
+    const TONIC_LIST = [
+      { id: "01_si", name: "Si", display: "Si (B3)" },
+      { id: "02_do", name: "Do", display: "Do (C4)" },
+      { id: "03_do_sostenido", name: "Do sostenido", display: "Do♯" },
+      { id: "04_re", name: "Re", display: "Re" },
+      { id: "05_mi_bemol", name: "Mi bemol", display: "Mi♭" },
+      { id: "06_mi", name: "Mi", display: "Mi" },
+      { id: "07_fa", name: "Fa", display: "Fa" },
+      { id: "08_fa_sostenido", name: "Fa sostenido", display: "Fa♯" },
+      { id: "09_sol", name: "Sol", display: "Sol" },
+      { id: "10_la_bemol", name: "La bemol", display: "La♭" },
+      { id: "11_la", name: "La", display: "La" },
+      { id: "12_si_bemol", name: "Si bemol", display: "Si♭" }
+    ];
 
-    function loadMode(modeKey, btn) {
-      document.querySelectorAll('.score-chip').forEach(c => c.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      ABCJS.renderAbc("paper", scores[modeKey], { responsive: 'resize', scale: 0.95 });
+    let currentTonicId = "02_do";
+    let currentModeNum = 1;
+    let currentModeItem = null;
+
+    // --- AUDIO SYNTHESIZER ENGINE ---
+    let audioCtx = null;
+    let isPlaying = false;
+    let playTimeouts = [];
+    let currentTempo = 90;
+
+    function initTonicButtons() {
+      const container = document.getElementById("tonic-buttons-container");
+      container.innerHTML = "";
+      TONIC_LIST.forEach(t => {
+        const btn = document.createElement("button");
+        btn.className = "tonic-btn" + (t.id === currentTonicId ? " active" : "");
+        btn.innerText = t.display;
+        btn.onclick = () => {
+          if (isPlaying) stopPlay();
+          currentTonicId = t.id;
+          document.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderActiveMode();
+        };
+        container.appendChild(btn);
+      });
     }
 
-    // Initial render
-    window.addEventListener('DOMContentLoaded', () => {
-      loadMode('ionian');
+    function setMode(modeNum, btn) {
+      if (isPlaying) stopPlay();
+      currentModeNum = modeNum;
+      document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderActiveMode();
+    }
+
+    function getModeItem(tonicId, modeNum) {
+      if (!window.MODES_DATA) return null;
+      return window.MODES_DATA.find(m => m.tonicId === tonicId && m.modeNum === modeNum);
+    }
+
+    function renderActiveMode() {
+      currentModeItem = getModeItem(currentTonicId, currentModeNum);
+      if (!currentModeItem) return;
+
+      document.getElementById("current-mode-title").innerText = `${currentModeItem.tonicDisplay} ${currentModeItem.modeName}`;
+      document.getElementById("current-mode-formula").innerText = currentModeItem.formula;
+      document.getElementById("current-mode-badge").innerText = currentModeItem.badge;
+
+      // Render ABC Music Notation with ABCJS
+      ABCJS.renderAbc("paper", currentModeItem.abc, {
+        responsive: "resize",
+        scale: 0.94,
+        paddingtop: 0,
+        paddingbottom: 0,
+        paddingleft: 0,
+        paddingright: 0
+      });
+
+      // Update download link
+      const dlBtn = document.getElementById("download-abc-btn");
+      if (dlBtn) {
+        dlBtn.href = `downloads/abc/modos_${currentTonicId}.abc`;
+        dlBtn.setAttribute("download", `modos_${currentTonicId}.abc`);
+      }
+    }
+
+    // Acoustic Grand Piano Synthesis in Web Audio
+    function playAcousticPianoTone(ctx, freq, duration, startTime) {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      // Triangle fundamental + Sine detuned chorus
+      osc1.type = "triangle";
+      osc1.frequency.setValueAtTime(freq, startTime);
+
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(freq + 0.35, startTime);
+
+      // Attack envelope: 3.5ms hammer strike
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.linearRampToValueAtTime(0.32, startTime + 0.0035);
+
+      // Natural acoustic piano string decay
+      const decayDuration = Math.min(duration * 0.95, 1.3);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + decayDuration);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(startTime);
+      osc2.start(startTime);
+      osc1.stop(startTime + decayDuration + 0.05);
+      osc2.stop(startTime + decayDuration + 0.05);
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        stopPlay();
+      } else {
+        startPlay();
+      }
+    }
+
+    function updatePlayButton(playing) {
+      const btn = document.getElementById("play-btn");
+      const icon = document.getElementById("play-icon");
+      const text = document.getElementById("play-text");
+      const isEn = currentLang === "en";
+
+      if (playing) {
+        btn.classList.add("playing");
+        icon.innerText = "⏹";
+        text.innerText = isEn ? "Stop Piano" : "Detener Piano";
+      } else {
+        btn.classList.remove("playing");
+        icon.innerText = "▶";
+        text.innerText = isEn ? "Play Piano" : "Reproducir Piano";
+      }
+    }
+
+    function updateTempo(val) {
+      currentTempo = parseInt(val);
+      document.getElementById("tempo-val").innerText = `${currentTempo} BPM`;
+      if (isPlaying) {
+        // Restart at new tempo
+        stopPlay();
+        startPlay();
+      }
+    }
+
+    function stopPlay() {
+      isPlaying = false;
+      playTimeouts.forEach(t => clearTimeout(t));
+      playTimeouts = [];
+      if (audioCtx) {
+        audioCtx.close();
+        audioCtx = null;
+      }
+      updatePlayButton(false);
+      document.getElementById("measure-indicator").innerText = "Compás: 1 / 8";
+    }
+
+    function startPlay() {
+      if (!currentModeItem || !currentModeItem.frequencies) return;
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioCtxClass();
+
+      isPlaying = true;
+      updatePlayButton(true);
+
+      const bpm = currentTempo;
+      // In 4/2 at Q:1/2=90, each 1/8 note is 1/4 of a half note -> duration = (60 / bpm) / 2
+      const noteDuration = (60 / bpm) / 2;
+      const freqs = currentModeItem.frequencies;
+      const now = audioCtx.currentTime + 0.06;
+
+      freqs.forEach((freq, idx) => {
+        const startTime = now + idx * noteDuration;
+        playAcousticPianoTone(audioCtx, freq, noteDuration, startTime);
+
+        const measureIdx = Math.min(Math.floor(idx / 16) + 1, 8);
+        const delayMs = (idx * noteDuration) * 1000;
+        const tid = setTimeout(() => {
+          if (isPlaying) {
+            document.getElementById("measure-indicator").innerText = `Compás: ${measureIdx} / 8`;
+          }
+        }, delayMs);
+        playTimeouts.push(tid);
+      });
+
+      const totalMs = (freqs.length * noteDuration) * 1000;
+      const finishTid = setTimeout(() => {
+        stopPlay();
+      }, totalMs);
+      playTimeouts.push(finishTid);
+    }
+
+    function copyAbcCode() {
+      if (!currentModeItem) return;
+      navigator.clipboard.writeText(currentModeItem.abc).then(() => {
+        const copyText = document.getElementById("copy-btn-text");
+        const original = copyText.innerText;
+        copyText.innerText = (currentLang === "en") ? "Copied! ✓" : "¡Copiado! ✓";
+        setTimeout(() => { copyText.innerText = original; }, 2000);
+      });
+    }
+
+    // --- INITIALIZATION ---
+    window.addEventListener("DOMContentLoaded", () => {
+      initTonicButtons();
+      renderActiveMode();
     });
   </script>
 </body>

@@ -43,11 +43,27 @@
 7. **100% Privado y Offline:**
    - Cero recopilación de datos, sin anuncios, sin cuentas; todo el progreso se almacena localmente en el dispositivo.
 
+### 🎓 La Visión Pedagógica del Maestro León Giraldo
+
+En la enseñanza tradicional de la flauta traversa, los modos se abordan con frecuencia como permutaciones relativas de una escala mayor, lo cual debilita la percepción auditiva del color específico de cada modo. El **Maestro León Giraldo** concibió un sistema riguroso e innovador para vientos madera: construir los 7 modos desde la misma nota fundamental (tónica paralela).
+
+- **Conciencia Tonal Inmediata:** Al mantener fija la tónica y alterar únicamente los intervalos modales (como la $\sharp 4$ del Lidio o la $\flat 2$ del Frigio), el oído y la embocadura interiorizan el color sonoro y la afinación precisa sin cambiar de registro base.
+- **Mecánica Canónica en 8 Compases:** Basado en el Ejercicio Diario N° 4 de Paul Taffanel & Philippe Gaubert, se recorren 3 octavas de registro en semicorcheas con una simetría formal rigurosa.
+- **Armaduras Paralelas Fijas:** Uso estricto de armaduras base de Mayor (Jónico, Lidio, Mixolidio) y Menor (Dórico, Eólico, Frigio, Lócrio) con las notas características escritas explícitamente como alteraciones accidentales.
+
 ---
 
 ## 🇬🇧 English Overview
 
 **FluteModes** is a native iPad application and pedagogical sheet music compendium that reinvents daily woodwind technique. Adapting the classical periodic phrasing of **Daily Exercise No. 4** by Paul Taffanel & Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes implements **Maestro León Giraldo's Parallel Modal Routine** across all 12 chromatic tonics.
+
+### 🎓 Maestro León Giraldo's Pedagogical Vision
+
+Traditional flute pedagogy often presents Greek modes as relative permutations of a major scale, dulling the musician's appreciation of modal color. **Maestro León Giraldo** created an alternative, high-discipline framework for woodwinds: building all 7 modes from the exact same fundamental root note (parallel tonics).
+
+- **Immediate Pitch & Color Awareness:** Keeping the root note constant while varying the modal intervals enables the flutist's ear and embouchure to master precise intonation and tonal inflection.
+- **Canonical 8-Measure Phrasing:** Grounded in Taffanel & Gaubert's EJ 4, every study scales through 3 octaves with mathematical symmetry and tonal resolution.
+- **Fixed Parallel Key Signatures:** Standardizes fixed Major and Minor signatures with explicit accidentals indicating distinctive modal degrees.
 
 ### 🌟 Key Features
 
