@@ -88,3 +88,5 @@ modos_*.html
 modos_do.*
 generate_master_modos.py
 merge_pdfs.py
+!docs/index.html
+!docs/**

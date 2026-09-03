@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FluteModes · Estudio de Modos Paralelos para Flauta Traversa</title>
+  <link rel="icon" type="image/jpeg" href="app_icon.jpg" />
+  <script src="abcjs-basic-min.js"></script>
+  <style>
+    :root {
+      --bg: #07080d;
+      --card-bg: rgba(18, 20, 31, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --glow: rgba(56, 189, 248, 0.15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* Ambient background gradient lights */
+    .ambient-glow {
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(56, 189, 248, 0.1) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(7, 8, 13, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #fff;
+    }
+    .lang-toggle {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-toggle:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 90px 0 60px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(34px, 5.5vw, 62px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.12;
+      margin: 0 0 20px;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 6px 20px rgba(255,255,255,0.25);
+    }
+    .btn-primary:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+    }
+
+    /* Score Interactive Preview */
+    .score-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      margin: 50px 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+    }
+    .score-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .score-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .score-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .score-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .score-chip.active {
+      background: var(--accent-blue);
+      color: #000;
+      border-color: var(--accent-blue);
+    }
+    #paper {
+      background: #ffffff;
+      color: #000000;
+      border-radius: 14px;
+      padding: 24px 30px;
+      overflow-x: auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    #paper svg {
+      fill: #000000;
+    }
+    #paper svg text {
+      fill: #000000;
+    }
+    #paper svg path {
+      fill: #000000;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin: 80px 0;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .feature-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: #fff;
+    }
+    .feature-desc {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      margin: 0;
+    }
+
+    /* Downloads Table */
+    .download-section {
+      margin: 80px 0;
+      text-align: center;
+    }
+    .download-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    .download-table th, .download-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14.5px;
+    }
+    .download-table th {
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      font-weight: 600;
+    }
+    .download-table td {
+      color: var(--text-muted);
+    }
+    .download-table tr:last-child td {
+      border-bottom: none;
+    }
+    .download-table a {
+      color: var(--accent-blue);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .download-table a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 50px 0;
+      margin-top: 100px;
+      color: #6b7280;
+      font-size: 14px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <img src="app_icon.jpg" alt="FluteModes Icon" />
+        <span class="brand-title">FluteModes</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="i18n" data-es="Características" data-en="Features">Características</a>
+        <a href="#preview" class="i18n" data-es="Partituras" data-en="Scores">Partituras</a>
+        <a href="#downloads" class="i18n" data-es="Descargas" data-en="Downloads">Descargas</a>
+        <a href="support.html" class="i18n" data-es="Soporte" data-en="Support">Soporte</a>
+        <button class="lang-toggle" onclick="toggleLanguage()" id="lang-btn">🇺🇸 English</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span>✨</span>
+        <span class="i18n" data-es="MÉTODO MODAL PARA FLAUTA TRAVERSA · 84 MODOS · 8 ARTICULACIONES" data-en="MODAL ROUTINE FOR CONCERT FLUTE · 84 MODES · 8 ARTICULATIONS">MÉTODO MODAL PARA FLAUTA TRAVERSA · 84 MODOS · 8 ARTICULACIONES</span>
+      </div>
+      <h1 class="hero-title i18n" 
+          data-es="Domina todos los Modos en la Flauta Traversa con el Sistema Paralelo" 
+          data-en="Master All Modes on the Concert Flute via the Parallel System">
+        Domina todos los Modos en la Flauta Traversa con el Sistema Paralelo
+      </h1>
+      <p class="hero-subtitle i18n"
+         data-es="Basado en el canon de Paul Taffanel y Philippe Gaubert (E.J. 4) y la visión pedagógica del Maestro. Aplicación nativa para iPad con sintetizador acústico de piano de cola, metrónomo uniforme, partituras dinámicas y seguimiento completo."
+         data-en="Based on Paul Taffanel & Philippe Gaubert's canon (E.J. 4) and the Maestro's pedagogical vision. Native iPad app featuring a grand piano acoustic synth, uniform metronome, dynamic music notation, and milestone tracking.">
+        Basado en el canon de Paul Taffanel y Philippe Gaubert (E.J. 4) y la visión pedagógica del Maestro. Aplicación nativa para iPad con sintetizador acústico de piano de cola, metrónomo uniforme, partituras dinámicas y seguimiento completo.
+      </p>
+      <div class="cta-group">
+        <a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download class="btn btn-primary">
+          <span>📥</span>
+          <span class="i18n" data-es="Descargar Libro PDF (36 Págs)" data-en="Download Complete PDF (36 Pages)">Descargar Libro PDF (36 Págs)</span>
+        </a>
+        <a href="#downloads" class="btn btn-secondary">
+          <span>🎼</span>
+          <span class="i18n" data-es="Ver Archivos ABC & PDFs" data-en="Browse ABC & PDF Files">Ver Archivos ABC & PDFs</span>
+        </a>
+        <a href="https://testflight.apple.com" class="btn btn-secondary">
+          <span>🍏</span>
+          <span class="i18n" data-es="Probar en TestFlight" data-en="Test on TestFlight">Probar en TestFlight</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SCORE PREVIEW -->
+    <section id="preview" class="score-section">
+      <div class="score-header">
+        <div>
+          <div class="score-title i18n" data-es="Atril Interactivo en Vivo" data-en="Live Interactive Sheet Music">Atril Interactivo en Vivo</div>
+          <div style="font-size:13.5px; color:var(--text-muted);" class="i18n" data-es="Compás 4/2 · 8 compases periódicos · Notación ABC dinámica" data-en="4/2 Time · 8 Periodic Measures · Dynamic ABC Notation">Compás 4/2 · 8 compases periódicos · Notación ABC dinámica</div>
+        </div>
+        <div class="score-chips">
+          <button class="score-chip active" onclick="loadMode('ionian', this)">1. Jónico (Mayor)</button>
+          <button class="score-chip" onclick="loadMode('lydian', this)">2. Lidio (♯4)</button>
+          <button class="score-chip" onclick="loadMode('mixolydian', this)">3. Mixolidio (♭7)</button>
+          <button class="score-chip" onclick="loadMode('dorian', this)">4. Dórico (6)</button>
+          <button class="score-chip" onclick="loadMode('phrygian', this)">6. Frigio (♭2)</button>
+          <button class="score-chip" onclick="loadMode('locrian', this)">7. Lócrio (♭2, ♭5)</button>
+        </div>
+      </div>
+      <div id="paper"></div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3 class="feature-title i18n" data-es="Sistema Paralelo del Maestro" data-en="The Maestro's Parallel System">Sistema Paralelo del Maestro</h3>
+        <p class="feature-desc i18n"
+           data-es="A diferencia de los modos relativos, todos los modos parten de la misma tónica con armadura fija de Mayor (Jónico, Lidio, Mixolidio) o Menor (Dórico, Eólico, Frigio, Lócrio) y sus alteraciones accidentales escritas en cada compás."
+           data-en="Unlike relative modes, every mode stems from the exact same tonic using fixed Major or Minor key signatures with characteristic accidentals explicitly written measure by measure.">
+          A diferencia de los modos relativos, todos los modos parten de la misma tónica con armadura fija de Mayor (Jónico, Lidio, Mixolidio) o Menor (Dórico, Eólico, Frigio, Lócrio) y sus alteraciones accidentales escritas en cada compás.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎹</div>
+        <h3 class="feature-title i18n" data-es="Piano de Cola y Metrónomo Uniforme" data-en="Grand Piano Synth & Uniform Click">Piano de Cola y Metrónomo Uniforme</h3>
+        <p class="feature-desc i18n"
+           data-es="Sintetizador acústico en Swift con ataque de martillo, resonancia armónica de cuerdas y amortiguación según la articulación. Pulso de metrónomo uniforme a 1400 Hz sin jerarquías forzadas de tiempo fuerte o débil."
+           data-en="Native Swift physical modeling audio engine with felt hammer attack, string resonance, and damper response. Uniform 1400 Hz metronome click for unbiased breath and finger regularity.">
+          Sintetizador acústico en Swift con ataque de martillo, resonancia armónica de cuerdas y amortiguación según la articulación. Pulso de metrónomo uniforme a 1400 Hz sin jerarquías forzadas de tiempo fuerte o débil.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎼</div>
+        <h3 class="feature-title i18n" data-es="Las 8 Articulaciones de Taffanel" data-en="The 8 Canonical Articulations">Las 8 Articulaciones de Taffanel</h3>
+        <p class="feature-desc i18n"
+           data-es="Entrena todas las combinaciones clásicas: toda ligada, ligado 4 y 4, ligado 2 picado 2, picado 1 ligado 2 picado 1, picado 2 ligado 2, picado 1 ligado 3, ligado 3 picado 1 y toda picada en staccato."
+           data-en="Master every classical articulation formula: all slurred, slurred 4 & 4, slur 2 staccato 2, staccato 1 slur 2 staccato 1, staccato 2 slur 2, staccato 1 slur 3, slur 3 staccato 1, and all staccato.">
+          Entrena todas las combinaciones clásicas: toda ligada, ligado 4 y 4, ligado 2 picado 2, picado 1 ligado 2 picado 1, picado 2 ligado 2, picado 1 ligado 3, ligado 3 picado 1 y toda picada en staccato.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎶</div>
+        <h3 class="feature-title i18n" data-es="Ambitus Completo (Pata de Si y Do)" data-en="Full Flute Range (B and C Foot)">Ambitus Completo (Pata de Si y Do)</h3>
+        <p class="feature-desc i18n"
+           data-es="Desde el Si 3 (246.94 Hz) para flautas con pata de Si hasta la cuarta octava (C6, D6, E6, F6). Cada ejercicio recorre 3 octavas de tesitura con simetría canónica estricta."
+           data-en="From B3 (246.94 Hz) for B-foot flutes up into the extreme high register (C6, D6, E6, F6). Each study traverses 3 full octaves in perfect classical symmetry.">
+          Desde el Si 3 (246.94 Hz) para flautas con pata de Si hasta la cuarta octava (C6, D6, E6, F6). Cada ejercicio recorre 3 octavas de tesitura con simetría canónica estricta.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title i18n" data-es="Hito de 7 Modos y Matriz 84x8" data-en="7-Mode Milestone & 84x8 Matrix">Hito de 7 Modos y Matriz 84x8</h3>
+        <p class="feature-desc i18n"
+           data-es="El botón de estudio avanza secuencialmente dentro de la misma tónica. Al completar los 7 modos se corona en verde esmeralda y te permite profundizar articulaciones o avanzar a la siguiente tónica."
+           data-en="Step sequentially through all 7 modes on the same tonic. Completing all 7 unlocks the emerald milestone button, letting you start the next articulation round or advance to the next chromatic root.">
+          El botón de estudio avanza secuencialmente dentro de la misma tónica. Al completar los 7 modos se corona en verde esmeralda y te permite profundizar articulaciones o avanzar a la siguiente tónica.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title i18n" data-es="100% Privado y Offline" data-en="100% Private & Offline">100% Privado y Offline</h3>
+        <p class="feature-desc i18n"
+           data-es="Sin cuentas, sin internet, sin anuncios ni rastreadores. Tu progreso de práctica se almacena exclusivamente en tu iPad y nunca sale de tu dispositivo."
+           data-en="Zero accounts, zero trackers, zero ads, no internet required. Your practice data stays strictly local on your device.">
+          Sin cuentas, sin internet, sin anuncios ni rastreadores. Tu progreso de práctica se almacena exclusivamente en tu iPad y nunca sale de tu dispositivo.
+        </p>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="download-section">
+      <h2 style="font-size: 28px; margin-bottom: 8px; color: #fff;" class="i18n" data-es="Centro de Descargas Oficial" data-en="Official Download Center">Centro de Descargas Oficial</h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;" class="i18n" data-es="Partituras de alta definición listas para imprimir o cargar en tu atril digital favorito (forScore, piaScore, etc.)" data-en="High-definition sheet music ready for print or digital stand readers (forScore, piaScore, etc.)">Partituras de alta definición listas para imprimir o cargar en tu atril digital favorito (forScore, piaScore, etc.)</p>
+
+      <table class="download-table">
+        <thead>
+          <tr>
+            <th class="i18n" data-es="Documento" data-en="Document">Documento</th>
+            <th class="i18n" data-es="Descripción" data-en="Description">Descripción</th>
+            <th class="i18n" data-es="Formato" data-en="Format">Formato</th>
+            <th class="i18n" data-es="Enlace" data-en="Link">Enlace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos)</td>
+            <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos corregidos y sin cortes." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes, unclipped and layout-corrected.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos corregidos y sin cortes.</td>
+            <td>PDF (7.0 MB)</td>
+            <td><a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download>📥 Descargar PDF Maestro</a></td>
+          </tr>
+          <tr>
+            <td>01. Modos en Si (B)</td>
+            <td>Pata de Si (B3 grave, 246.94 Hz)</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_01_si.pdf" download>PDF</a> · <a href="downloads/abc/modos_01_si.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>02. Modos en Do (C)</td>
+            <td>Flauta estándar (C4, 261.63 Hz)</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_02_do.pdf" download>PDF</a> · <a href="downloads/abc/modos_02_do.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>03. Modos en Do♯ (C♯)</td>
+            <td>7 sostenidos / Armadura paralela</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_03_do_sostenido.pdf" download>PDF</a> · <a href="downloads/abc/modos_03_do_sostenido.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>04. Modos en Re (D)</td>
+            <td>Tonalidad natural en la flauta</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_04_re.pdf" download>PDF</a> · <a href="downloads/abc/modos_04_re.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>05. Modos en Mi♭ (E♭)</td>
+            <td>Sonoridad cálida y profunda</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_05_mi_bemol.pdf" download>PDF</a> · <a href="downloads/abc/modos_05_mi_bemol.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>06. Modos en Mi (E)</td>
+            <td>Registro brillante de 4 sostenidos</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_06_mi.pdf" download>PDF</a> · <a href="downloads/abc/modos_06_mi.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>07. Modos en Fa (F)</td>
+            <td>Tonalidad lírica de 1 bemol</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_07_fa.pdf" download>PDF</a> · <a href="downloads/abc/modos_07_fa.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>08. Modos en Fa♯ (F♯)</td>
+            <td>6 sostenidos</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_08_fa_sostenido.pdf" download>PDF</a> · <a href="downloads/abc/modos_08_fa_sostenido.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>09. Modos en Sol (G)</td>
+            <td>Centro de tesitura de 1 sostenido</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_09_sol.pdf" download>PDF</a> · <a href="downloads/abc/modos_09_sol.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>10. Modos en La♭ (A♭)</td>
+            <td>4 bemoles</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_10_la_bemol.pdf" download>PDF</a> · <a href="downloads/abc/modos_10_la_bemol.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>11. Modos en La (A)</td>
+            <td>Diapasón de concierto (A4 = 440 Hz)</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_11_la.pdf" download>PDF</a> · <a href="downloads/abc/modos_11_la.abc" download>ABC</a></td>
+          </tr>
+          <tr>
+            <td>12. Modos en Si♭ (B♭)</td>
+            <td>Límite superior de la octava grave</td>
+            <td>PDF / ABC</td>
+            <td><a href="downloads/pdf/modos_12_si_bemol.pdf" download>PDF</a> · <a href="downloads/abc/modos_12_si_bemol.abc" download>ABC</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="privacy.html" class="i18n" data-es="Política de Privacidad" data-en="Privacy Policy">Política de Privacidad</a>
+        <a href="support.html" class="i18n" data-es="Centro de Soporte" data-en="Support Center">Centro de Soporte</a>
+        <a href="https://github.com/seagomezar/flutemodes">GitHub Repository</a>
+        <a href="downloads/pdf/metodo_completo_modos_flauta.pdf">Descarga Directa PDF</a>
+      </div>
+      <p class="i18n"
+         data-es="FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme, EJ4) según la visión pedagógica del Maestro. Arreglos y desarrollo por Sebastián Gómez."
+         data-en="FluteModes · Pedagogical adaptation of Paul Taffanel & Philippe Gaubert (17 Daily Exercises, EJ4) based on the Maestro's routine. Arrangements and development by Sebastian Gomez.">
+        FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme, EJ4) según la visión pedagógica del Maestro. Arreglos y desarrollo por Sebastián Gómez.
+      </p>
+      <p style="margin-top:8px;">© 2026 Sebastián Gómez. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // i18n switch
+    let currentLang = 'es';
+    function toggleLanguage() {
+      currentLang = (currentLang === 'es') ? 'en' : 'es';
+      document.querySelectorAll('.i18n').forEach(el => {
+        const text = el.getAttribute('data-' + currentLang);
+        if (text) el.innerText = text;
+      });
+      document.getElementById('lang-btn').innerText = (currentLang === 'es') ? '🇺🇸 English' : '🇪🇸 Español';
+    }
+
+    // Interactive ABC previews
+    const scores = {
+      ionian: `X:1\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDEF GABc dcBA GFED) | (EFGA Bcde fedc BAGF) |\n(GABc defg agfe dcBA) | (cdef gabc' d'c'ba gfed) |\n(cdef gabc' agfe dcBA) | (GABc defg fedc BAGF) |\n(EFGA Bcde dcBA GFED) | (CDEF GABc BAGF EDCB,) | C4 |]`,
+      lydian: `X:2\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDE^F GABc dcBA G^FED) | (E^FGA Bcde fedc BAG^F) |\n(GABc defg agfe dcBA) | (cde^f gabc' d'c'ba g^fed) |\n(cde^f gabc' agfe dcBA) | (GABc defg fedc BAG^F) |\n(E^FGA Bcde dcBA G^FED) | (CDE^F GABc BAG^F EDCB,) | C4 |]`,
+      mixolydian: `X:3\nM:4/2\nL:1/8\nQ:1/2=90\nK:C\n(CDEF GA_Bc d_cBA GFED) | (EFGA _Bcde fed_c BAGF) |\n(GA_Bc defg agfe d_cBA) | (cdef ga_bc' d'_c'ba gfed) |\n(cdef ga_bc' agfe d_cBA) | (GA_Bc defg fed_c BAGF) |\n(EFGA _Bcde d_cBA GFED) | (CDEF GA_Bc BA_GF EDCB,) | C4 |]`,
+      dorian: `X:4\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(CDE=F GABc dcBA G=FED) | (E=FGA Bcde fedc BAG=F) |\n(GABc defg agfe dcBA) | (cde=f gabc' d'c'ba g=fed) |\n(cde=f gabc' agfe dcBA) | (GABc defg fedc BAG=F) |\n(E=FGA Bcde dcBA G=FED) | (CDE=F GABc BAG=F EDCB,) | C4 |]`,
+      phrygian: `X:6\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(C_DEF GABc dcBA GF_ED) | (_EFGA Bcde fedc BAG_F) |\n(GABc defg agfe dcBA) | (c_def gabc' d'c'ba gf_ed) |\n(c_def gabc' agfe dcBA) | (GABc defg fedc BAG_F) |\n(_EFGA Bcde dcBA GF_ED) | (C_DEF GABc BAG_F EDCB,) | C4 |]`,
+      locrian: `X:7\nM:4/2\nL:1/8\nQ:1/2=90\nK:Cm\n(C_DE_F GABc dcBA G_F_ED) | (_E_FGA Bcde fedc BAG_F) |\n(GABc defg agfe dcBA) | (c_de_f gabc' d'c'ba g_f_ed) |\n(c_de_f gabc' agfe dcBA) | (GABc defg fedc BAG_F) |\n(_E_FGA Bcde dcBA G_F_ED) | (C_DE_F GABc BAG_F EDCB,) | C4 |]`
+    };
+
+    function loadMode(modeKey, btn) {
+      document.querySelectorAll('.score-chip').forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      ABCJS.renderAbc("paper", scores[modeKey], { responsive: 'resize', scale: 0.95 });
+    }
+
+    // Initial render
+    window.addEventListener('DOMContentLoaded', () => {
+      loadMode('ionian');
+    });
+  </script>
+</body>
+</html>
