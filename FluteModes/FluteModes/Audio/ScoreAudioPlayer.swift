@@ -4,30 +4,7 @@ import AVFoundation
 public class ScoreAudioPlayer: ObservableObject {
     @Published public var isPlaying: Bool = false
 
-    private var audioEngine: AVAudioEngine?
-    private var playerNode: AVAudioPlayerNode?
-
-    public init() {
-        setupAudio()
-    }
-
-    private func setupAudio() {
-        let engine = AVAudioEngine()
-        let player = AVAudioPlayerNode()
-        engine.attach(player)
-
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
-        engine.connect(player, to: engine.mainMixerNode, format: format)
-
-        self.audioEngine = engine
-        self.playerNode = player
-
-        do {
-            try engine.start()
-        } catch {
-            print("ScoreAudioPlayer audioEngine start failed: \(error)")
-        }
-    }
+    public init() {}
 
     public func toggle(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
         if isPlaying {
@@ -38,19 +15,17 @@ public class ScoreAudioPlayer: ObservableObject {
     }
 
     public func stop() {
-        playerNode?.stop()
+        AppAudioEngine.shared.pianoPlayer.stop()
         isPlaying = false
     }
 
     public func play(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
         stop()
 
-        guard let engine = audioEngine, let player = playerNode else { return }
-        if !engine.isRunning {
-            try? engine.start()
-        }
+        AppAudioEngine.shared.ensureEngineRunning()
+        let player = AppAudioEngine.shared.pianoPlayer
+        let format = AppAudioEngine.shared.standardFormat
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
         guard let buffer = generateScoreBuffer(
             tonic: tonic,
             mode: mode,
@@ -251,6 +226,5 @@ public class ScoreAudioPlayer: ObservableObject {
 
     deinit {
         stop()
-        audioEngine?.stop()
     }
 }

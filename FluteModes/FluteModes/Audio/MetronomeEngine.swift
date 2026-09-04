@@ -8,8 +8,6 @@ public class MetronomeEngine: ObservableObject {
     @Published public var isAudioMuted: Bool = false
 
     private var timer: Timer?
-    private var audioEngine: AVAudioEngine?
-    private var playerNode: AVAudioPlayerNode?
     private var uniformClickBuffer: AVAudioPCMBuffer?
 
     public init() {
@@ -17,24 +15,8 @@ public class MetronomeEngine: ObservableObject {
     }
 
     private func setupAudio() {
-        let engine = AVAudioEngine()
-        let player = AVAudioPlayerNode()
-        engine.attach(player)
-
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
-        engine.connect(player, to: engine.mainMixerNode, format: format)
-
-        // Single uniform click sound for all beats (no distinction between strong and weak)
+        let format = AppAudioEngine.shared.standardFormat
         uniformClickBuffer = generateClickBuffer(frequency: 1400, duration: 0.025, format: format)
-
-        self.audioEngine = engine
-        self.playerNode = player
-
-        do {
-            try engine.start()
-        } catch {
-            print("AudioEngine start failed: \(error)")
-        }
     }
 
     private func generateClickBuffer(frequency: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
@@ -68,6 +50,12 @@ public class MetronomeEngine: ObservableObject {
         isPlaying = true
         currentBeat = 0
 
+        AppAudioEngine.shared.ensureEngineRunning()
+        let player = AppAudioEngine.shared.metronomePlayer
+        if !player.isPlaying {
+            player.play()
+        }
+
         // In 4/2, metronome tempo is blanca (half note) = tempoBPM
         let interval = 60.0 / Double(tempoBPM)
 
@@ -83,6 +71,7 @@ public class MetronomeEngine: ObservableObject {
         currentBeat = 0
         timer?.invalidate()
         timer = nil
+        AppAudioEngine.shared.metronomePlayer.stop()
     }
 
     public func setTempo(_ newBPM: Int) {
@@ -99,17 +88,17 @@ public class MetronomeEngine: ObservableObject {
             self.currentBeat = (self.currentBeat % 4) + 1
         }
 
-        // Single uniform click for all beats
-        if !isAudioMuted, let player = playerNode, let engine = audioEngine, engine.isRunning {
-            if let buf = uniformClickBuffer {
+        if !isAudioMuted, let buf = uniformClickBuffer {
+            AppAudioEngine.shared.ensureEngineRunning()
+            let player = AppAudioEngine.shared.metronomePlayer
+            if !player.isPlaying {
                 player.play()
-                player.scheduleBuffer(buf, at: nil, options: [], completionHandler: nil)
             }
+            player.scheduleBuffer(buf, at: nil, options: .interrupts, completionHandler: nil)
         }
     }
 
     deinit {
         stop()
-        audioEngine?.stop()
     }
 }
