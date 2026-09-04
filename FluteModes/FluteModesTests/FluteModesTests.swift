@@ -130,4 +130,45 @@ final class FluteModesTests: XCTestCase {
         XCTAssertTrue(vm.keepScreenAwake)
         XCTAssertEqual(UserDefaults.standard.bool(forKey: "FluteModes_keepScreenAwake"), true)
     }
+
+    func testPracticeStoreCompletionAndToggle() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertFalse(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
+        XCTAssertEqual(store.completedArticulationsCount(tonic: .doNatural, mode: .ionian), 0)
+
+        // Toggle on
+        store.toggleCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred)
+        XCTAssertTrue(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
+        XCTAssertEqual(store.completedArticulationsCount(tonic: .doNatural, mode: .ionian), 1)
+
+        // Toggle off
+        store.toggleCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred)
+        XCTAssertFalse(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
+        XCTAssertEqual(store.completedArticulationsCount(tonic: .doNatural, mode: .ionian), 0)
+
+        // Complete all 8
+        for art in ArticulationPattern.allCases {
+            store.markCompleted(tonic: .doNatural, mode: .ionian, articulation: art)
+        }
+        XCTAssertTrue(store.isModeFullyCompleted(tonic: .doNatural, mode: .ionian))
+        XCTAssertEqual(store.completedArticulationsCount(tonic: .doNatural, mode: .ionian), 8)
+    }
+
+    func testViewModelAdvanceToNextArticulationMarksCompleted() {
+        let store = PracticeStore()
+        store.resetAll()
+        let vm = PracticeViewModel(store: store)
+        vm.currentTonic = .doNatural
+        vm.currentMode = .ionian
+        vm.currentArticulation = .allSlurred
+
+        XCTAssertFalse(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
+        vm.advanceToNextArticulation()
+
+        // Should have marked previous (.allSlurred) as completed and advanced to .slurredFourAndFour
+        XCTAssertTrue(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
+        XCTAssertEqual(vm.currentArticulation, .slurredFourAndFour)
+    }
 }

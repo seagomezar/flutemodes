@@ -269,21 +269,21 @@ public struct ProgressMatrixView: View {
             HStack(spacing: 6) {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundColor(.green)
-                Text("Completado (8/8)")
+                Text(loc.t("legend_completed"))
                     .font(.caption)
             }
 
             HStack(spacing: 6) {
                 Image(systemName: "circle.circle")
                     .foregroundColor(.orange)
-                Text("En Progreso (1-7/8)")
+                Text(loc.t("legend_in_progress"))
                     .font(.caption)
             }
 
             HStack(spacing: 6) {
                 Image(systemName: "circle")
                     .foregroundColor(.secondary)
-                Text("No iniciado (0/8)")
+                Text(loc.t("legend_not_started"))
                     .font(.caption)
             }
         }

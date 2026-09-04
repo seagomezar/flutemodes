@@ -86,6 +86,10 @@ public class PracticeViewModel: ObservableObject {
         store.totalArticulationsCompleted(for: currentTonic)
     }
 
+    public var completedArticulationsInCurrentMode: Int {
+        store.completedArticulationsCount(tonic: currentTonic, mode: currentMode)
+    }
+
     public func updateScore() {
         self.currentAbcScore = ExerciseGenerator.generateABC(
             tonic: currentTonic,
@@ -104,10 +108,35 @@ public class PracticeViewModel: ObservableObject {
         )
     }
 
-    public func selectArticulation(_ articulation: ArticulationPattern) {
+    public func selectArticulation(_ articulation: ArticulationPattern, markPreviousCompleted: Bool = true) {
         scorePlayer.stop()
+        if markPreviousCompleted && articulation != currentArticulation {
+            store.markCompleted(tonic: currentTonic, mode: currentMode, articulation: currentArticulation)
+        }
         self.currentArticulation = articulation
         updateScore()
+    }
+
+    /// Advances to the next articulation (1 -> 2 -> ... -> 8).
+    /// Always marks the current articulation as completed!
+    public func advanceToNextArticulation() {
+        scorePlayer.stop()
+        store.markCompleted(tonic: currentTonic, mode: currentMode, articulation: currentArticulation)
+
+        let all = ArticulationPattern.allCases
+        if let idx = all.firstIndex(of: currentArticulation) {
+            if idx + 1 < all.count {
+                self.currentArticulation = all[idx + 1]
+                updateScore()
+            } else {
+                // Completed all 8 articulations for this mode!
+                if store.areAllSevenModesPracticed(for: currentTonic) {
+                    self.showCompletionDialog = true
+                } else {
+                    advanceToNextMode()
+                }
+            }
+        }
     }
 
     public func selectMode(tonic: Tonic, mode: ModeType) {
@@ -123,27 +152,33 @@ public class PracticeViewModel: ObservableObject {
         updateScore()
     }
 
-    /// Core Pedagogical Flow: Marks the current mode & articulation as completed,
-    /// and advances to the NEXT MODE within the SAME tonic.
-    public func markCurrentCompletedAndAdvanceMode() {
+    /// Advances to the NEXT MODE within the SAME tonic.
+    public func advanceToNextMode() {
         scorePlayer.stop()
         store.markCompleted(tonic: currentTonic, mode: currentMode, articulation: currentArticulation)
 
-        // Check if all 7 modes in this tonic are now completed
         let allPracticed = store.areAllSevenModesPracticed(for: currentTonic)
 
-        // Advance to next mode in classical pedagogical sequence (1 -> 2 -> ... -> 7 -> 1)
         let modeOrder: [ModeType] = [.ionian, .lydian, .mixolydian, .dorian, .aeolian, .phrygian, .locrian]
         if let idx = modeOrder.firstIndex(of: currentMode) {
             let nextIdx = (idx + 1) % modeOrder.count
             self.currentMode = modeOrder[nextIdx]
         }
 
+        let uncompleted = ArticulationPattern.allCases.filter {
+            !store.isCompleted(tonic: currentTonic, mode: currentMode, articulation: $0)
+        }
+        self.currentArticulation = uncompleted.first ?? .allSlurred
         updateScore()
 
         if allPracticed {
             self.showCompletionDialog = true
         }
+    }
+
+    /// Legacy alias for backward compatibility
+    public func markCurrentCompletedAndAdvanceMode() {
+        advanceToNextMode()
     }
 
     /// Option A: Continue in the same tonic with the next articulation round

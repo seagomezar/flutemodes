@@ -123,6 +123,23 @@ class PracticeStoreTest {
     }
 
     @Test
+    fun testToggleAndUnmarkCompleted() {
+        assertFalse(store.isCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED))
+        store.toggleCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED)
+        assertTrue(store.isCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED))
+        assertEquals(1, store.completedArticulationsCount(Tonic.SOL, ModeType.MIXOLYDIAN))
+
+        store.toggleCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED)
+        assertFalse(store.isCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED))
+        assertEquals(0, store.completedArticulationsCount(Tonic.SOL, ModeType.MIXOLYDIAN))
+
+        store.markCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED)
+        assertTrue(store.isCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED))
+        store.unmarkCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED)
+        assertFalse(store.isCompleted(Tonic.SOL, ModeType.MIXOLYDIAN, ArticulationPattern.ALL_SLURRED))
+    }
+
+    @Test
     fun testTonicMasteryAndProgressionCycles() {
         assertFalse(store.isTonicMastered(Tonic.DO_NATURAL))
 

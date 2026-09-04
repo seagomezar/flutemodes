@@ -77,6 +77,22 @@ class PracticeStore(context: Context) {
         saveProgress()
     }
 
+    fun unmarkCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern) {
+        val key = "${tonic.name}_${mode.name}"
+        val current = (completedMap[key] ?: emptySet()).toMutableSet()
+        current.remove(articulation.id)
+        completedMap[key] = current
+        saveProgress()
+    }
+
+    fun toggleCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern) {
+        if (isCompleted(tonic, mode, articulation)) {
+            unmarkCompleted(tonic, mode, articulation)
+        } else {
+            markCompleted(tonic, mode, articulation)
+        }
+    }
+
     fun nextTonic(after: Tonic): Tonic {
         val all = Tonic.entries
         val idx = all.indexOf(after)

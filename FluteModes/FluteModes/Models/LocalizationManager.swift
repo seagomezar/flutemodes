@@ -129,6 +129,16 @@ public class LocalizationManager: ObservableObject {
         "keep_screen_awake": ["Mantener pantalla activa", "Keep screen awake"],
         "keep_screen_awake_desc": ["Evita que el dispositivo entre en modo reposo", "Prevents device from sleeping during practice"],
         "metronome_title": ["Metrónomo (Blanca)", "Metronome (Half note)"],
-        "click_sound": ["Sonido de Clic", "Click Sound"]
+        "click_sound": ["Sonido de Clic", "Click Sound"],
+
+        // Articulation Progress Clarity
+        "arts_count": ["arts.", "arts."],
+        "articulations_title": ["Fórmulas de Articulación", "Articulation Patterns"],
+        "arts_completed_badge": ["%d/8 arts. completadas", "%d/8 arts. completed"],
+        "next_mode": ["Siguiente Modo", "Next Mode"],
+        "mode_fully_done": ["Modo Completado (8/8 arts.)", "Mode Completed (8/8 arts.)"],
+        "legend_completed": ["Completado (8/8 arts.)", "Completed (8/8 arts)"],
+        "legend_in_progress": ["En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"],
+        "legend_not_started": ["No iniciado (0/8 arts.)", "Not started (0/8 arts)"]
     ]
 }

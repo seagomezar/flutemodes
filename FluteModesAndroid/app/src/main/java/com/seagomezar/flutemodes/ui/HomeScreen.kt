@@ -161,7 +161,7 @@ fun HomeScreen(
                                     color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "$completedInTonic/7",
+                                    text = "$completedInTonic/7 ${loc.t("modes_count")}",
                                     fontSize = 10.sp,
                                     color = if (isSelected) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                                 )
@@ -364,15 +364,28 @@ fun ModeSelectionCard(
 
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = if (completedCount == 8) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.surfaceVariant
+                color = if (completedCount == 8) Color(0xFF10B981).copy(alpha = 0.2f) else if (completedCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
             ) {
-                Text(
-                    text = "$completedCount/8",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = if (completedCount == 8) Color(0xFF10B981) else MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                )
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    if (completedCount == 8) {
+                        Icon(
+                            Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = Color(0xFF10B981),
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+                    Text(
+                        text = "$completedCount/8 ${loc.t("arts_count")}",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (completedCount == 8) Color(0xFF10B981) else if (completedCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         }
     }

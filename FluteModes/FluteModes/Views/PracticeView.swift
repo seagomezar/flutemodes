@@ -273,43 +273,85 @@ public struct PracticeView: View {
     }
 
     // MARK: - Articulation Bar
+    @ViewBuilder
     private var articulationBar: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(ArticulationPattern.allCases) { pattern in
-                    let isCurrent = viewModel.currentArticulation == pattern
-                    let isDone = viewModel.store.isCompleted(
-                        tonic: viewModel.currentTonic,
-                        mode: viewModel.currentMode,
-                        articulation: pattern
-                    )
+        let completedCount = viewModel.completedArticulationsInCurrentMode
+        let isModeFull = completedCount == 8
 
-                    Button {
-                        viewModel.selectArticulation(pattern)
-                    } label: {
-                        HStack(spacing: 6) {
-                            if isDone {
-                                Image(systemName: "checkmark")
-                                    .font(.system(size: 11, weight: .bold))
-                                    .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .secondary)
-                            }
-                            Text(pattern.shortTitle)
-                                .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
-                        }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
-                        .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(isCurrent ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
-                        )
+        VStack(spacing: 6) {
+            // Section Header: Fórmulas de Articulación · X/8 arts. completadas
+            HStack {
+                HStack(spacing: 6) {
+                    Text(loc.t("articulations_title"))
+                        .font(.caption.bold())
+                        .foregroundColor(.primary)
+
+                    if isModeFull {
+                        Image(systemName: "checkmark.seal.fill")
+                            .font(.system(size: 12))
+                            .foregroundColor(.green)
                     }
                 }
+
+                Spacer()
+
+                Text("\(completedCount)/8 " + loc.t("arts_count"))
+                    .font(.caption.bold().monospacedDigit())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(isModeFull ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                    .foregroundColor(isModeFull ? .green : (completedCount > 0 ? .orange : .secondary))
+                    .cornerRadius(8)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.top, 4)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(ArticulationPattern.allCases) { pattern in
+                        let isCurrent = viewModel.currentArticulation == pattern
+                        let isDone = viewModel.store.isCompleted(
+                            tonic: viewModel.currentTonic,
+                            mode: viewModel.currentMode,
+                            articulation: pattern
+                        )
+
+                        Button {
+                            if isCurrent {
+                                // Tapping the active pattern toggles its completion
+                                viewModel.store.toggleCompleted(
+                                    tonic: viewModel.currentTonic,
+                                    mode: viewModel.currentMode,
+                                    articulation: pattern
+                                )
+                            } else {
+                                // Tapping another pattern marks the previous one completed and selects new
+                                viewModel.selectArticulation(pattern, markPreviousCompleted: true)
+                            }
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
+                                    .font(.system(size: 13, weight: .bold))
+                                    .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
+
+                                Text(pattern.shortTitle)
+                                    .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 8)
+                            .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                            .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
+                            )
+                        }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 6)
+            }
         }
         .background(Color(uiColor: .systemGroupedBackground))
     }
@@ -374,13 +416,9 @@ public struct PracticeView: View {
 
             // Next Articulation in Current Mode
             Button {
-                let all = ArticulationPattern.allCases
-                if let idx = all.firstIndex(of: viewModel.currentArticulation) {
-                    let nextIdx = (idx + 1) % all.count
-                    viewModel.selectArticulation(all[nextIdx])
-                }
+                viewModel.advanceToNextArticulation()
             } label: {
-                Text(loc.t("next_art"))
+                Text("\(loc.t("next_art")) (\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count")))")
                     .font(.subheadline.bold())
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
@@ -408,13 +446,29 @@ public struct PracticeView: View {
                     .cornerRadius(20)
                     .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
                 }
+            } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
+                // Current mode fully completed (8/8 arts)!
+                Button {
+                    viewModel.advanceToNextMode()
+                } label: {
+                    HStack(spacing: 8) {
+                        Text("✓ \(loc.t("mode_fully_done")) → \(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7)")
+                            .font(.subheadline.bold())
+                        Image(systemName: "arrow.right")
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(20)
+                }
             } else {
                 // Standard: Advance to next mode within current tonic
                 Button {
-                    viewModel.markCurrentCompletedAndAdvanceMode()
+                    viewModel.advanceToNextMode()
                 } label: {
                     HStack(spacing: 8) {
-                        Text("\(loc.t("complete_and_next")) (\(viewModel.practicedModesCountInCurrentTonic)/7)")
+                        Text("\(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count")))")
                             .font(.subheadline.bold())
                         Image(systemName: "arrow.right")
                     }
@@ -511,15 +565,11 @@ public struct PracticeView: View {
             HStack(spacing: 10) {
                 // Next articulation button
                 Button {
-                    let all = ArticulationPattern.allCases
-                    if let idx = all.firstIndex(of: viewModel.currentArticulation) {
-                        let nextIdx = (idx + 1) % all.count
-                        viewModel.selectArticulation(all[nextIdx])
-                    }
+                    viewModel.advanceToNextArticulation()
                 } label: {
-                    Text(loc.t("next_art"))
+                    Text("\(loc.t("next_art")) (\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count")))")
                         .font(.caption.bold())
-                        .padding(.horizontal, 14)
+                        .padding(.horizontal, 12)
                         .padding(.vertical, 12)
                         .background(Color(uiColor: .secondarySystemFill))
                         .foregroundColor(.primary)
@@ -543,12 +593,26 @@ public struct PracticeView: View {
                         .cornerRadius(16)
                         .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
                     }
-                } else {
+                } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
                     Button {
-                        viewModel.markCurrentCompletedAndAdvanceMode()
+                        viewModel.advanceToNextMode()
                     } label: {
                         HStack(spacing: 6) {
-                            Text("\(loc.t("complete_and_next")) (\(viewModel.practicedModesCountInCurrentTonic)/7)")
+                            Text("✓ \(loc.t("mode_fully_done")) →")
+                                .font(.subheadline.bold())
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(16)
+                    }
+                } else {
+                    Button {
+                        viewModel.advanceToNextMode()
+                    } label: {
+                        HStack(spacing: 6) {
+                            Text("\(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count")))")
                                 .font(.subheadline.bold())
                             Image(systemName: "arrow.right")
                         }

@@ -112,6 +112,16 @@ class LocalizationManager(context: Context) {
         "keep_screen_awake" to Pair("Mantener pantalla activa", "Keep screen awake"),
         "keep_screen_awake_desc" to Pair("Evita que el dispositivo entre en modo reposo", "Prevents device from sleeping during practice"),
         "metronome_title" to Pair("Metrónomo (Blanca)", "Metronome (Half note)"),
-        "click_sound" to Pair("Sonido de Clic", "Click Sound")
+        "click_sound" to Pair("Sonido de Clic", "Click Sound"),
+
+        // Articulation Progress Clarity
+        "arts_count" to Pair("arts.", "arts."),
+        "articulations_title" to Pair("Fórmulas de Articulación", "Articulation Patterns"),
+        "arts_completed_badge" to Pair("%d/8 arts. completadas", "%d/8 arts. completed"),
+        "next_mode" to Pair("Siguiente Modo", "Next Mode"),
+        "mode_fully_done" to Pair("Modo Completado (8/8 arts.)", "Mode Completed (8/8 arts.)"),
+        "legend_completed" to Pair("Completado (8/8 arts.)", "Completed (8/8 arts)"),
+        "legend_in_progress" to Pair("En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"),
+        "legend_not_started" to Pair("No iniciado (0/8 arts.)", "Not started (0/8 arts)")
     )
 }

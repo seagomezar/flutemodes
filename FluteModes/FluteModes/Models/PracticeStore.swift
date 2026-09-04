@@ -77,6 +77,22 @@ public class PracticeStore: ObservableObject {
         saveProgress()
     }
 
+    public func unmarkCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern) {
+        let key = "\(tonic.rawValue)_\(mode.rawValue)"
+        var current = completedMap[key] ?? Set<Int>()
+        current.remove(articulation.rawValue)
+        completedMap[key] = current
+        saveProgress()
+    }
+
+    public func toggleCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern) {
+        if isCompleted(tonic: tonic, mode: mode, articulation: articulation) {
+            unmarkCompleted(tonic: tonic, mode: mode, articulation: articulation)
+        } else {
+            markCompleted(tonic: tonic, mode: mode, articulation: articulation)
+        }
+    }
+
     public func nextTonic(after current: Tonic) -> Tonic {
         let all = Tonic.allCases
         guard let idx = all.firstIndex(of: current) else { return all[0] }

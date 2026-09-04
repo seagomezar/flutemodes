@@ -61,6 +61,8 @@ fun PracticeScreen(
 
     val practicedModesCount = store.practicedModesCount(currentTonic)
     val areAllModesPracticed = store.areAllSevenModesPracticed(currentTonic)
+    val completedArtCount = store.completedArticulationsCount(currentTonic, currentMode)
+    val isModeFullyDone = store.isModeFullyCompleted(currentTonic, currentMode)
 
     if (showCompletionDialog) {
         AlertDialog(
@@ -264,6 +266,46 @@ fun PracticeScreen(
 
             HorizontalDivider()
 
+            // Articulation Section Header
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(
+                        text = loc.t("articulations_title"),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    if (isModeFullyDone) {
+                        Icon(
+                            Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = Color(0xFF10B981),
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
+                }
+
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = if (isModeFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                ) {
+                    Text(
+                        text = "$completedArtCount/8 ${loc.t("arts_count")}",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isModeFullyDone) Color(0xFF10B981) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    )
+                }
+            }
+
             // Articulation Bar Chips
             Row(
                 modifier = Modifier
@@ -280,7 +322,12 @@ fun PracticeScreen(
                     Surface(
                         onClick = {
                             scorePlayer.stop()
-                            currentArticulation = pattern
+                            if (isSelected) {
+                                store.toggleCompleted(currentTonic, currentMode, pattern)
+                            } else {
+                                store.markCompleted(currentTonic, currentMode, currentArticulation)
+                                currentArticulation = pattern
+                            }
                         },
                         shape = RoundedCornerShape(16.dp),
                         color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
@@ -293,10 +340,10 @@ fun PracticeScreen(
                         ) {
                             if (isCompleted) {
                                 Icon(
-                                    Icons.Default.Check,
+                                    Icons.Default.CheckCircle,
                                     contentDescription = null,
-                                    modifier = Modifier.size(12.dp),
-                                    tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                    modifier = Modifier.size(13.dp),
+                                    tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
                                 )
                             }
                             Text(
@@ -433,14 +480,35 @@ fun PracticeScreen(
                         OutlinedButton(
                             onClick = {
                                 scorePlayer.stop()
+                                store.markCompleted(currentTonic, currentMode, currentArticulation)
                                 val allArt = ArticulationPattern.entries
                                 val curIdx = allArt.indexOf(currentArticulation)
-                                currentArticulation = allArt[(curIdx + 1) % allArt.size]
+                                if (curIdx + 1 < allArt.size) {
+                                    currentArticulation = allArt[curIdx + 1]
+                                } else {
+                                    if (store.areAllSevenModesPracticed(currentTonic)) {
+                                        showCompletionDialog = true
+                                    } else {
+                                        val modeOrder = listOf(
+                                            ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
+                                            ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
+                                        )
+                                        val mIdx = modeOrder.indexOf(currentMode)
+                                        if (mIdx >= 0) {
+                                            currentMode = modeOrder[(mIdx + 1) % modeOrder.size]
+                                            currentArticulation = ArticulationPattern.ALL_SLURRED
+                                        }
+                                    }
+                                }
                             },
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.height(48.dp)
                         ) {
-                            Text(loc.t("next_art"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                            Text(
+                                text = "${loc.t("next_art")} ($completedArtCount/8 ${loc.t("arts_count")})",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
                         }
 
                         if (areAllModesPracticed) {
@@ -455,6 +523,37 @@ fun PracticeScreen(
                                 Icon(Icons.Default.CheckCircle, contentDescription = null)
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text("✓ ${loc.t("seven_modes_completed")}", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                            }
+                        } else if (isModeFullyDone) {
+                            Button(
+                                onClick = {
+                                    scorePlayer.stop()
+                                    val modeOrder = listOf(
+                                        ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
+                                        ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
+                                    )
+                                    val curIdx = modeOrder.indexOf(currentMode)
+                                    if (curIdx >= 0) {
+                                        currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
+                                        currentArticulation = ArticulationPattern.ALL_SLURRED
+                                    }
+                                    if (store.areAllSevenModesPracticed(currentTonic)) {
+                                        showCompletionDialog = true
+                                    }
+                                },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(48.dp),
+                                shape = RoundedCornerShape(16.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981))
+                            ) {
+                                Text(
+                                    text = "✓ ${loc.t("mode_fully_done")} →",
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(Icons.Default.ArrowForward, contentDescription = null)
                             }
                         } else {
                             Button(
@@ -471,6 +570,7 @@ fun PracticeScreen(
                                     val curIdx = modeOrder.indexOf(currentMode)
                                     if (curIdx >= 0) {
                                         currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
+                                        currentArticulation = ArticulationPattern.ALL_SLURRED
                                     }
 
                                     if (wasAllPracticed) {
@@ -484,7 +584,7 @@ fun PracticeScreen(
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                             ) {
                                 Text(
-                                    text = "${loc.t("complete_and_next")} ($practicedModesCount/7)",
+                                    text = "${loc.t("next_mode")} ($practicedModesCount/7 ${loc.t("modes_count")})",
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Bold
                                 )

@@ -298,10 +298,15 @@ public struct HomeView: View {
                             Spacer()
 
                             if isFullyDone {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
+                                HStack(spacing: 4) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                    Text("8/8 \(loc.t("arts_count"))")
+                                        .font(.caption2.bold().monospacedDigit())
+                                        .foregroundColor(.green)
+                                }
                             } else if count > 0 {
-                                Text("\(count)/8")
+                                Text("\(count)/8 \(loc.t("arts_count"))")
                                     .font(.caption2.bold().monospacedDigit())
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 2)
@@ -309,7 +314,8 @@ public struct HomeView: View {
                                     .foregroundColor(.orange)
                                     .cornerRadius(6)
                             } else {
-                                Image(systemName: "circle")
+                                Text("0/8 \(loc.t("arts_count"))")
+                                    .font(.caption2.monospacedDigit())
                                     .foregroundColor(.secondary)
                             }
                         }
