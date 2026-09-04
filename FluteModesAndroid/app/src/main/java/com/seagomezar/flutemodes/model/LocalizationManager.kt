@@ -29,7 +29,7 @@ class LocalizationManager(context: Context) {
         return if (isEn) pair.second else pair.first
     }
 
-    private val strings = mapOf(
+    internal val strings = mapOf(
         // App General
         "app_name" to Pair("FluteModes", "FluteModes"),
         "subtitle" to Pair(

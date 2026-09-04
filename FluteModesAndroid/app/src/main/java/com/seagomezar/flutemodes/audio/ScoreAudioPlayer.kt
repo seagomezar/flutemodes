@@ -104,7 +104,7 @@ class ScoreAudioPlayer {
 
     private data class NoteDef(val freq: Double, val duration: Double, val isStaccato: Boolean)
 
-    private fun generateScoreBuffer(
+    internal fun generateScoreBuffer(
         tonic: Tonic,
         mode: ModeType,
         articulation: ArticulationPattern,
@@ -118,7 +118,7 @@ class ScoreAudioPlayer {
             val degree = idx % 7
             val semitones = intervals[degree] + (octave * 12)
             val midi = (rootMidi + semitones).toDouble()
-            return 440.0 * 2.0.pow((midi - 69.0) / 12.0)
+            return midiToFrequency(midi)
         }
 
         val eighthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
@@ -233,5 +233,11 @@ class ScoreAudioPlayer {
     fun release() {
         stop()
         scope.cancel()
+    }
+
+    companion object {
+        fun midiToFrequency(midi: Double): Double {
+            return 440.0 * 2.0.pow((midi - 69.0) / 12.0)
+        }
     }
 }

@@ -27,6 +27,18 @@ public enum ModeType: Int, CaseIterable, Identifiable, Codable {
         }
     }
 
+    public var intervals: [Int] {
+        switch self {
+        case .ionian:     return [0, 2, 4, 5, 7, 9, 11]
+        case .lydian:     return [0, 2, 4, 6, 7, 9, 11]
+        case .mixolydian: return [0, 2, 4, 5, 7, 9, 10]
+        case .dorian:     return [0, 2, 3, 5, 7, 9, 10]
+        case .aeolian:    return [0, 2, 3, 5, 7, 8, 10]
+        case .phrygian:   return [0, 1, 3, 5, 7, 8, 10]
+        case .locrian:    return [0, 1, 3, 5, 6, 8, 10]
+        }
+    }
+
     public var name: String {
         switch self {
         case .ionian: return LocalizationManager.shared.t("mode_1_name")

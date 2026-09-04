@@ -11,8 +11,8 @@ android {
         applicationId = "com.seagomezar.flutemodes"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     signingConfigs {
@@ -42,6 +42,10 @@ android {
       aidl = false
       buildConfig = false
       shaders = false
+    }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
     }
 
     packaging {

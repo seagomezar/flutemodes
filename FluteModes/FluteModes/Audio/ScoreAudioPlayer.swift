@@ -44,7 +44,11 @@ public class ScoreAudioPlayer: ObservableObject {
     }
 
     // MARK: - Acoustic Grand Piano Synthesis Buffer Generation
-    private func generateScoreBuffer(
+    public static func midiToFrequency(_ midi: Double) -> Double {
+        return 440.0 * pow(2.0, (midi - 69.0) / 12.0)
+    }
+
+    public func generateScoreBuffer(
         tonic: Tonic,
         mode: ModeType,
         articulation: ArticulationPattern,

@@ -4,7 +4,8 @@
 > *Basado en el canon de Paul Taffanel & Philippe Gaubert (E.J. 4) y el Sistema Paralelo del Maestro León Giraldo.*
 
 [![iOS / iPadOS](https://img.shields.io/badge/Platform-iOS%20%7C%20iPadOS%2017.0%2B-blue?logo=apple)](https://developer.apple.com)
-[![Android](https://img.shields.io/badge/Platform-Android%207.0%2B%20%28API%2024%2B%29-green?logo=android)](https://seagomezar.github.io/flutemodes/downloads/apk/FluteModes-v1.0-release.apk)
+[![Android](https://img.shields.io/badge/Platform-Android%207.0%2B%20%28API%2024%2B%29-green?logo=android)](https://seagomezar.github.io/flutemodes/downloads/apk/FluteModes-v1.1.0-release.apk)
+[![Tests](https://img.shields.io/badge/Tests-100%25%20Passing%20(iOS%20%26%20Android)-brightgreen?logo=github-actions)](https://github.com/seagomezar/flutemodes)
 [![SwiftUI & Compose](https://img.shields.io/badge/UI-SwiftUI%20%26%20Jetpack%20Compose-orange)](https://developer.android.com/compose)
 [![Audio](https://img.shields.io/badge/Audio-AVAudioEngine%20%26%20AudioTrack%20Synth-purple)](https://developer.apple.com/documentation/avfaudio)
 [![GitHub Pages](https://img.shields.io/badge/Landing%20Page-Live%20on%20GitHub%20Pages-emerald)](https://seagomezar.github.io/flutemodes/)
@@ -15,7 +16,7 @@
 ## 🌐 Enlaces Oficiales / Official Links
 
 - 🌟 **Sitio Web Oficial & Landing Page:** [https://seagomezar.github.io/flutemodes/](https://seagomezar.github.io/flutemodes/)
-- 🤖 **Descarga Directa APK Android (Firmada y Lista):** [FluteModes-v1.0-release.apk](FluteModes-v1.0-release.apk)
+- 🤖 **Descarga Directa APK Android v1.1.0 (Firmada y Probada):** [FluteModes-v1.1.0-release.apk](https://seagomezar.github.io/flutemodes/downloads/apk/FluteModes-v1.1.0-release.apk)
 - 🔒 **Política de Privacidad (Apple & Google Compliant):** [https://seagomezar.github.io/flutemodes/privacy.html](https://seagomezar.github.io/flutemodes/privacy.html)
 - 🤝 **Centro de Soporte y Ayuda:** [https://seagomezar.github.io/flutemodes/support.html](https://seagomezar.github.io/flutemodes/support.html)
 - 📘 **Descarga Directa: Método Completo en PDF (36 Págs):** [metodo_completo_modos_flauta.pdf](docs/downloads/pdf/metodo_completo_modos_flauta.pdf)

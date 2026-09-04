@@ -41,8 +41,21 @@ targets:
           - UIInterfaceOrientationLandscapeRight
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.seagomezar.flutemodes
-      MARKETING_VERSION: "1.0.0"
-      CURRENT_PROJECT_VERSION: "3"
+      MARKETING_VERSION: "1.1.0"
+      CURRENT_PROJECT_VERSION: "4"
       ASSETCATALOG_COMPILER_APPICON_NAME: "AppIcon"
       DEVELOPMENT_TEAM: "QWY6U4KSA6"
       CODE_SIGN_STYLE: "Automatic"
+
+  FluteModesTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: FluteModesTests
+    dependencies:
+      - target: FluteModes
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.seagomezar.flutemodesTests
+      DEVELOPMENT_TEAM: "QWY6U4KSA6"
+      CODE_SIGN_STYLE: "Automatic"
+      GENERATE_INFOPLIST_FILE: "YES"

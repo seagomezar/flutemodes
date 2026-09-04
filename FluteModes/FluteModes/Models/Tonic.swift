@@ -16,6 +16,23 @@ public enum Tonic: String, CaseIterable, Identifiable, Codable {
 
     public var id: String { rawValue }
 
+    public var rootMidi: Int {
+        switch self {
+        case .si: return 59
+        case .doNatural: return 60
+        case .doSostenido: return 61
+        case .re: return 62
+        case .miBemol: return 63
+        case .mi: return 64
+        case .fa: return 65
+        case .faSostenido: return 66
+        case .sol: return 67
+        case .laBemol: return 68
+        case .la: return 69
+        case .siBemol: return 70
+        }
+    }
+
     public var fullName: String {
         switch self {
         case .si: return "Si (B3 - Pata de Si)"
