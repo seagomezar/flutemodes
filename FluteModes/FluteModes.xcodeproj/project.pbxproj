@@ -12,6 +12,7 @@
 		2E965AC73371AF5853501E07 /* ScoreWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEEB4B1CF241F320DCABB06 /* ScoreWebView.swift */; };
 		2FEFA31B7529673710F42577 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013ABC3BCA10FF68DC594DF4 /* LocalizationManager.swift */; };
 		3145CDF140C29BC838F95819 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1065AB831F5BA18A61C11876 /* PracticeViewModel.swift */; };
+		390CDA0CD5E626104F23F260 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */; };
 		3A9AEDA5C284ADD518831E78 /* ScoreAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A662C10627446E3FE98205E3 /* ScoreAudioPlayer.swift */; };
 		4EDCD684308BCD477914DA6E /* MusicalMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F9171A65C03E9F7F505606 /* MusicalMode.swift */; };
 		5E15B4045B0353E6CC57A192 /* FluteModesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A3981CF6597196B7417A2D /* FluteModesApp.swift */; };
@@ -37,6 +38,7 @@
 		72B5E878DF0A96FAF5DC75B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73F9171A65C03E9F7F505606 /* MusicalMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalMode.swift; sourceTree = "<group>"; };
 		881D5981DA7469697862F245 /* ExerciseGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGenerator.swift; sourceTree = "<group>"; };
+		A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A662C10627446E3FE98205E3 /* ScoreAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreAudioPlayer.swift; sourceTree = "<group>"; };
 		B521327B2B42361BE918E90B /* ArticulationPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticulationPattern.swift; sourceTree = "<group>"; };
 		BDE020A626D13C014801C76E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				464E9EEFBF3E7833496630D0 /* abcjs-basic-min.js */,
 				72B5E878DF0A96FAF5DC75B3 /* Assets.xcassets */,
+				A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */,
 				0D1A88C84258A42E4DCBD495 /* score_template.html */,
 			);
 			path = Resources;
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7956BB7E60E09612E45E4113 /* Assets.xcassets in Resources */,
+				390CDA0CD5E626104F23F260 /* LaunchScreen.storyboard in Resources */,
 				EC95C80CACBF3C9FF0BE1A78 /* abcjs-basic-min.js in Resources */,
 				19302077A1A89861858DC13A /* score_template.html in Resources */,
 			);
@@ -298,7 +302,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = QWY6U4KSA6;
 				INFOPLIST_FILE = FluteModes/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -318,7 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = QWY6U4KSA6;
 				INFOPLIST_FILE = FluteModes/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
