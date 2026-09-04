@@ -72,7 +72,7 @@ public class LocalizationManager: ObservableObject {
         "modes_count": ["modos", "modes"],
         "play_piano": ["Reproducir Piano", "Play Piano"],
         "stop_piano": ["Detener Piano", "Stop Piano"],
-        "next_art": ["Siguiente Articulación", "Next Articulation"],
+        "next_art": ["Siguiente Art.", "Next Art."],
         "complete_and_next": ["Completar y Siguiente Modo", "Complete & Next Mode"],
         "seven_modes_completed": ["7 Modos Completados", "7 Modes Completed"],
         "milestone_title": ["¡7 Modos Completados en %@!", "7 Modes Completed in %@!"],
@@ -136,7 +136,8 @@ public class LocalizationManager: ObservableObject {
         "articulations_title": ["Fórmulas de Articulación", "Articulation Patterns"],
         "arts_completed_badge": ["%d/8 arts. completadas", "%d/8 arts. completed"],
         "next_mode": ["Siguiente Modo", "Next Mode"],
-        "mode_fully_done": ["Modo Completado (8/8 arts.)", "Mode Completed (8/8 arts.)"],
+        "mode_done": ["Modo Listo", "Mode Done"],
+        "mode_fully_done": ["Modo Completado", "Mode Completed"],
         "legend_completed": ["Completado (8/8 arts.)", "Completed (8/8 arts)"],
         "legend_in_progress": ["En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"],
         "legend_not_started": ["No iniciado (0/8 arts.)", "Not started (0/8 arts)"]

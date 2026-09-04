@@ -418,13 +418,21 @@ public struct PracticeView: View {
             Button {
                 viewModel.advanceToNextArticulation()
             } label: {
-                Text("\(loc.t("next_art")) (\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count")))")
-                    .font(.subheadline.bold())
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(Color(uiColor: .secondarySystemFill))
-                    .foregroundColor(.primary)
-                    .cornerRadius(20)
+                HStack(spacing: 8) {
+                    Text(loc.t("next_art"))
+                        .font(.subheadline.bold())
+                    Text("\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count"))")
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color(uiColor: .tertiarySystemFill))
+                        .clipShape(Capsule())
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color(uiColor: .secondarySystemFill))
+                .foregroundColor(.primary)
+                .cornerRadius(20)
             }
 
             // Main Pedagogical Action Button
@@ -452,8 +460,16 @@ public struct PracticeView: View {
                     viewModel.advanceToNextMode()
                 } label: {
                     HStack(spacing: 8) {
-                        Text("✓ \(loc.t("mode_fully_done")) → \(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7)")
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 14, weight: .bold))
+                        Text(loc.t("mode_done"))
                             .font(.subheadline.bold())
+                        Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Color.white.opacity(0.25))
+                            .clipShape(Capsule())
                         Image(systemName: "arrow.right")
                     }
                     .padding(.horizontal, 20)
@@ -468,8 +484,14 @@ public struct PracticeView: View {
                     viewModel.advanceToNextMode()
                 } label: {
                     HStack(spacing: 8) {
-                        Text("\(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count")))")
+                        Text(loc.t("next_mode"))
                             .font(.subheadline.bold())
+                        Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Color(uiColor: .systemBackground).opacity(0.2))
+                            .clipShape(Capsule())
                         Image(systemName: "arrow.right")
                     }
                     .padding(.horizontal, 20)
@@ -562,18 +584,27 @@ public struct PracticeView: View {
             }
 
             // Row 2: Thumb-friendly main actions
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 // Next articulation button
                 Button {
                     viewModel.advanceToNextArticulation()
                 } label: {
-                    Text("\(loc.t("next_art")) (\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count")))")
-                        .font(.caption.bold())
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 12)
-                        .background(Color(uiColor: .secondarySystemFill))
-                        .foregroundColor(.primary)
-                        .cornerRadius(16)
+                    HStack(spacing: 5) {
+                        Text(loc.t("next_art"))
+                            .font(.system(size: 13, weight: .semibold))
+                            .lineLimit(1)
+                        Text("\(viewModel.completedArticulationsInCurrentMode)/8")
+                            .font(.system(size: 11, weight: .bold, design: .monospaced))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .clipShape(Capsule())
+                    }
+                    .padding(.horizontal, 10)
+                    .frame(height: 48)
+                    .background(Color(uiColor: .secondarySystemFill))
+                    .foregroundColor(.primary)
+                    .cornerRadius(16)
                 }
 
                 // Primary Complete & Next button
@@ -581,13 +612,17 @@ public struct PracticeView: View {
                     Button {
                         viewModel.showCompletionDialog = true
                     } label: {
-                        HStack(spacing: 6) {
+                        HStack(spacing: 5) {
                             Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 14, weight: .bold))
                             Text("✓ \(loc.t("seven_modes_completed"))")
-                                .font(.subheadline.bold())
+                                .font(.system(size: 13, weight: .bold))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.85)
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+                        .frame(height: 48)
+                        .padding(.horizontal, 10)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(16)
@@ -597,12 +632,24 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
-                        HStack(spacing: 6) {
-                            Text("✓ \(loc.t("mode_fully_done")) →")
-                                .font(.subheadline.bold())
+                        HStack(spacing: 5) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 13, weight: .bold))
+                            Text(loc.t("mode_done"))
+                                .font(.system(size: 13, weight: .bold))
+                                .lineLimit(1)
+                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(Color.white.opacity(0.25))
+                                .clipShape(Capsule())
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 11, weight: .bold))
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+                        .frame(height: 48)
+                        .padding(.horizontal, 10)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(16)
@@ -611,13 +658,22 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
-                        HStack(spacing: 6) {
-                            Text("\(loc.t("next_mode")) (\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count")))")
-                                .font(.subheadline.bold())
-                            Image(systemName: "arrow.right")
+                        HStack(spacing: 5) {
+                            Text(loc.t("next_mode"))
+                                .font(.system(size: 13, weight: .bold))
+                                .lineLimit(1)
+                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                .clipShape(Capsule())
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 11, weight: .bold))
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+                        .frame(height: 48)
+                        .padding(.horizontal, 10)
                         .background(Color.primary)
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .cornerRadius(16)

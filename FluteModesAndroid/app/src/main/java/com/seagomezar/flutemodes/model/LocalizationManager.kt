@@ -55,7 +55,7 @@ class LocalizationManager(context: Context) {
         "modes_count" to Pair("modos", "modes"),
         "play_piano" to Pair("Reproducir Piano", "Play Piano"),
         "stop_piano" to Pair("Detener Piano", "Stop Piano"),
-        "next_art" to Pair("Siguiente Articulación", "Next Articulation"),
+        "next_art" to Pair("Siguiente Art.", "Next Art."),
         "complete_and_next" to Pair("Completar y Siguiente Modo", "Complete & Next Mode"),
         "seven_modes_completed" to Pair("7 Modos Completados", "7 Modes Completed"),
         "milestone_title" to Pair("¡7 Modos Completados en %s!", "7 Modes Completed in %s!"),
@@ -119,7 +119,8 @@ class LocalizationManager(context: Context) {
         "articulations_title" to Pair("Fórmulas de Articulación", "Articulation Patterns"),
         "arts_completed_badge" to Pair("%d/8 arts. completadas", "%d/8 arts. completed"),
         "next_mode" to Pair("Siguiente Modo", "Next Mode"),
-        "mode_fully_done" to Pair("Modo Completado (8/8 arts.)", "Mode Completed (8/8 arts.)"),
+        "mode_done" to Pair("Modo Listo", "Mode Done"),
+        "mode_fully_done" to Pair("Modo Completado", "Mode Completed"),
         "legend_completed" to Pair("Completado (8/8 arts.)", "Completed (8/8 arts)"),
         "legend_in_progress" to Pair("En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"),
         "legend_not_started" to Pair("No iniciado (0/8 arts.)", "Not started (0/8 arts)")
