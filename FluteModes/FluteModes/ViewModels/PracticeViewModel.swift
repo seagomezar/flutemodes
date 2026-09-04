@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import UIKit
 
 public class PracticeViewModel: ObservableObject {
     @Published public var store: PracticeStore
@@ -12,6 +13,12 @@ public class PracticeViewModel: ObservableObject {
 
     @Published public var currentAbcScore: String = ""
     @Published public var showCompletionDialog: Bool = false
+    @Published public var keepScreenAwake: Bool {
+        didSet {
+            UserDefaults.standard.set(keepScreenAwake, forKey: "FluteModes_keepScreenAwake")
+            updateScreenAwake()
+        }
+    }
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -23,6 +30,9 @@ public class PracticeViewModel: ObservableObject {
         self.store = store
         self.metronome = metronome
         self.scorePlayer = scorePlayer
+
+        let savedAwake = UserDefaults.standard.object(forKey: "FluteModes_keepScreenAwake") as? Bool ?? true
+        self.keepScreenAwake = savedAwake
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
@@ -178,5 +188,11 @@ public class PracticeViewModel: ObservableObject {
             }
         }
         updateScore()
+    }
+
+    public func updateScreenAwake() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = self.keepScreenAwake
+        }
     }
 }

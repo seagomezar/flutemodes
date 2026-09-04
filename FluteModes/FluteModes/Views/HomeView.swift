@@ -184,7 +184,7 @@ public struct HomeView: View {
                             Divider()
 
                             HStack {
-                                Label("Sonido de Clic", systemImage: viewModel.metronome.isAudioMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+                                Label(loc.t("click_sound"), systemImage: viewModel.metronome.isAudioMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
                                 Spacer()
                                 Toggle("", isOn: Binding(
                                     get: { !viewModel.metronome.isAudioMuted },
@@ -194,6 +194,28 @@ public struct HomeView: View {
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 12)
+
+                            Divider()
+
+                            HStack {
+                                Label {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(loc.t("keep_screen_awake"))
+                                            .font(.body)
+                                        Text(loc.t("keep_screen_awake_desc"))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                } icon: {
+                                    Image(systemName: viewModel.keepScreenAwake ? "sun.max.fill" : "moon.fill")
+                                        .foregroundColor(viewModel.keepScreenAwake ? .orange : .secondary)
+                                }
+                                Spacer()
+                                Toggle("", isOn: $viewModel.keepScreenAwake)
+                                    .labelsHidden()
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 10)
                         }
                         .background(Color(uiColor: .secondarySystemGroupedBackground))
                         .cornerRadius(16)

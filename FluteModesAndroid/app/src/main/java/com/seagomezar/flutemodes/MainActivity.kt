@@ -36,6 +36,15 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FluteModesTheme {
+                // Keep screen awake if setting is enabled
+                LaunchedEffect(store.keepScreenAwake) {
+                    if (store.keepScreenAwake) {
+                        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    } else {
+                        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    }
+                }
+
                 Surface(modifier = Modifier.fillMaxSize()) {
                     var currentScreen by remember { mutableStateOf<Screen>(Screen.Home) }
 

@@ -105,6 +105,13 @@ class LocalizationManager(context: Context) {
             "This action will erase all completed practice records and restart from scratch."
         ),
         "cancel" to Pair("Cancelar", "Cancel"),
-        "delete" to Pair("Borrar", "Delete")
+        "delete" to Pair("Borrar", "Delete"),
+
+        // Settings
+        "settings_title" to Pair("Ajustes de Estudio", "Practice Settings"),
+        "keep_screen_awake" to Pair("Mantener pantalla activa", "Keep screen awake"),
+        "keep_screen_awake_desc" to Pair("Evita que el dispositivo entre en modo reposo", "Prevents device from sleeping during practice"),
+        "metronome_title" to Pair("Metrónomo (Blanca)", "Metronome (Half note)"),
+        "click_sound" to Pair("Sonido de Clic", "Click Sound")
     )
 }

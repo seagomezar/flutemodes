@@ -122,6 +122,13 @@ public class LocalizationManager: ObservableObject {
             "This action will erase all completed practice records and restart from scratch."
         ],
         "cancel": ["Cancelar", "Cancel"],
-        "delete": ["Borrar", "Delete"]
+        "delete": ["Borrar", "Delete"],
+
+        // Settings
+        "settings_title": ["Ajustes de Estudio", "Practice Settings"],
+        "keep_screen_awake": ["Mantener pantalla activa", "Keep screen awake"],
+        "keep_screen_awake_desc": ["Evita que el dispositivo entre en modo reposo", "Prevents device from sleeping during practice"],
+        "metronome_title": ["Metrónomo (Blanca)", "Metronome (Half note)"],
+        "click_sound": ["Sonido de Clic", "Click Sound"]
     ]
 }

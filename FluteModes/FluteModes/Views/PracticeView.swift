@@ -62,10 +62,17 @@ public struct PracticeView: View {
         }
         .onAppear {
             viewModel.updateScore()
+            if viewModel.keepScreenAwake {
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+        }
+        .onChange(of: viewModel.keepScreenAwake) { isAwake in
+            UIApplication.shared.isIdleTimerDisabled = isAwake
         }
         .onDisappear {
             scorePlayer.stop()
             metronome.stop()
+            UIApplication.shared.isIdleTimerDisabled = false
         }
         .confirmationDialog(
             String(format: loc.t("milestone_title"), viewModel.currentTonic.rawValue),

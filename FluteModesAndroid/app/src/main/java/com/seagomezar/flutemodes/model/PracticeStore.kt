@@ -16,6 +16,14 @@ class PracticeStore(context: Context) {
     var lastMode by mutableStateOf<ModeType?>(null)
     var lastArticulation by mutableStateOf<ArticulationPattern?>(null)
 
+    var keepScreenAwake by mutableStateOf(prefs.getBoolean("keep_screen_awake", true))
+        private set
+
+    fun setKeepScreenAwakeState(enabled: Boolean) {
+        keepScreenAwake = enabled
+        prefs.edit().putBoolean("keep_screen_awake", enabled).apply()
+    }
+
     init {
         loadProgress()
     }
