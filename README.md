@@ -4,17 +4,19 @@
 > *Basado en el canon de Paul Taffanel & Philippe Gaubert (E.J. 4) y el Sistema Paralelo del Maestro León Giraldo.*
 
 [![iOS / iPadOS](https://img.shields.io/badge/Platform-iOS%20%7C%20iPadOS%2017.0%2B-blue?logo=apple)](https://developer.apple.com)
-[![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-orange?logo=swift)](https://swift.org)
-[![Audio](https://img.shields.io/badge/Audio-AVAudioEngine%20Physical%20Synth-purple)](https://developer.apple.com/documentation/avfaudio)
+[![Android](https://img.shields.io/badge/Platform-Android%207.0%2B%20%28API%2024%2B%29-green?logo=android)](https://seagomezar.github.io/flutemodes/downloads/apk/FluteModes-v1.0-release.apk)
+[![SwiftUI & Compose](https://img.shields.io/badge/UI-SwiftUI%20%26%20Jetpack%20Compose-orange)](https://developer.android.com/compose)
+[![Audio](https://img.shields.io/badge/Audio-AVAudioEngine%20%26%20AudioTrack%20Synth-purple)](https://developer.apple.com/documentation/avfaudio)
 [![GitHub Pages](https://img.shields.io/badge/Landing%20Page-Live%20on%20GitHub%20Pages-emerald)](https://seagomezar.github.io/flutemodes/)
-[![Privacy Compliant](https://img.shields.io/badge/Privacy-100%25%20Apple%20Compliant-success)](https://seagomezar.github.io/flutemodes/privacy.html)
+[![Privacy Compliant](https://img.shields.io/badge/Privacy-100%25%20Offline%20%26%20Private-success)](https://seagomezar.github.io/flutemodes/privacy.html)
 
 ---
 
 ## 🌐 Enlaces Oficiales / Official Links
 
 - 🌟 **Sitio Web Oficial & Landing Page:** [https://seagomezar.github.io/flutemodes/](https://seagomezar.github.io/flutemodes/)
-- 🔒 **Política de Privacidad (Apple Compliant):** [https://seagomezar.github.io/flutemodes/privacy.html](https://seagomezar.github.io/flutemodes/privacy.html)
+- 🤖 **Descarga Directa APK Android (Firmada y Lista):** [FluteModes-v1.0-release.apk](FluteModes-v1.0-release.apk)
+- 🔒 **Política de Privacidad (Apple & Google Compliant):** [https://seagomezar.github.io/flutemodes/privacy.html](https://seagomezar.github.io/flutemodes/privacy.html)
 - 🤝 **Centro de Soporte y Ayuda:** [https://seagomezar.github.io/flutemodes/support.html](https://seagomezar.github.io/flutemodes/support.html)
 - 📘 **Descarga Directa: Método Completo en PDF (36 Págs):** [metodo_completo_modos_flauta.pdf](docs/downloads/pdf/metodo_completo_modos_flauta.pdf)
 
@@ -22,7 +24,7 @@
 
 ## 🇪🇸 Descripción en Español
 
-**FluteModes** es una aplicación nativa para iPad y un compendio pedagógico diseñado para transformar el estudio técnico de la flauta traversa. Tomando como base la estructura periódica del célebre **Ejercicio Diario N° 4** de Paul Taffanel y Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes aplica el **Sistema Paralelo del Maestro León Giraldo** a lo largo de las 12 notas cromáticas.
+**FluteModes** es una aplicación nativa para iPhone, iPad y dispositivos Android (teléfonos y tablets) y un compendio pedagógico diseñado para transformar el estudio técnico de la flauta traversa. Tomando como base la estructura periódica del célebre **Ejercicio Diario N° 4** de Paul Taffanel y Philippe Gaubert (*17 Grands Exercices Journaliers de Mécanisme*), FluteModes aplica el **Sistema Paralelo del Maestro León Giraldo** a lo largo de las 12 notas cromáticas.
 
 ### 🌟 Características Principales
 

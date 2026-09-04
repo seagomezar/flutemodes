@@ -25,6 +25,13 @@ xcuserdata/
 *.png
 !docs/*.png
 !assets/*.png
+!FluteModesAndroid/app/src/main/res/**/*.png
+!FluteModes/FluteModes/Resources/**/*.png
+.gradle/
+**/build/
+*.iml
+.idea/
+local.properties
 test_*
 tg_*
 thumb_*
