@@ -227,7 +227,7 @@ final class FluteModesTests: XCTestCase {
             }
             let midiNotes = ExerciseGenerator.ej4SectionMidiNotes[sec.id]
             let expectedNotes = sec.id < 24 ? 128 : 29
-            XCTAssertEqual(midiNotes.count, expectedNotes, "Section \(sec.shortTitle) should generate \(expectedNotes) MIDI notes")
+            XCTAssertEqual(midiNotes.count, expectedNotes, "Section \(sec.shortName) should generate \(expectedNotes) MIDI notes")
         }
     }
 
@@ -293,12 +293,12 @@ final class FluteModesTests: XCTestCase {
         XCTAssertEqual(store.r5CompletedCount, 0)
 
         for art in EJ5Articulation.practiceCases {
-            store.markR1Completed(art)
-            store.markR5Completed(art)
+            store.markEJ5TypeCompleted(art, for: .r1)
+            store.markEJ5TypeCompleted(art, for: .r5)
         }
         for art in EJ4Articulation.practiceCases {
-            store.markR2Completed(art)
-            store.markR4Completed(art)
+            store.markEJ4Completed(art, for: .r2)
+            store.markEJ4Completed(art, for: .r4)
         }
 
         XCTAssertEqual(store.r1CompletedCount, 10)
@@ -306,10 +306,242 @@ final class FluteModesTests: XCTestCase {
         XCTAssertEqual(store.r4CompletedCount, 8)
         XCTAssertEqual(store.r5CompletedCount, 10)
         XCTAssertTrue(store.isR1FullyCompleted)
-        XCTAssertTrue(store.isR2FullyCompleted)
-        XCTAssertTrue(store.isR4FullyCompleted)
+        XCTAssertTrue(store.isEJ4TypeFullyCompleted(for: .r2))
+        XCTAssertTrue(store.isEJ4TypeFullyCompleted(for: .r4))
         XCTAssertTrue(store.isR5FullyCompleted)
     }
+
+    func testEJ5AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        XCTAssertEqual(EJ5Section.all.count, 12, "E. J. 5 must have 12 chromatic sections")
+        XCTAssertEqual(ExerciseGenerator.ej5SectionMidiNotes.count, 12, "E. J. 5 must have 12 MIDI note arrays")
+
+        for sec in EJ5Section.all {
+            let notes = ExerciseGenerator.ej5SectionMidiNotes[sec.id]
+            XCTAssertEqual(notes.count, 49, "E. J. 5 section \(sec.shortName) must have 49 notes")
+
+            // Flute pitch range safety
+            for midi in notes {
+                XCTAssertGreaterThanOrEqual(midi, 59, "MIDI \(midi) in E.J. 5 \(sec.shortName) must be >= 59 (B3)")
+                XCTAssertLessThanOrEqual(midi, 98, "MIDI \(midi) in E.J. 5 \(sec.shortName) must be <= 98 (D7)")
+            }
+
+            // Root pitch check: section starts on root, reaches apex at index 24, returns to root
+            XCTAssertEqual(notes.first, 60 + sec.id, "E. J. 5 section \(sec.shortName) must start on root")
+            XCTAssertEqual(notes[24], 84 + sec.id, "E. J. 5 section \(sec.shortName) apex note at index 24")
+            XCTAssertEqual(notes.last, 60 + sec.id, "E. J. 5 section \(sec.shortName) must return to root")
+
+            for art in EJ5Articulation.allCases {
+                let ej5Abc = ExerciseGenerator.generateEJ5ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 96)
+                XCTAssertTrue(ej5Abc.contains("% EJ5_LEDUC_ART:\(art.rawValue):SEC:\(sec.id)"), "ABC must contain EJ5_LEDUC_ART header")
+                XCTAssertTrue(ej5Abc.contains("M:6/8"), "E. J. 5 must have 6/8 meter")
+                XCTAssertTrue(ej5Abc.contains("L:1/16"), "E. J. 5 must have 1/16 unit note length")
+                XCTAssertTrue(ej5Abc.contains("Q:1/4=96"), "E. J. 5 must have tempo Q:1/4=96")
+                XCTAssertTrue(ej5Abc.contains("K:C"), "E. J. 5 must have key K:C")
+            }
+        }
+    }
+
+    func testEJ5PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.ej5CompletedCount, 0)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej5), 0)
+        XCTAssertFalse(store.isEJ5FullyCompleted)
+        XCTAssertFalse(store.isEJ5TypeFullyCompleted(for: .ej5))
+
+        for art in EJ5Articulation.practiceCases {
+            XCTAssertFalse(store.isEJ5TypeCompleted(art, for: .ej5))
+            store.markEJ5TypeCompleted(art, for: .ej5)
+            XCTAssertTrue(store.isEJ5TypeCompleted(art, for: .ej5))
+        }
+
+        XCTAssertEqual(store.ej5CompletedCount, 10)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej5), 10)
+        XCTAssertTrue(store.isEJ5FullyCompleted)
+        XCTAssertTrue(store.isEJ5TypeFullyCompleted(for: .ej5))
+
+        // Toggle test
+        store.toggleEJ5TypeCompleted(.allSlurred, for: .ej5)
+        XCTAssertFalse(store.isEJ5TypeCompleted(.allSlurred, for: .ej5))
+        XCTAssertEqual(store.ej5CompletedCount, 9)
+        XCTAssertFalse(store.isEJ5FullyCompleted)
+
+        store.toggleEJ5TypeCompleted(.allSlurred, for: .ej5)
+        XCTAssertTrue(store.isEJ5TypeCompleted(.allSlurred, for: .ej5))
+        XCTAssertEqual(store.ej5CompletedCount, 10)
+        XCTAssertTrue(store.isEJ5FullyCompleted)
+    }
+
+    func testEJ10AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        XCTAssertEqual(EJ10Section.all.count, 12, "E. J. 10 must have 12 series sections")
+        XCTAssertEqual(ExerciseGenerator.ej10SectionMidiNotes.count, 12, "E. J. 10 must have 12 MIDI note arrays")
+
+        for sec in EJ10Section.all {
+            let notes = ExerciseGenerator.ej10SectionMidiNotes[sec.id]
+            let expectedNotes = (sec.id < 11) ? 120 : 121
+            XCTAssertEqual(notes.count, expectedNotes, "E. J. 10 section \(sec.shortName) must have \(expectedNotes) notes")
+
+            // Flute pitch range safety
+            for midi in notes {
+                XCTAssertGreaterThanOrEqual(midi, 59, "MIDI \(midi) in E.J. 10 \(sec.shortName) must be >= 59 (B3)")
+                XCTAssertLessThanOrEqual(midi, 98, "MIDI \(midi) in E.J. 10 \(sec.shortName) must be <= 98 (D7)")
+            }
+
+            for art in EJ5Articulation.allCases {
+                let ej10Abc = ExerciseGenerator.generateEJ10ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 96)
+                XCTAssertTrue(ej10Abc.contains("% EJ10_LEDUC_ART:\(art.rawValue):SEC:\(sec.id)"), "ABC must contain EJ10_LEDUC_ART header")
+                XCTAssertTrue(ej10Abc.contains("M:6/8"), "E. J. 10 must have 6/8 meter")
+                XCTAssertTrue(ej10Abc.contains("L:1/16"), "E. J. 10 must have 1/16 unit note length")
+                XCTAssertTrue(ej10Abc.contains("Q:1/4=96"), "E. J. 10 must have tempo Q:1/4=96")
+                XCTAssertTrue(ej10Abc.contains("K:C"), "E. J. 10 must have key K:C")
+            }
+        }
+    }
+
+    func testEJ10PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.ej10CompletedCount, 0)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej10), 0)
+        XCTAssertFalse(store.isEJ10FullyCompleted)
+        XCTAssertFalse(store.isEJ5TypeFullyCompleted(for: .ej10))
+
+        for art in EJ5Articulation.practiceCases {
+            XCTAssertFalse(store.isEJ5TypeCompleted(art, for: .ej10))
+            store.markEJ5TypeCompleted(art, for: .ej10)
+            XCTAssertTrue(store.isEJ5TypeCompleted(art, for: .ej10))
+        }
+
+        XCTAssertEqual(store.ej10CompletedCount, 10)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej10), 10)
+        XCTAssertTrue(store.isEJ10FullyCompleted)
+        XCTAssertTrue(store.isEJ5TypeFullyCompleted(for: .ej10))
+
+        // Toggle test
+        store.toggleEJ5TypeCompleted(.allStaccato, for: .ej10)
+        XCTAssertFalse(store.isEJ5TypeCompleted(.allStaccato, for: .ej10))
+        XCTAssertEqual(store.ej10CompletedCount, 9)
+        XCTAssertFalse(store.isEJ10FullyCompleted)
+
+        store.toggleEJ5TypeCompleted(.allStaccato, for: .ej10)
+        XCTAssertTrue(store.isEJ5TypeCompleted(.allStaccato, for: .ej10))
+        XCTAssertEqual(store.ej10CompletedCount, 10)
+        XCTAssertTrue(store.isEJ10FullyCompleted)
+    }
+
+    func testEJ11AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        XCTAssertEqual(EJ10Section.all.count, 12, "E. J. 11 must have 12 series sections")
+        XCTAssertEqual(ExerciseGenerator.ej11SectionMidiNotes.count, 12, "E. J. 11 must have 12 MIDI note arrays")
+
+        for sec in EJ10Section.all {
+            let notes = ExerciseGenerator.ej11SectionMidiNotes[sec.id]
+            let expectedNotes = (sec.id < 11) ? 180 : 181
+            XCTAssertEqual(notes.count, expectedNotes, "E. J. 11 section \(sec.shortName) must have \(expectedNotes) notes")
+
+            // Flute pitch range safety
+            for midi in notes {
+                XCTAssertGreaterThanOrEqual(midi, 59, "MIDI \(midi) in E.J. 11 \(sec.shortName) must be >= 59 (B3)")
+                XCTAssertLessThanOrEqual(midi, 98, "MIDI \(midi) in E.J. 11 \(sec.shortName) must be <= 98 (D7)")
+            }
+
+            for art in EJ5Articulation.allCases {
+                let ej11Abc = ExerciseGenerator.generateEJ11ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 96)
+                XCTAssertTrue(ej11Abc.contains("% EJ11_LEDUC_ART:\(art.rawValue):SEC:\(sec.id)"), "ABC must contain EJ11_LEDUC_ART header")
+                XCTAssertTrue(ej11Abc.contains("M:9/8"), "E. J. 11 must have 9/8 meter")
+                XCTAssertTrue(ej11Abc.contains("L:1/16"), "E. J. 11 must have 1/16 unit note length")
+                XCTAssertTrue(ej11Abc.contains("Q:1/4=96"), "E. J. 11 must have tempo Q:1/4=96")
+                XCTAssertTrue(ej11Abc.contains("K:C"), "E. J. 11 must have key K:C")
+            }
+        }
+    }
+
+    func testEJ11PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.ej11CompletedCount, 0)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej11), 0)
+        XCTAssertFalse(store.isEJ11FullyCompleted)
+        XCTAssertFalse(store.isEJ5TypeFullyCompleted(for: .ej11))
+
+        for art in EJ5Articulation.practiceCases {
+            XCTAssertFalse(store.isEJ5TypeCompleted(art, for: .ej11))
+            store.markEJ5TypeCompleted(art, for: .ej11)
+            XCTAssertTrue(store.isEJ5TypeCompleted(art, for: .ej11))
+        }
+
+        XCTAssertEqual(store.ej11CompletedCount, 10)
+        XCTAssertEqual(store.ej5TypeCompletedCount(for: .ej11), 10)
+        XCTAssertTrue(store.isEJ11FullyCompleted)
+        XCTAssertTrue(store.isEJ5TypeFullyCompleted(for: .ej11))
+
+        // Toggle test
+        store.toggleEJ5TypeCompleted(.pairsSlurred, for: .ej11)
+        XCTAssertFalse(store.isEJ5TypeCompleted(.pairsSlurred, for: .ej11))
+        XCTAssertEqual(store.ej11CompletedCount, 9)
+        XCTAssertFalse(store.isEJ11FullyCompleted)
+
+        store.toggleEJ5TypeCompleted(.pairsSlurred, for: .ej11)
+        XCTAssertTrue(store.isEJ5TypeCompleted(.pairsSlurred, for: .ej11))
+        XCTAssertEqual(store.ej11CompletedCount, 10)
+        XCTAssertTrue(store.isEJ11FullyCompleted)
+    }
+
+    func testAll11ModulesPitchRangeAndSafety() {
+        // 1. Modos (tested across all 84 in testFlutePitchRangeSafety)
+        // 2 & 3. E.J. 1 & 2 (MIDI range confirmed in measures)
+        // 4. E.J. 4 (25 sections)
+        for sec in EJ4Section.all {
+            for midi in ExerciseGenerator.ej4SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "EJ4 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 5. E.J. 5 (12 sections)
+        for sec in EJ5Section.all {
+            for midi in ExerciseGenerator.ej5SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "EJ5 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 6. E.J. 10 (12 sections)
+        for sec in EJ10Section.all {
+            for midi in ExerciseGenerator.ej10SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "EJ10 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 7. E.J. 11 (12 sections)
+        for sec in EJ10Section.all {
+            for midi in ExerciseGenerator.ej11SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "EJ11 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 8. R. 1 (25 sections)
+        for sec in EJ4Section.all {
+            for midi in ExerciseGenerator.r1SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "R1 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 9. R. 2 (25 sections)
+        for sec in EJ4Section.all {
+            for midi in ExerciseGenerator.r2SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "R2 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 10. R. 4 (25 sections)
+        for sec in EJ4Section.all {
+            for midi in ExerciseGenerator.r4SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "R4 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+        // 11. R. 5 (25 sections)
+        for sec in EJ4Section.all {
+            for midi in ExerciseGenerator.r5SectionMidiNotes[sec.id] {
+                XCTAssertTrue((59...98).contains(midi), "R5 sec \(sec.id) pitch \(midi) out of flute bounds")
+            }
+        }
+    }
 }
+
 
 

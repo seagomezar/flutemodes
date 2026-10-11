@@ -33,7 +33,7 @@ fun HomeScreen(
     onStartEJ5Practice: (EJ5Articulation, EJ5Section) -> Unit,
     onStartEJ10Practice: (EJ5Articulation, EJ10Section) -> Unit,
     onStartEJ11Practice: (EJ5Articulation, EJ10Section) -> Unit,
-    onStartReichertPractice: (ExerciseType) -> Unit = {},
+    onStartReichertPractice: (ExerciseType, Any, Any) -> Unit = { _, _, _ -> },
     onOpenMatrix: () -> Unit
 ) {
     var selectedExercise by remember { mutableStateOf(store.lastExerciseType) }
@@ -489,12 +489,12 @@ fun HomeScreen(
                                 ExerciseType.R2 -> {
                                     selectedR2Art = art
                                     store.lastR2Articulation = art
-                                    onStartReichertPractice(ex)
+                                    onStartReichertPractice(ex, art, selectedR2Section)
                                 }
                                 ExerciseType.R4 -> {
                                     selectedR4Art = art
                                     store.lastR4Articulation = art
-                                    onStartReichertPractice(ex)
+                                    onStartReichertPractice(ex, art, selectedR4Section)
                                 }
                                 else -> {
                                     selectedEJ4Art = art
@@ -583,7 +583,9 @@ fun HomeScreen(
                 Button(
                     onClick = {
                         if (ex.isReichertExercise) {
-                            onStartReichertPractice(ex)
+                            val curArt = if (ex == ExerciseType.R2) selectedR2Art else selectedR4Art
+                            val curSec = if (ex == ExerciseType.R2) selectedR2Section else selectedR4Section
+                            onStartReichertPractice(ex, curArt, curSec)
                         } else {
                             onStartEJ4Practice(selectedEJ4Art, selectedEJ4Section)
                         }
@@ -812,12 +814,12 @@ fun HomeScreen(
                                 ExerciseType.R1 -> {
                                     selectedR1Art = art
                                     store.lastR1Articulation = art
-                                    onStartReichertPractice(ex)
+                                    onStartReichertPractice(ex, art, selectedR1Section)
                                 }
                                 ExerciseType.R5 -> {
                                     selectedR5Art = art
                                     store.lastR5Articulation = art
-                                    onStartReichertPractice(ex)
+                                    onStartReichertPractice(ex, art, selectedR5Section)
                                 }
                                 else -> {}
                             }
@@ -906,7 +908,8 @@ fun HomeScreen(
                             ExerciseType.EJ5 -> onStartEJ5Practice(selectedEJ5Art, selectedEJ5Section)
                             ExerciseType.EJ10 -> onStartEJ10Practice(selectedEJ10Art, selectedEJ10Section)
                             ExerciseType.EJ11 -> onStartEJ11Practice(selectedEJ11Art, selectedEJ11Section)
-                            ExerciseType.R1, ExerciseType.R5 -> onStartReichertPractice(ex)
+                            ExerciseType.R1 -> onStartReichertPractice(ex, selectedR1Art, selectedR1Section)
+                            ExerciseType.R5 -> onStartReichertPractice(ex, selectedR5Art, selectedR5Section)
                             else -> {}
                         }
                     },

@@ -212,6 +212,7 @@ class LocalizationManager(context: Context) {
         ),
         "ej4_restart_round" to Pair("🔁 Reiniciar las 8 Articulaciones", "🔁 Restart 8 Articulations"),
         "ej4_go_to_modos" to Pair("🎵 Ir a 84 Modos Paralelos (León Giraldo)", "🎵 Go to 84 Parallel Modes (León Giraldo)"),
+        "ej4_next_section" to Pair("Siguiente Tonalidad", "Next Tonality"),
 
         // E.J. 5 Urtext Taffanel & Gaubert (A. L. 16.588, p. 115)
         "ej5_title" to Pair(
@@ -235,6 +236,15 @@ class LocalizationManager(context: Context) {
             "The 10 Official Articulations (E. J. 5)"
         ),
         "ej5_start_practice" to Pair("Practicar E. J. 5 (Urtext)", "Practice E. J. 5 (Urtext)"),
+        "ej5_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+        "ej5_milestone_title" to Pair("¡E. J. 5 Completado (10/10 Articulaciones)!", "E. J. 5 Completed (10/10 Articulations)!"),
+        "ej5_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 5 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 5."
+        ),
+        "ej5_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "ej5_go_to_ej10" to Pair("🎵 Ir a E. J. 10 (Arpegios)", "🎵 Go to E. J. 10 (Arpeggios)"),
+        "ej5_next_section" to Pair("Siguiente Escala (Cromática)", "Next Scale (Chromatic)"),
 
         // E.J. 10 Urtext Taffanel & Gaubert (A. L. 16.588, pp. 120–121)
         "ej10_title" to Pair(
@@ -258,6 +268,15 @@ class LocalizationManager(context: Context) {
             "The 10 Official Articulations (E. J. 10)"
         ),
         "ej10_start_practice" to Pair("Practicar E. J. 10 (Urtext)", "Practice E. J. 10 (Urtext)"),
+        "ej10_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+        "ej10_milestone_title" to Pair("¡E. J. 10 Completado (10/10 Articulaciones)!", "E. J. 10 Completed (10/10 Articulations)!"),
+        "ej10_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 10 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 10."
+        ),
+        "ej10_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "ej10_go_to_ej11" to Pair("🎵 Ir a E. J. 11 (Arpegios Quebrados)", "🎵 Go to E. J. 11 (Broken Arpeggios)"),
+        "ej10_next_section" to Pair("Siguiente Serie de Arpegios", "Next Arpeggio Series"),
 
         // E.J. 11 Urtext Taffanel & Gaubert (A. L. 16.588, pp. 122–125)
         "ej11_title" to Pair(
@@ -281,6 +300,15 @@ class LocalizationManager(context: Context) {
             "The 10 Official Articulations (E. J. 11)"
         ),
         "ej11_start_practice" to Pair("Practicar E. J. 11 (Urtext)", "Practice E. J. 11 (Urtext)"),
+        "ej11_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+        "ej11_milestone_title" to Pair("¡E. J. 11 Completado (10/10 Articulaciones)!", "E. J. 11 Completed (10/10 Articulations)!"),
+        "ej11_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 11 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 11."
+        ),
+        "ej11_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "ej11_go_to_r1" to Pair("🎵 Ir a Reichert 1 (Op. 5)", "🎵 Go to Reichert 1 (Op. 5)"),
+        "ej11_next_section" to Pair("Siguiente Serie de Arpegios Quebrados", "Next Broken Arpeggio Series"),
 
         // Reichert 7 Exercices Journaliers Op. 5 (B. Schott's Söhne 20623)
         "r1_title" to Pair(
@@ -346,6 +374,53 @@ class LocalizationManager(context: Context) {
         "r5_select_section" to Pair("25 Secciones Tonales (200 Compases · R. 5)", "25 Tonal Sections (200 Measures · R. 5)"),
         "r5_select_art" to Pair("Las 10 Articulaciones de Práctica (R. 5)", "The 10 Practice Articulations (R. 5)"),
         "r5_start_practice" to Pair("Practicar R. 5 (Reichert Op. 5)", "Practice R. 5 (Reichert Op. 5)"),
+        // Reichert Completion & Milestones
+        "r1_milestone_title" to Pair("¡Reichert 1 Completado (10/10 Articulaciones)!", "Reichert 1 Completed (10/10 Articulations)!"),
+        "r1_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones de Reichert Nº 1 Op. 5.",
+            "You have completed all 10 articulations of Reichert No. 1 Op. 5."
+        ),
+        "r1_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "r1_go_to_r2" to Pair("🎵 Ir a Reichert 2 (Op. 5)", "🎵 Go to Reichert 2 (Op. 5)"),
+        "r1_next_section" to Pair("Siguiente Tonalidad (6/8)", "Next Key (6/8)"),
+        "r1_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+
+        "r2_milestone_title" to Pair("¡Reichert 2 Completado (8/8 Articulaciones)!", "Reichert 2 Completed (8/8 Articulations)!"),
+        "r2_milestone_msg" to Pair(
+            "Has completado las 8 articulaciones de Reichert Nº 2 Op. 5.",
+            "You have completed all 8 articulations of Reichert No. 2 Op. 5."
+        ),
+        "r2_restart_round" to Pair("🔁 Reiniciar las 8 Articulaciones", "🔁 Restart 8 Articulations"),
+        "r2_go_to_r4" to Pair("🎵 Ir a Reichert 4 (Op. 5)", "🎵 Go to Reichert 4 (Op. 5)"),
+        "r2_next_section" to Pair("Siguiente Tonalidad (2/4)", "Next Key (2/4)"),
+        "r2_eight_arts_completed" to Pair("8 Articulaciones Completadas", "8 Articulations Completed"),
+
+        "r4_milestone_title" to Pair("¡Reichert 4 Completado (8/8 Articulaciones)!", "Reichert 4 Completed (8/8 Articulations)!"),
+        "r4_milestone_msg" to Pair(
+            "Has completado las 8 articulaciones de Reichert Nº 4 Op. 5.",
+            "You have completed all 8 articulations of Reichert No. 4 Op. 5."
+        ),
+        "r4_restart_round" to Pair("🔁 Reiniciar las 8 Articulaciones", "🔁 Restart 8 Articulations"),
+        "r4_go_to_r5" to Pair("🎵 Ir a Reichert 5 (Op. 5)", "🎵 Go to Reichert 5 (Op. 5)"),
+        "r4_next_section" to Pair("Siguiente Tonalidad (4/4)", "Next Key (4/4)"),
+        "r4_eight_arts_completed" to Pair("8 Articulaciones Completadas", "8 Articulations Completed"),
+
+        "r5_milestone_title" to Pair("¡Reichert 5 Completado (10/10 Articulaciones)!", "Reichert 5 Completed (10/10 Articulations)!"),
+        "r5_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones de Reichert Nº 5 Op. 5.",
+            "You have completed all 10 articulations of Reichert No. 5 Op. 5."
+        ),
+        "r5_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "r5_next_section" to Pair("Siguiente Tonalidad (Tresillos)", "Next Key (Triplets)"),
+        "r5_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+
+        "r_milestone_title" to Pair("¡Hito de Articulaciones Reichert Op. 5!", "Reichert Op. 5 Articulation Milestone!"),
+        "r_milestone_msg" to Pair(
+            "Has completado todas las articulaciones de esta sección de Reichert.",
+            "You completed all articulations for this Reichert section."
+        ),
+        "r_restart_round" to Pair("🔁 Reiniciar Ronda", "🔁 Restart Round"),
+        "modos_pill_label" to Pair("84 Modos", "84 Modes"),
 
         "ej1_art_0_title" to Pair("0. Edición Original Leduc (4 ligadas + 4 picadas)", "0. Original Leduc Edition (4 slurred + 4 staccato)"),
         "ej1_art_1_title" to Pair("1. Ocho notas ligadas", "1. Eight notes slurred"),

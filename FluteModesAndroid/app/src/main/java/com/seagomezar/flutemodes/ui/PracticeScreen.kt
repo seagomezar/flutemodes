@@ -41,6 +41,14 @@ fun PracticeScreen(
     initialEJ10Section: EJ10Section = EJ10Section.C_ARP,
     initialEJ11Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
     initialEJ11Section: EJ10Section = EJ10Section.C_ARP,
+    initialR1Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+    initialR1Section: EJ4Section = EJ4Section.C_MAJOR,
+    initialR2Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+    initialR2Section: EJ4Section = EJ4Section.C_MAJOR,
+    initialR4Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+    initialR4Section: EJ4Section = EJ4Section.C_MAJOR,
+    initialR5Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+    initialR5Section: EJ4Section = EJ4Section.C_MAJOR,
     initialTonic: Tonic,
     initialMode: ModeType,
     store: PracticeStore,
@@ -61,14 +69,14 @@ fun PracticeScreen(
     var currentEJ10Section by remember { mutableStateOf(initialEJ10Section) }
     var currentEJ11Articulation by remember { mutableStateOf(initialEJ11Articulation) }
     var currentEJ11Section by remember { mutableStateOf(initialEJ11Section) }
-    var currentR1Articulation by remember { mutableStateOf(store.lastR1Articulation) }
-    var currentR1Section by remember { mutableStateOf(store.lastR1Section) }
-    var currentR2Articulation by remember { mutableStateOf(store.lastR2Articulation) }
-    var currentR2Section by remember { mutableStateOf(store.lastR2Section) }
-    var currentR4Articulation by remember { mutableStateOf(store.lastR4Articulation) }
-    var currentR4Section by remember { mutableStateOf(store.lastR4Section) }
-    var currentR5Articulation by remember { mutableStateOf(store.lastR5Articulation) }
-    var currentR5Section by remember { mutableStateOf(store.lastR5Section) }
+    var currentR1Articulation by remember { mutableStateOf(initialR1Articulation) }
+    var currentR1Section by remember { mutableStateOf(initialR1Section) }
+    var currentR2Articulation by remember { mutableStateOf(initialR2Articulation) }
+    var currentR2Section by remember { mutableStateOf(initialR2Section) }
+    var currentR4Articulation by remember { mutableStateOf(initialR4Articulation) }
+    var currentR4Section by remember { mutableStateOf(initialR4Section) }
+    var currentR5Articulation by remember { mutableStateOf(initialR5Articulation) }
+    var currentR5Section by remember { mutableStateOf(initialR5Section) }
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
@@ -79,6 +87,7 @@ fun PracticeScreen(
     var showEJ5CompletionDialog by remember { mutableStateOf(false) }
     var showEJ10CompletionDialog by remember { mutableStateOf(false) }
     var showEJ11CompletionDialog by remember { mutableStateOf(false) }
+    var showReichertCompletionDialog by remember { mutableStateOf(false) }
 
     val currentAbcScore = remember(
         currentExercise,
@@ -315,7 +324,7 @@ fun PracticeScreen(
             onDismissRequest = { showEJ4CompletionDialog = false },
             title = {
                 Text(
-                    text = "¡${currentExercise.pillLabel} Completado (8/8 Articulaciones)!",
+                    text = loc.t("ej4_milestone_title"),
                     fontWeight = FontWeight.Bold
                 )
             },
@@ -330,21 +339,9 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            store.resetEJ4(currentExercise)
-                            when (currentExercise) {
-                                ExerciseType.R2 -> {
-                                    currentR2Articulation = EJ4Articulation.ALL_SLURRED_8
-                                    store.lastR2Articulation = currentR2Articulation
-                                }
-                                ExerciseType.R4 -> {
-                                    currentR4Articulation = EJ4Articulation.ALL_SLURRED_8
-                                    store.lastR4Articulation = currentR4Articulation
-                                }
-                                else -> {
-                                    currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
-                                    store.lastEJ4Articulation = currentEJ4Articulation
-                                }
-                            }
+                            store.resetEJ4(ExerciseType.EJ4)
+                            currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
+                            store.lastEJ4Articulation = currentEJ4Articulation
                             store.saveLastSelection()
                             showEJ4CompletionDialog = false
                         },
@@ -356,26 +353,15 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            val nextEx = when (currentExercise) {
-                                ExerciseType.R2 -> ExerciseType.R4
-                                ExerciseType.R4 -> ExerciseType.R5
-                                else -> ExerciseType.EJ5
-                            }
-                            currentExercise = nextEx
-                            store.lastExerciseType = nextEx
+                            currentExercise = ExerciseType.EJ5
+                            store.lastExerciseType = ExerciseType.EJ5
                             store.saveLastSelection()
                             showEJ4CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
-                        Text(
-                            when (currentExercise) {
-                                ExerciseType.R2 -> loc.t("r4_title")
-                                ExerciseType.R4 -> loc.t("r5_title")
-                                else -> loc.t("ej5_title")
-                            }
-                        )
+                        Text(loc.t("ej5_title"))
                     }
 
                     TextButton(
@@ -502,12 +488,12 @@ fun PracticeScreen(
             onDismissRequest = { showEJ11CompletionDialog = false },
             title = {
                 Text(
-                    text = "¡${currentExercise.pillLabel} Completado (10/10 Articulaciones)!",
+                    text = loc.t("ej11_milestone_title"),
                     fontWeight = FontWeight.Bold
                 )
             },
             text = {
-                Text(text = loc.t("ej1_milestone_msg"))
+                Text(text = loc.t("ej11_milestone_msg"))
             },
             confirmButton = {
                 Column(
@@ -517,56 +503,191 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            store.resetEJ5Type(currentExercise)
-                            when (currentExercise) {
-                                ExerciseType.R1 -> {
-                                    currentR1Articulation = EJ5Articulation.ALL_SLURRED
-                                    store.lastR1Articulation = currentR1Articulation
-                                }
-                                ExerciseType.R5 -> {
-                                    currentR5Articulation = EJ5Articulation.ALL_SLURRED
-                                    store.lastR5Articulation = currentR5Articulation
-                                }
-                                else -> {
-                                    currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
-                                    store.lastEJ11Articulation = currentEJ11Articulation
-                                }
-                            }
+                            store.resetEJ5Type(ExerciseType.EJ11)
+                            currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
+                            store.lastEJ11Articulation = currentEJ11Articulation
                             store.saveLastSelection()
                             showEJ11CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(loc.t("ej1_restart_round"))
+                        Text(loc.t("ej11_restart_round"))
                     }
 
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            val nextEx = when (currentExercise) {
-                                ExerciseType.EJ11 -> ExerciseType.R1
-                                ExerciseType.R1 -> ExerciseType.R2
-                                else -> ExerciseType.MODOS
-                            }
-                            currentExercise = nextEx
-                            store.lastExerciseType = nextEx
+                            currentExercise = ExerciseType.R1
+                            store.lastExerciseType = ExerciseType.R1
                             store.saveLastSelection()
                             showEJ11CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
+                        Text(loc.t("r1_title"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ11CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
+    if (showReichertCompletionDialog) {
+        val totalArts = if (currentExercise.isEJ4Exercise) 8 else 10
+        val curSec = when (currentExercise) {
+            ExerciseType.R1 -> currentR1Section
+            ExerciseType.R2 -> currentR2Section
+            ExerciseType.R4 -> currentR4Section
+            ExerciseType.R5 -> currentR5Section
+            else -> EJ4Section.C_MAJOR
+        }
+        val allSecs = EJ4Section.entries
+        val nextSecIdx = (allSecs.indexOf(curSec) + 1) % allSecs.size
+        val nextSec = allSecs[nextSecIdx]
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+
+        AlertDialog(
+            onDismissRequest = { showReichertCompletionDialog = false },
+            title = {
+                Text(
+                    text = if (isEn)
+                        "${currentExercise.pillLabel} Completed ($totalArts/$totalArts Articulations)!"
+                    else
+                        "¡${currentExercise.pillLabel} Completado ($totalArts/$totalArts Articulaciones)!",
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(
+                    text = if (isEn)
+                        "You have completed all $totalArts articulations of ${currentExercise.pillLabel} (M.-A. Reichert Op. 5) in ${curSec.shortBadge(currentExercise)}."
+                    else
+                        "Has completado las $totalArts articulaciones de ${currentExercise.pillLabel} (M.-A. Reichert Op. 5) en ${curSec.shortBadge(currentExercise)}."
+                )
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // 1. Restart Articulation Round on current key
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            if (currentExercise.isEJ4Exercise) {
+                                store.resetEJ4(currentExercise)
+                                if (currentExercise == ExerciseType.R2) {
+                                    currentR2Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR2Articulation = currentR2Articulation
+                                } else {
+                                    currentR4Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR4Articulation = currentR4Articulation
+                                }
+                            } else {
+                                store.resetEJ5Type(currentExercise)
+                                if (currentExercise == ExerciseType.R1) {
+                                    currentR1Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR1Articulation = currentR1Articulation
+                                } else {
+                                    currentR5Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR5Articulation = currentR5Articulation
+                                }
+                            }
+                            store.saveLastSelection()
+                            showReichertCompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(if (isEn) "🔁 Restart $totalArts Articulations" else "🔁 Reiniciar las $totalArts Articulaciones")
+                    }
+
+                    // 2. Advance to next key (Section 1..25)
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            when (currentExercise) {
+                                ExerciseType.R1 -> {
+                                    currentR1Section = nextSec
+                                    store.lastR1Section = nextSec
+                                    store.resetEJ5Type(ExerciseType.R1)
+                                    currentR1Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR1Articulation = currentR1Articulation
+                                }
+                                ExerciseType.R2 -> {
+                                    currentR2Section = nextSec
+                                    store.lastR2Section = nextSec
+                                    store.resetEJ4(ExerciseType.R2)
+                                    currentR2Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR2Articulation = currentR2Articulation
+                                }
+                                ExerciseType.R4 -> {
+                                    currentR4Section = nextSec
+                                    store.lastR4Section = nextSec
+                                    store.resetEJ4(ExerciseType.R4)
+                                    currentR4Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR4Articulation = currentR4Articulation
+                                }
+                                ExerciseType.R5 -> {
+                                    currentR5Section = nextSec
+                                    store.lastR5Section = nextSec
+                                    store.resetEJ5Type(ExerciseType.R5)
+                                    currentR5Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR5Articulation = currentR5Articulation
+                                }
+                                else -> {}
+                            }
+                            store.saveLastSelection()
+                            showReichertCompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(
+                            if (isEn)
+                                "🎵 Next Key (${nextSecIdx + 1}/25 · ${nextSec.shortBadge(currentExercise)})"
+                            else
+                                "🎵 Siguiente Tonalidad (${nextSecIdx + 1}/25 · ${nextSec.shortBadge(currentExercise)})"
+                        )
+                    }
+
+                    // 3. Advance to next exercise
+                    val nextEx = when (currentExercise) {
+                        ExerciseType.R1 -> ExerciseType.R2
+                        ExerciseType.R2 -> ExerciseType.R4
+                        ExerciseType.R4 -> ExerciseType.R5
+                        else -> ExerciseType.MODOS
+                    }
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = nextEx
+                            store.lastExerciseType = nextEx
+                            store.saveLastSelection()
+                            showReichertCompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary)
+                    ) {
                         Text(
                             when (currentExercise) {
-                                ExerciseType.EJ11 -> loc.t("r1_title")
                                 ExerciseType.R1 -> loc.t("r2_title")
+                                ExerciseType.R2 -> loc.t("r4_title")
+                                ExerciseType.R4 -> loc.t("r5_title")
                                 else -> loc.t("ej4_go_to_modos")
                             }
                         )
                     }
 
+                    // 4. Stay / Dismiss
                     TextButton(
-                        onClick = { showEJ11CompletionDialog = false },
+                        onClick = { showReichertCompletionDialog = false },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(loc.t("stay_mode"))
@@ -1154,6 +1275,7 @@ fun PracticeScreen(
             ) {
                 ScoreWebView(
                     abcString = currentAbcScore,
+                    highlightedNoteIndex = scorePlayer.currentNoteIndex,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -1925,8 +2047,13 @@ fun PracticeScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(5.dp)
                                 ) {
+                                    val nextSectionLabel = when (currentExercise) {
+                                        ExerciseType.R2 -> loc.t("r2_next_section")
+                                        ExerciseType.R4 -> loc.t("r4_next_section")
+                                        else -> loc.t("ej4_next_section")
+                                    }
                                     Text(
-                                        text = loc.t("ej4_next_section"),
+                                        text = nextSectionLabel,
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.SemiBold,
                                         maxLines = 1
@@ -1948,7 +2075,13 @@ fun PracticeScreen(
 
                             if (isEJ4FullyDone) {
                                 Button(
-                                    onClick = { showEJ4CompletionDialog = true },
+                                    onClick = {
+                                        if (currentExercise.isReichertExercise) {
+                                            showReichertCompletionDialog = true
+                                        } else {
+                                            showEJ4CompletionDialog = true
+                                        }
+                                    },
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(48.dp),
@@ -1965,8 +2098,13 @@ fun PracticeScreen(
                                             contentDescription = null,
                                             modifier = Modifier.size(16.dp)
                                         )
+                                        val doneLabel = when (currentExercise) {
+                                            ExerciseType.R2 -> loc.t("r2_eight_arts_completed")
+                                            ExerciseType.R4 -> loc.t("r4_eight_arts_completed")
+                                            else -> loc.t("ej4_eight_arts_completed")
+                                        }
                                         Text(
-                                            text = "✓ ${loc.t("ej4_eight_arts_completed")}",
+                                            text = "✓ $doneLabel",
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold,
                                             maxLines = 1,
@@ -1998,7 +2136,11 @@ fun PracticeScreen(
                                         } else {
                                             store.markEJ4Completed(curArt, currentExercise)
                                             if (store.isEJ4FullyCompleted(currentExercise)) {
-                                                showEJ4CompletionDialog = true
+                                                if (currentExercise.isReichertExercise) {
+                                                    showReichertCompletionDialog = true
+                                                } else {
+                                                    showEJ4CompletionDialog = true
+                                                }
                                             } else {
                                                 val allPractice = EJ4Articulation.practiceCases
                                                 val idx = allPractice.indexOf(curArt)
@@ -2132,6 +2274,8 @@ fun PracticeScreen(
                                             ExerciseType.EJ5 -> loc.t("ej5_next_section")
                                             ExerciseType.EJ10 -> loc.t("ej10_next_section")
                                             ExerciseType.EJ11 -> loc.t("ej11_next_section")
+                                            ExerciseType.R1 -> loc.t("r1_next_section")
+                                            ExerciseType.R5 -> loc.t("r5_next_section")
                                             else -> loc.t("ej4_next_section")
                                         },
                                         fontSize = 12.sp,
@@ -2167,7 +2311,9 @@ fun PracticeScreen(
                                         when (currentExercise) {
                                             ExerciseType.EJ5 -> showEJ5CompletionDialog = true
                                             ExerciseType.EJ10 -> showEJ10CompletionDialog = true
-                                            else -> showEJ11CompletionDialog = true
+                                            ExerciseType.EJ11 -> showEJ11CompletionDialog = true
+                                            ExerciseType.R1, ExerciseType.R5 -> showReichertCompletionDialog = true
+                                            else -> {}
                                         }
                                     },
                                     modifier = Modifier
@@ -2189,7 +2335,10 @@ fun PracticeScreen(
                                         val doneLabel = when (currentExercise) {
                                             ExerciseType.EJ5 -> loc.t("ej5_ten_arts_completed")
                                             ExerciseType.EJ10 -> loc.t("ej10_ten_arts_completed")
-                                            else -> loc.t("ej11_ten_arts_completed")
+                                            ExerciseType.EJ11 -> loc.t("ej11_ten_arts_completed")
+                                            ExerciseType.R1 -> loc.t("r1_ten_arts_completed")
+                                            ExerciseType.R5 -> loc.t("r5_ten_arts_completed")
+                                            else -> ""
                                         }
                                         Text(
                                             text = "✓ $doneLabel",
@@ -2235,7 +2384,9 @@ fun PracticeScreen(
                                                 when (currentExercise) {
                                                     ExerciseType.EJ5 -> showEJ5CompletionDialog = true
                                                     ExerciseType.EJ10 -> showEJ10CompletionDialog = true
-                                                    else -> showEJ11CompletionDialog = true
+                                                    ExerciseType.EJ11 -> showEJ11CompletionDialog = true
+                                                    ExerciseType.R1, ExerciseType.R5 -> showReichertCompletionDialog = true
+                                                    else -> {}
                                                 }
                                             } else {
                                                 val allPractice = EJ5Articulation.practiceCases

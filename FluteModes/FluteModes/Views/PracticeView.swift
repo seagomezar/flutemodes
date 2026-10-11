@@ -36,7 +36,10 @@ public struct PracticeView: View {
                 Color(uiColor: .systemBackground)
                     .ignoresSafeArea()
 
-                ScoreWebView(abcString: viewModel.currentAbcScore)
+                ScoreWebView(
+                    abcString: viewModel.currentAbcScore,
+                    highlightedNoteIndex: scorePlayer.currentNoteIndex
+                )
                     .padding(isCompact ? 4 : 12)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

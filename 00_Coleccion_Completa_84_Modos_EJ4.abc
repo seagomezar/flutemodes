@@ -1,0 +1,1091 @@
+X:1
+T:1. Modo Jónico en Si (B Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B ion
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:2
+T:2. Modo Dórico en Si (B Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B dor
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:3
+T:3. Modo Frigio en Si (B Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B phr
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:4
+T:4. Modo Lidio en Si (B Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B lyd
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:5
+T:5. Modo Mixolidio en Si (B Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B mix
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:6
+T:6. Modo Eólico en Si (B Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B aeo
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:7
+T:7. Modo Lócrio en Si (B Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:B loc
+%%barsperstaff 4
+(B,CDE FGAB) | (cdef gabc') | (d'e'f'g' a'b'a'g') | (f'e'd'c' bagf) |
+(edcB AGFE) | (DCB,C DEFG) | (ABcd efga) | (bagf edcB) ||
+
+X:1
+T:1. Modo Jónico en Do (C Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C ion
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:2
+T:2. Modo Dórico en Do (C Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C dor
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:3
+T:3. Modo Frigio en Do (C Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C phr
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:4
+T:4. Modo Lidio en Do (C Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C lyd
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:5
+T:5. Modo Mixolidio en Do (C Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C mix
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:6
+T:6. Modo Eólico en Do (C Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C aeo
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:7
+T:7. Modo Lócrio en Do (C Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C loc
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:1
+T:1. Modo Jónico en Do sostenido (C# Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# ion
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:2
+T:2. Modo Dórico en Do sostenido (C# Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# dor
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:3
+T:3. Modo Frigio en Do sostenido (C# Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# phr
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:4
+T:4. Modo Lidio en Do sostenido (C# Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# lyd
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:5
+T:5. Modo Mixolidio en Do sostenido (C# Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# mix
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:6
+T:6. Modo Eólico en Do sostenido (C# Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# aeo
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:7
+T:7. Modo Lócrio en Do sostenido (C# Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:C# loc
+%%barsperstaff 4
+(CDEF GABc) | (defg abc'd') | (e'f'g'a' b'c''b'a') | (g'f'e'd' c'bag) |
+(fedc BAGF) | (EDCD EFGA) | (Bcde fgab) | (c'bag fedc) ||
+
+X:1
+T:1. Modo Jónico en Re (D Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D ion
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:2
+T:2. Modo Dórico en Re (D Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D dor
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:3
+T:3. Modo Frigio en Re (D Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D phr
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:4
+T:4. Modo Lidio en Re (D Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D lyd
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:5
+T:5. Modo Mixolidio en Re (D Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D mix
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:6
+T:6. Modo Eólico en Re (D Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D aeo
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:7
+T:7. Modo Lócrio en Re (D Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:D loc
+%%barsperstaff 4
+(DEFG ABcd) | (efga bc'd'e') | (f'g'a'b' c''d''c''b') | (a'g'f'e' d'c'ba) |
+(gfed cBAG) | (FEDE FGAB) | (cdef gabc') | (d'c'ba gfed) ||
+
+X:1
+T:1. Modo Jónico en Mi bemol (Eb Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb ion
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:2
+T:2. Modo Dórico en Mi bemol (Eb Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb dor
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:3
+T:3. Modo Frigio en Mi bemol (Eb Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb phr
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:4
+T:4. Modo Lidio en Mi bemol (Eb Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb lyd
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:5
+T:5. Modo Mixolidio en Mi bemol (Eb Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb mix
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:6
+T:6. Modo Eólico en Mi bemol (Eb Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb aeo
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:7
+T:7. Modo Lócrio en Mi bemol (Eb Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Eb loc
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:1
+T:1. Modo Jónico en Mi (E Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E ion
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:2
+T:2. Modo Dórico en Mi (E Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E dor
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:3
+T:3. Modo Frigio en Mi (E Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E phr
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:4
+T:4. Modo Lidio en Mi (E Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E lyd
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:5
+T:5. Modo Mixolidio en Mi (E Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E mix
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:6
+T:6. Modo Eólico en Mi (E Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E aeo
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:7
+T:7. Modo Lócrio en Mi (E Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:E loc
+%%barsperstaff 4
+(EFGA Bcde) | (fgab c'd'e'f') | (g'a'b'c'' d''e''d''c'') | (b'a'g'f' e'd'c'b) |
+(agfe dcBA) | (GFEF GABc) | (defg abc'd') | (e'd'c'b agfe) ||
+
+X:1
+T:1. Modo Jónico en Fa (F Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F ion
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:2
+T:2. Modo Dórico en Fa (F Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F dor
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:3
+T:3. Modo Frigio en Fa (F Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F phr
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:4
+T:4. Modo Lidio en Fa (F Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F lyd
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:5
+T:5. Modo Mixolidio en Fa (F Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F mix
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:6
+T:6. Modo Eólico en Fa (F Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F aeo
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:7
+T:7. Modo Lócrio en Fa (F Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F loc
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:1
+T:1. Modo Jónico en Fa sostenido (F# Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# ion
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:2
+T:2. Modo Dórico en Fa sostenido (F# Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# dor
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:3
+T:3. Modo Frigio en Fa sostenido (F# Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# phr
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:4
+T:4. Modo Lidio en Fa sostenido (F# Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# lyd
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:5
+T:5. Modo Mixolidio en Fa sostenido (F# Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# mix
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:6
+T:6. Modo Eólico en Fa sostenido (F# Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# aeo
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:7
+T:7. Modo Lócrio en Fa sostenido (F# Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:F# loc
+%%barsperstaff 4
+(FGAB cdef) | (gabc' d'e'f'g') | (a'b'c''d'' e''f''e''d'') | (c''b'a'g' f'e'd'c') |
+(bagf edcB) | (AGFG ABcd) | (efga bc'd'e') | (f'e'd'c' bagf) ||
+
+X:1
+T:1. Modo Jónico en Sol (G Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G ion
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:2
+T:2. Modo Dórico en Sol (G Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G dor
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:3
+T:3. Modo Frigio en Sol (G Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G phr
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:4
+T:4. Modo Lidio en Sol (G Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G lyd
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:5
+T:5. Modo Mixolidio en Sol (G Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G mix
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:6
+T:6. Modo Eólico en Sol (G Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G aeo
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:7
+T:7. Modo Lócrio en Sol (G Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:G loc
+%%barsperstaff 4
+(GABc defg) | (abc'd' e'f'g'a') | (b'c''d''e'' f''g''f''e'') | (d''c''b'a' g'f'e'd') |
+(c'bag fedc) | (BAGA Bcde) | (fgab c'd'e'f') | (g'f'e'd' c'bag) ||
+
+X:1
+T:1. Modo Jónico en La bemol (Ab Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab ion
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:2
+T:2. Modo Dórico en La bemol (Ab Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab dor
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:3
+T:3. Modo Frigio en La bemol (Ab Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab phr
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:4
+T:4. Modo Lidio en La bemol (Ab Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab lyd
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:5
+T:5. Modo Mixolidio en La bemol (Ab Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab mix
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:6
+T:6. Modo Eólico en La bemol (Ab Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab aeo
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:7
+T:7. Modo Lócrio en La bemol (Ab Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Ab loc
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:1
+T:1. Modo Jónico en La (A Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A ion
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:2
+T:2. Modo Dórico en La (A Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A dor
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:3
+T:3. Modo Frigio en La (A Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A phr
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:4
+T:4. Modo Lidio en La (A Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A lyd
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:5
+T:5. Modo Mixolidio en La (A Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A mix
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:6
+T:6. Modo Eólico en La (A Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A aeo
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:7
+T:7. Modo Lócrio en La (A Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:A loc
+%%barsperstaff 4
+(ABcd efga) | (bc'd'e' f'g'a'b') | (c''d''e''f'' g''a''g''f'') | (e''d''c''b' a'g'f'e') |
+(d'c'ba gfed) | (cBAB cdef) | (gabc' d'e'f'g') | (a'g'f'e' d'c'ba) ||
+
+X:1
+T:1. Modo Jónico en Si bemol (Bb Ionian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor Natural | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb ion
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:2
+T:2. Modo Dórico en Si bemol (Bb Dorian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 6ta Mayor | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb dor
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:3
+T:3. Modo Frigio en Si bemol (Bb Phrygian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor con 2da Menor | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb phr
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:4
+T:4. Modo Lidio en Si bemol (Bb Lydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 4ta Aum. | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb lyd
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:5
+T:5. Modo Mixolidio en Si bemol (Bb Mixolydian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Mayor con 7ma Menor | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb mix
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:6
+T:6. Modo Eólico en Si bemol (Bb Aeolian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Menor Natural | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb aeo
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||
+
+X:7
+T:7. Modo Lócrio en Si bemol (Bb Locrian)
+C:Paul Taffanel & Philippe Gaubert (Adaptación Modal)
+N:Modo Disminuido (♭5) | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+M:2/4
+L:1/16
+Q:1/4=100
+%%MIDI program 73
+K:Bb loc
+%%barsperstaff 4
+(Bcde fgab) | (c'd'e'f' g'a'b'c'') | (d''e''f''g'' a''b''a''g'') | (f''e''d''c'' b'a'g'f') |
+(e'd'c'b agfe) | (dcBc defg) | (abc'd' e'f'g'a') | (b'a'g'f' e'd'c'b) ||

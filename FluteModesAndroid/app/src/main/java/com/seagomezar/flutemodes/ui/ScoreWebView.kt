@@ -19,21 +19,36 @@ import org.json.JSONObject
 @Composable
 fun ScoreWebView(
     abcString: String,
+    highlightedNoteIndex: Int? = null,
     modifier: Modifier = Modifier
 ) {
     var webViewRef by remember { mutableStateOf<WebView?>(null) }
     var isLoaded by remember { mutableStateOf(false) }
+    var lastRenderedAbc by remember { mutableStateOf<String?>(null) }
 
     fun render(webView: WebView, abc: String) {
         val escaped = JSONObject.quote(abc)
         val js = "window.lastAbc = $escaped; if (typeof renderScore === 'function') { renderScore($escaped); }"
         webView.evaluateJavascript(js, null)
+        lastRenderedAbc = abc
     }
 
     LaunchedEffect(abcString, isLoaded) {
         val webView = webViewRef
-        if (isLoaded && webView != null) {
+        if (isLoaded && webView != null && lastRenderedAbc != abcString) {
             render(webView, abcString)
+        }
+    }
+
+    LaunchedEffect(highlightedNoteIndex, isLoaded) {
+        val webView = webViewRef
+        if (isLoaded && webView != null) {
+            val js = if (highlightedNoteIndex != null) {
+                "highlightNote($highlightedNoteIndex);"
+            } else {
+                "clearHighlight();"
+            }
+            webView.evaluateJavascript(js, null)
         }
     }
 
@@ -57,7 +72,11 @@ fun ScoreWebView(
                         override fun onPageFinished(view: WebView?, url: String?) {
                             super.onPageFinished(view, url)
                             isLoaded = true
-                            view?.let { render(it, abcString) }
+                            view?.let {
+                                if (lastRenderedAbc != abcString) {
+                                    render(it, abcString)
+                                }
+                            }
                         }
                     }
                     loadUrl("file:///android_asset/score_template.html")
@@ -66,7 +85,7 @@ fun ScoreWebView(
             },
             update = { webView ->
                 webViewRef = webView
-                if (isLoaded) {
+                if (isLoaded && lastRenderedAbc != abcString) {
                     render(webView, abcString)
                 }
             },

@@ -205,6 +205,8 @@ def write_abc_collections():
         collection_text = "\n\n".join(all_tunes)
         with open(os.path.join(ABC_DL_DIR, f"Reichert_{code}_Coleccion_Completa.abc"), "w", encoding="utf-8") as f:
             f.write(collection_text)
+        with open(os.path.join(ABC_DL_DIR, root_abc_name), "w", encoding="utf-8") as f:
+            f.write(collection_text)
 
         # Write root_abc_name (original Urtext + all articulations) to workspace & artifacts
         for dst in [os.path.join(WORKSPACE, root_abc_name), os.path.join(ARTIFACT_DIR, root_abc_name)]:
@@ -1464,11 +1466,11 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       html += `<div class="ej1-plate-footer">B. Schott's Söhne · 20623</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("r1-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r1-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r1-focus-score", buildR1SecAbc(secIdx, artId, true), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("r1-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r1-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r1-focus-score", buildR1SecAbc(secIdx, artId, true), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
-        ABCJS.renderAbc(`r1-sec-row-${{i}}`, buildR1SecAbc(i, artId, i === 0), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        ABCJS.renderAbc(`r1-sec-row-${{i}}`, buildR1SecAbc(i, artId, i === 0), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       }}
     }}
 
@@ -1532,10 +1534,10 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       html += `<div class="ej1-plate-footer">B. Schott's Söhne · 20623</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("r2-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r2-focus-score", buildR2SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("r2-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r2-focus-score", buildR2SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
-        ABCJS.renderAbc(`r2-sec-row-${{i}}`, buildR2SecAbc(i, artId, false), {{ staffwidth: 1080, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        ABCJS.renderAbc(`r2-sec-row-${{i}}`, buildR2SecAbc(i, artId, false), {{ staffwidth: 1080, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       }}
     }}
 
@@ -1601,10 +1603,10 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       html += `<div class="ej1-plate-footer">B. Schott's Söhne · 20623</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("r4-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r4-focus-score", buildR4SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("r4-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r4-focus-score", buildR4SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
-        ABCJS.renderAbc(`r4-sec-row-${{i}}`, buildR4SecAbc(i, artId, false), {{ staffwidth: 1040, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        ABCJS.renderAbc(`r4-sec-row-${{i}}`, buildR4SecAbc(i, artId, false), {{ staffwidth: 1040, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       }}
     }}
 
@@ -1674,18 +1676,18 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       html += `<div class="ej1-plate-footer">B. Schott's Söhne · 20623</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("r5-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r5-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("r5-focus-score", buildR5SecAbc(secIdx, artId), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("r5-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r5-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("r5-focus-score", buildR5SecAbc(secIdx, artId), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
-        ABCJS.renderAbc(`r5-sec-row-${{i}}`, buildR5SecAbc(i, artId), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        ABCJS.renderAbc(`r5-sec-row-${{i}}`, buildR5SecAbc(i, artId), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       }}
     }}
 // === END REICHERT OP5 SCHOTT ===
 """
 
-    target_hook = "    function renderScore(abcString) {"
-    dispatch_hooks = """    function renderScore(abcString) {
+    target_hook = "function renderScore(abcString) {"
+    dispatch_hooks = """function renderScore(abcString) {
       const r1Match = abcString && abcString.match(/%\\s*R1_SCHOTT_ART:(\\d+):SEC:(\\d+)/);
       if (r1Match) {
         renderR1Schott(parseInt(r1Match[1], 10) || 0, parseInt(r1Match[2], 10) || 0);

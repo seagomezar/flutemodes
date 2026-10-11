@@ -31,6 +31,14 @@ sealed class Screen {
         val ej10Section: EJ10Section = EJ10Section.C_ARP,
         val ej11Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
         val ej11Section: EJ10Section = EJ10Section.C_ARP,
+        val r1Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+        val r1Section: EJ4Section = EJ4Section.C_MAJOR,
+        val r2Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+        val r2Section: EJ4Section = EJ4Section.C_MAJOR,
+        val r4Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+        val r4Section: EJ4Section = EJ4Section.C_MAJOR,
+        val r5Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+        val r5Section: EJ4Section = EJ4Section.C_MAJOR,
         val tonic: Tonic = Tonic.DO_NATURAL,
         val mode: ModeType = ModeType.IONIAN
     ) : Screen()
@@ -216,8 +224,27 @@ class MainActivity : ComponentActivity() {
                                         mode = store.lastMode ?: ModeType.IONIAN
                                     )
                                 },
-                                onStartReichertPractice = { ex ->
+                                onStartReichertPractice = { ex, art, sec ->
                                     store.lastExerciseType = ex
+                                    when (ex) {
+                                        ExerciseType.R1 -> {
+                                            if (art is EJ5Articulation) store.lastR1Articulation = art
+                                            if (sec is EJ4Section) store.lastR1Section = sec
+                                        }
+                                        ExerciseType.R2 -> {
+                                            if (art is EJ4Articulation) store.lastR2Articulation = art
+                                            if (sec is EJ4Section) store.lastR2Section = sec
+                                        }
+                                        ExerciseType.R4 -> {
+                                            if (art is EJ4Articulation) store.lastR4Articulation = art
+                                            if (sec is EJ4Section) store.lastR4Section = sec
+                                        }
+                                        ExerciseType.R5 -> {
+                                            if (art is EJ5Articulation) store.lastR5Articulation = art
+                                            if (sec is EJ4Section) store.lastR5Section = sec
+                                        }
+                                        else -> {}
+                                    }
                                     store.saveLastSelection()
                                     currentScreen = Screen.Practice(
                                         exerciseType = ex,
@@ -231,6 +258,14 @@ class MainActivity : ComponentActivity() {
                                         ej10Section = store.lastEJ10Section,
                                         ej11Articulation = store.lastEJ11Articulation,
                                         ej11Section = store.lastEJ11Section,
+                                        r1Articulation = store.lastR1Articulation,
+                                        r1Section = store.lastR1Section,
+                                        r2Articulation = store.lastR2Articulation,
+                                        r2Section = store.lastR2Section,
+                                        r4Articulation = store.lastR4Articulation,
+                                        r4Section = store.lastR4Section,
+                                        r5Articulation = store.lastR5Articulation,
+                                        r5Section = store.lastR5Section,
                                         tonic = store.lastTonic ?: Tonic.DO_NATURAL,
                                         mode = store.lastMode ?: ModeType.IONIAN
                                     )
@@ -253,6 +288,14 @@ class MainActivity : ComponentActivity() {
                                 initialEJ10Section = screen.ej10Section,
                                 initialEJ11Articulation = screen.ej11Articulation,
                                 initialEJ11Section = screen.ej11Section,
+                                initialR1Articulation = screen.r1Articulation,
+                                initialR1Section = screen.r1Section,
+                                initialR2Articulation = screen.r2Articulation,
+                                initialR2Section = screen.r2Section,
+                                initialR4Articulation = screen.r4Articulation,
+                                initialR4Section = screen.r4Section,
+                                initialR5Articulation = screen.r5Articulation,
+                                initialR5Section = screen.r5Section,
                                 initialTonic = screen.tonic,
                                 initialMode = screen.mode,
                                 store = store,

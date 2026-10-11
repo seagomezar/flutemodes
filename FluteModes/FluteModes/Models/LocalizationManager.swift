@@ -191,6 +191,10 @@ public class LocalizationManager: ObservableObject {
             "🎵 Ir a 84 Modos Paralelos (León Giraldo)",
             "🎵 Switch to 84 Parallel Modes (León Giraldo)"
         ],
+        "ej4_next_section": [
+            "Siguiente Tonalidad",
+            "Next Tonality"
+        ],
 
         // E.J. 5 Urtext General
         "ej5_title": [
@@ -216,6 +220,30 @@ public class LocalizationManager: ObservableObject {
         "ej5_start_practice": [
             "Practicar E. J. 5 (Urtext)",
             "Practice E. J. 5 (Urtext)"
+        ],
+        "ej5_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+        "ej5_milestone_title": [
+            "¡E. J. 5 Completado (10/10 Articulaciones)!",
+            "E. J. 5 Completed (10/10 Articulations)!"
+        ],
+        "ej5_milestone_msg": [
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 5 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 5."
+        ],
+        "ej5_restart_round": [
+            "🔁 Reiniciar las 10 Articulaciones",
+            "🔁 Restart 10 Articulations"
+        ],
+        "ej5_go_to_ej10": [
+            "🎵 Ir a E. J. 10 (Arpegios)",
+            "🎵 Go to E. J. 10 (Arpeggios)"
+        ],
+        "ej5_next_section": [
+            "Siguiente Escala (Cromática)",
+            "Next Scale (Chromatic)"
         ],
 
         // E.J. 10 Urtext General
@@ -243,6 +271,30 @@ public class LocalizationManager: ObservableObject {
             "Practicar E. J. 10 (Urtext)",
             "Practice E. J. 10 (Urtext)"
         ],
+        "ej10_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+        "ej10_milestone_title": [
+            "¡E. J. 10 Completado (10/10 Articulaciones)!",
+            "E. J. 10 Completed (10/10 Articulations)!"
+        ],
+        "ej10_milestone_msg": [
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 10 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 10."
+        ],
+        "ej10_restart_round": [
+            "🔁 Reiniciar las 10 Articulaciones",
+            "🔁 Restart 10 Articulations"
+        ],
+        "ej10_go_to_ej11": [
+            "🎵 Ir a E. J. 11 (Arpegios Quebrados)",
+            "🎵 Go to E. J. 11 (Broken Arpeggios)"
+        ],
+        "ej10_next_section": [
+            "Siguiente Serie de Arpegios",
+            "Next Arpeggio Series"
+        ],
 
         // E.J. 11 Urtext General
         "ej11_title": [
@@ -268,6 +320,30 @@ public class LocalizationManager: ObservableObject {
         "ej11_start_practice": [
             "Practicar E. J. 11 (Urtext)",
             "Practice E. J. 11 (Urtext)"
+        ],
+        "ej11_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+        "ej11_milestone_title": [
+            "¡E. J. 11 Completado (10/10 Articulaciones)!",
+            "E. J. 11 Completed (10/10 Articulations)!"
+        ],
+        "ej11_milestone_msg": [
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 11 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 11."
+        ],
+        "ej11_restart_round": [
+            "🔁 Reiniciar las 10 Articulaciones",
+            "🔁 Restart 10 Articulations"
+        ],
+        "ej11_go_to_r1": [
+            "🎵 Ir a Reichert 1 (Op. 5)",
+            "🎵 Go to Reichert 1 (Op. 5)"
+        ],
+        "ej11_next_section": [
+            "Siguiente Serie de Arpegios Quebrados",
+            "Next Broken Arpeggio Series"
         ],
 
         // Reichert Op. 5, Nº 1 (R1)
@@ -372,6 +448,119 @@ public class LocalizationManager: ObservableObject {
         "r5_start_practice": [
             "Practicar Reichert Nº 5 (Urtext)",
             "Practice Reichert No. 5 (Urtext)"
+        ],
+        // Reichert Completion & Milestones
+        "r1_milestone_title": [
+            "¡Reichert 1 Completado (10/10 Articulaciones)!",
+            "Reichert 1 Completed (10/10 Articulations)!"
+        ],
+        "r1_milestone_msg": [
+            "Has completado las 10 articulaciones de Reichert Nº 1 Op. 5.",
+            "You have completed all 10 articulations of Reichert No. 1 Op. 5."
+        ],
+        "r1_restart_round": [
+            "🔁 Reiniciar las 10 Articulaciones",
+            "🔁 Restart 10 Articulations"
+        ],
+        "r1_go_to_r2": [
+            "🎵 Ir a Reichert 2 (Op. 5)",
+            "🎵 Go to Reichert 2 (Op. 5)"
+        ],
+        "r1_next_section": [
+            "Siguiente Tonalidad (6/8)",
+            "Next Key (6/8)"
+        ],
+        "r1_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+
+        "r2_milestone_title": [
+            "¡Reichert 2 Completado (8/8 Articulaciones)!",
+            "Reichert 2 Completed (8/8 Articulations)!"
+        ],
+        "r2_milestone_msg": [
+            "Has completado las 8 articulaciones de Reichert Nº 2 Op. 5.",
+            "You have completed all 8 articulations of Reichert No. 2 Op. 5."
+        ],
+        "r2_restart_round": [
+            "🔁 Reiniciar las 8 Articulaciones",
+            "🔁 Restart 8 Articulations"
+        ],
+        "r2_go_to_r4": [
+            "🎵 Ir a Reichert 4 (Op. 5)",
+            "🎵 Go to Reichert 4 (Op. 5)"
+        ],
+        "r2_next_section": [
+            "Siguiente Tonalidad (2/4)",
+            "Next Key (2/4)"
+        ],
+        "r2_eight_arts_completed": [
+            "8 Articulaciones Completadas",
+            "8 Articulations Completed"
+        ],
+
+        "r4_milestone_title": [
+            "¡Reichert 4 Completado (8/8 Articulaciones)!",
+            "Reichert 4 Completed (8/8 Articulations)!"
+        ],
+        "r4_milestone_msg": [
+            "Has completado las 8 articulaciones de Reichert Nº 4 Op. 5.",
+            "You have completed all 8 articulations of Reichert No. 4 Op. 5."
+        ],
+        "r4_restart_round": [
+            "🔁 Reiniciar las 8 Articulaciones",
+            "🔁 Restart 8 Articulations"
+        ],
+        "r4_go_to_r5": [
+            "🎵 Ir a Reichert 5 (Op. 5)",
+            "🎵 Go to Reichert 5 (Op. 5)"
+        ],
+        "r4_next_section": [
+            "Siguiente Tonalidad (4/4)",
+            "Next Key (4/4)"
+        ],
+        "r4_eight_arts_completed": [
+            "8 Articulaciones Completadas",
+            "8 Articulations Completed"
+        ],
+
+        "r5_milestone_title": [
+            "¡Reichert 5 Completado (10/10 Articulaciones)!",
+            "Reichert 5 Completed (10/10 Articulations)!"
+        ],
+        "r5_milestone_msg": [
+            "Has completado las 10 articulaciones de Reichert Nº 5 Op. 5.",
+            "You have completed all 10 articulations of Reichert No. 5 Op. 5."
+        ],
+        "r5_restart_round": [
+            "🔁 Reiniciar las 10 Articulaciones",
+            "🔁 Restart 10 Articulations"
+        ],
+        "r5_next_section": [
+            "Siguiente Tonalidad (Tresillos)",
+            "Next Key (Triplets)"
+        ],
+        "r5_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+
+        "r_milestone_title": [
+            "¡Hito de Articulaciones Reichert Op. 5!",
+            "Reichert Op. 5 Articulation Milestone!"
+        ],
+        "r_milestone_msg": [
+            "Has completado todas las articulaciones de esta sección de Reichert.",
+            "You completed all articulations for this Reichert section."
+        ],
+        "r_restart_round": [
+            "🔁 Reiniciar Ronda",
+            "🔁 Restart Round"
+        ],
+        "modos_pill_label": [
+            "84 Modos",
+            "84 Modes"
         ],
 
         // E.J. 1 Articulations (0..10)

@@ -3,8 +3,40 @@ import AVFoundation
 
 public class ScoreAudioPlayer: ObservableObject {
     @Published public var isPlaying: Bool = false
+    @Published public var currentNoteIndex: Int? = nil
+
+    private var highlightWorkItems: [DispatchWorkItem] = []
+    private var lastGeneratedDurations: [Double] = []
 
     public init() {}
+
+    public func cancelHighlightUpdates() {
+        for item in highlightWorkItems {
+            item.cancel()
+        }
+        highlightWorkItems.removeAll()
+        currentNoteIndex = nil
+    }
+
+    private func scheduleHighlightUpdates(durations: [Double]) {
+        cancelHighlightUpdates()
+        var accumTime: Double = 0.0
+        for (idx, dur) in durations.enumerated() {
+            let workItem = DispatchWorkItem { [weak self] in
+                guard let self = self, self.isPlaying else { return }
+                self.currentNoteIndex = idx
+            }
+            highlightWorkItems.append(workItem)
+            DispatchQueue.main.asyncAfter(deadline: .now() + accumTime, execute: workItem)
+            accumTime += dur
+        }
+        let clearItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.currentNoteIndex = nil
+        }
+        highlightWorkItems.append(clearItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + accumTime, execute: clearItem)
+    }
 
     public func toggle(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
         if isPlaying {
@@ -59,6 +91,7 @@ public class ScoreAudioPlayer: ObservableObject {
     }
 
     public func stop() {
+        cancelHighlightUpdates()
         AppAudioEngine.shared.pianoPlayer.stop()
         isPlaying = false
     }
@@ -79,8 +112,10 @@ public class ScoreAudioPlayer: ObservableObject {
         ) else { return }
 
         isPlaying = true
+        scheduleHighlightUpdates(durations: lastGeneratedDurations)
         player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
             DispatchQueue.main.async {
+                self?.cancelHighlightUpdates()
                 self?.isPlaying = false
             }
         }
@@ -101,8 +136,10 @@ public class ScoreAudioPlayer: ObservableObject {
         ) else { return }
 
         isPlaying = true
+        scheduleHighlightUpdates(durations: lastGeneratedDurations)
         player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
             DispatchQueue.main.async {
+                self?.cancelHighlightUpdates()
                 self?.isPlaying = false
             }
         }
@@ -123,8 +160,10 @@ public class ScoreAudioPlayer: ObservableObject {
         ) else { return }
 
         isPlaying = true
+        scheduleHighlightUpdates(durations: lastGeneratedDurations)
         player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
             DispatchQueue.main.async {
+                self?.cancelHighlightUpdates()
                 self?.isPlaying = false
             }
         }
@@ -147,8 +186,10 @@ public class ScoreAudioPlayer: ObservableObject {
         ) else { return }
 
         isPlaying = true
+        scheduleHighlightUpdates(durations: lastGeneratedDurations)
         player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
             DispatchQueue.main.async {
+                self?.cancelHighlightUpdates()
                 self?.isPlaying = false
             }
         }
@@ -183,8 +224,10 @@ public class ScoreAudioPlayer: ObservableObject {
         ) else { return }
 
         isPlaying = true
+        scheduleHighlightUpdates(durations: lastGeneratedDurations)
         player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
             DispatchQueue.main.async {
+                self?.cancelHighlightUpdates()
                 self?.isPlaying = false
             }
         }
@@ -532,6 +575,7 @@ public class ScoreAudioPlayer: ObservableObject {
         sampleRate: Double,
         format: AVAudioFormat
     ) -> AVAudioPCMBuffer? {
+        lastGeneratedDurations = notes.map { $0.duration }
         let totalDuration = notes.reduce(0.0) { $0 + $1.duration }
         let totalFrames = AVAudioFrameCount(sampleRate * totalDuration)
 

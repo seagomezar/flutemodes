@@ -1,0 +1,910 @@
+{
+  "timestamp": "2026-10-11T19:31:00Z",
+  "tier": "all",
+  "total_tests": 141,
+  "passed": 141,
+  "failed": 0,
+  "errors": 0,
+  "pass_rate_percent": 100.0,
+  "duration_seconds": 0.125,
+  "defects_summary": {
+    "DEF-01": {
+      "name": "Missing Schott Renderers in score_template.html",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-02": {
+      "name": "Android EJ2 Accidental Fix mm. 4, 8, 14, 18, 22, 24, 28",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-03": {
+      "name": "Android Audio EJ2 Diminished Semitone",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-05": {
+      "name": "Android Audio R.5 Triplet Timing Divisor 6.0",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-06": {
+      "name": "Web Portal Reichert ABC Download Links Casing",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-07": {
+      "name": "Missing 00_Coleccion_Completa_84_Modos_EJ4.abc in downloads",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-08": {
+      "name": "Missing highlightNote/clearHighlight in score_template.html",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-09": {
+      "name": "Android Reichert Route Navigation & Dialog",
+      "count": 0,
+      "tests": []
+    },
+    "DEF-14": {
+      "name": "Multiplatform Version Bump to v1.5.1 Target",
+      "count": 0,
+      "tests": []
+    },
+    "OTHER": {
+      "name": "Uncategorized Defect / Expectation Mismatch",
+      "count": 0,
+      "tests": []
+    }
+  },
+  "test_results": [
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_01_modal_data_json_structure",
+      "description": "Verify modes_data.json contains 84 modal exercises (12 tonics x 7 modes) with required properties.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_02_modos_abc_files_exist_and_tunes_count",
+      "description": "Verify all 12 tonic ABC files exist in abc_modos/ and contain 7 tunes each (84 tunes total).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_03_modal_exercise_exact_note_count",
+      "description": "Verify modal exercise note count matches Urtext morphology: exactly 127 notes across 8 measures.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_04_modal_abc_headers_compliance",
+      "description": "Verify ABC headers compliance for modal exercises (M:4/2, L:1/8, Q:1/2=90, clef=treble).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_05_modal_downloads_abc_presence",
+      "description": "Verify downloadable modal ABC files exist in docs/downloads/abc/.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1Modos.test_f01_06_modal_web_viewer_integration",
+      "description": "Verify docs/index.html includes abcjs, modes_data.js, and interactive container.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ1.test_f02_01_ej1_urtext_structure_and_measures",
+      "description": "Verify E.J. 1 Urtext structure: 30 chromatic pairs + measure 31 Coda (A.L. 16.588).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ1.test_f02_02_ej1_repetition_and_8va_markings",
+      "description": "Verify E.J. 1 contains repeat bar |:, :| at m.24, and 8va indication at m.25.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ1.test_f02_03_ej1_10_articulations_presence",
+      "description": "Verify E.J. 1 provides all 10 official Leduc articulation files in docs/downloads/abc/.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ1.test_f02_04_ej1_score_template_hook",
+      "description": "Verify score_template.html routes EJ1 through EJ([12])_LEDUC_ART regex hook.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ1.test_f02_05_ej1_web_page_existence",
+      "description": "Verify docs/ej1.html exists, is valid HTML, and links to downloads.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_01_ej2_urtext_structure_and_measures",
+      "description": "Verify E.J. 2 minor pentachord structure across 30 measures + coda.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_02_ej2_accidental_fidelity_f_doublesharp_and_b_sharp",
+      "description": "Verify double-sharp ^^F in m.12 and enharmonic ^B in m.22 in EJ2 ABC.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_03_ej2_android_generator_accidental_accuracy",
+      "description": "DEF-02 Verification: Check mm. 4, 8, 14, 18, 22, 24, 28 in ExerciseGenerator.kt.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_04_ej2_android_audio_diminished_semitone",
+      "description": "DEF-03 Verification: Check line 444 in ScoreAudioPlayer.kt.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_05_ej2_score_template_hook",
+      "description": "Verify score_template.html routes EJ2 through EJ([12])_LEDUC_ART regex hook.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ2.test_f03_06_ej2_web_downloads_and_visor",
+      "description": "Verify docs/ej2.html and EJ2 ABC downloads exist.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ4.test_f04_01_ej4_25_sections_structure",
+      "description": "Verify E.J. 4 covers 25 sections (24 major/minor keys + 1 Coda in C Major).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ4.test_f04_02_ej4_notes_per_section_fidelity",
+      "description": "Verify sections 0..23 have 128 notes, and Coda (section 24) has 29 notes.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ4.test_f04_03_ej4_8_articulations_presence",
+      "description": "Verify E.J. 4 supports all 8 official Schott articulations.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ4.test_f04_04_ej4_score_template_hook",
+      "description": "Verify score_template.html contains hook handler for % EJ4_LEDUC_ART:art:SEC:sec.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ4.test_f04_05_ej4_web_page_existence",
+      "description": "Verify docs/ej4.html exists and is accessible.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ5.test_f05_01_ej5_12_chromatic_sections",
+      "description": "Verify E.J. 5 defines 12 chromatic scale sections (C to B).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ5.test_f05_02_ej5_meter_switching",
+      "description": "Verify E.J. 5 supports both 6/8 and 2/4 meters depending on articulation.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ5.test_f05_03_ej5_10_articulations_presence",
+      "description": "Verify E.J. 5 defines 10 official articulations in downloads.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ5.test_f05_04_ej5_score_template_hook",
+      "description": "Verify score_template.html contains hook handler for % EJ5_LEDUC_ART.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ5.test_f05_05_ej5_web_page_existence",
+      "description": "Verify docs/ej5.html exists and contains interactive score container.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ10.test_f06_01_ej10_30_systems_layout",
+      "description": "Verify E.J. 10 renders 30 systems covering 121 measures across 24 keys.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ10.test_f06_02_ej10_10_articulations_presence",
+      "description": "Verify E.J. 10 defines 10 official articulations in downloads.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ10.test_f06_03_ej10_score_template_hook",
+      "description": "Verify score_template.html contains hook handler for % EJ10_LEDUC_ART.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ10.test_f06_04_ej10_web_page_existence",
+      "description": "Verify docs/ej10.html exists and is valid.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ10.test_f06_05_ej10_complete_collection_file",
+      "description": "Verify 11_Coleccion_Completa_Taffanel_EJ10_10_Articulaciones.abc exists.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ11.test_f07_01_ej11_compound_meter_and_60_systems",
+      "description": "Verify E.J. 11 compound 9/8 / 3/4 meter (18 notes/m) and 60 systems layout.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ11.test_f07_02_ej11_final_measure_pause",
+      "description": "Verify E.J. 11 final measure (m.121) has pause on B4: 'B4 z4 z10 |]'.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ11.test_f07_03_ej11_10_articulations_presence",
+      "description": "Verify E.J. 11 defines 10 official articulations in downloads.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ11.test_f07_04_ej11_score_template_hook",
+      "description": "Verify score_template.html contains hook handler for % EJ11_LEDUC_ART.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1EJ11.test_f07_05_ej11_web_page_existence",
+      "description": "Verify docs/ej11.html exists.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR1.test_f08_01_r1_urtext_structure_25_sections",
+      "description": "Verify Reichert R. 1 structure: 25 sections of 4 measures each in 6/8 meter (100 mm total).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR1.test_f08_02_r1_notes_per_section_43",
+      "description": "Verify Reichert R. 1 has exactly 43 notes per section.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR1.test_f08_03_r1_repeat_markings_segno_fine_ds",
+      "description": "Verify Reichert R. 1 ABC contains !segno!, !fine!, and !D.S.! markings.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR1.test_f08_04_r1_schott_renderer_in_score_template",
+      "description": "DEF-01 Verification: score_template.html must define renderR1Schott function.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR1.test_f08_05_r1_web_page_existence",
+      "description": "Verify docs/r1.html exists and is valid.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR2.test_f09_01_r2_urtext_structure_25_sections_2_4",
+      "description": "Verify Reichert R. 2 structure: 25 sections of 8 measures each in 2/4 meter (200 mm total).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR2.test_f09_02_r2_anacrusa_and_notes_per_section_61",
+      "description": "Verify Reichert R. 2 has 4-note pickup (anacrusa) and 61 notes per section.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR2.test_f09_03_r2_wedge_articulation_final_note",
+      "description": "Verify Reichert R. 2 contains !wedge! staccatissimo marking on final note.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR2.test_f09_04_r2_schott_renderer_in_score_template",
+      "description": "DEF-01 Verification: score_template.html must define renderR2Schott function.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR2.test_f09_05_r2_web_page_existence",
+      "description": "Verify docs/r2.html exists.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR4.test_f10_01_r4_urtext_structure_4_4_meter",
+      "description": "Verify Reichert R. 4 structure: 25 sections of 4 measures each in C (4/4) meter (100 mm total).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR4.test_f10_02_r4_notes_per_section_61",
+      "description": "Verify Reichert R. 4 has exactly 61 notes per section.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR4.test_f10_03_r4_cautionary_naturals",
+      "description": "Verify Reichert R. 4 contains cautionary naturals in measure 3 cancelling sharp 9th.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR4.test_f10_04_r4_schott_renderer_in_score_template",
+      "description": "DEF-01 Verification: score_template.html must define renderR4Schott function.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR4.test_f10_05_r4_web_page_existence",
+      "description": "Verify docs/r4.html exists.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR5.test_f11_01_r5_urtext_structure_sixteenth_triplets",
+      "description": "Verify Reichert R. 5 structure: 25 sections in 2/4 meter with sixteenth triplets (12 notes/m).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR5.test_f11_02_r5_notes_per_section_91",
+      "description": "Verify Reichert R. 5 has exactly 91 notes per section.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR5.test_f11_03_r5_triplet_tempo_divisor",
+      "description": "DEF-05 Verification: In ScoreAudioPlayer.kt, sixteenth triplets must use divisor 6.0.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR5.test_f11_04_r5_schott_renderer_in_score_template",
+      "description": "DEF-01 Verification: score_template.html must define renderR5Schott function.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier1_features.TestTier1ReichertR5.test_f11_05_r5_web_page_existence",
+      "description": "Verify docs/r5.html exists.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ModosBoundaries.test_b01_01_modos_low_register_b3_boundary",
+      "description": "Verify Modo Si (B Locrian) strictly respects lowest flute boundary B3 (MIDI 59).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ModosBoundaries.test_b01_02_modos_high_register_ceiling_boundary",
+      "description": "Verify highest pitch across all 12 tonic modal files never exceeds flute ceiling D7 (MIDI 98).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ModosBoundaries.test_b01_03_modos_extreme_tempo_boundaries",
+      "description": "Verify extreme tempo bounds 30 BPM and 300 BPM calculate positive, finite note durations.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ModosBoundaries.test_b01_04_modos_accidental_handling_csharp_lydian",
+      "description": "Verify C# Lydian contains double sharp ^^F (G natural sounding) in modal formulas.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ModosBoundaries.test_b01_05_modos_barline_and_slur_closure",
+      "description": "Verify measure 8 termination in all modes has closed slurs/parentheses and double bar |].",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ1Boundaries.test_b02_01_ej1_pitch_range_safety",
+      "description": "Verify E.J. 1 notes stay strictly within D4 (MIDI 62) to F6 (MIDI 89).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ1Boundaries.test_b02_02_ej1_extreme_tempo_scaling",
+      "description": "Verify tempo scaling at 40 BPM and 240 BPM produces exact proportional durations.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ1Boundaries.test_b02_03_ej1_repeat_boundary_measure_24",
+      "description": "Verify measure 24 has repeat sign ':|' and measure 25 begins 8va section.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ1Boundaries.test_b02_04_ej1_articulation_extremes_0_vs_9",
+      "description": "Verify articulation 1 (all slurred) and 10 (all staccato) generate correct slur tokens.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ1Boundaries.test_b02_05_ej1_coda_measure_rest_duration",
+      "description": "Verify measure 31 rest bar 'f4 z4 z8 |]' completes 16 sixteenths (4 quarter beats).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ2Boundaries.test_b03_01_ej2_pitch_range_safety",
+      "description": "Verify E.J. 2 notes stay strictly within D4 (MIDI 62) to F6 (MIDI 89).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ2Boundaries.test_b03_02_ej2_extreme_tempo_bounds",
+      "description": "Verify E.J. 2 tempo scaling across 50 BPM and 200 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ2Boundaries.test_b03_03_ej2_measure_12_double_sharp_frequency",
+      "description": "Verify ^^F in m.12 calculates pitch 68/67 with frequency ~392.0 Hz (G natural).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ2Boundaries.test_b03_04_ej2_measure_22_b_sharp_frequency",
+      "description": "Verify ^B in m.22 corresponds to MIDI 60 (C4, 261.63 Hz).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ2Boundaries.test_b03_05_ej2_chromatic_pair_continuity",
+      "description": "Verify 15 chromatic pairs advance by exactly 1 semitone at odd measure boundaries.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ4Boundaries.test_b04_01_ej4_full_compass_c4_to_c7",
+      "description": "Verify E.J. 4 covers the full compass from low C4 (MIDI 60) to high C7 (MIDI 96).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ4Boundaries.test_b04_02_ej4_section_index_boundaries",
+      "description": "Verify section index bounds: minimum is 0, maximum is 24 (25 sections).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ4Boundaries.test_b04_03_ej4_extreme_tempo_scaling",
+      "description": "Verify EJ4 tempo boundaries 40 BPM and 220 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ4Boundaries.test_b04_04_ej4_descending_minor_accidentals",
+      "description": "Verify melodic vs harmonic descending minor scales in section 1 (A minor) and 3 (D minor).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ4Boundaries.test_b04_05_ej4_coda_note_count_boundary",
+      "description": "Verify Coda (section 24) note count is exactly 29, terminating on held tonic.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ5Boundaries.test_b05_01_ej5_chromatic_gamut_compass",
+      "description": "Verify E.J. 5 spans chromatic notes from low register to high register.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ5Boundaries.test_b05_02_ej5_meter_change_boundary",
+      "description": "Verify meter switches between 6/8 and 2/4 without corrupting note sequences.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ5Boundaries.test_b05_03_ej5_section_bounds_0_to_11",
+      "description": "Verify EJ5 supports 12 chromatic key centers (indices 0..11).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ5Boundaries.test_b05_04_ej5_extreme_tempo_scaling",
+      "description": "Verify EJ5 tempo bounds 40 BPM to 240 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ5Boundaries.test_b05_05_ej5_staccato_flag_boundaries",
+      "description": "Verify articulation 10 (all staccato) vs articulation 1 (all slurred).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ10Boundaries.test_b06_01_ej10_register_compass",
+      "description": "Verify E.J. 10 arpeggios stay within standard flute register bounds.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ10Boundaries.test_b06_02_ej10_system_bounds_and_staffwidth",
+      "description": "Verify system 29 in score_template.html has staffwidth 1020 for final cadence expansion.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ10Boundaries.test_b06_03_ej10_section_index_bounds",
+      "description": "Verify section index bounds: 0 to 11 (12 sections).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ10Boundaries.test_b06_04_ej10_extreme_tempo_scaling",
+      "description": "Verify tempo scaling at 50 BPM and 200 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ10Boundaries.test_b06_05_ej10_diminished_and_augmented_7ths",
+      "description": "Verify diminished 7th accidentals in EJ10 arpeggio figures.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ11Boundaries.test_b07_01_ej11_high_register_ceiling_d7",
+      "description": "Verify E.J. 11 arpeggios reach high D7 (MIDI 98, 2349.32 Hz).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ11Boundaries.test_b07_02_ej11_measure_121_rest_boundary",
+      "description": "Verify measure 121 rest boundary: 'B4 z4 z10 |]'.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ11Boundaries.test_b07_03_ej11_compound_duration_calculation",
+      "description": "Verify 18 notes per measure in 9/8 calculate exact sixteenth note durations.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ11Boundaries.test_b07_04_ej11_60_system_bounds",
+      "description": "Verify EJ11 generates exactly 60 systems (sysIdx 0..59).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2EJ11Boundaries.test_b07_05_ej11_extreme_tempo_bounds",
+      "description": "Verify EJ11 tempo bounds 60 BPM and 180 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR1Boundaries.test_b08_01_r1_compass_safety",
+      "description": "Verify R. 1 notes stay strictly within C4 (MIDI 60) and B6 (MIDI 95).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR1Boundaries.test_b08_02_r1_section_24_fine_jump_target",
+      "description": "Verify section 24 contains !fine! mark in C Major for D.S. al Fine resolution.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR1Boundaries.test_b08_03_r1_segno_mark_at_measure_1",
+      "description": "Verify !segno! marking at initial measure of R. 1.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR1Boundaries.test_b08_04_r1_final_measure_rests_boundary",
+      "description": "Verify measure 4 of each section ends with eighth note + rests (z2 z2).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR1Boundaries.test_b08_05_r1_extreme_tempo_scaling",
+      "description": "Verify R. 1 dotted-quarter tempo bounds 60 BPM and 160 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR2Boundaries.test_b09_01_r2_anacrusa_boundary",
+      "description": "Verify 4-note pickup anacrusa precedes measure 1 across sections.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR2Boundaries.test_b09_02_r2_8va_transposition_sections",
+      "description": "Verify 8va transpositions shift sound +12 semitones in sections 0, 3, 7, 10, 17, 24.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR2Boundaries.test_b09_03_r2_final_note_wedge_articulation",
+      "description": "Verify final note of each section has !wedge! staccatissimo marking.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR2Boundaries.test_b09_04_r2_high_register_ceiling",
+      "description": "Verify R. 2 does not exceed flute ceiling D7.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR2Boundaries.test_b09_05_r2_extreme_tempo_scaling",
+      "description": "Verify tempo scaling 80 BPM to 180 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR4Boundaries.test_b10_01_r4_interval_leaps_compass",
+      "description": "Verify wide interval leaps stay within flute compass bounds.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR4Boundaries.test_b10_02_r4_cautionary_accidental_cancellation",
+      "description": "Verify measure 3 cautionary accidental check cancelling sharp 9th.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR4Boundaries.test_b10_03_r4_section_17_octave_notation",
+      "description": "Verify section 17 notation and pitch handling.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR4Boundaries.test_b10_04_r4_cadence_wedge_marking",
+      "description": "Verify cadence measure contains !wedge! staccatissimo marking.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR4Boundaries.test_b10_05_r4_extreme_tempo_scaling",
+      "description": "Verify tempo scaling 80 BPM to 180 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR5Boundaries.test_b11_01_r5_triplet_duration_formula_divisor_6",
+      "description": "Verify sixteenth-triplet note duration formula:",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR5Boundaries.test_b11_02_r5_measure_8_triplet_boundary",
+      "description": "Verify measure 8 has 6 triplet notes + 1 final eighth note (91 notes total per section).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR5Boundaries.test_b11_03_r5_section_bounds_0_to_24",
+      "description": "Verify R. 5 defines 25 sections.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR5Boundaries.test_b11_04_r5_compass_bounds",
+      "description": "Verify R. 5 notes stay within C4 to C7.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier2_boundaries.TestTier2ReichertR5Boundaries.test_b11_05_r5_extreme_tempo_scaling",
+      "description": "Verify triplet tempo scaling from 60 BPM to 220 BPM.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c01_mode_articulation_tempo_pairwise_matrix",
+      "description": "Verify combinations of 7 modes x 8 articulations x 4 tempos calculate valid timing.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c02_audio_frequency_derivation_across_octaves",
+      "description": "Verify equal-tempered frequency calculation across octaves (A3=220, A4=440, A5=880, A6=1760).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c03_visual_cursor_bridge_api_contract",
+      "description": "DEF-08 Verification: score_template.html must define highlightNote(noteIndex) and clearHighlight().",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c04_visual_cursor_css_styling_class",
+      "description": "DEF-08 Verification: score_template.html must define .highlighted-note CSS class.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c05_multiplatform_score_template_parity",
+      "description": "Verify iOS and Android score_template.html are 100% byte-for-byte identical.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c06_schott_renderer_parity_in_score_templates",
+      "description": "DEF-01 Verification: Both iOS and Android score templates must contain Schott renderers:",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c07_web_portal_navigation_links_integrity",
+      "description": "Verify docs/index.html navigation links to all 11 modules point to existing HTML files.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c08_web_portal_download_links_casing_integrity",
+      "description": "DEF-06 Verification: docs/index.html download links to downloads/abc/ must match exact on-disk files.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c09_web_portal_apk_download_link_validity",
+      "description": "Verify docs/index.html APK download links point to existing APK files in docs/downloads/apk/.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c10_master_modal_collection_abc_presence",
+      "description": "DEF-07 Verification: 00_Coleccion_Completa_84_Modos_EJ4.abc must exist in docs/downloads/abc/.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c11_android_localization_key_parity",
+      "description": "Verify Android LocalizationManager.kt has matching keys in Spanish and English for core UI.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c12_ios_localization_key_parity",
+      "description": "Verify iOS LocalizationManager.swift has matching keys in Spanish and English for core UI.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c13_practice_store_cross_exercise_isolation",
+      "description": "Verify PracticeStore progression models separate EJ4/R2/R4 from EJ5/R1/R5.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c14_android_reichert_navigation_routes",
+      "description": "DEF-09 Verification: MainActivity.kt must pass section and art arguments to Screen.Practice for Reichert.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c15_android_reichert_completion_dialog_isolation",
+      "description": "DEF-09 Verification: PracticeScreen.kt must NOT show showEJ11CompletionDialog when finishing Reichert.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c16_pdf_files_structural_integrity",
+      "description": "Verify all 23 downloadable PDF files exist, are > 10KB, and start with %PDF header.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c17_abc_downloads_valid_tunes",
+      "description": "Verify all ABC files in docs/downloads/abc/ contain at least one valid X: tune header.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c18_master_method_pdf_size",
+      "description": "Verify master complete method PDF metodo_completo_modos_flauta.pdf is complete (> 1 MB).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c19_audio_synthesis_formula_precision",
+      "description": "Verify pitch frequency calculations are within 0.01 Hz of physical standards.",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier3_combinations.TestTier3Combinations.test_c20_metronome_audio_click_duration",
+      "description": "Verify metronome engine click specifications (1400 Hz tone, 50ms decay).",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s01_daily_warmup_and_tone_routine",
+      "description": "Scenario 1: Daily Warm-Up & Tone Routine",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s02_finger_velocity_and_articulation_mastery",
+      "description": "Scenario 2: Finger Velocity & Articulation Mastery",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s03_full_compass_arpeggio_masterclass",
+      "description": "Scenario 3: Full Compass Arpeggio Masterclass",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s04_practice_store_lifecycle_workflow",
+      "description": "Scenario 4: PracticeStore Lifecycle Workflow",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s05_distribution_asset_audit",
+      "description": "Scenario 5: Complete Distribution Asset Audit",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s06_multi_tonic_modal_transposition_cycle",
+      "description": "Scenario 6: Multi-tonic Modal Transposition Cycle",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s07_high_speed_articulation_drill",
+      "description": "Scenario 7: High-Speed Articulation Drill",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s08_flute_b_footjoint_vs_c_footjoint_compatibility",
+      "description": "Scenario 8: Flute Low B Footjoint vs Standard C Footjoint",
+      "status": "PASS",
+      "message": null
+    },
+    {
+      "test_id": "tests.test_tier4_scenarios.TestTier4Scenarios.test_s10_multiplatform_version_consistency_target",
+      "description": "Scenario 10: Multiplatform Version Consistency Target",
+      "status": "PASS",
+      "message": null
+    }
+  ]
+}

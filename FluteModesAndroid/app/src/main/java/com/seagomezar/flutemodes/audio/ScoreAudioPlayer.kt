@@ -24,6 +24,11 @@ class ScoreAudioPlayer {
     var isPlaying by mutableStateOf(false)
         private set
 
+    var currentNoteIndex by mutableStateOf<Int?>(null)
+        private set
+
+    private var lastNoteDurations: List<Double> = emptyList()
+
     private var playbackJob: Job? = null
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private var currentTrack: AudioTrack? = null
@@ -96,6 +101,7 @@ class ScoreAudioPlayer {
             e.printStackTrace()
         }
         currentTrack = null
+        currentNoteIndex = null
         isPlaying = false
     }
 
@@ -163,10 +169,15 @@ class ScoreAudioPlayer {
 
     private suspend fun CoroutineScope.playPcmBuffer(buffer: ShortArray) {
         if (!isActive || buffer.isEmpty()) {
-            withContext(Dispatchers.Main) { isPlaying = false }
+            withContext(Dispatchers.Main) {
+                isPlaying = false
+                currentNoteIndex = null
+            }
             return
         }
 
+        val durations = lastNoteDurations
+        var highlightJob: Job? = null
         try {
             val attributes = AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -198,12 +209,23 @@ class ScoreAudioPlayer {
             track.write(buffer, 0, buffer.size)
             track.play()
 
+            highlightJob = launch(Dispatchers.Main) {
+                for ((index, dur) in durations.withIndex()) {
+                    if (!isActive) break
+                    currentNoteIndex = index
+                    delay((dur * 1000.0).toLong())
+                }
+                currentNoteIndex = null
+            }
+
             val durationMs = (buffer.size.toDouble() / sampleRate * 1000.0).toLong()
             delay(durationMs)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
+            highlightJob?.cancel()
             withContext(Dispatchers.Main) {
+                currentNoteIndex = null
                 isPlaying = false
             }
         }
@@ -299,7 +321,10 @@ class ScoreAudioPlayer {
         sectionIndex: Int,
         tempoBPM: Int
     ): ShortArray {
-        val sixteenthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+        val sixteenthDuration = when (exercise) {
+            ExerciseType.R5 -> (60.0 / tempoBPM.toDouble()) / 6.0
+            else -> (60.0 / tempoBPM.toDouble()) / 4.0
+        }
         val finalDuration = sixteenthDuration * 6.0
 
         fun isStaccatoAt(subIndex: Int): Boolean {
@@ -331,14 +356,25 @@ class ScoreAudioPlayer {
         val midiNotes = allSections[secIdx]
         val notes = mutableListOf<NoteDef>()
         for ((idx, m) in midiNotes.withIndex()) {
-            val isLongFinal = (idx == midiNotes.size - 1) && (exercise == ExerciseType.EJ5 || (!exercise.isReichertExercise && secIdx == 11) || (exercise.isReichertExercise && secIdx == 24))
-            notes.add(
-                NoteDef(
-                    freq = midiToFrequency(m.toDouble()),
-                    duration = if (isLongFinal) finalDuration else sixteenthDuration,
-                    isStaccato = if (isLongFinal) false else isStaccatoAt(idx)
+            val isLast = (idx == midiNotes.size - 1)
+            if (isLast && (exercise == ExerciseType.R1 || exercise == ExerciseType.R5)) {
+                notes.add(
+                    NoteDef(
+                        freq = midiToFrequency(m.toDouble()),
+                        duration = sixteenthDuration * 2.0,
+                        isStaccato = true
+                    )
                 )
-            )
+            } else {
+                val isLongFinal = isLast && (exercise == ExerciseType.EJ5 || (!exercise.isReichertExercise && secIdx == 11))
+                notes.add(
+                    NoteDef(
+                        freq = midiToFrequency(m.toDouble()),
+                        duration = if (isLongFinal) finalDuration else sixteenthDuration,
+                        isStaccato = if (isLongFinal) false else isStaccatoAt(idx)
+                    )
+                )
+            }
         }
         return renderNotesToPcm(notes)
     }
@@ -378,14 +414,28 @@ class ScoreAudioPlayer {
 
         val notes = mutableListOf<NoteDef>()
         for ((idx, m) in midiNotes.withIndex()) {
-            val isLastCodaNote = isCoda && (idx == midiNotes.size - 1)
-            notes.add(
-                NoteDef(
-                    freq = midiToFrequency(m.toDouble()),
-                    duration = if (isLastCodaNote) finalDuration else eighthDuration,
-                    isStaccato = if (isLastCodaNote) false else isStaccatoAt(idx)
+            val isLast = (idx == midiNotes.size - 1)
+            if (isLast && (exercise == ExerciseType.R2 || exercise == ExerciseType.R4)) {
+                notes.add(
+                    NoteDef(
+                        freq = midiToFrequency(m.toDouble()),
+                        duration = eighthDuration * 2.0,
+                        isStaccato = true
+                    )
                 )
-            )
+            } else {
+                val isLastInCoda = isCoda && isLast
+                val subIdx = if (exercise == ExerciseType.R2) {
+                    if (idx >= 4) (idx - 4) else (idx + 4)
+                } else idx
+                notes.add(
+                    NoteDef(
+                        freq = midiToFrequency(m.toDouble()),
+                        duration = if (isLastInCoda) finalDuration else eighthDuration,
+                        isStaccato = if (isLastInCoda) false else isStaccatoAt(subIdx)
+                    )
+                )
+            }
         }
         return renderNotesToPcm(notes)
     }
@@ -429,6 +479,7 @@ class ScoreAudioPlayer {
         }
 
         val thirdOffset = if (isMinor) 3 else 4
+        val dimFourthSemitone = if (isMinor) 4 else 5
 
         // 15 chromatic pairs (Measures 1..30), starting on D4 (MIDI 62) up to F5 (MIDI 77)
         for (k in 0 until 15) {
@@ -440,8 +491,8 @@ class ScoreAudioPlayer {
                 addGroup(pentGroup)
             }
 
-            // Even measure: Diminished 7th vii° (0, 1, 3, 5, 6) resolving to base + 1
-            val dim = listOf(base, base + 1, base + 3, base + 5, base + 6)
+            // Even measure: Diminished 7th vii° resolving to base + 1
+            val dim = listOf(base, base + 1, base + 3, base + (if (isMinor) 4 else 5), base + 6)
             val dimGroup = listOf(dim[0], dim[1], dim[2], dim[3], dim[4], dim[3], dim[2], dim[1])
             val dimTurn  = listOf(dim[0], dim[1], dim[2], dim[3], dim[4], dim[2], dim[1], dim[0])
             repeat(3) {
@@ -463,6 +514,7 @@ class ScoreAudioPlayer {
     }
 
     private fun renderNotesToPcm(notes: List<NoteDef>): ShortArray {
+        lastNoteDurations = notes.map { it.duration }
         val totalDuration = notes.sumOf { it.duration }
         val totalFrames = (sampleRate * totalDuration).toInt()
         val buffer = ShortArray(totalFrames)
