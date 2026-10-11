@@ -58,6 +58,119 @@ public class LocalizationManager: ObservableObject {
             "Maestro León Giraldo's Parallel System · 84 Modes (12 Tonics × 7 Modes)"
         ],
 
+        // E.J. 1 General
+        "ej1_title": [
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+        ],
+        "ej1_sub_desc": [
+            "17 Grands Exercices Journaliers de Mécanisme · Pentacordos cromáticos (31 compases · 10 articulaciones oficiales)",
+            "17 Daily Mechanism Exercises · Chromatic pentachords (31 measures · 10 official articulations)"
+        ],
+        "ej1_header_info": [
+            "Compases 1–10 (plicas ↑) · Compases 11–31 (plicas ↓) · Reprise à l'octave · 8va",
+            "Measures 1–10 (stems ↑) · Measures 11–31 (stems ↓) · Reprise à l'octave · 8va"
+        ],
+        "ej1_select_art": [
+            "10 Articulaciones Oficiales (E. J. 1)",
+            "10 Official Articulations (E. J. 1)"
+        ],
+        "ej1_start_practice": [
+            "Practicar E. J. 1",
+            "Practice E. J. 1"
+        ],
+        "ej1_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+        "ej1_milestone_title": [
+            "¡E. J. 1 Completado (10/10 Articulaciones)!",
+            "E. J. 1 Completed (10/10 Articulations)!"
+        ],
+        "ej1_milestone_msg": [
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N.° 1 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert Daily Exercise No. 1."
+        ],
+        "ej1_restart_round": [
+            "🔁 Volver a Articulación 1",
+            "🔁 Restart from Articulation 1"
+        ],
+        "ej1_go_to_ej2": [
+            "🎵 Ir a E. J. 2 (Pentacordios Menores)",
+            "🎵 Switch to E. J. 2 (Minor Pentachords)"
+        ],
+        "ej1_go_to_ej4": [
+            "🎵 Ir a E. J. 4 (84 Modos Paralelos)",
+            "🎵 Switch to E. J. 4 (84 Parallel Modes)"
+        ],
+
+        // E.J. 2 General
+        "ej2_title": [
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+        ],
+        "ej2_sub_desc": [
+            "17 Grands Exercices Journaliers de Mécanisme · Pentacordios menores y 7ª disminuida (31 compases · 10 articulaciones oficiales)",
+            "17 Daily Mechanism Exercises · Minor pentachords & diminished 7th (31 measures · 10 official articulations)"
+        ],
+        "ej2_header_info": [
+            "Compases 1–10 (plicas ↑) · Compases 11–31 (plicas ↓) · Pentacordios menores · 8va",
+            "Measures 1–10 (stems ↑) · Measures 11–31 (stems ↓) · Minor pentachords · 8va"
+        ],
+        "ej2_select_art": [
+            "10 Articulaciones Oficiales (E. J. 2)",
+            "10 Official Articulations (E. J. 2)"
+        ],
+        "ej2_start_practice": [
+            "Practicar E. J. 2",
+            "Practice E. J. 2"
+        ],
+        "ej2_ten_arts_completed": [
+            "10 Articulaciones Completadas",
+            "10 Articulations Completed"
+        ],
+        "ej2_milestone_title": [
+            "¡E. J. 2 Completado (10/10 Articulaciones)!",
+            "E. J. 2 Completed (10/10 Articulations)!"
+        ],
+        "ej2_milestone_msg": [
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N.° 2 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert Daily Exercise No. 2."
+        ],
+        "ej2_restart_round": [
+            "🔁 Volver a Articulación 1",
+            "🔁 Restart from Articulation 1"
+        ],
+        "ej2_go_to_ej4": [
+            "🎵 Ir a E. J. 4 (84 Modos Paralelos)",
+            "🎵 Switch to E. J. 4 (84 Parallel Modes)"
+        ],
+
+        // E.J. 1 Articulations (0..10)
+        "ej1_art_0_title": ["Original (A. L. 16.588)", "Original (A. L. 16.588)"],
+        "ej1_art_1_title": ["1. A 8 ligadas (Toda ligada)", "1. All 8 slurred"],
+        "ej1_art_2_title": ["2. A 4 y 4 ligadas", "2. Slurred 4 & 4"],
+        "ej1_art_3_title": ["3. 1 picada y 3 ligadas", "3. 1 staccato, 3 slurred"],
+        "ej1_art_4_title": ["4. 3 ligadas y 1 picada", "4. 3 slurred, 1 staccato"],
+        "ej1_art_5_title": ["5. 2 ligadas y 2 picadas", "5. 2 slurred, 2 staccato"],
+        "ej1_art_6_title": ["6. 2 picadas y 2 ligadas", "6. 2 staccato, 2 slurred"],
+        "ej1_art_7_title": ["7. 1 picada, 2 ligadas y 1 picada", "7. 1 stacc., 2 slurred, 1 stacc."],
+        "ej1_art_8_title": ["8. De 2 en 2 ligadas", "8. Slurred in pairs (2+2+2+2)"],
+        "ej1_art_9_title": ["9. De 2 en 2 sincopadas", "9. Syncopated pairs"],
+        "ej1_art_10_title": ["10. Todo picado (Staccato)", "10. All staccato"],
+
+        "ej1_art_0_short": ["0. Original", "0. Original"],
+        "ej1_art_1_short": ["1. 8 ligadas", "1. 8 slurred"],
+        "ej1_art_2_short": ["2. 4 y 4 lig.", "2. 4 & 4 slur"],
+        "ej1_art_3_short": ["3. 1 pic., 3 lig.", "3. 1 stacc., 3 slur"],
+        "ej1_art_4_short": ["4. 3 lig., 1 pic.", "4. 3 slur, 1 stacc."],
+        "ej1_art_5_short": ["5. 2 lig., 2 pic.", "5. 2 slur, 2 stacc."],
+        "ej1_art_6_short": ["6. 2 pic., 2 lig.", "6. 2 stacc., 2 slur"],
+        "ej1_art_7_short": ["7. 1 pic., 2 lig., 1 pic.", "7. 1 stacc., 2 slur, 1 stacc."],
+        "ej1_art_8_short": ["8. De 2 en 2 lig.", "8. Pairs slurred"],
+        "ej1_art_9_short": ["9. Sincopadas", "9. Syncopated"],
+        "ej1_art_10_short": ["10. Todo picado", "10. All staccato"],
+
         // Home View
         "select_tonic": ["Selecciona una Tónica", "Select a Tonic"],
         "major_family": ["Familia Mayor (3 Modos)", "Major Family (3 Modes)"],
@@ -102,7 +215,7 @@ public class LocalizationManager: ObservableObject {
         "acc_phrygian": ["Segunda menor (♭2) accidental", "Minor second (♭2) accidental"],
         "acc_locrian": ["Segunda menor (♭2) y Quinta disminuida (♭5)", "Minor second (♭2) & Diminished fifth (♭5)"],
 
-        // Articulations (short)
+        // Articulations E.J. 4 (short)
         "art_1_short": ["Toda ligada", "All slurred"],
         "art_2_short": ["Ligado 4 y 4", "Slurred 4 & 4"],
         "art_3_short": ["Lig. 2, pic. 2", "Slur 2, stacc. 2"],
@@ -140,6 +253,8 @@ public class LocalizationManager: ObservableObject {
         "mode_fully_done": ["Modo Completado", "Mode Completed"],
         "legend_completed": ["Completado (8/8 arts.)", "Completed (8/8 arts)"],
         "legend_in_progress": ["En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"],
-        "legend_not_started": ["No iniciado (0/8 arts.)", "Not started (0/8 arts)"]
+        "legend_not_started": ["No iniciado (0/8 arts.)", "Not started (0/8 arts)"],
+        "completed": ["Completada", "Completed"],
+        "in_progress": ["En curso", "Current"]
     ]
 }

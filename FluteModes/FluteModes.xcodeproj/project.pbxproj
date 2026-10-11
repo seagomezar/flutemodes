@@ -7,26 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		076267B7513EA542A8906FB2 /* 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = FF5570F9441FF14158ED7E75 /* 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc */; };
+		08E0B8E8268BCE44DEAB7750 /* 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 47E2D12E14F61E4B4218ECF3 /* 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc */; };
+		0B5929D877F3A4101C63BF6A /* 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 51B924BAAA47B6A817225031 /* 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc */; };
+		13778337882D8E57415DC7AA /* 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 98A4ECF32A018700C094E2BA /* 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc */; };
 		19302077A1A89861858DC13A /* score_template.html in Resources */ = {isa = PBXBuildFile; fileRef = 0D1A88C84258A42E4DCBD495 /* score_template.html */; };
 		1FCD0711C6B1758F77961DDB /* PracticeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D244768D87B66A94A87D8E98 /* PracticeStore.swift */; };
 		2E965AC73371AF5853501E07 /* ScoreWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEEB4B1CF241F320DCABB06 /* ScoreWebView.swift */; };
 		2FEFA31B7529673710F42577 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013ABC3BCA10FF68DC594DF4 /* LocalizationManager.swift */; };
 		3145CDF140C29BC838F95819 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1065AB831F5BA18A61C11876 /* PracticeViewModel.swift */; };
+		3600903CBB05793AE930CA82 /* 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc in Resources */ = {isa = PBXBuildFile; fileRef = C9266106C048C2A937C74DCE /* 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */; };
 		390CDA0CD5E626104F23F260 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */; };
 		3A9AEDA5C284ADD518831E78 /* ScoreAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A662C10627446E3FE98205E3 /* ScoreAudioPlayer.swift */; };
+		473CEA61C442F14CEBB0B3E7 /* 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc in Resources */ = {isa = PBXBuildFile; fileRef = FF804A8F49C56D3E070AD625 /* 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc */; };
+		48BCCCD11F6F0E72CF8BF56E /* 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc in Resources */ = {isa = PBXBuildFile; fileRef = 696ACDFF68FE81433267E197 /* 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc */; };
 		4EDCD684308BCD477914DA6E /* MusicalMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F9171A65C03E9F7F505606 /* MusicalMode.swift */; };
+		50DA3FC49AF688FAF5BC0D9B /* 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = F17CF43AA244CBA721962638 /* 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc */; };
+		52EC23AA81BD1B925007F37F /* 00_Taffanel_EJ1_Original_AL16588.abc in Resources */ = {isa = PBXBuildFile; fileRef = C11CF3745D671B61B881DF0C /* 00_Taffanel_EJ1_Original_AL16588.abc */; };
+		572AC8586EE0ABDD147602F9 /* 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = B9418D12D346D5273D95CA5F /* 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc */; };
 		5E15B4045B0353E6CC57A192 /* FluteModesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A3981CF6597196B7417A2D /* FluteModesApp.swift */; };
 		64DE7C52D1D2C1DBD9ED7595 /* ArticulationPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521327B2B42361BE918E90B /* ArticulationPattern.swift */; };
+		69613972EDA175130C2DDB7E /* 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc in Resources */ = {isa = PBXBuildFile; fileRef = F79BA632056DF53CD2396B15 /* 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc */; };
+		6C8A5F88FD8A08D454D2B2A0 /* 00_Taffanel_EJ2_Original_AL16588.abc in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB3BFDAA72858185865CAF /* 00_Taffanel_EJ2_Original_AL16588.abc */; };
+		6DA4A6BB6753654F73788713 /* 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 17ABA40E992E683BFED02495 /* 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc */; };
+		71E2A4FA081061B2C3832D41 /* 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 437E5AB3C863CE8B285CA831 /* 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc */; };
 		752B0439E9680DFBACCBFD7E /* ProgressMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A89152855807AC4E79D85 /* ProgressMatrixView.swift */; };
 		77515A1647E0F19F9072DA82 /* Tonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD158759442255B6ACE0B4E3 /* Tonic.swift */; };
 		7956BB7E60E09612E45E4113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72B5E878DF0A96FAF5DC75B3 /* Assets.xcassets */; };
+		7D66BA555E1644ED801F0196 /* 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 4599CDF5C11F0E5E2C06C298 /* 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc */; };
 		8CB58E353EBA0F1B8606333F /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD123AE94385FB0B8231137 /* MetronomeEngine.swift */; };
+		8F223D603416BA27D67A46F0 /* 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = C616A97CB0B269DEAA4DDF40 /* 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc */; };
+		94A13BAE03E6DCC0E5CC6E3A /* 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = E291991E4161A570E5F0482B /* 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc */; };
+		9629BC17A3FCCC66B260205B /* 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 7F013F59A98C1F8A30B83DBC /* 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc */; };
 		9F1C3277FF9C6F6B8C7FD3D0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE020A626D13C014801C76E /* HomeView.swift */; };
+		A1CBEC0D6755BFD502C1FC78 /* 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc in Resources */ = {isa = PBXBuildFile; fileRef = F3456DD1FC8CA469614861D2 /* 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc */; };
+		A5561C42BED7D228B5438087 /* 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc in Resources */ = {isa = PBXBuildFile; fileRef = 154F9607B2AB2B6A40F76EFC /* 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc */; };
 		A6009397A88F78B0D8B73535 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14745919DE369D5B437B06 /* PracticeView.swift */; };
 		C9B418288E9F95ABB770A14F /* FluteModesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE6D4A795ECC206307963F9 /* FluteModesTests.swift */; };
+		D3B6C77B20E6CCDD3CE56A85 /* 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc in Resources */ = {isa = PBXBuildFile; fileRef = 7B8D8EEE63B449876C2FA401 /* 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */; };
+		D8CE6743888E100003405733 /* 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 3E8F613D7DB4B1A7CD962A5B /* 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc */; };
 		DC246E1F8292A647E44361D1 /* ExerciseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881D5981DA7469697862F245 /* ExerciseGenerator.swift */; };
 		DC66B07F5D1DDA1C578ABDF5 /* AppAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CF2929CEF606A93B5B30CC /* AppAudioEngine.swift */; };
+		E1081A453D414CBD207961B5 /* 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc in Resources */ = {isa = PBXBuildFile; fileRef = 85334467CC861F88E8E5096D /* 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc */; };
 		EC95C80CACBF3C9FF0BE1A78 /* abcjs-basic-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 464E9EEFBF3E7833496630D0 /* abcjs-basic-min.js */; };
+		F72B2B6DC60FCE0AD7A5EA44 /* 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc in Resources */ = {isa = PBXBuildFile; fileRef = CA7B70169B2833D1FC139EEE /* 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,26 +67,50 @@
 		013ABC3BCA10FF68DC594DF4 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		0D1A88C84258A42E4DCBD495 /* score_template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = score_template.html; sourceTree = "<group>"; };
 		1065AB831F5BA18A61C11876 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		154F9607B2AB2B6A40F76EFC /* 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc */ = {isa = PBXFileReference; path = 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc; sourceTree = "<group>"; };
+		17ABA40E992E683BFED02495 /* 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc */ = {isa = PBXFileReference; path = 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc; sourceTree = "<group>"; };
 		1C92A0D483A7A8F3CB44442E /* FluteModes.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FluteModes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD123AE94385FB0B8231137 /* MetronomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
+		1FFB3BFDAA72858185865CAF /* 00_Taffanel_EJ2_Original_AL16588.abc */ = {isa = PBXFileReference; path = 00_Taffanel_EJ2_Original_AL16588.abc; sourceTree = "<group>"; };
 		3AEEB4B1CF241F320DCABB06 /* ScoreWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreWebView.swift; sourceTree = "<group>"; };
+		3E8F613D7DB4B1A7CD962A5B /* 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc */ = {isa = PBXFileReference; path = 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc; sourceTree = "<group>"; };
 		41C0AB40B78E188852A618CF /* FluteModesTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FluteModesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		437E5AB3C863CE8B285CA831 /* 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc */ = {isa = PBXFileReference; path = 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc; sourceTree = "<group>"; };
+		4599CDF5C11F0E5E2C06C298 /* 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc */ = {isa = PBXFileReference; path = 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc; sourceTree = "<group>"; };
 		464E9EEFBF3E7833496630D0 /* abcjs-basic-min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "abcjs-basic-min.js"; sourceTree = "<group>"; };
+		47E2D12E14F61E4B4218ECF3 /* 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc */ = {isa = PBXFileReference; path = 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc; sourceTree = "<group>"; };
+		51B924BAAA47B6A817225031 /* 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc */ = {isa = PBXFileReference; path = 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc; sourceTree = "<group>"; };
+		696ACDFF68FE81433267E197 /* 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc */ = {isa = PBXFileReference; path = 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc; sourceTree = "<group>"; };
 		6DE6D4A795ECC206307963F9 /* FluteModesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluteModesTests.swift; sourceTree = "<group>"; };
 		72B5E878DF0A96FAF5DC75B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73F9171A65C03E9F7F505606 /* MusicalMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalMode.swift; sourceTree = "<group>"; };
+		7B8D8EEE63B449876C2FA401 /* 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */ = {isa = PBXFileReference; path = 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc; sourceTree = "<group>"; };
+		7F013F59A98C1F8A30B83DBC /* 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc */ = {isa = PBXFileReference; path = 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc; sourceTree = "<group>"; };
+		85334467CC861F88E8E5096D /* 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc */ = {isa = PBXFileReference; path = 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc; sourceTree = "<group>"; };
 		881D5981DA7469697862F245 /* ExerciseGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseGenerator.swift; sourceTree = "<group>"; };
+		98A4ECF32A018700C094E2BA /* 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc */ = {isa = PBXFileReference; path = 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc; sourceTree = "<group>"; };
 		A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A662C10627446E3FE98205E3 /* ScoreAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreAudioPlayer.swift; sourceTree = "<group>"; };
 		B521327B2B42361BE918E90B /* ArticulationPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticulationPattern.swift; sourceTree = "<group>"; };
+		B9418D12D346D5273D95CA5F /* 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc */ = {isa = PBXFileReference; path = 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc; sourceTree = "<group>"; };
 		BDE020A626D13C014801C76E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C11CF3745D671B61B881DF0C /* 00_Taffanel_EJ1_Original_AL16588.abc */ = {isa = PBXFileReference; path = 00_Taffanel_EJ1_Original_AL16588.abc; sourceTree = "<group>"; };
+		C616A97CB0B269DEAA4DDF40 /* 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc */ = {isa = PBXFileReference; path = 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc; sourceTree = "<group>"; };
+		C9266106C048C2A937C74DCE /* 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */ = {isa = PBXFileReference; path = 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc; sourceTree = "<group>"; };
+		CA7B70169B2833D1FC139EEE /* 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc */ = {isa = PBXFileReference; path = 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc; sourceTree = "<group>"; };
 		CD158759442255B6ACE0B4E3 /* Tonic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tonic.swift; sourceTree = "<group>"; };
 		D244768D87B66A94A87D8E98 /* PracticeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeStore.swift; sourceTree = "<group>"; };
 		DB7A89152855807AC4E79D85 /* ProgressMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressMatrixView.swift; sourceTree = "<group>"; };
 		DE6E4D5F0491C5EAA52B74EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E291991E4161A570E5F0482B /* 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc */ = {isa = PBXFileReference; path = 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc; sourceTree = "<group>"; };
 		E3A3981CF6597196B7417A2D /* FluteModesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluteModesApp.swift; sourceTree = "<group>"; };
 		E4CF2929CEF606A93B5B30CC /* AppAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAudioEngine.swift; sourceTree = "<group>"; };
 		EE14745919DE369D5B437B06 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		F17CF43AA244CBA721962638 /* 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc */ = {isa = PBXFileReference; path = 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc; sourceTree = "<group>"; };
+		F3456DD1FC8CA469614861D2 /* 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc */ = {isa = PBXFileReference; path = 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc; sourceTree = "<group>"; };
+		F79BA632056DF53CD2396B15 /* 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc */ = {isa = PBXFileReference; path = 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc; sourceTree = "<group>"; };
+		FF5570F9441FF14158ED7E75 /* 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc */ = {isa = PBXFileReference; path = 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc; sourceTree = "<group>"; };
+		FF804A8F49C56D3E070AD625 /* 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc */ = {isa = PBXFileReference; path = 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -112,8 +160,48 @@
 				72B5E878DF0A96FAF5DC75B3 /* Assets.xcassets */,
 				A42E23BCFC74286567D97DA3 /* LaunchScreen.storyboard */,
 				0D1A88C84258A42E4DCBD495 /* score_template.html */,
+				9C7685CC4AD79130F3E900DB /* abc_ej1 */,
+				7FC25E16CCE2501B536E1112 /* abc_ej2 */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7FC25E16CCE2501B536E1112 /* abc_ej2 */ = {
+			isa = PBXGroup;
+			children = (
+				1FFB3BFDAA72858185865CAF /* 00_Taffanel_EJ2_Original_AL16588.abc */,
+				FF5570F9441FF14158ED7E75 /* 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc */,
+				47E2D12E14F61E4B4218ECF3 /* 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc */,
+				98A4ECF32A018700C094E2BA /* 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc */,
+				154F9607B2AB2B6A40F76EFC /* 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc */,
+				E291991E4161A570E5F0482B /* 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc */,
+				C616A97CB0B269DEAA4DDF40 /* 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc */,
+				C9266106C048C2A937C74DCE /* 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */,
+				437E5AB3C863CE8B285CA831 /* 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc */,
+				85334467CC861F88E8E5096D /* 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc */,
+				CA7B70169B2833D1FC139EEE /* 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc */,
+				FF804A8F49C56D3E070AD625 /* 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc */,
+			);
+			path = abc_ej2;
+			sourceTree = "<group>";
+		};
+		9C7685CC4AD79130F3E900DB /* abc_ej1 */ = {
+			isa = PBXGroup;
+			children = (
+				C11CF3745D671B61B881DF0C /* 00_Taffanel_EJ1_Original_AL16588.abc */,
+				17ABA40E992E683BFED02495 /* 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc */,
+				B9418D12D346D5273D95CA5F /* 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc */,
+				3E8F613D7DB4B1A7CD962A5B /* 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc */,
+				F79BA632056DF53CD2396B15 /* 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc */,
+				51B924BAAA47B6A817225031 /* 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc */,
+				F17CF43AA244CBA721962638 /* 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc */,
+				7B8D8EEE63B449876C2FA401 /* 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc */,
+				4599CDF5C11F0E5E2C06C298 /* 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc */,
+				7F013F59A98C1F8A30B83DBC /* 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc */,
+				696ACDFF68FE81433267E197 /* 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc */,
+				F3456DD1FC8CA469614861D2 /* 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc */,
+			);
+			path = abc_ej1;
 			sourceTree = "<group>";
 		};
 		A10EC36727740DD1A43A8A7A /* FluteModesTests */ = {
@@ -250,6 +338,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52EC23AA81BD1B925007F37F /* 00_Taffanel_EJ1_Original_AL16588.abc in Resources */,
+				6C8A5F88FD8A08D454D2B2A0 /* 00_Taffanel_EJ2_Original_AL16588.abc in Resources */,
+				6DA4A6BB6753654F73788713 /* 01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc in Resources */,
+				076267B7513EA542A8906FB2 /* 01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc in Resources */,
+				572AC8586EE0ABDD147602F9 /* 02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc in Resources */,
+				08E0B8E8268BCE44DEAB7750 /* 02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc in Resources */,
+				D8CE6743888E100003405733 /* 03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc in Resources */,
+				13778337882D8E57415DC7AA /* 03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc in Resources */,
+				69613972EDA175130C2DDB7E /* 04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc in Resources */,
+				A5561C42BED7D228B5438087 /* 04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc in Resources */,
+				0B5929D877F3A4101C63BF6A /* 05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc in Resources */,
+				94A13BAE03E6DCC0E5CC6E3A /* 05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc in Resources */,
+				50DA3FC49AF688FAF5BC0D9B /* 06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc in Resources */,
+				8F223D603416BA27D67A46F0 /* 06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc in Resources */,
+				D3B6C77B20E6CCDD3CE56A85 /* 07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc in Resources */,
+				3600903CBB05793AE930CA82 /* 07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc in Resources */,
+				7D66BA555E1644ED801F0196 /* 08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc in Resources */,
+				71E2A4FA081061B2C3832D41 /* 08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc in Resources */,
+				9629BC17A3FCCC66B260205B /* 09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc in Resources */,
+				E1081A453D414CBD207961B5 /* 09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc in Resources */,
+				48BCCCD11F6F0E72CF8BF56E /* 10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc in Resources */,
+				F72B2B6DC60FCE0AD7A5EA44 /* 10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc in Resources */,
+				A1CBEC0D6755BFD502C1FC78 /* 11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc in Resources */,
+				473CEA61C442F14CEBB0B3E7 /* 11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc in Resources */,
 				7956BB7E60E09612E45E4113 /* Assets.xcassets in Resources */,
 				390CDA0CD5E626104F23F260 /* LaunchScreen.storyboard in Resources */,
 				EC95C80CACBF3C9FF0BE1A78 /* abcjs-basic-min.js in Resources */,
@@ -387,14 +499,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QWY6U4KSA6;
 				INFOPLIST_FILE = FluteModes/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seagomezar.flutemodes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -407,14 +519,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = QWY6U4KSA6;
 				INFOPLIST_FILE = FluteModes/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seagomezar.flutemodes;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

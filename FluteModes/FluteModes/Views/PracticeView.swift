@@ -89,6 +89,39 @@ public struct PracticeView: View {
         } message: {
             Text(String(format: loc.t("milestone_msg"), viewModel.currentTonic.rawValue, viewModel.totalArticulationsInCurrentTonic))
         }
+        .confirmationDialog(
+            loc.t("ej1_milestone_title"),
+            isPresented: $viewModel.showEJ1CompletionDialog,
+            titleVisibility: .visible
+        ) {
+            Button(loc.t("ej1_restart_round")) {
+                viewModel.restartEJ1Round()
+            }
+            Button(loc.t("ej1_go_to_ej2")) {
+                viewModel.selectExercise(.ej2)
+            }
+            Button(loc.t("ej1_go_to_ej4")) {
+                viewModel.selectExercise(.ej4)
+            }
+            Button(loc.t("stay_mode"), role: .cancel) {}
+        } message: {
+            Text(loc.t("ej1_milestone_msg"))
+        }
+        .confirmationDialog(
+            loc.t("ej2_milestone_title"),
+            isPresented: $viewModel.showEJ2CompletionDialog,
+            titleVisibility: .visible
+        ) {
+            Button(loc.t("ej2_restart_round")) {
+                viewModel.restartEJ2Round()
+            }
+            Button(loc.t("ej2_go_to_ej4")) {
+                viewModel.selectExercise(.ej4)
+            }
+            Button(loc.t("stay_mode"), role: .cancel) {}
+        } message: {
+            Text(loc.t("ej2_milestone_msg"))
+        }
     }
 
     // MARK: - Mobile Top Navigation Bar
@@ -108,15 +141,38 @@ public struct PracticeView: View {
 
             Spacer()
 
-            Button {
-                navigateToMatrix = true
-            } label: {
-                Image(systemName: "square.grid.3x3.fill")
-                    .font(.subheadline)
-                    .padding(8)
-                    .background(Color(uiColor: .tertiarySystemFill))
-                    .foregroundColor(.primary)
-                    .clipShape(Circle())
+            // Exercise quick switcher (E.J. 1 | E.J. 2 | E.J. 4)
+            HStack(spacing: 2) {
+                ForEach(ExerciseType.allCases) { ex in
+                    let isSel = viewModel.currentExercise == ex
+                    Button {
+                        viewModel.selectExercise(ex)
+                    } label: {
+                        Text(ex.pillLabel)
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 5)
+                            .background(isSel ? Color.primary : Color.clear)
+                            .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
+                            .cornerRadius(8)
+                    }
+                }
+            }
+            .padding(2)
+            .background(Color(uiColor: .tertiarySystemFill))
+            .cornerRadius(10)
+
+            if viewModel.currentExercise == .ej4 {
+                Button {
+                    navigateToMatrix = true
+                } label: {
+                    Image(systemName: "square.grid.3x3.fill")
+                        .font(.subheadline)
+                        .padding(8)
+                        .background(Color(uiColor: .tertiarySystemFill))
+                        .foregroundColor(.primary)
+                        .clipShape(Circle())
+                }
             }
 
             Button {
@@ -140,50 +196,102 @@ public struct PracticeView: View {
     }
 
     // MARK: - Mobile Mode Header Card
+    @ViewBuilder
     private var mobileModeHeaderCard: some View {
-        VStack(spacing: 6) {
-            HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.name)")
-                        .font(.system(size: 19, weight: .bold))
-                        .foregroundColor(.primary)
+        if viewModel.currentExercise.isChromaticExercise {
+            let isEj2 = viewModel.currentExercise == .ej2
+            let completed = viewModel.store.chromaticCompletedCount(for: viewModel.currentExercise)
+            let isAllDone = viewModel.store.isChromaticFullyCompleted(for: viewModel.currentExercise)
+            let currentArt = viewModel.currentChromaticArticulation
 
-                    Text(viewModel.currentMode.keyDescription(for: viewModel.currentTonic))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+            VStack(spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("\(viewModel.currentExercise.pillLabel) · \(currentArt.title)")
+                            .font(.system(size: 17, weight: .bold))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+
+                        Text(loc.t(isEj2 ? "ej2_header_info" : "ej1_header_info"))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+
+                    Text("\(completed)/10 \(loc.t("arts_count"))")
+                        .font(.caption2.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                        .foregroundColor(isAllDone ? Color.green : Color.blue)
+                        .cornerRadius(8)
                 }
 
-                Spacer()
+                HStack(spacing: 6) {
+                    Text("A. L. 16.588")
+                        .font(.caption2.bold())
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color(uiColor: .tertiarySystemFill))
+                        .foregroundColor(.secondary)
+                        .cornerRadius(6)
 
-                // Progress badge (e.g. 3/7)
-                Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
-                    .font(.caption2.bold().monospacedDigit())
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(viewModel.areAllModesInCurrentTonicPracticed ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
-                    .foregroundColor(viewModel.areAllModesInCurrentTonicPracticed ? Color.green : Color.blue)
-                    .cornerRadius(8)
+                    Text(currentArt.formulaBadge)
+                        .font(.caption2.weight(.medium).monospaced())
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color(uiColor: .systemBackground))
+        } else {
+            VStack(spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.name)")
+                            .font(.system(size: 19, weight: .bold))
+                            .foregroundColor(.primary)
 
-            HStack(spacing: 6) {
-                Text(viewModel.currentMode.family.rawValue)
-                    .font(.caption2.bold())
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Color(uiColor: .tertiarySystemFill))
-                    .foregroundColor(.secondary)
-                    .cornerRadius(6)
+                        Text(viewModel.currentMode.keyDescription(for: viewModel.currentTonic))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
 
-                Text(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))
-                    .font(.caption2.weight(.medium))
-                    .foregroundColor(.secondary)
+                    Spacer()
 
-                Spacer()
+                    // Progress badge (e.g. 3/7)
+                    Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                        .font(.caption2.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(viewModel.areAllModesInCurrentTonicPracticed ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                        .foregroundColor(viewModel.areAllModesInCurrentTonicPracticed ? Color.green : Color.blue)
+                        .cornerRadius(8)
+                }
+
+                HStack(spacing: 6) {
+                    Text(viewModel.currentMode.family.rawValue)
+                        .font(.caption2.bold())
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color(uiColor: .tertiarySystemFill))
+                        .foregroundColor(.secondary)
+                        .cornerRadius(6)
+
+                    Text(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))
+                        .font(.caption2.weight(.medium))
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color(uiColor: .systemBackground))
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(Color(uiColor: .systemBackground))
     }
 
     // MARK: - Top Bar (Tablet)
@@ -201,35 +309,90 @@ public struct PracticeView: View {
                 .foregroundColor(.primary)
             }
 
+            // Exercise Switcher Pill
+            HStack(spacing: 2) {
+                ForEach(ExerciseType.allCases) { ex in
+                    let isSel = viewModel.currentExercise == ex
+                    Button {
+                        viewModel.selectExercise(ex)
+                    } label: {
+                        Text(ex.pillLabel)
+                            .font(.caption.bold())
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(isSel ? Color.primary : Color.clear)
+                            .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
+                            .cornerRadius(8)
+                    }
+                }
+            }
+            .padding(2)
+            .background(Color(uiColor: .tertiarySystemFill))
+            .cornerRadius(10)
+
             Spacer()
 
-            // Mode Details Badge (Parallel System)
-            VStack(spacing: 3) {
-                HStack(spacing: 8) {
-                    Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name)")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.primary)
+            if viewModel.currentExercise.isChromaticExercise {
+                let isEj2 = viewModel.currentExercise == .ej2
+                let completed = viewModel.store.chromaticCompletedCount(for: viewModel.currentExercise)
+                let isAllDone = viewModel.store.isChromaticFullyCompleted(for: viewModel.currentExercise)
+                let currentArt = viewModel.currentChromaticArticulation
 
-                    Text(viewModel.currentMode.family.rawValue)
-                        .font(.caption2.bold())
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color(uiColor: .tertiarySystemFill))
-                        .cornerRadius(6)
+                VStack(spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text("\(viewModel.currentExercise.pillLabel) · \(currentArt.title)")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.primary)
 
-                    // Tonic modes progress badge (e.g. 3/7)
-                    Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
-                        .font(.caption2.bold().monospacedDigit())
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(viewModel.areAllModesInCurrentTonicPracticed ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
-                        .foregroundColor(viewModel.areAllModesInCurrentTonicPracticed ? Color.green : Color.blue)
-                        .cornerRadius(6)
+                        Text("A. L. 16.588")
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+
+                        Text("\(completed)/10 \(loc.t("arts_count"))")
+                            .font(.caption2.bold().monospacedDigit())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                            .foregroundColor(isAllDone ? Color.green : Color.blue)
+                            .cornerRadius(6)
+                    }
+
+                    Text("\(loc.t(isEj2 ? "ej2_header_info" : "ej1_header_info")) | \(currentArt.formulaBadge)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
+            } else {
+                // Mode Details Badge (Parallel System)
+                VStack(spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name)")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.primary)
 
-                Text("\(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                        Text(viewModel.currentMode.family.rawValue)
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+
+                        // Tonic modes progress badge (e.g. 3/7)
+                        Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                            .font(.caption2.bold().monospacedDigit())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(viewModel.areAllModesInCurrentTonicPracticed ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                            .foregroundColor(viewModel.areAllModesInCurrentTonicPracticed ? Color.green : Color.blue)
+                            .cornerRadius(6)
+                    }
+
+                    Text("\(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Spacer()
@@ -275,85 +438,165 @@ public struct PracticeView: View {
     // MARK: - Articulation Bar
     @ViewBuilder
     private var articulationBar: some View {
-        let completedCount = viewModel.completedArticulationsInCurrentMode
-        let isModeFull = completedCount == 8
+        if viewModel.currentExercise.isChromaticExercise {
+            let ex = viewModel.currentExercise
+            let completedCount = viewModel.store.chromaticCompletedCount(for: ex)
+            let isAllDone = viewModel.store.isChromaticFullyCompleted(for: ex)
 
-        VStack(spacing: 6) {
-            // Section Header: Fórmulas de Articulación · X/8 arts. completadas
-            HStack {
-                HStack(spacing: 6) {
-                    Text(loc.t("articulations_title"))
-                        .font(.caption.bold())
-                        .foregroundColor(.primary)
+            VStack(spacing: 6) {
+                HStack {
+                    HStack(spacing: 6) {
+                        Text(loc.t("articulations_title"))
+                            .font(.caption.bold())
+                            .foregroundColor(.primary)
 
-                    if isModeFull {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 12))
-                            .foregroundColor(.green)
-                    }
-                }
-
-                Spacer()
-
-                Text("\(completedCount)/8 " + loc.t("arts_count"))
-                    .font(.caption.bold().monospacedDigit())
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(isModeFull ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
-                    .foregroundColor(isModeFull ? .green : (completedCount > 0 ? .orange : .secondary))
-                    .cornerRadius(8)
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 4)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    ForEach(ArticulationPattern.allCases) { pattern in
-                        let isCurrent = viewModel.currentArticulation == pattern
-                        let isDone = viewModel.store.isCompleted(
-                            tonic: viewModel.currentTonic,
-                            mode: viewModel.currentMode,
-                            articulation: pattern
-                        )
-
-                        Button {
-                            if isCurrent {
-                                // Tapping the active pattern toggles its completion
-                                viewModel.store.toggleCompleted(
-                                    tonic: viewModel.currentTonic,
-                                    mode: viewModel.currentMode,
-                                    articulation: pattern
-                                )
-                            } else {
-                                // Tapping another pattern marks the previous one completed and selects new
-                                viewModel.selectArticulation(pattern, markPreviousCompleted: true)
-                            }
-                        } label: {
-                            HStack(spacing: 6) {
-                                Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
-                                    .font(.system(size: 13, weight: .bold))
-                                    .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
-
-                                Text(pattern.shortTitle)
-                                    .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
-                            }
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 8)
-                            .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
-                            .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
-                            .cornerRadius(16)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
-                            )
+                        if isAllDone {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
                         }
                     }
+
+                    Spacer()
+
+                    Text("\(completedCount)/10 " + loc.t("arts_count"))
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
                 }
                 .padding(.horizontal, 16)
-                .padding(.bottom, 6)
+                .padding(.top, 4)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(EJ1Articulation.allCases) { art in
+                            let isCurrent = viewModel.currentChromaticArticulation == art
+                            let isDone = viewModel.store.isChromaticCompleted(art, for: ex)
+
+                            Button {
+                                if isCurrent {
+                                    if art != .original {
+                                        viewModel.store.toggleChromaticCompleted(art, for: ex)
+                                    }
+                                } else {
+                                    viewModel.selectChromaticArticulation(art, markPreviousCompleted: true)
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    if art == .original {
+                                        Image(systemName: "book.pages.fill")
+                                            .font(.system(size: 12, weight: .bold))
+                                            .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .indigo)
+                                    } else {
+                                        Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
+                                    }
+
+                                    Text(art.shortTitle)
+                                        .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 6)
+                }
             }
+            .background(Color(uiColor: .systemGroupedBackground))
+        } else {
+            let completedCount = viewModel.completedArticulationsInCurrentMode
+            let isModeFull = completedCount == 8
+
+            VStack(spacing: 6) {
+                // Section Header: Fórmulas de Articulación · X/8 arts. completadas
+                HStack {
+                    HStack(spacing: 6) {
+                        Text(loc.t("articulations_title"))
+                            .font(.caption.bold())
+                            .foregroundColor(.primary)
+
+                        if isModeFull {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                        }
+                    }
+
+                    Spacer()
+
+                    Text("\(completedCount)/8 " + loc.t("arts_count"))
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(isModeFull ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isModeFull ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(ArticulationPattern.allCases) { pattern in
+                            let isCurrent = viewModel.currentArticulation == pattern
+                            let isDone = viewModel.store.isCompleted(
+                                tonic: viewModel.currentTonic,
+                                mode: viewModel.currentMode,
+                                articulation: pattern
+                            )
+
+                            Button {
+                                if isCurrent {
+                                    // Tapping the active pattern toggles its completion
+                                    viewModel.store.toggleCompleted(
+                                        tonic: viewModel.currentTonic,
+                                        mode: viewModel.currentMode,
+                                        articulation: pattern
+                                    )
+                                } else {
+                                    // Tapping another pattern marks the previous one completed and selects new
+                                    viewModel.selectArticulation(pattern, markPreviousCompleted: true)
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
+                                        .font(.system(size: 13, weight: .bold))
+                                        .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
+
+                                    Text(pattern.shortTitle)
+                                        .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 6)
+                }
+            }
+            .background(Color(uiColor: .systemGroupedBackground))
         }
-        .background(Color(uiColor: .systemGroupedBackground))
     }
 
     // MARK: - Control Toolbar
@@ -414,91 +657,140 @@ public struct PracticeView: View {
 
             Spacer()
 
-            // Next Articulation in Current Mode
-            Button {
-                viewModel.advanceToNextArticulation()
-            } label: {
-                HStack(spacing: 8) {
-                    Text(loc.t("next_art"))
-                        .font(.subheadline.bold())
-                    Text("\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count"))")
-                        .font(.caption.bold().monospacedDigit())
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(Color(uiColor: .tertiarySystemFill))
-                        .clipShape(Capsule())
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(Color(uiColor: .secondarySystemFill))
-                .foregroundColor(.primary)
-                .cornerRadius(20)
-            }
-
-            // Main Pedagogical Action Button
-            if viewModel.areAllModesInCurrentTonicPracticed {
-                // Milestone: All 7 modes in this tonic practiced!
-                Button {
-                    viewModel.showCompletionDialog = true
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 16))
-                        Text("✓ \(loc.t("seven_modes_completed")) (\(viewModel.currentTonic.rawValue))")
-                            .font(.subheadline.bold())
+            if viewModel.currentExercise.isChromaticExercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isChromaticFullyCompleted(for: ex)
+                let completedCount = viewModel.store.chromaticCompletedCount(for: ex)
+                if isAllDone {
+                    Button {
+                        if ex == .ej2 {
+                            viewModel.showEJ2CompletionDialog = true
+                        } else {
+                            viewModel.showEJ1CompletionDialog = true
+                        }
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 16))
+                            Text("✓ \(loc.t(ex == .ej2 ? "ej2_ten_arts_completed" : "ej1_ten_arts_completed"))")
+                                .font(.subheadline.bold())
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                        .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
-                    .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
-                }
-            } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
-                // Current mode fully completed (8/8 arts)!
-                Button {
-                    viewModel.advanceToNextMode()
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 14, weight: .bold))
-                        Text(loc.t("mode_done"))
-                            .font(.subheadline.bold())
-                        Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
-                            .font(.caption.bold().monospacedDigit())
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(Color.white.opacity(0.25))
-                            .clipShape(Capsule())
-                        Image(systemName: "arrow.right")
+                } else {
+                    Button {
+                        viewModel.advanceToNextChromaticArticulation()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text(loc.t("next_art"))
+                                .font(.subheadline.bold())
+                            Text("\(completedCount)/10 \(loc.t("arts_count"))")
+                                .font(.caption.bold().monospacedDigit())
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                .clipShape(Capsule())
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.primary)
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .cornerRadius(20)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
                 }
             } else {
-                // Standard: Advance to next mode within current tonic
+                // Next Articulation in Current Mode
                 Button {
-                    viewModel.advanceToNextMode()
+                    viewModel.advanceToNextArticulation()
                 } label: {
                     HStack(spacing: 8) {
-                        Text(loc.t("next_mode"))
+                        Text(loc.t("next_art"))
                             .font(.subheadline.bold())
-                        Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                        Text("\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count"))")
                             .font(.caption.bold().monospacedDigit())
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
-                            .background(Color(uiColor: .systemBackground).opacity(0.2))
+                            .background(Color(uiColor: .tertiarySystemFill))
                             .clipShape(Capsule())
-                        Image(systemName: "arrow.right")
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 16)
                     .padding(.vertical, 12)
-                    .background(Color.primary)
-                    .foregroundColor(Color(uiColor: .systemBackground))
+                    .background(Color(uiColor: .secondarySystemFill))
+                    .foregroundColor(.primary)
                     .cornerRadius(20)
+                }
+
+                // Main Pedagogical Action Button
+                if viewModel.areAllModesInCurrentTonicPracticed {
+                    // Milestone: All 7 modes in this tonic practiced!
+                    Button {
+                        viewModel.showCompletionDialog = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 16))
+                            Text("✓ \(loc.t("seven_modes_completed")) (\(viewModel.currentTonic.rawValue))")
+                                .font(.subheadline.bold())
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                        .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
+                    }
+                } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
+                    // Current mode fully completed (8/8 arts)!
+                    Button {
+                        viewModel.advanceToNextMode()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 14, weight: .bold))
+                            Text(loc.t("mode_done"))
+                                .font(.subheadline.bold())
+                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                                .font(.caption.bold().monospacedDigit())
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color.white.opacity(0.25))
+                                .clipShape(Capsule())
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                    }
+                } else {
+                    // Standard: Advance to next mode within current tonic
+                    Button {
+                        viewModel.advanceToNextMode()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text(loc.t("next_mode"))
+                                .font(.subheadline.bold())
+                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
+                                .font(.caption.bold().monospacedDigit())
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                .clipShape(Capsule())
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.primary)
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .cornerRadius(20)
+                    }
                 }
             }
         }
@@ -584,99 +876,155 @@ public struct PracticeView: View {
             }
 
             // Row 2: Thumb-friendly main actions
-            HStack(spacing: 8) {
-                // Next articulation button
-                Button {
-                    viewModel.advanceToNextArticulation()
-                } label: {
-                    HStack(spacing: 5) {
-                        Text(loc.t("next_art"))
-                            .font(.system(size: 13, weight: .semibold))
-                            .lineLimit(1)
-                        Text("\(viewModel.completedArticulationsInCurrentMode)/8")
-                            .font(.system(size: 11, weight: .bold, design: .monospaced))
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
-                            .background(Color(uiColor: .tertiarySystemFill))
-                            .clipShape(Capsule())
+            if viewModel.currentExercise.isChromaticExercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isChromaticFullyCompleted(for: ex)
+                let completedCount = viewModel.store.chromaticCompletedCount(for: ex)
+                HStack(spacing: 8) {
+                    if isAllDone {
+                        Button {
+                            if ex == .ej2 {
+                                viewModel.showEJ2CompletionDialog = true
+                            } else {
+                                viewModel.showEJ1CompletionDialog = true
+                            }
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text("✓ \(loc.t(ex == .ej2 ? "ej2_ten_arts_completed" : "ej1_ten_arts_completed"))")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .lineLimit(1)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 12)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
+                        }
+                    } else {
+                        Button {
+                            viewModel.advanceToNextChromaticArticulation()
+                        } label: {
+                            HStack(spacing: 8) {
+                                Text(loc.t("next_art"))
+                                    .font(.system(size: 14, weight: .bold))
+                                    .lineLimit(1)
+                                Text("\(completedCount)/10 \(loc.t("arts_count"))")
+                                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                                    .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                    .clipShape(Capsule())
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 12)
+                            .background(Color.primary)
+                            .foregroundColor(Color(uiColor: .systemBackground))
+                            .cornerRadius(16)
+                        }
                     }
-                    .padding(.horizontal, 10)
-                    .frame(height: 48)
-                    .background(Color(uiColor: .secondarySystemFill))
-                    .foregroundColor(.primary)
-                    .cornerRadius(16)
                 }
+            } else {
+                HStack(spacing: 8) {
+                    // Next articulation button
+                    Button {
+                        viewModel.advanceToNextArticulation()
+                    } label: {
+                        HStack(spacing: 5) {
+                            Text(loc.t("next_art"))
+                                .font(.system(size: 13, weight: .semibold))
+                                .lineLimit(1)
+                            Text("\(viewModel.completedArticulationsInCurrentMode)/8")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(Color(uiColor: .tertiarySystemFill))
+                                .clipShape(Capsule())
+                        }
+                        .padding(.horizontal, 10)
+                        .frame(height: 48)
+                        .background(Color(uiColor: .secondarySystemFill))
+                        .foregroundColor(.primary)
+                        .cornerRadius(16)
+                    }
 
-                // Primary Complete & Next button
-                if viewModel.areAllModesInCurrentTonicPracticed {
-                    Button {
-                        viewModel.showCompletionDialog = true
-                    } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 14, weight: .bold))
-                            Text("✓ \(loc.t("seven_modes_completed"))")
-                                .font(.system(size: 13, weight: .bold))
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.85)
+                    // Primary Complete & Next button
+                    if viewModel.areAllModesInCurrentTonicPracticed {
+                        Button {
+                            viewModel.showCompletionDialog = true
+                        } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text("✓ \(loc.t("seven_modes_completed"))")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .padding(.horizontal, 10)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(16)
-                        .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
-                    }
-                } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
-                    Button {
-                        viewModel.advanceToNextMode()
-                    } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.system(size: 13, weight: .bold))
-                            Text(loc.t("mode_done"))
-                                .font(.system(size: 13, weight: .bold))
-                                .lineLimit(1)
-                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
-                                .font(.system(size: 11, weight: .bold, design: .monospaced))
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2)
-                                .background(Color.white.opacity(0.25))
-                                .clipShape(Capsule())
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 11, weight: .bold))
+                    } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
+                        Button {
+                            viewModel.advanceToNextMode()
+                        } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: 13, weight: .bold))
+                                Text(loc.t("mode_done"))
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
+                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 5)
+                                    .padding(.vertical, 2)
+                                    .background(Color.white.opacity(0.25))
+                                    .clipShape(Capsule())
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 11, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .padding(.horizontal, 10)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(16)
-                    }
-                } else {
-                    Button {
-                        viewModel.advanceToNextMode()
-                    } label: {
-                        HStack(spacing: 5) {
-                            Text(loc.t("next_mode"))
-                                .font(.system(size: 13, weight: .bold))
-                                .lineLimit(1)
-                            Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
-                                .font(.system(size: 11, weight: .bold, design: .monospaced))
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 2)
-                                .background(Color(uiColor: .systemBackground).opacity(0.2))
-                                .clipShape(Capsule())
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 11, weight: .bold))
+                    } else {
+                        Button {
+                            viewModel.advanceToNextMode()
+                        } label: {
+                            HStack(spacing: 5) {
+                                Text(loc.t("next_mode"))
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                Text("\(viewModel.practicedModesCountInCurrentTonic)/7")
+                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 5)
+                                    .padding(.vertical, 2)
+                                    .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                    .clipShape(Capsule())
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 11, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.primary)
+                            .foregroundColor(Color(uiColor: .systemBackground))
+                            .cornerRadius(16)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .padding(.horizontal, 10)
-                        .background(Color.primary)
-                        .foregroundColor(Color(uiColor: .systemBackground))
-                        .cornerRadius(16)
                     }
                 }
             }

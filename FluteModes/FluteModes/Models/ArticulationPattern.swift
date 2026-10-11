@@ -1,5 +1,131 @@
 import Foundation
 
+public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
+    case ej1 = "EJ1"
+    case ej2 = "EJ2"
+    case ej4 = "EJ4"
+
+    public var id: String { rawValue }
+
+    public var isChromaticExercise: Bool {
+        self == .ej1 || self == .ej2
+    }
+
+    public var pillLabel: String {
+        switch self {
+        case .ej1: return "E.J. 1"
+        case .ej2: return "E.J. 2"
+        case .ej4: return "E.J. 4"
+        }
+    }
+
+    public var displayTitle: String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        switch self {
+        case .ej1: return isEn ? "E.J. 1 · Major (10 Arts.)" : "E.J. 1 · Mayor (10 Arts.)"
+        case .ej2: return isEn ? "E.J. 2 · Minor (10 Arts.)" : "E.J. 2 · Menor (10 Arts.)"
+        case .ej4: return isEn ? "E.J. 4 · 84 Parallel Modes" : "E.J. 4 · 84 Modos Paralelos"
+        }
+    }
+
+    public var shortLabel: String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        switch self {
+        case .ej1: return isEn ? "E.J. 1 (Major)" : "E.J. 1 (Mayor)"
+        case .ej2: return isEn ? "E.J. 2 (Minor)" : "E.J. 2 (Menor)"
+        case .ej4: return isEn ? "E.J. 4 (84 Modes)" : "E.J. 4 (84 Modos)"
+        }
+    }
+
+    public var shortName: String { displayTitle }
+}
+
+public enum EJ1Articulation: Int, CaseIterable, Identifiable, Codable {
+    case original = 0
+    case allSlurred8 = 1
+    case slurred4And4 = 2
+    case staccato1Slur3 = 3
+    case slur3Staccato1 = 4
+    case slur2Staccato2 = 5
+    case staccato2Slur2 = 6
+    case staccato1Slur2Staccato1 = 7
+    case pairsSlurred = 8
+    case syncopatedPairs = 9
+    case allStaccato = 10
+
+    public var id: Int { rawValue }
+
+    /// The 10 official articulations of Taffanel & Gaubert E.J. 1 (1...10)
+    public static var practiceCases: [EJ1Articulation] {
+        [
+            .allSlurred8,
+            .slurred4And4,
+            .staccato1Slur3,
+            .slur3Staccato1,
+            .slur2Staccato2,
+            .staccato2Slur2,
+            .staccato1Slur2Staccato1,
+            .pairsSlurred,
+            .syncopatedPairs,
+            .allStaccato
+        ]
+    }
+
+    public var title: String {
+        LocalizationManager.shared.t("ej1_art_\(rawValue)_title")
+    }
+
+    public var shortTitle: String {
+        LocalizationManager.shared.t("ej1_art_\(rawValue)_short")
+    }
+
+    public var formulaBadge: String {
+        switch self {
+        case .original:                return "A.L. 16.588"
+        case .allSlurred8:             return "(8)"
+        case .slurred4And4:            return "(4)+(4)"
+        case .staccato1Slur3:          return "·(3) ·(3)"
+        case .slur3Staccato1:          return "(3)· (3)·"
+        case .slur2Staccato2:          return "(2)·· (2)··"
+        case .staccato2Slur2:          return "··(2) ··(2)"
+        case .staccato1Slur2Staccato1: return "·(2)· ·(2)·"
+        case .pairsSlurred:            return "(2)(2)(2)(2)"
+        case .syncopatedPairs:         return "·(2)(2)(2)·"
+        case .allStaccato:             return "········"
+        }
+    }
+
+    /// Applies this E.J. 1 articulation to an 8-sixteenth-note group
+    public func apply(to notes: [String]) -> String {
+        guard notes.count == 8 else { return notes.joined() }
+        let n = notes
+        switch self {
+        case .original:
+            return n.joined()
+        case .allSlurred8:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3])\(n[4])\(n[5])\(n[6])\(n[7]))"
+        case .slurred4And4:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3]))(\(n[4])\(n[5])\(n[6])\(n[7]))"
+        case .staccato1Slur3:
+            return ".\(n[0])(\(n[1])\(n[2])\(n[3])).\(n[4])(\(n[5])\(n[6])\(n[7]))"
+        case .slur3Staccato1:
+            return "(\(n[0])\(n[1])\(n[2])).\(n[3])(\(n[4])\(n[5])\(n[6])).\(n[7])"
+        case .slur2Staccato2:
+            return "(\(n[0])\(n[1])).\(n[2]).\(n[3])(\(n[4])\(n[5])).\(n[6]).\(n[7])"
+        case .staccato2Slur2:
+            return ".\(n[0]).\(n[1])(\(n[2])\(n[3])).\(n[4]).\(n[5])(\(n[6])\(n[7]))"
+        case .staccato1Slur2Staccato1:
+            return ".\(n[0])(\(n[1])\(n[2])).\(n[3]).\(n[4])(\(n[5])\(n[6])).\(n[7])"
+        case .pairsSlurred:
+            return "(\(n[0])\(n[1]))(\(n[2])\(n[3]))(\(n[4])\(n[5]))(\(n[6])\(n[7]))"
+        case .syncopatedPairs:
+            return ".\(n[0])(\(n[1])\(n[2]))(\(n[3])\(n[4]))(\(n[5])\(n[6])).\(n[7])"
+        case .allStaccato:
+            return ".\(n[0]).\(n[1]).\(n[2]).\(n[3]).\(n[4]).\(n[5]).\(n[6]).\(n[7])"
+        }
+    }
+}
+
 public enum ArticulationPattern: Int, CaseIterable, Identifiable, Codable {
     case allSlurred = 1
     case slurredFourAndFour = 2

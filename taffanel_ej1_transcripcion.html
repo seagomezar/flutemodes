@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<title>E. J. 1 — Taffanel & Gaubert (A.L. 16.588)</title>
+<script src="./abcjs-basic-min.js"></script>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 5mm 7mm 5mm 7mm;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", "Didot", "Georgia", serif;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+  }
+  .sheet-page {
+    width: 196mm;
+    height: 286mm;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    padding: 1mm 1mm 0mm 1mm;
+  }
+  .sheet-page:last-child {
+    page-break-after: avoid;
+  }
+
+  /* Encabezado original Leduc */
+  .leduc-top {
+    width: 100%;
+    margin-bottom: 1px;
+  }
+  .ej-title {
+    font-family: "Arial Narrow", "Helvetica Neue", sans-serif;
+    font-size: 16pt;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    margin: 0 0 3px 4px;
+  }
+  .ej-subtitle {
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 9.8pt;
+    letter-spacing: 0.4px;
+    margin: 0 0 2px 4px;
+    color: #000000;
+  }
+
+  /* Números 1..10 en serif clásico */
+  .abcjs-annotation {
+    font-family: "Times New Roman", "Didot", Georgia, serif !important;
+    font-size: 11.5px !important;
+    font-weight: normal !important;
+  }
+
+  /* Pentagrama de las 10 articulaciones */
+  .art-row {
+    width: 100%;
+    margin-bottom: 1px;
+  }
+
+  /* Compás 1 indentado con Reprise à l'octave */
+  .m1-container {
+    position: relative;
+    padding-left: 36px;
+    width: 100%;
+    margin-top: 3px;
+  }
+  .reprise-label {
+    position: absolute;
+    top: -6px;
+    left: 74px;
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 8.8pt;
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    z-index: 10;
+  }
+
+  .staves-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+  }
+
+  .staff-row {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .staff-row svg, .art-row svg {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Línea 8va estilo Leduc */
+  .octava-wrap {
+    position: relative;
+  }
+  .octava-line {
+    position: absolute;
+    top: -2px;
+    left: 32px;
+    right: 2px;
+    display: flex;
+    align-items: flex-start;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .octava-last .octava-line {
+    right: 104px;
+  }
+  .octava-num {
+    font-family: "Times New Roman", "Didot", serif;
+    font-size: 9.5pt;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 2px;
+  }
+  .octava-dots {
+    flex: 1;
+    border-top: 1.15px dashed #000000;
+    height: 1px;
+    margin-top: 4px;
+  }
+  .octava-hook {
+    width: 1.3px;
+    height: 7px;
+    background: #000000;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  .plate-footer {
+    text-align: center;
+    font-family: "Times New Roman", serif;
+    font-size: 8pt;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+    color: #000000;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= PÁGINA 1 ================= -->
+  <div class="sheet-page">
+    <div class="leduc-top">
+      <div class="ej-title">E. J. 1</div>
+      <div class="ej-subtitle">A travailler successivement avec chacune des dix articulations suivantes:</div>
+      <div id="art-score" class="art-row"></div>
+    </div>
+
+    <div class="staves-block">
+      <div class="m1-container staff-row">
+        <div class="reprise-label">Reprise à l'octave</div>
+        <div id="m1-score"></div>
+      </div>
+      <div id="m2-score" class="staff-row"></div>
+      <div id="m3-score" class="staff-row"></div>
+      <div id="m4-score" class="staff-row"></div>
+      <div id="m5-score" class="staff-row"></div>
+      <div id="m6-score" class="staff-row"></div>
+      <div id="m7-score" class="staff-row"></div>
+      <div id="m8-score" class="staff-row"></div>
+      <div id="m9-score" class="staff-row"></div>
+      <div id="m10-score" class="staff-row"></div>
+      <div id="m11-score" class="staff-row"></div>
+      <div id="m12-score" class="staff-row"></div>
+      <div id="m13-score" class="staff-row"></div>
+      <div id="m14-score" class="staff-row"></div>
+    </div>
+
+    <div class="plate-footer">A. L. 16.588</div>
+  </div>
+
+  <!-- ================= PÁGINA 2 ================= -->
+  <div class="sheet-page">
+    <div class="staves-block">
+      <div id="m15-score" class="staff-row p2-row"></div>
+      <div id="m16-score" class="staff-row p2-row"></div>
+      <div id="m17-score" class="staff-row p2-row"></div>
+      <div id="m18-score" class="staff-row p2-row"></div>
+      <div id="m19-score" class="staff-row p2-row"></div>
+      <div id="m20-score" class="staff-row p2-row"></div>
+      <div id="m21-score" class="staff-row p2-row"></div>
+      <div id="m22-score" class="staff-row p2-row"></div>
+      <div id="m23-score" class="staff-row p2-row"></div>
+      <div id="m24-score" class="staff-row p2-row"></div>
+      <div class="staff-row p2-row octava-wrap octava-full">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span></div>
+        <div id="m25-score"></div>
+      </div>
+      <div class="staff-row p2-row octava-wrap octava-full">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span></div>
+        <div id="m26-score"></div>
+      </div>
+      <div class="staff-row p2-row octava-wrap octava-full">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span></div>
+        <div id="m27-score"></div>
+      </div>
+      <div class="staff-row p2-row octava-wrap octava-full">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span></div>
+        <div id="m28-score"></div>
+      </div>
+      <div class="staff-row p2-row octava-wrap octava-full">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span></div>
+        <div id="m29-score"></div>
+      </div>
+      <div class="staff-row p2-row octava-wrap octava-last">
+        <div class="octava-line"><span class="octava-num">8</span><span class="octava-dots"></span><span class="octava-hook"></span></div>
+        <div id="m30-score"></div>
+      </div>
+    </div>
+
+    <div class="plate-footer">A. L. 16.588</div>
+  </div>
+
+<script>
+  const artOptions = {
+    staffwidth: 900,
+    paddingtop: 2,
+    paddingbottom: 2,
+    paddingleft: 0,
+    paddingright: 0,
+    responsive: "resize"
+  };
+  const m1Options = {
+    staffwidth: 855,
+    paddingtop: 1,
+    paddingbottom: 1,
+    paddingleft: 0,
+    paddingright: 0,
+    responsive: "resize"
+  };
+  const staffOptions = {
+    staffwidth: 900,
+    paddingtop: 1,
+    paddingbottom: 1,
+    paddingleft: 0,
+    paddingright: 0,
+    responsive: "resize"
+  };
+
+  ABCJS.renderAbc("art-score", 'X:0\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n(DEF"^1"GAGFE) | (DEF"^2"G)(AGFE) | .D(EF"^3"G) .A(GFE) | (DEF)."^4"G (AGF).E | (DE).F."^5"G (AG).F.E | .D.E(F"^6"G) .A.G(FE) | .D(EF)."^7"G .A(GF).E | (DE)(F"^8"G)(AG)(FE) | .D(EF)("^9"GA)(GF)E | .D.E.F."^10"G.A.G.F.E |]', artOptions);
+  // Añadir la pequeña ligadura saliente bajo la 8.ª nota (Mi) del compás 9 de articulaciones
+  const artSvg = document.querySelector("#art-score svg");
+  if (artSvg) {
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", "M 800 57 C 804 62, 809 62, 813 57");
+    p.setAttribute("stroke", "#000000");
+    p.setAttribute("stroke-width", "1.2");
+    p.setAttribute("fill", "none");
+    artSvg.appendChild(p);
+  }
+
+  ABCJS.renderAbc("m1-score", 'X:1\nM:4/2\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n|: DE^FGAGFE DEFGAGFE DEFGAGFE DEFGAGFE |', m1Options);
+  ABCJS.renderAbc("m2-score", 'X:2\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\nD_E=FG_AGFE DEFGAGFE DEFGAGFE DEFGAFED |', staffOptions);
+  ABCJS.renderAbc("m3-score", 'X:3\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n_EFG_A_BAGF EFGABAGF EFGABAGF EFGABAGF |', staffOptions);
+  ABCJS.renderAbc("m4-score", 'X:4\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n^D=E^F^G=AGFE DEFGAGFE DEFGAGFE DEFGAFED |', staffOptions);
+  ABCJS.renderAbc("m5-score", 'X:5\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\nE^F^GABAGF EFGABAGF EFGABAGF EFGABAGF |', staffOptions);
+  ABCJS.renderAbc("m6-score", 'X:6\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\nE=F=GA_BAGF EFGABAGF EFGABAGF EFGABGFE |', staffOptions);
+  ABCJS.renderAbc("m7-score", 'X:7\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\nFGA_BcBAG FGABcBAG FGABcBAG FGABcBAG |', staffOptions);
+  ABCJS.renderAbc("m8-score", 'X:8\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n^E^F^G^A=BAGF EFGABAGF EFGABAGF EFGABGFE |', staffOptions);
+  ABCJS.renderAbc("m9-score", 'X:9\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n^F^G^AB^cBAG FGABcBAG FGABcBAG FGABcBAG |', staffOptions);
+  ABCJS.renderAbc("m10-score", 'X:10\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=up\n%%score 1\n^F=G=AB=cBAG FGABcBAG FGABcBAG FGABcAGF |', staffOptions);
+  ABCJS.renderAbc("m11-score", 'X:11\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nGABcdcBA GABcdcBA GABcdcBA GABcdcBA |', staffOptions);
+  ABCJS.renderAbc("m12-score", 'X:12\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nG_A_Bc_dcBA GABcdcBA GABcdcBA GABcdBAG |', staffOptions);
+  ABCJS.renderAbc("m13-score", 'X:13\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n_A_Bc_d_edcB ABcdedcB ABcdedcB ABcdedcB |', staffOptions);
+  ABCJS.renderAbc("m14-score", 'X:14\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n^G=A=B^c=dcBA GABcdcBA GABcdcBA GABcdBAG |', staffOptions);
+  ABCJS.renderAbc("m15-score", 'X:15\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nAB^cdedcB ABcdedcB ABcdedcB ABcdedcB |', staffOptions);
+  ABCJS.renderAbc("m16-score", 'X:16\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nA_B=cd_edcB ABcdedcB ABcdedcB ABcdecBA |', staffOptions);
+  ABCJS.renderAbc("m17-score", 'X:17\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n_Bcd_efedc Bcdefedc Bcdefedc Bcdefedc |', staffOptions);
+  ABCJS.renderAbc("m18-score", 'X:18\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n^A=B^c^dedcB ABcdedcB ABcdedcB ABcdecBA |', staffOptions);
+  ABCJS.renderAbc("m19-score", 'X:19\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nB^c^de^fedc Bcdefedc Bcdefedc Bcdefedc |', staffOptions);
+  ABCJS.renderAbc("m20-score", 'X:20\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nB=c=de=fedc Bcdefedc Bcdefedc BcdefdcB |', staffOptions);
+  ABCJS.renderAbc("m21-score", 'X:21\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\ncdefgfed cdefgfed cdefgfed cdefgfed |', staffOptions);
+  ABCJS.renderAbc("m22-score", 'X:22\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nc_d_ef_gfed cdefgfed cdefgfed cdefgedc |', staffOptions);
+  ABCJS.renderAbc("m23-score", 'X:23\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n_d_ef_g_agfe defgagfe defgagfe defgagfe |', staffOptions);
+  ABCJS.renderAbc("m24-score", 'X:24\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n^c=d=e^f=gfed cdefgfed cdefgfed cdefgedc :|', staffOptions);
+  ABCJS.renderAbc("m25-score", 'X:25\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nde^fgagfe defgagfe defgagfe defgagfe |', staffOptions);
+  ABCJS.renderAbc("m26-score", 'X:26\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\nd_e=fg_agfe defgagfe defgagfe defgafed |', staffOptions);
+  ABCJS.renderAbc("m27-score", 'X:27\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n_efg_a_bagf efgabagf efgabagf efgabagf |', staffOptions);
+  ABCJS.renderAbc("m28-score", 'X:28\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\n^d=e^f^g=agfe defgagfe defgagfe defgafed |', staffOptions);
+  ABCJS.renderAbc("m29-score", 'X:29\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\ne^f^gabagf efgabagf efgabagf efgabagf |', staffOptions);
+  ABCJS.renderAbc("m30-score", 'X:30\nM:none\nL:1/16\nK:C\nV:1 clef=treble stem=down\n%%score 1\ne=f=ga_bagf efgabagf efgabagf efgabgfe | f4 z4 z8 |]', staffOptions);
+</script>
+</body>
+</html>

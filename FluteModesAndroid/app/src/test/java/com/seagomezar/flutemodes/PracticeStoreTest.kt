@@ -175,4 +175,23 @@ class PracticeStoreTest {
         assertNull(store.lastArticulation)
         assertEquals(0, store.totalPracticedArticulationsCount)
     }
+
+    @Test
+    fun testEJ1AndEJ2CompletionTracking() {
+        store.resetAll()
+        assertEquals(0, store.ej1CompletedCount)
+        assertEquals(0, store.ej2CompletedCount)
+        assertFalse(store.isEJ1FullyCompleted)
+        assertFalse(store.isEJ2FullyCompleted)
+
+        for (art in EJ1Articulation.practiceCases) {
+            store.markEJ1Completed(art)
+            store.markEJ2Completed(art)
+        }
+
+        assertEquals(10, store.ej1CompletedCount)
+        assertEquals(10, store.ej2CompletedCount)
+        assertTrue(store.isEJ1FullyCompleted)
+        assertTrue(store.isEJ2FullyCompleted)
+    }
 }

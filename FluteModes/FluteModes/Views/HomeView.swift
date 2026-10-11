@@ -68,103 +68,156 @@ public struct HomeView: View {
                         .padding(.top, isCompact ? 4 : 8)
 
                         // Header / Hero
-                        VStack(spacing: 6) {
+                        VStack(spacing: 10) {
                             if !isCompact {
                                 Text(loc.t("app_name"))
                                     .font(.system(size: 32, weight: .bold))
                                     .foregroundColor(.primary)
                             }
 
-                            Text(loc.t("subtitle"))
+                            // Exercise Selector (E.J. 1 | E.J. 2 | E.J. 4)
+                            HStack(spacing: 8) {
+                                ForEach(ExerciseType.allCases) { exercise in
+                                    let isSelected = viewModel.currentExercise == exercise
+                                    Button {
+                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                            viewModel.selectExercise(exercise)
+                                        }
+                                    } label: {
+                                        HStack(spacing: 5) {
+                                            Image(systemName: exercise.isChromaticExercise ? "music.quarternote.3" : "dial.medium.fill")
+                                                .font(.caption.bold())
+                                            Text(isCompact ? exercise.shortLabel : exercise.displayTitle)
+                                                .font(.system(size: isCompact ? 12 : 14, weight: .bold))
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.8)
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal, isCompact ? 8 : 12)
+                                        .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                        .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
+                                        .cornerRadius(14)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 14)
+                                                .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
+                                        )
+                                    }
+                                }
+                            }
+
+                            Text(viewModel.currentExercise == .ej1 ? loc.t("ej1_title") : (viewModel.currentExercise == .ej2 ? loc.t("ej2_title") : loc.t("subtitle")))
                                 .font(isCompact ? .subheadline.weight(.semibold) : .headline)
                                 .foregroundColor(.primary)
                                 .multilineTextAlignment(.center)
 
-                            Text(loc.t("sub_desc"))
+                            Text(viewModel.currentExercise == .ej1 ? loc.t("ej1_sub_desc") : (viewModel.currentExercise == .ej2 ? loc.t("ej2_sub_desc") : loc.t("sub_desc")))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
                         }
 
-                        // SELECT TONIC (Horizontal Chip Bar)
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(loc.t("select_tonic").uppercased())
-                                .font(.caption.bold())
-                                .foregroundColor(.secondary)
-                                .padding(.horizontal, 4)
+                        if viewModel.currentExercise.isChromaticExercise {
+                            ej1ArticulationsCard
 
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 8) {
-                                    ForEach(Tonic.allCases) { tonic in
-                                        let isSelected = viewModel.currentTonic == tonic
-                                        Button {
-                                            viewModel.selectMode(tonic: tonic, mode: viewModel.currentMode)
-                                        } label: {
-                                            Text(tonic.rawValue)
-                                                .font(.system(size: 14, weight: isSelected ? .bold : .medium))
-                                                .padding(.horizontal, 16)
-                                                .padding(.vertical, 8)
-                                                .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
-                                                .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
-                                                .cornerRadius(18)
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 18)
-                                                        .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
-                                                )
+                            // E.J. 1 / E.J. 2 Primary Action
+                            VStack(spacing: 12) {
+                                Button {
+                                    navigateToPractice = true
+                                } label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "play.fill")
+                                        Text("\(loc.t(viewModel.currentExercise == .ej2 ? "ej2_start_practice" : "ej1_start_practice")) (\(viewModel.currentChromaticArticulation.shortTitle))")
+                                            .font(.headline)
+                                    }
+                                    .foregroundColor(Color(uiColor: .systemBackground))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 52)
+                                    .background(Color.primary)
+                                    .cornerRadius(26)
+                                }
+                            }
+                        } else {
+                            // SELECT TONIC (Horizontal Chip Bar)
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(loc.t("select_tonic").uppercased())
+                                    .font(.caption.bold())
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal, 4)
+
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 8) {
+                                        ForEach(Tonic.allCases) { tonic in
+                                            let isSelected = viewModel.currentTonic == tonic
+                                            Button {
+                                                viewModel.selectMode(tonic: tonic, mode: viewModel.currentMode)
+                                            } label: {
+                                                Text(tonic.rawValue)
+                                                    .font(.system(size: 14, weight: isSelected ? .bold : .medium))
+                                                    .padding(.horizontal, 16)
+                                                    .padding(.vertical, 8)
+                                                    .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                                    .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
+                                                    .cornerRadius(18)
+                                                    .overlay(
+                                                        RoundedRectangle(cornerRadius: 18)
+                                                            .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
+                                                    )
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        // TWO PARALLEL FAMILIES (Mayor & Menor)
-                        if isCompact {
-                            VStack(spacing: 14) {
-                                majorFamilyCard
-                                minorFamilyCard
-                            }
-                        } else {
-                            HStack(alignment: .top, spacing: 16) {
-                                majorFamilyCard
-                                minorFamilyCard
-                            }
-                        }
-
-                        // Actions Section
-                        VStack(spacing: 12) {
-                            Button {
-                                viewModel.suggestNextExercise()
-                                navigateToPractice = true
-                            } label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "play.fill")
-                                    Text("\(loc.t("start_practice")) (\(viewModel.currentTonic.rawValue))")
-                                        .font(.headline)
+                            // TWO PARALLEL FAMILIES (Mayor & Menor)
+                            if isCompact {
+                                VStack(spacing: 14) {
+                                    majorFamilyCard
+                                    minorFamilyCard
                                 }
-                                .foregroundColor(Color(uiColor: .systemBackground))
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 52)
-                                .background(Color.primary)
-                                .cornerRadius(26)
+                            } else {
+                                HStack(alignment: .top, spacing: 16) {
+                                    majorFamilyCard
+                                    minorFamilyCard
+                                }
                             }
 
-                            Button {
-                                navigateToMatrix = true
-                            } label: {
-                                HStack {
-                                    Image(systemName: "square.grid.3x3.fill")
-                                    Text(loc.t("practice_matrix"))
-                                        .font(.headline)
+                            // Actions Section
+                            VStack(spacing: 12) {
+                                Button {
+                                    viewModel.suggestNextExercise()
+                                    navigateToPractice = true
+                                } label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "play.fill")
+                                        Text("\(loc.t("start_practice")) (\(viewModel.currentTonic.rawValue))")
+                                            .font(.headline)
+                                    }
+                                    .foregroundColor(Color(uiColor: .systemBackground))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 52)
+                                    .background(Color.primary)
+                                    .cornerRadius(26)
                                 }
-                                .foregroundColor(.primary)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .background(Color(uiColor: .secondarySystemGroupedBackground))
-                                .cornerRadius(25)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .stroke(Color(uiColor: .separator), lineWidth: 1)
-                                )
+
+                                Button {
+                                    navigateToMatrix = true
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "square.grid.3x3.fill")
+                                        Text(loc.t("practice_matrix"))
+                                            .font(.headline)
+                                    }
+                                    .foregroundColor(.primary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .background(Color(uiColor: .secondarySystemGroupedBackground))
+                                    .cornerRadius(25)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .stroke(Color(uiColor: .separator), lineWidth: 1)
+                                    )
+                                }
                             }
                         }
 
@@ -235,17 +288,145 @@ public struct HomeView: View {
                 ProgressMatrixView(viewModel: viewModel)
             }
             .onAppear {
-                if CommandLine.arguments.contains("-openPractice") {
+                for arg in CommandLine.arguments {
+                    if arg.hasPrefix("ej1Art=") || arg.hasPrefix("-ej1Art=") {
+                        if let valStr = arg.split(separator: "=").last,
+                           let raw = Int(valStr),
+                           let art = EJ1Articulation(rawValue: raw) {
+                            viewModel.selectExercise(.ej1)
+                            viewModel.selectEJ1Articulation(art, markPreviousCompleted: false)
+                        }
+                    } else if arg.hasPrefix("ej2Art=") || arg.hasPrefix("-ej2Art=") {
+                        if let valStr = arg.split(separator: "=").last,
+                           let raw = Int(valStr),
+                           let art = EJ1Articulation(rawValue: raw) {
+                            viewModel.selectExercise(.ej2)
+                            viewModel.selectEJ2Articulation(art, markPreviousCompleted: false)
+                        }
+                    }
+                }
+                if CommandLine.arguments.contains("-openPractice") || CommandLine.arguments.contains("openPractice") {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         navigateToPractice = true
                     }
-                } else if CommandLine.arguments.contains("-openMatrix") {
+                } else if CommandLine.arguments.contains("-openMatrix") || CommandLine.arguments.contains("openMatrix") {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         navigateToMatrix = true
                     }
                 }
             }
         }
+    }
+
+    private var ej1ArticulationsCard: some View {
+        let isEj2 = viewModel.currentExercise == .ej2
+        let completedCount = viewModel.store.chromaticCompletedCount(for: viewModel.currentExercise)
+        let isAllDone = viewModel.store.isChromaticFullyCompleted(for: viewModel.currentExercise)
+
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(loc.t(isEj2 ? "ej2_select_art" : "ej1_select_art"))
+                        .font(.title3.bold())
+                        .foregroundColor(.primary)
+                    Text(loc.t(isEj2 ? "ej2_header_info" : "ej1_header_info"))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                HStack(spacing: 4) {
+                    if isAllDone {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(.green)
+                    }
+                    Text("\(completedCount)/10 \(loc.t("arts_count"))")
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
+                }
+            }
+
+            VStack(spacing: 0) {
+                ForEach(EJ1Articulation.allCases) { art in
+                    let isSelected = viewModel.currentChromaticArticulation == art
+                    let isDone = viewModel.store.isChromaticCompleted(exercise: viewModel.currentExercise, articulation: art)
+
+                    Button {
+                        viewModel.selectChromaticArticulation(art, markPreviousCompleted: false)
+                        navigateToPractice = true
+                    } label: {
+                        HStack(spacing: 12) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(art.title)
+                                    .font(.subheadline.weight(isSelected ? .bold : .semibold))
+                                    .foregroundColor(.primary)
+                                Text(art.formulaBadge)
+                                    .font(.caption2.monospaced())
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            if art == .original {
+                                Text("Urtext")
+                                    .font(.caption2.bold())
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                                    .background(Color.indigo.opacity(0.15))
+                                    .foregroundColor(.indigo)
+                                    .cornerRadius(6)
+                            } else if isDone {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                    Text(loc.t("completed"))
+                                        .font(.caption2.bold())
+                                        .foregroundColor(.green)
+                                }
+                            } else if isSelected {
+                                Text(loc.t("in_progress"))
+                                    .font(.caption2.bold())
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color.orange.opacity(0.15))
+                                    .foregroundColor(.orange)
+                                    .cornerRadius(6)
+                            } else {
+                                Image(systemName: "chevron.right")
+                                    .font(.caption2.bold())
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 12)
+                        .background(isSelected ? Color.primary.opacity(0.05) : Color.clear)
+                    }
+
+                    if art.id != EJ1Articulation.allCases.last?.id {
+                        Divider()
+                    }
+                }
+            }
+            .background(Color(uiColor: .systemBackground))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(uiColor: .separator), lineWidth: 0.5)
+            )
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(uiColor: .separator), lineWidth: 0.5)
+        )
     }
 
     private var majorFamilyCard: some View {

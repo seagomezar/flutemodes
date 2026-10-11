@@ -30,6 +30,9 @@ import com.seagomezar.flutemodes.model.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PracticeScreen(
+    initialExercise: ExerciseType = ExerciseType.EJ1,
+    initialEJ1Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
+    initialEJ2Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
     initialTonic: Tonic,
     initialMode: ModeType,
     store: PracticeStore,
@@ -39,19 +42,45 @@ fun PracticeScreen(
     onBack: () -> Unit,
     onOpenMatrix: () -> Unit
 ) {
+    var currentExercise by remember { mutableStateOf(initialExercise) }
+    var currentEJ1Articulation by remember { mutableStateOf(initialEJ1Articulation) }
+    var currentEJ2Articulation by remember { mutableStateOf(initialEJ2Articulation) }
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
     var showCompletionDialog by remember { mutableStateOf(false) }
+    var showEJ1CompletionDialog by remember { mutableStateOf(false) }
+    var showEJ2CompletionDialog by remember { mutableStateOf(false) }
 
-    val currentAbcScore = remember(currentTonic, currentMode, currentArticulation, metronome.tempoBPM, loc.currentLanguage) {
-        ExerciseGenerator.generateABC(
-            tonic = currentTonic,
-            mode = currentMode,
-            articulation = currentArticulation,
-            tempoBPM = metronome.tempoBPM,
-            loc = loc
-        )
+    val currentAbcScore = remember(
+        currentExercise,
+        currentEJ1Articulation,
+        currentEJ2Articulation,
+        currentTonic,
+        currentMode,
+        currentArticulation,
+        metronome.tempoBPM,
+        loc.currentLanguage
+    ) {
+        when (currentExercise) {
+            ExerciseType.EJ1 -> ExerciseGenerator.generateEJ1ABC(
+                articulation = currentEJ1Articulation,
+                tempoBPM = metronome.tempoBPM,
+                loc = loc
+            )
+            ExerciseType.EJ2 -> ExerciseGenerator.generateEJ2ABC(
+                articulation = currentEJ2Articulation,
+                tempoBPM = metronome.tempoBPM,
+                loc = loc
+            )
+            ExerciseType.EJ4 -> ExerciseGenerator.generateABC(
+                tonic = currentTonic,
+                mode = currentMode,
+                articulation = currentArticulation,
+                tempoBPM = metronome.tempoBPM,
+                loc = loc
+            )
+        }
     }
 
     DisposableEffect(Unit) {
@@ -65,6 +94,131 @@ fun PracticeScreen(
     val areAllModesPracticed = store.areAllSevenModesPracticed(currentTonic)
     val completedArtCount = store.completedArticulationsCount(currentTonic, currentMode)
     val isModeFullyDone = store.isModeFullyCompleted(currentTonic, currentMode)
+
+    val chromaticDoneCount = store.chromaticCompletedCount(currentExercise)
+    val isChromaticFullyDone = store.isChromaticFullyCompleted(currentExercise)
+
+    if (showEJ1CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ1CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej1_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej1_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ1()
+                            currentEJ1Articulation = EJ1Articulation.ALL_SLURRED_8
+                            showEJ1CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej1_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.EJ2
+                            store.lastExerciseType = ExerciseType.EJ2
+                            store.saveLastSelection()
+                            showEJ1CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej1_go_to_ej2"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.EJ4
+                            store.lastExerciseType = ExerciseType.EJ4
+                            store.saveLastSelection()
+                            showEJ1CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary)
+                    ) {
+                        Text(loc.t("ej1_go_to_ej4"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ1CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
+    if (showEJ2CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ2CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej2_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej2_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ2()
+                            currentEJ2Articulation = EJ1Articulation.ALL_SLURRED_8
+                            showEJ2CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej2_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.EJ4
+                            store.lastExerciseType = ExerciseType.EJ4
+                            store.saveLastSelection()
+                            showEJ2CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej2_go_to_ej4"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ2CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
 
     if (showCompletionDialog) {
         AlertDialog(
@@ -150,22 +304,54 @@ fun PracticeScreen(
                     }
 
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(
-                            onClick = onOpenMatrix,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.primaryContainer)
+                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4)
+                        Surface(
+                            shape = RoundedCornerShape(10.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant
                         ) {
-                            Icon(
-                                Icons.Default.GridView,
-                                contentDescription = "Matrix",
-                                modifier = Modifier.size(18.dp),
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
+                            Row(modifier = Modifier.padding(2.dp)) {
+                                ExerciseType.entries.forEach { ex ->
+                                    val isSel = currentExercise == ex
+                                    Surface(
+                                        onClick = {
+                                            scorePlayer.stop()
+                                            currentExercise = ex
+                                            store.lastExerciseType = ex
+                                            store.saveLastSelection()
+                                        },
+                                        shape = RoundedCornerShape(8.dp),
+                                        color = if (isSel) MaterialTheme.colorScheme.primary else Color.Transparent
+                                    ) {
+                                        Text(
+                                            text = ex.pillLabel,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        if (currentExercise == ExerciseType.EJ4) {
+                            IconButton(
+                                onClick = onOpenMatrix,
+                                modifier = Modifier
+                                    .size(34.dp)
+                                    .clip(CircleShape)
+                                    .background(MaterialTheme.colorScheme.primaryContainer)
+                            ) {
+                                Icon(
+                                    Icons.Default.GridView,
+                                    contentDescription = "Matrix",
+                                    modifier = Modifier.size(17.dp),
+                                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            }
                         }
 
                         Button(
@@ -175,8 +361,8 @@ fun PracticeScreen(
                                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                             ),
                             shape = RoundedCornerShape(12.dp),
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                            modifier = Modifier.height(34.dp)
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                            modifier = Modifier.height(32.dp)
                         ) {
                             Text("${loc.currentLanguage.flag} ${loc.currentLanguage.displayName}", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                         }
@@ -190,63 +376,129 @@ fun PracticeScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // Mode Header Card
+            // Mode / Exercise Header Card
             Surface(
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                if (currentExercise.isChromaticExercise) {
+                    val isEJ2 = currentExercise == ExerciseType.EJ2
+                    val curArt = if (isEJ2) currentEJ2Articulation else currentEJ1Articulation
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Text(
-                            text = "${currentTonic.displayName} · ${currentMode.getName(loc)}",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (areAllModesPracticed) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "$practicedModesCount/7 ${loc.t("modes_count")}",
-                                fontSize = 11.sp,
+                                text = "${currentExercise.pillLabel} · ${curArt.title(loc)}",
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (areAllModesPracticed) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                color = MaterialTheme.colorScheme.onSurface,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.weight(1f)
+                            )
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isChromaticFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                            ) {
+                                Text(
+                                    text = "$chromaticDoneCount/10 ${loc.t("arts_count")}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isChromaticFullyDone) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant
+                            ) {
+                                Text(
+                                    text = "A. L. 16.588",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            Text(
+                                text = "${loc.t(if (isEJ2) "ej2_header_info" else "ej1_header_info")} | ${curArt.formulaBadge}",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                } else {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Surface(
-                            shape = RoundedCornerShape(6.dp),
-                            color = MaterialTheme.colorScheme.surfaceVariant
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = currentMode.family.displayName,
-                                fontSize = 10.sp,
+                                text = "${currentTonic.displayName} · ${currentMode.getName(loc)}",
+                                fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (areAllModesPracticed) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                            ) {
+                                Text(
+                                    text = "$practicedModesCount/7 ${loc.t("modes_count")}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (areAllModesPracticed) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant
+                            ) {
+                                Text(
+                                    text = currentMode.family.displayName,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            Text(
+                                text = "${currentMode.keyDescription(currentTonic)} | ${currentMode.accidentalBadge(loc)}",
+                                fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-
-                        Text(
-                            text = "${currentMode.keyDescription(currentTonic)} | ${currentMode.accidentalBadge(loc)}",
-                            fontSize = 11.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
                     }
                 }
             }
@@ -269,91 +521,197 @@ fun PracticeScreen(
             HorizontalDivider()
 
             // Articulation Section Header
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(horizontal = 16.dp, vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(
-                        text = loc.t("articulations_title"),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    if (isModeFullyDone) {
-                        Icon(
-                            Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = Color(0xFF10B981),
-                            modifier = Modifier.size(14.dp)
+            if (currentExercise.isChromaticExercise) {
+                val isEJ2 = currentExercise == ExerciseType.EJ2
+                val curArt = if (isEJ2) currentEJ2Articulation else currentEJ1Articulation
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 16.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = loc.t("articulations_title"),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        if (isChromaticFullyDone) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = Color(0xFF10B981),
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = if (isChromaticFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (chromaticDoneCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = "$chromaticDoneCount/10 ${loc.t("arts_count")}",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isChromaticFullyDone) Color(0xFF10B981) else if (chromaticDoneCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                         )
                     }
                 }
 
-                Surface(
-                    shape = RoundedCornerShape(6.dp),
-                    color = if (isModeFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                // E.J. 1 / E.J. 2 Articulation Bar Chips (0..10)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = "$completedArtCount/8 ${loc.t("arts_count")}",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isModeFullyDone) Color(0xFF10B981) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                    )
-                }
-            }
+                    EJ1Articulation.entries.forEach { art ->
+                        val isSelected = art == curArt
+                        val isCompleted = store.isChromaticCompleted(art, currentExercise)
 
-            // Articulation Bar Chips
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(horizontal = 14.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ArticulationPattern.entries.forEach { pattern ->
-                    val isSelected = pattern == currentArticulation
-                    val isCompleted = store.isCompleted(currentTonic, currentMode, pattern)
-
-                    Surface(
-                        onClick = {
-                            scorePlayer.stop()
-                            if (isSelected) {
-                                store.toggleCompleted(currentTonic, currentMode, pattern)
-                            } else {
-                                store.markCompleted(currentTonic, currentMode, currentArticulation)
-                                currentArticulation = pattern
-                            }
-                        },
-                        shape = RoundedCornerShape(16.dp),
-                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                        tonalElevation = if (isSelected) 3.dp else 0.dp
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        Surface(
+                            onClick = {
+                                scorePlayer.stop()
+                                if (isSelected) {
+                                    if (art != EJ1Articulation.ORIGINAL) {
+                                        store.toggleChromaticCompleted(art, currentExercise)
+                                    }
+                                } else {
+                                    if (curArt != EJ1Articulation.ORIGINAL) {
+                                        store.markChromaticCompleted(curArt, currentExercise)
+                                    }
+                                    if (isEJ2) {
+                                        currentEJ2Articulation = art
+                                        store.lastEJ2Articulation = art
+                                    } else {
+                                        currentEJ1Articulation = art
+                                        store.lastEJ1Articulation = art
+                                    }
+                                    store.saveLastSelection()
+                                }
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            tonalElevation = if (isSelected) 3.dp else 0.dp
                         ) {
-                            if (isCompleted) {
-                                Icon(
-                                    Icons.Default.CheckCircle,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(13.dp),
-                                    tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                if (isCompleted) {
+                                    Icon(
+                                        Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(13.dp),
+                                        tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
+                                    )
+                                }
+                                Text(
+                                    text = art.shortTitle(loc),
+                                    fontSize = 12.sp,
+                                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
-                            Text(
-                                text = pattern.shortTitle(loc),
-                                fontSize = 12.sp,
-                                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
-                                color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                        }
+                    }
+                }
+            } else {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 16.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = loc.t("articulations_title"),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        if (isModeFullyDone) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = Color(0xFF10B981),
+                                modifier = Modifier.size(14.dp)
                             )
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = if (isModeFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = "$completedArtCount/8 ${loc.t("arts_count")}",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isModeFullyDone) Color(0xFF10B981) else if (completedArtCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+
+                // Articulation Bar Chips
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    ArticulationPattern.entries.forEach { pattern ->
+                        val isSelected = pattern == currentArticulation
+                        val isCompleted = store.isCompleted(currentTonic, currentMode, pattern)
+
+                        Surface(
+                            onClick = {
+                                scorePlayer.stop()
+                                if (isSelected) {
+                                    store.toggleCompleted(currentTonic, currentMode, pattern)
+                                } else {
+                                    store.markCompleted(currentTonic, currentMode, currentArticulation)
+                                    currentArticulation = pattern
+                                }
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            tonalElevation = if (isSelected) 3.dp else 0.dp
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                if (isCompleted) {
+                                    Icon(
+                                        Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(13.dp),
+                                        tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
+                                    )
+                                }
+                                Text(
+                                    text = pattern.shortTitle(loc),
+                                    fontSize = 12.sp,
+                                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
                     }
                 }
@@ -446,12 +804,22 @@ fun PracticeScreen(
                         // Play Piano Button
                         Button(
                             onClick = {
-                                scorePlayer.toggle(
-                                    tonic = currentTonic,
-                                    mode = currentMode,
-                                    articulation = currentArticulation,
-                                    tempoBPM = metronome.tempoBPM
-                                )
+                                when (currentExercise) {
+                                    ExerciseType.EJ1 -> scorePlayer.toggleEJ1(
+                                        articulation = currentEJ1Articulation,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.EJ2 -> scorePlayer.toggleEJ2(
+                                        articulation = currentEJ2Articulation,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.EJ4 -> scorePlayer.toggle(
+                                        tonic = currentTonic,
+                                        mode = currentMode,
+                                        articulation = currentArticulation,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                }
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (scorePlayer.isPlaying) Color(0xFFEF4444) else Color(0xFF6366F1)
@@ -475,205 +843,316 @@ fun PracticeScreen(
                     }
 
                     // Row 2: Action Buttons
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        OutlinedButton(
-                            onClick = {
-                                scorePlayer.stop()
-                                store.markCompleted(currentTonic, currentMode, currentArticulation)
-                                val allArt = ArticulationPattern.entries
-                                val curIdx = allArt.indexOf(currentArticulation)
-                                if (curIdx + 1 < allArt.size) {
-                                    currentArticulation = allArt[curIdx + 1]
-                                } else {
-                                    if (store.areAllSevenModesPracticed(currentTonic)) {
-                                        showCompletionDialog = true
+                    if (currentExercise.isChromaticExercise) {
+                        val isEJ2 = currentExercise == ExerciseType.EJ2
+                        val curArt = if (isEJ2) currentEJ2Articulation else currentEJ1Articulation
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            if (isChromaticFullyDone) {
+                                Button(
+                                    onClick = {
+                                        if (isEJ2) showEJ2CompletionDialog = true else showEJ1CompletionDialog = true
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                                    contentPadding = PaddingValues(horizontal = 12.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        Text(
+                                            text = "✓ ${loc.t(if (isEJ2) "ej2_ten_arts_completed" else "ej1_ten_arts_completed")}",
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1
+                                        )
+                                    }
+                                }
+                            } else {
+                                Button(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        if (curArt == EJ1Articulation.ORIGINAL) {
+                                            if (isEJ2) {
+                                                currentEJ2Articulation = EJ1Articulation.ALL_SLURRED_8
+                                                store.lastEJ2Articulation = currentEJ2Articulation
+                                            } else {
+                                                currentEJ1Articulation = EJ1Articulation.ALL_SLURRED_8
+                                                store.lastEJ1Articulation = currentEJ1Articulation
+                                            }
+                                            store.saveLastSelection()
+                                        } else {
+                                            store.markChromaticCompleted(curArt, currentExercise)
+                                            if (store.isChromaticFullyCompleted(currentExercise)) {
+                                                if (isEJ2) showEJ2CompletionDialog = true else showEJ1CompletionDialog = true
+                                            } else {
+                                                val allPractice = EJ1Articulation.practiceCases
+                                                val idx = allPractice.indexOf(curArt)
+                                                if (idx >= 0) {
+                                                    val nextArt = allPractice[(idx + 1) % allPractice.size]
+                                                    if (isEJ2) {
+                                                        currentEJ2Articulation = nextArt
+                                                        store.lastEJ2Articulation = nextArt
+                                                    } else {
+                                                        currentEJ1Articulation = nextArt
+                                                        store.lastEJ1Articulation = nextArt
+                                                    }
+                                                    store.saveLastSelection()
+                                                }
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    contentPadding = PaddingValues(horizontal = 12.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Text(
+                                            text = loc.t("next_art"),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1
+                                        )
+                                        Surface(
+                                            shape = RoundedCornerShape(percent = 50),
+                                            color = Color.White.copy(alpha = 0.2f)
+                                        ) {
+                                            Text(
+                                                text = "$chromaticDoneCount/10 ${loc.t("arts_count")}",
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily.Monospace,
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        Icon(
+                                            Icons.Default.ArrowForward,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    scorePlayer.stop()
+                                    store.markCompleted(currentTonic, currentMode, currentArticulation)
+                                    val allArt = ArticulationPattern.entries
+                                    val curIdx = allArt.indexOf(currentArticulation)
+                                    if (curIdx + 1 < allArt.size) {
+                                        currentArticulation = allArt[curIdx + 1]
                                     } else {
+                                        if (store.areAllSevenModesPracticed(currentTonic)) {
+                                            showCompletionDialog = true
+                                        } else {
+                                            val modeOrder = listOf(
+                                                ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
+                                                ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
+                                            )
+                                            val mIdx = modeOrder.indexOf(currentMode)
+                                            if (mIdx >= 0) {
+                                                currentMode = modeOrder[(mIdx + 1) % modeOrder.size]
+                                                currentArticulation = ArticulationPattern.ALL_SLURRED
+                                            }
+                                        }
+                                    }
+                                },
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier.height(48.dp),
+                                contentPadding = PaddingValues(horizontal = 10.dp)
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                ) {
+                                    Text(
+                                        text = loc.t("next_art"),
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(percent = 50),
+                                        color = MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        Text(
+                                            text = "$completedArtCount/8",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = FontFamily.Monospace,
+                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                            }
+
+                            if (areAllModesPracticed) {
+                                Button(
+                                    onClick = { showCompletionDialog = true },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        Text(
+                                            text = "✓ ${loc.t("seven_modes_completed")}",
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                }
+                            } else if (isModeFullyDone) {
+                                Button(
+                                    onClick = {
+                                        scorePlayer.stop()
                                         val modeOrder = listOf(
                                             ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
                                             ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
                                         )
-                                        val mIdx = modeOrder.indexOf(currentMode)
-                                        if (mIdx >= 0) {
-                                            currentMode = modeOrder[(mIdx + 1) % modeOrder.size]
+                                        val curIdx = modeOrder.indexOf(currentMode)
+                                        if (curIdx >= 0) {
+                                            currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
                                             currentArticulation = ArticulationPattern.ALL_SLURRED
                                         }
-                                    }
-                                }
-                            },
-                            shape = RoundedCornerShape(16.dp),
-                            modifier = Modifier.height(48.dp),
-                            contentPadding = PaddingValues(horizontal = 10.dp)
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(5.dp)
-                            ) {
-                                Text(
-                                    text = loc.t("next_art"),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    maxLines = 1
-                                )
-                                Surface(
-                                    shape = RoundedCornerShape(percent = 50),
-                                    color = MaterialTheme.colorScheme.surfaceVariant
+                                        if (store.areAllSevenModesPracticed(currentTonic)) {
+                                            showCompletionDialog = true
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
                                 ) {
-                                    Text(
-                                        text = "$completedArtCount/8",
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        fontFamily = FontFamily.Monospace,
-                                        modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                                    )
-                                }
-                            }
-                        }
-
-                        if (areAllModesPracticed) {
-                            Button(
-                                onClick = { showCompletionDialog = true },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(48.dp),
-                                shape = RoundedCornerShape(16.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
-                                contentPadding = PaddingValues(horizontal = 10.dp)
-                            ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
-                                ) {
-                                    Icon(
-                                        Icons.Default.CheckCircle,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                    Text(
-                                        text = "✓ ${loc.t("seven_modes_completed")}",
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                            }
-                        } else if (isModeFullyDone) {
-                            Button(
-                                onClick = {
-                                    scorePlayer.stop()
-                                    val modeOrder = listOf(
-                                        ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
-                                        ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
-                                    )
-                                    val curIdx = modeOrder.indexOf(currentMode)
-                                    if (curIdx >= 0) {
-                                        currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
-                                        currentArticulation = ArticulationPattern.ALL_SLURRED
-                                    }
-                                    if (store.areAllSevenModesPracticed(currentTonic)) {
-                                        showCompletionDialog = true
-                                    }
-                                },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(48.dp),
-                                shape = RoundedCornerShape(16.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
-                                contentPadding = PaddingValues(horizontal = 10.dp)
-                            ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
-                                ) {
-                                    Icon(
-                                        Icons.Default.CheckCircle,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                    Text(
-                                        text = loc.t("mode_done"),
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        maxLines = 1
-                                    )
-                                    Surface(
-                                        shape = RoundedCornerShape(percent = 50),
-                                        color = Color.White.copy(alpha = 0.25f)
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
                                     ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
                                         Text(
-                                            text = "$practicedModesCount/7",
-                                            fontSize = 10.sp,
+                                            text = loc.t("mode_done"),
+                                            fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold,
-                                            fontFamily = FontFamily.Monospace,
-                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                            maxLines = 1
+                                        )
+                                        Surface(
+                                            shape = RoundedCornerShape(percent = 50),
+                                            color = Color.White.copy(alpha = 0.25f)
+                                        ) {
+                                            Text(
+                                                text = "$practicedModesCount/7",
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily.Monospace,
+                                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        Icon(
+                                            Icons.Default.ArrowForward,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
                                         )
                                     }
-                                    Icon(
-                                        Icons.Default.ArrowForward,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(14.dp)
-                                    )
                                 }
-                            }
-                        } else {
-                            Button(
-                                onClick = {
-                                    scorePlayer.stop()
-                                    store.markCompleted(currentTonic, currentMode, currentArticulation)
+                            } else {
+                                Button(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        store.markCompleted(currentTonic, currentMode, currentArticulation)
 
-                                    val wasAllPracticed = store.areAllSevenModesPracticed(currentTonic)
+                                        val wasAllPracticed = store.areAllSevenModesPracticed(currentTonic)
 
-                                    val modeOrder = listOf(
-                                        ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
-                                        ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
-                                    )
-                                    val curIdx = modeOrder.indexOf(currentMode)
-                                    if (curIdx >= 0) {
-                                        currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
-                                        currentArticulation = ArticulationPattern.ALL_SLURRED
-                                    }
+                                        val modeOrder = listOf(
+                                            ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN,
+                                            ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN
+                                        )
+                                        val curIdx = modeOrder.indexOf(currentMode)
+                                        if (curIdx >= 0) {
+                                            currentMode = modeOrder[(curIdx + 1) % modeOrder.size]
+                                            currentArticulation = ArticulationPattern.ALL_SLURRED
+                                        }
 
-                                    if (wasAllPracticed) {
-                                        showCompletionDialog = true
-                                    }
-                                },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(48.dp),
-                                shape = RoundedCornerShape(16.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                contentPadding = PaddingValues(horizontal = 10.dp)
-                            ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                        if (wasAllPracticed) {
+                                            showCompletionDialog = true
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
                                 ) {
-                                    Text(
-                                        text = loc.t("next_mode"),
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        maxLines = 1
-                                    )
-                                    Surface(
-                                        shape = RoundedCornerShape(percent = 50),
-                                        color = Color.White.copy(alpha = 0.2f)
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
                                     ) {
                                         Text(
-                                            text = "$practicedModesCount/7",
-                                            fontSize = 10.sp,
+                                            text = loc.t("next_mode"),
+                                            fontSize = 12.sp,
                                             fontWeight = FontWeight.Bold,
-                                            fontFamily = FontFamily.Monospace,
-                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                            maxLines = 1
+                                        )
+                                        Surface(
+                                            shape = RoundedCornerShape(percent = 50),
+                                            color = Color.White.copy(alpha = 0.2f)
+                                        ) {
+                                            Text(
+                                                text = "$practicedModesCount/7",
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily.Monospace,
+                                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        Icon(
+                                            Icons.Default.ArrowForward,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
                                         )
                                     }
-                                    Icon(
-                                        Icons.Default.ArrowForward,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(14.dp)
-                                    )
                                 }
                             }
                         }

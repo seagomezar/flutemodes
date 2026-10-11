@@ -171,4 +171,41 @@ final class FluteModesTests: XCTestCase {
         XCTAssertTrue(store.isCompleted(tonic: .doNatural, mode: .ionian, articulation: .allSlurred))
         XCTAssertEqual(vm.currentArticulation, .slurredFourAndFour)
     }
+
+    func testEJ1AndEJ2AllArticulationsGenerateValidAbc() {
+        XCTAssertEqual(ExerciseGenerator.ej1RawMeasures.count, 30, "E. J. 1 must have 30 chromatic lines (+ M.31 suffix)")
+        XCTAssertEqual(ExerciseGenerator.ej2RawMeasures.count, 30, "E. J. 2 must have 30 chromatic lines (+ M.31 suffix)")
+
+        for art in EJ1Articulation.allCases {
+            let ej1Abc = ExerciseGenerator.generateEJ1ABC(articulation: art, tempoBPM: 120)
+            XCTAssertTrue(ej1Abc.contains("% EJ1_LEDUC_ART:\(art.rawValue)"), "E. J. 1 ABC must include EJ1_LEDUC_ART header")
+            XCTAssertTrue(ej1Abc.contains("Q:1/4=120"), "E. J. 1 ABC must include tempo Q:1/4=120")
+
+            let ej2Abc = ExerciseGenerator.generateEJ2ABC(articulation: art, tempoBPM: 120)
+            XCTAssertTrue(ej2Abc.contains("% EJ2_LEDUC_ART:\(art.rawValue)"), "E. J. 2 ABC must include EJ2_LEDUC_ART header")
+            XCTAssertTrue(ej2Abc.contains("Q:1/4=120"), "E. J. 2 ABC must include tempo Q:1/4=120")
+            XCTAssertTrue(ej2Abc.contains("^^F"), "E. J. 2 ABC must preserve double sharp ^^F in measure 12")
+            XCTAssertTrue(ej2Abc.contains("^B"), "E. J. 2 ABC must preserve enharmonic ^B in measure 22")
+        }
+    }
+
+    func testEJ1AndEJ2PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.ej1CompletedCount, 0)
+        XCTAssertEqual(store.ej2CompletedCount, 0)
+        XCTAssertFalse(store.isEJ1FullyCompleted)
+        XCTAssertFalse(store.isEJ2FullyCompleted)
+
+        for art in EJ1Articulation.practiceCases {
+            store.markEJ1Completed(art)
+            store.markEJ2Completed(art)
+        }
+
+        XCTAssertEqual(store.ej1CompletedCount, 10)
+        XCTAssertEqual(store.ej2CompletedCount, 10)
+        XCTAssertTrue(store.isEJ1FullyCompleted)
+        XCTAssertTrue(store.isEJ2FullyCompleted)
+    }
 }

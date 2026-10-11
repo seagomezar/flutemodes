@@ -1,0 +1,42 @@
+X:4
+T:E. J. 1 — 3. 1 picada y 3 ligadas
+C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)
+% EJ1_LEDUC_ART:3
+%%barsperstaff 1
+M:4/2
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble stem=up
+%%score 1
+|: "^Reprise à l'octave".D(E^FG).A(GFE) .D(EFG).A(GFE) .D(EFG).A(GFE) .D(EFG).A(GFE) | % Compás 1: Re Mayor (I)
+.D(_E=FG)._A(GFE) .D(EFG).A(GFE) .D(EFG).A(GFE) .D(EFG).A(FED) | % Compás 2: vii° -> Mib Mayor
+._E(FG_A)._B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) | % Compás 3: Mib Mayor (I)
+.^D(=E^F^G).=A(GFE) .D(EFG).A(GFE) .D(EFG).A(GFE) .D(EFG).A(FED) | % Compás 4: vii° -> Mi Mayor
+.E(^F^GA).B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) | % Compás 5: Mi Mayor (I)
+.E(=F=GA)._B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) .E(FGA).B(GFE) | % Compás 6: vii° -> Fa Mayor
+.F(GA_B).c(BAG) .F(GAB).c(BAG) .F(GAB).c(BAG) .F(GAB).c(BAG) | % Compás 7: Fa Mayor (I)
+.^E(^F^G^A).=B(AGF) .E(FGA).B(AGF) .E(FGA).B(AGF) .E(FGA).B(GFE) | % Compás 8: vii° -> Fa# Mayor
+.^F(^G^AB).^c(BAG) .F(GAB).c(BAG) .F(GAB).c(BAG) .F(GAB).c(BAG) | % Compás 9: Fa# Mayor (I)
+.^F(=G=AB).=c(BAG) .F(GAB).c(BAG) .F(GAB).c(BAG) .F(GAB).c(AGF) | % Compás 10: vii° -> Sol Mayor
+[V:1 stem=down]
+.G(ABc).d(cBA) .G(ABc).d(cBA) .G(ABc).d(cBA) .G(ABc).d(cBA) | % Compás 11: Sol Mayor (I)
+.G(_A_Bc)._d(cBA) .G(ABc).d(cBA) .G(ABc).d(cBA) .G(ABc).d(BAG) | % Compás 12: vii° -> Lab Mayor
+._A(_Bc_d)._e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) | % Compás 13: Lab Mayor (I)
+.^G(=A=B^c).=d(cBA) .G(ABc).d(cBA) .G(ABc).d(cBA) .G(ABc).d(BAG) | % Compás 14: vii° -> La Mayor
+.A(B^cd).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) | % Compás 15: La Mayor (I)
+.A(_B=cd)._e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(cBA) | % Compás 16: vii° -> Sib Mayor
+._B(cd_e).f(edc) .B(cde).f(edc) .B(cde).f(edc) .B(cde).f(edc) | % Compás 17: Sib Mayor (I)
+.^A(=B^c^d).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(dcB) .A(Bcd).e(cBA) | % Compás 18: vii° -> Si Mayor
+.B(^c^de).^f(edc) .B(cde).f(edc) .B(cde).f(edc) .B(cde).f(edc) | % Compás 19: Si Mayor (I)
+.B(=c=de).=f(edc) .B(cde).f(edc) .B(cde).f(edc) .B(cde).f(dcB) | % Compás 20: vii° -> Do Mayor
+.c(def).g(fed) .c(def).g(fed) .c(def).g(fed) .c(def).g(fed) | % Compás 21: Do Mayor (I)
+.c(_d_ef)._g(fed) .c(def).g(fed) .c(def).g(fed) .c(def).g(edc) | % Compás 22: vii° -> Reb Mayor
+._d(_ef_g)._a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) | % Compás 23: Reb Mayor (I)
+.^c(=d=e^f).=g(fed) .c(def).g(fed) .c(def).g(fed) .c(def).g(edc) :| % Compás 24: vii° -> Re Mayor
+"^8va".d(e^fg).a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) | % Compás 25: Re Mayor (I) [8va]
+.d(_e=fg)._a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) .d(efg).a(fed) | % Compás 26: vii° -> Mib [8va]
+._e(fg_a)._b(agf) .e(fga).b(agf) .e(fga).b(agf) .e(fga).b(agf) | % Compás 27: Mib Mayor (I) [8va]
+.^d(=e^f^g).=a(gfe) .d(efg).a(gfe) .d(efg).a(gfe) .d(efg).a(fed) | % Compás 28: vii° -> Mi [8va]
+.e(^f^ga).b(agf) .e(fga).b(agf) .e(fga).b(agf) .e(fga).b(agf) | % Compás 29: Mi Mayor (I) [8va]
+.e(=f=ga)._b(agf) .e(fga).b(agf) .e(fga).b(agf) .e(fga).b(gfe) | f4 z4 z8 |] % Compás 30: vii° -> Fa + Fin [8va]

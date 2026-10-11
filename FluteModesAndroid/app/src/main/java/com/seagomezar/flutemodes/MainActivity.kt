@@ -19,7 +19,13 @@ import com.seagomezar.flutemodes.ui.theme.FluteModesTheme
 
 sealed class Screen {
     object Home : Screen()
-    data class Practice(val tonic: Tonic, val mode: ModeType) : Screen()
+    data class Practice(
+        val exerciseType: ExerciseType = ExerciseType.EJ1,
+        val ej1Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
+        val ej2Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
+        val tonic: Tonic = Tonic.DO_NATURAL,
+        val mode: ModeType = ModeType.IONIAN
+    ) : Screen()
     object Matrix : Screen()
 }
 
@@ -60,7 +66,39 @@ class MainActivity : ComponentActivity() {
                                 store = store,
                                 loc = loc,
                                 onStartPractice = { tonic, mode ->
-                                    currentScreen = Screen.Practice(tonic, mode)
+                                    store.lastExerciseType = ExerciseType.EJ4
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ExerciseType.EJ4,
+                                        ej1Articulation = store.lastEJ1Articulation,
+                                        ej2Articulation = store.lastEJ2Articulation,
+                                        tonic = tonic,
+                                        mode = mode
+                                    )
+                                },
+                                onStartEJ1Practice = { art ->
+                                    store.lastExerciseType = ExerciseType.EJ1
+                                    store.lastEJ1Articulation = art
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ExerciseType.EJ1,
+                                        ej1Articulation = art,
+                                        ej2Articulation = store.lastEJ2Articulation,
+                                        tonic = store.lastTonic ?: Tonic.DO_NATURAL,
+                                        mode = store.lastMode ?: ModeType.IONIAN
+                                    )
+                                },
+                                onStartEJ2Practice = { art ->
+                                    store.lastExerciseType = ExerciseType.EJ2
+                                    store.lastEJ2Articulation = art
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ExerciseType.EJ2,
+                                        ej1Articulation = store.lastEJ1Articulation,
+                                        ej2Articulation = art,
+                                        tonic = store.lastTonic ?: Tonic.DO_NATURAL,
+                                        mode = store.lastMode ?: ModeType.IONIAN
+                                    )
                                 },
                                 onOpenMatrix = {
                                     currentScreen = Screen.Matrix
@@ -69,6 +107,9 @@ class MainActivity : ComponentActivity() {
                         }
                         is Screen.Practice -> {
                             PracticeScreen(
+                                initialExercise = screen.exerciseType,
+                                initialEJ1Articulation = screen.ej1Articulation,
+                                initialEJ2Articulation = screen.ej2Articulation,
                                 initialTonic = screen.tonic,
                                 initialMode = screen.mode,
                                 store = store,
@@ -92,7 +133,15 @@ class MainActivity : ComponentActivity() {
                                 store = store,
                                 loc = loc,
                                 onSelectCell = { tonic, mode ->
-                                    currentScreen = Screen.Practice(tonic, mode)
+                                    store.lastExerciseType = ExerciseType.EJ4
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ExerciseType.EJ4,
+                                        ej1Articulation = store.lastEJ1Articulation,
+                                        ej2Articulation = store.lastEJ2Articulation,
+                                        tonic = tonic,
+                                        mode = mode
+                                    )
                                 },
                                 onBack = {
                                     currentScreen = Screen.Home

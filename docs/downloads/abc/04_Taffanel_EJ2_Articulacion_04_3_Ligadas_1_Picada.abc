@@ -1,0 +1,42 @@
+X:5
+T:E. J. 2 — 4. 3 ligadas y 1 picada
+C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)
+% EJ2_LEDUC_ART:4
+%%barsperstaff 1
+M:4/2
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble stem=up
+%%score 1
+|: (DEF).G(AGF).E (DEF).G(AGF).E (DEF).G(AGF).E (DEF).G(AGF).E | % Compás 1: Re menor (i)
+(D_E=F)._G(_AGF).E (DEF).G(AGF).E (DEF).G(AGF).E (DEF).G(AFE).D | % Compás 2: vii° -> Mib menor
+(_EF_G)._A(_BAG).F (EFG).A(BAG).F (EFG).A(BAG).F (EFG).A(BAG).F | % Compás 3: Mib menor (i)
+(^D=E^F).=G(=AGF).E (DEF).G(AGF).E (DEF).G(AGF).E (DEF).G(AFE).D | % Compás 4: vii° -> Mi menor
+(E^FG).A(BAG).F (EFG).A(BAG).F (EFG).A(BAG).F (EFG).A(BAG).F | % Compás 5: Mi menor (i)
+(E=F=G)._A(_BAG).F (EFG).A(BAG).F (EFG).A(BAG).F (EFG).A(BGF).E | % Compás 6: vii° -> Fa menor
+(FG_A)._B(cBA).G (FGA).B(cBA).G (FGA).B(cBA).G (FGA).B(cBA).G | % Compás 7: Fa menor (i)
+(^E^F^G).=A(=BAG).F (EFG).A(BAG).F (EFG).A(BAG).F (EFG).A(BGF).E | % Compás 8: vii° -> Fa# menor
+(^F^GA).B(^cBA).G (FGA).B(cBA).G (FGA).B(cBA).G (FGA).B(cBA).G | % Compás 9: Fa# menor (i)
+(^F=G=A)._B(=cBA).G (FGA).B(cBA).G (FGA).B(cBA).G (FGA).B(cAG).F | % Compás 10: vii° -> Sol menor
+[V:1 stem=down]
+(GA_B).c(dcB).A (GAB).c(dcB).A (GAB).c(dcB).A (GAB).c(dcB).A | % Compás 11: Sol menor (i)
+(^^F^G^A).B(^cBA).G (FGA).B(cBA).G (FGA).B(cBA).G (FGA).B(cAG).F | % Compás 12: vii° -> Sol# menor
+(^G^AB).^c(^dcB).A (GAB).c(dcB).A (GAB).c(dcB).A (GAB).c(dcB).A | % Compás 13: Sol# menor (i)
+(^G=A=B).=c(=dcB).A (GAB).c(dcB).A (GAB).c(dcB).A (GAB).c(dBA).G | % Compás 14: vii° -> La menor
+(ABc).d(edc).B (ABc).d(edc).B (ABc).d(edc).B (ABc).d(edc).B | % Compás 15: La menor (i)
+(A_B=c)._d(_edc).B (ABc).d(edc).B (ABc).d(edc).B (ABc).d(ecB).A | % Compás 16: vii° -> Sib menor
+(_Bc_d)._e(fed).c (Bcd).e(fed).c (Bcd).e(fed).c (Bcd).e(fed).c | % Compás 17: Sib menor (i)
+(^A=B^c).=d(=edc).B (ABc).d(edc).B (ABc).d(edc).B (ABc).d(ecB).A | % Compás 18: vii° -> Si menor
+(B^cd).e(^fed).c (Bcd).e(fed).c (Bcd).e(fed).c (Bcd).e(fed).c | % Compás 19: Si menor (i)
+(B=c=d)._e(=fed).c (Bcd).e(fed).c (Bcd).e(fed).c (Bcd).e(fdc).B | % Compás 20: vii° -> Do menor
+(cd_e).f(gfe).d (cde).f(gfe).d (cde).f(gfe).d (cde).f(gfe).d | % Compás 21: Do menor (i)
+(^B^c^d).=e(^fed).c (Bcd).e(fed).c (Bcd).e(fed).c (Bcd).e(fdc).B | % Compás 22: vii° -> Do# menor
+(^c^de).^f(^gfe).d (cde).f(gfe).d (cde).f(gfe).d (cde).f(gfe).d | % Compás 23: Do# menor (i)
+(^c=d=e).=f(=gfe).d (cde).f(gfe).d (cde).f(gfe).d (cde).f(ged).c :| % Compás 24: vii° -> Re menor
+"^8va"(def).g(agf).e (def).g(agf).e (def).g(agf).e (def).g(agf).e | % Compás 25: Re menor (i) [8va]
+(d_e=f)._g(_agf).e (def).g(agf).e (def).g(agf).e (def).g(afe).d | % Compás 26: vii° -> Mib m [8va]
+(_ef_g)._a(_bag).f (efg).a(bag).f (efg).a(bag).f (efg).a(bag).f | % Compás 27: Mib menor (i) [8va]
+(^d=e^f).=g(=agf).e (def).g(agf).e (def).g(agf).e (def).g(afe).d | % Compás 28: vii° -> Mi m [8va]
+(e^fg).a(bag).f (efg).a(bag).f (efg).a(bag).f (efg).a(bag).f | % Compás 29: Mi menor (i) [8va]
+(e=f=g)._a(_bag).f (efg).a(bag).f (efg).a(bag).f (efg).a(bgf).e | f4 z4 z8 |] % Compás 30: vii° -> Fa m + Fin [8va]

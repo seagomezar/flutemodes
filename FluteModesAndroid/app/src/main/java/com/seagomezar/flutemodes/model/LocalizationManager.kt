@@ -123,6 +123,87 @@ class LocalizationManager(context: Context) {
         "mode_fully_done" to Pair("Modo Completado", "Mode Completed"),
         "legend_completed" to Pair("Completado (8/8 arts.)", "Completed (8/8 arts)"),
         "legend_in_progress" to Pair("En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"),
-        "legend_not_started" to Pair("No iniciado (0/8 arts.)", "Not started (0/8 arts)")
+        "legend_not_started" to Pair("No iniciado (0/8 arts.)", "Not started (0/8 arts)"),
+        "completed" to Pair("Completada", "Completed"),
+        "in_progress" to Pair("En curso", "Current"),
+
+        // E.J. 1 Taffanel & Gaubert (A. L. 16.588)
+        "ej1_title" to Pair(
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+        ),
+        "ej1_sub_desc" to Pair(
+            "17 Grands Exercices Journaliers de Mécanisme · 31 Compases Cromáticos + 10 Articulaciones",
+            "17 Grands Exercices Journaliers de Mécanisme · 31 Chromatic Measures + 10 Articulations"
+        ),
+        "ej1_header_info" to Pair(
+            "15 Pares Cromáticos (Fa4–Sol♭6) · Reprise à l'octave · 8va (Compases 25–31)",
+            "15 Chromatic Pairs (F4–G♭6) · Reprise à l'octave · 8va (Measures 25–31)"
+        ),
+        "ej1_select_art" to Pair(
+            "Las 10 Articulaciones Oficiales (A. L. 16.588)",
+            "The 10 Official Articulations (A. L. 16.588)"
+        ),
+        "ej1_start_practice" to Pair("Practicar E. J. 1", "Practice E. J. 1"),
+        "ej1_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+        "ej1_milestone_title" to Pair("¡E. J. 1 Completado (10/10 Articulaciones)!", "E. J. 1 Completed (10/10 Articulations)!"),
+        "ej1_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 1 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 1."
+        ),
+        "ej1_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "ej1_go_to_ej2" to Pair("🎵 Ir a E. J. 2 (Pentacordios Menores)", "🎵 Go to E. J. 2 (Minor Pentachords)"),
+        "ej1_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (84 Modos Paralelos)", "🎵 Go to E. J. 4 (84 Parallel Modes)"),
+
+        // E.J. 2 Taffanel & Gaubert (A. L. 16.588)
+        "ej2_title" to Pair(
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+        ),
+        "ej2_sub_desc" to Pair(
+            "Pentacordios Menores y 7ª Disminuida · 31 Compases Cromáticos + 10 Articulaciones",
+            "Minor Pentachords & Diminished 7th · 31 Chromatic Measures + 10 Articulations"
+        ),
+        "ej2_header_info" to Pair(
+            "15 Pares Cromáticos Menores (Re menor–Mi menor) · 8va (Compases 25–31)",
+            "15 Minor Chromatic Pairs (D minor–E minor) · 8va (Measures 25–31)"
+        ),
+        "ej2_select_art" to Pair(
+            "Las 10 Articulaciones Oficiales (A. L. 16.588)",
+            "The 10 Official Articulations (A. L. 16.588)"
+        ),
+        "ej2_start_practice" to Pair("Practicar E. J. 2", "Practice E. J. 2"),
+        "ej2_ten_arts_completed" to Pair("10 Articulaciones Completadas", "10 Articulations Completed"),
+        "ej2_milestone_title" to Pair("¡E. J. 2 Completado (10/10 Articulaciones)!", "E. J. 2 Completed (10/10 Articulations)!"),
+        "ej2_milestone_msg" to Pair(
+            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 2 de Taffanel & Gaubert.",
+            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 2."
+        ),
+        "ej2_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
+        "ej2_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (84 Modos Paralelos)", "🎵 Go to E. J. 4 (84 Parallel Modes)"),
+
+        "ej1_art_0_title" to Pair("0. Edición Original Leduc (4 ligadas + 4 picadas)", "0. Original Leduc Edition (4 slurred + 4 staccato)"),
+        "ej1_art_1_title" to Pair("1. Ocho notas ligadas", "1. Eight notes slurred"),
+        "ej1_art_2_title" to Pair("2. Cuatro y cuatro ligadas", "2. Four & four slurred"),
+        "ej1_art_3_title" to Pair("3. Una picada y tres ligadas", "3. One staccato & three slurred"),
+        "ej1_art_4_title" to Pair("4. Tres ligadas y una picada", "4. Three slurred & one staccato"),
+        "ej1_art_5_title" to Pair("5. Dos ligadas y dos picadas", "5. Two slurred & two staccato"),
+        "ej1_art_6_title" to Pair("6. Dos picadas y dos ligadas", "6. Two staccato & two slurred"),
+        "ej1_art_7_title" to Pair("7. Una picada, dos ligadas y una picada", "7. One staccato, two slurred & one staccato"),
+        "ej1_art_8_title" to Pair("8. De dos en dos ligadas", "8. Slurred in pairs (2 by 2)"),
+        "ej1_art_9_title" to Pair("9. De dos en dos sincopadas", "9. Syncopated pairs"),
+        "ej1_art_10_title" to Pair("10. Todo picado (Staccato)", "10. All staccato"),
+
+        "ej1_art_0_short" to Pair("0. Original (4 lig + 4 pic)", "0. Original (4 slur + 4 stacc)"),
+        "ej1_art_1_short" to Pair("1. 8 ligadas", "1. 8 slurred"),
+        "ej1_art_2_short" to Pair("2. 4 y 4 ligadas", "2. 4 & 4 slurred"),
+        "ej1_art_3_short" to Pair("3. 1 pic., 3 lig.", "3. 1 stacc., 3 slur"),
+        "ej1_art_4_short" to Pair("4. 3 lig., 1 pic.", "4. 3 slur, 1 stacc."),
+        "ej1_art_5_short" to Pair("5. 2 lig., 2 pic.", "5. 2 slur, 2 stacc."),
+        "ej1_art_6_short" to Pair("6. 2 pic., 2 lig.", "6. 2 stacc., 2 slur"),
+        "ej1_art_7_short" to Pair("7. 1 pic., 2 lig., 1 pic.", "7. 1 stacc., 2 slur, 1 stacc."),
+        "ej1_art_8_short" to Pair("8. De 2 en 2 ligadas", "8. Pairs (2 by 2)"),
+        "ej1_art_9_short" to Pair("9. De 2 en 2 sincopadas", "9. Syncopated pairs"),
+        "ej1_art_10_short" to Pair("10. Todo picado", "10. All staccato")
     )
 }

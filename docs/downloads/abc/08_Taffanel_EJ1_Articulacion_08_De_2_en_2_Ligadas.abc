@@ -1,0 +1,42 @@
+X:9
+T:E. J. 1 — 8. De 2 en 2 ligadas
+C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)
+% EJ1_LEDUC_ART:8
+%%barsperstaff 1
+M:4/2
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble stem=up
+%%score 1
+|: "^Reprise à l'octave"(DE)(^FG)(AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AG)(FE) | % Compás 1: Re Mayor (I)
+(D_E)(=FG)(_AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AF)(ED) | % Compás 2: vii° -> Mib Mayor
+(_EF)(G_A)(_BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) | % Compás 3: Mib Mayor (I)
+(^D=E)(^F^G)(=AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AG)(FE) (DE)(FG)(AF)(ED) | % Compás 4: vii° -> Mi Mayor
+(E^F)(^GA)(BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) | % Compás 5: Mi Mayor (I)
+(E=F)(=GA)(_BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BG)(FE) | % Compás 6: vii° -> Fa Mayor
+(FG)(A_B)(cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cB)(AG) | % Compás 7: Fa Mayor (I)
+(^E^F)(^G^A)(=BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BA)(GF) (EF)(GA)(BG)(FE) | % Compás 8: vii° -> Fa# Mayor
+(^F^G)(^AB)(^cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cB)(AG) | % Compás 9: Fa# Mayor (I)
+(^F=G)(=AB)(=cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cB)(AG) (FG)(AB)(cA)(GF) | % Compás 10: vii° -> Sol Mayor
+[V:1 stem=down]
+(GA)(Bc)(dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dc)(BA) | % Compás 11: Sol Mayor (I)
+(G_A)(_Bc)(_dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dB)(AG) | % Compás 12: vii° -> Lab Mayor
+(_A_B)(c_d)(_ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) | % Compás 13: Lab Mayor (I)
+(^G=A)(=B^c)(=dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dc)(BA) (GA)(Bc)(dB)(AG) | % Compás 14: vii° -> La Mayor
+(AB)(^cd)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) | % Compás 15: La Mayor (I)
+(A_B)(=cd)(_ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ec)(BA) | % Compás 16: vii° -> Sib Mayor
+(_Bc)(d_e)(fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fe)(dc) | % Compás 17: Sib Mayor (I)
+(^A=B)(^c^d)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ed)(cB) (AB)(cd)(ec)(BA) | % Compás 18: vii° -> Si Mayor
+(B^c)(^de)(^fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fe)(dc) | % Compás 19: Si Mayor (I)
+(B=c)(=de)(=fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fe)(dc) (Bc)(de)(fd)(cB) | % Compás 20: vii° -> Do Mayor
+(cd)(ef)(gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(gf)(ed) | % Compás 21: Do Mayor (I)
+(c_d)(_ef)(_gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(ge)(dc) | % Compás 22: vii° -> Reb Mayor
+(_d_e)(f_g)(_ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) | % Compás 23: Reb Mayor (I)
+(^c=d)(=e^f)(=gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(gf)(ed) (cd)(ef)(ge)(dc) :| % Compás 24: vii° -> Re Mayor
+"^8va"(de)(^fg)(ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) | % Compás 25: Re Mayor (I) [8va]
+(d_e)(=fg)(_ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(af)(ed) | % Compás 26: vii° -> Mib [8va]
+(_ef)(g_a)(_ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(ba)(gf) | % Compás 27: Mib Mayor (I) [8va]
+(^d=e)(^f^g)(=ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(ag)(fe) (de)(fg)(af)(ed) | % Compás 28: vii° -> Mi [8va]
+(e^f)(^ga)(ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(ba)(gf) | % Compás 29: Mi Mayor (I) [8va]
+(e=f)(=ga)(_ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(ba)(gf) (ef)(ga)(bg)(fe) | f4 z4 z8 |] % Compás 30: vii° -> Fa + Fin [8va]

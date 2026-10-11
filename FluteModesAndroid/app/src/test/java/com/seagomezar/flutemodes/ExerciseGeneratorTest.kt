@@ -134,4 +134,22 @@ class ExerciseGeneratorTest {
             }
         }
     }
+
+    @Test
+    fun testEJ1AndEJ2AllArticulationsGenerateValidAbc() {
+        assertEquals(30, ExerciseGenerator.ej1RawMeasures.size)
+        assertEquals(30, ExerciseGenerator.ej2RawMeasures.size)
+
+        for (art in EJ1Articulation.entries) {
+            val ej1Abc = ExerciseGenerator.generateEJ1ABC(articulation = art, tempoBPM = 120, loc = loc)
+            assertTrue(ej1Abc.contains("% EJ1_LEDUC_ART:${art.id}"))
+            assertTrue(ej1Abc.contains("Q:1/4=120"))
+
+            val ej2Abc = ExerciseGenerator.generateEJ2ABC(articulation = art, tempoBPM = 120, loc = loc)
+            assertTrue(ej2Abc.contains("% EJ2_LEDUC_ART:${art.id}"))
+            assertTrue(ej2Abc.contains("Q:1/4=120"))
+            assertTrue(ej2Abc.contains("^^F"))
+            assertTrue(ej2Abc.contains("^B"))
+        }
+    }
 }

@@ -27,8 +27,13 @@ fun HomeScreen(
     store: PracticeStore,
     loc: LocalizationManager,
     onStartPractice: (Tonic, ModeType) -> Unit,
+    onStartEJ1Practice: (EJ1Articulation) -> Unit,
+    onStartEJ2Practice: (EJ1Articulation) -> Unit,
     onOpenMatrix: () -> Unit
 ) {
+    var selectedExercise by remember { mutableStateOf(store.lastExerciseType) }
+    var selectedEJ1Art by remember { mutableStateOf(store.lastEJ1Articulation) }
+    var selectedEJ2Art by remember { mutableStateOf(store.lastEJ2Articulation) }
     var selectedTonic by remember { mutableStateOf(store.lastTonic ?: Tonic.DO_NATURAL) }
     var selectedMode by remember { mutableStateOf(store.lastMode ?: ModeType.IONIAN) }
 
@@ -56,7 +61,7 @@ fun HomeScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "Maestro León Giraldo",
+                            text = if (selectedExercise.isChromaticExercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -103,6 +108,47 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Exercise Switcher (E.J. 1 vs E.J. 2 vs E.J. 4)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                ExerciseType.entries.forEach { ex ->
+                    val isSel = selectedExercise == ex
+                    Surface(
+                        onClick = {
+                            selectedExercise = ex
+                            store.lastExerciseType = ex
+                            store.saveLastSelection()
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(14.dp),
+                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                        tonalElevation = if (isSel) 4.dp else 0.dp
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = if (ex.isChromaticExercise) Icons.Default.MusicNote else Icons.Default.GridView,
+                                contentDescription = null,
+                                modifier = Modifier.size(15.dp),
+                                tint = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = ex.shortLabel(loc),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+
             // Header Description
             Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
@@ -110,141 +156,304 @@ fun HomeScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = loc.t("subtitle"),
+                        text = when (selectedExercise) {
+                            ExerciseType.EJ1 -> loc.t("ej1_title")
+                            ExerciseType.EJ2 -> loc.t("ej2_title")
+                            ExerciseType.EJ4 -> loc.t("subtitle")
+                        },
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = loc.t("sub_desc"),
+                        text = when (selectedExercise) {
+                            ExerciseType.EJ1 -> loc.t("ej1_sub_desc")
+                            ExerciseType.EJ2 -> loc.t("ej2_sub_desc")
+                            ExerciseType.EJ4 -> loc.t("sub_desc")
+                        },
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.85f)
                     )
                 }
             }
 
-            // Tonic Picker
-            Column {
-                Text(
-                    text = loc.t("select_tonic"),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp)
-                )
+            if (selectedExercise.isChromaticExercise) {
+                val isEJ2 = selectedExercise == ExerciseType.EJ2
+                val doneCount = store.chromaticCompletedCount(selectedExercise)
+                val allDone = store.isChromaticFullyCompleted(selectedExercise)
+                val currentSelArt = if (isEJ2) selectedEJ2Art else selectedEJ1Art
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState()),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Tonic.entries.forEach { tonic ->
-                        val isSelected = tonic == selectedTonic
-                        val completedInTonic = store.practicedModesCount(tonic)
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = loc.t(if (isEJ2) "ej2_select_art" else "ej1_select_art"),
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = loc.t(if (isEJ2) "ej2_header_info" else "ej1_header_info"),
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
 
-                        Surface(
-                            onClick = { selectedTonic = tonic },
-                            shape = RoundedCornerShape(14.dp),
-                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                            tonalElevation = if (isSelected) 4.dp else 0.dp,
-                            modifier = Modifier.padding(vertical = 4.dp)
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = if (allDone) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                    ) {
+                        Text(
+                            text = "$doneCount/10 ${loc.t("arts_count")}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (allDone) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                }
+
+                EJ1Articulation.entries.forEach { art ->
+                    val isSelected = currentSelArt == art
+                    val isDone = store.isChromaticCompleted(art, selectedExercise)
+
+                    Surface(
+                        onClick = {
+                            if (isEJ2) {
+                                selectedEJ2Art = art
+                                onStartEJ2Practice(art)
+                            } else {
+                                selectedEJ1Art = art
+                                onStartEJ1Practice(art)
+                            }
+                        },
+                        shape = RoundedCornerShape(14.dp),
+                        color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+                        border = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .padding(14.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column(
-                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
+                            Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = tonic.displayName,
-                                    fontSize = 16.sp,
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                    text = art.title(loc),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
+                                Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = "$completedInTonic/7 ${loc.t("modes_count")}",
-                                    fontSize = 10.sp,
-                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                    text = art.formulaBadge,
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            if (art == EJ1Articulation.ORIGINAL) {
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = Color(0xFF6366F1).copy(alpha = 0.18f)
+                                ) {
+                                    Text(
+                                        text = "Urtext",
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF6366F1),
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                    )
+                                }
+                            } else if (isDone) {
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = Color(0xFF10B981).copy(alpha = 0.2f)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            tint = Color(0xFF10B981),
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = loc.t("completed"),
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color(0xFF10B981)
+                                        )
+                                    }
+                                }
+                            } else {
+                                Icon(
+                                    Icons.Default.ArrowForward,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(16.dp)
                                 )
                             }
                         }
                     }
                 }
-            }
 
-            // Parallel System Cards (Major & Minor Families)
-            Text(
-                text = "${selectedTonic.displayName} · ${loc.t("major_family")}",
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
-            )
+                Spacer(modifier = Modifier.height(4.dp))
 
-            majorModes.forEach { mode ->
-                ModeSelectionCard(
-                    tonic = selectedTonic,
-                    mode = mode,
-                    isSelected = (mode == selectedMode),
-                    loc = loc,
-                    store = store,
-                    onClick = { selectedMode = mode }
-                )
-            }
+                Button(
+                    onClick = {
+                        if (isEJ2) {
+                            onStartEJ2Practice(selectedEJ2Art)
+                        } else {
+                            onStartEJ1Practice(selectedEJ1Art)
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "${loc.t(if (isEJ2) "ej2_start_practice" else "ej1_start_practice")} (${currentSelArt.shortTitle(loc)})",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            } else {
+                // Tonic Picker
+                Column {
+                    Text(
+                        text = loc.t("select_tonic"),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp)
+                    )
 
-            Spacer(modifier = Modifier.height(4.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Tonic.entries.forEach { tonic ->
+                            val isSelected = tonic == selectedTonic
+                            val completedInTonic = store.practicedModesCount(tonic)
 
-            Text(
-                text = "${selectedTonic.displayName} · ${loc.t("minor_family")}",
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.secondary
-            )
+                            Surface(
+                                onClick = { selectedTonic = tonic },
+                                shape = RoundedCornerShape(14.dp),
+                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                tonalElevation = if (isSelected) 4.dp else 0.dp,
+                                modifier = Modifier.padding(vertical = 4.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = tonic.displayName,
+                                        fontSize = 16.sp,
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "$completedInTonic/7 ${loc.t("modes_count")}",
+                                        fontSize = 10.sp,
+                                        color = if (isSelected) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
 
-            minorModes.forEach { mode ->
-                ModeSelectionCard(
-                    tonic = selectedTonic,
-                    mode = mode,
-                    isSelected = (mode == selectedMode),
-                    loc = loc,
-                    store = store,
-                    onClick = { selectedMode = mode }
-                )
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Start Practice Button
-            Button(
-                onClick = { onStartPractice(selectedTonic, selectedMode) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(18.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-            ) {
-                Icon(Icons.Default.PlayArrow, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
+                // Parallel System Cards (Major & Minor Families)
                 Text(
-                    text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)})",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    text = "${selectedTonic.displayName} · ${loc.t("major_family")}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
-            }
 
-            // Matrix Button
-            OutlinedButton(
-                onClick = onOpenMatrix,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(18.dp)
-            ) {
-                Icon(Icons.Default.GridView, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
+                majorModes.forEach { mode ->
+                    ModeSelectionCard(
+                        tonic = selectedTonic,
+                        mode = mode,
+                        isSelected = (mode == selectedMode),
+                        loc = loc,
+                        store = store,
+                        onClick = { selectedMode = mode }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
                 Text(
-                    text = loc.t("practice_matrix"),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
+                    text = "${selectedTonic.displayName} · ${loc.t("minor_family")}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary
                 )
+
+                minorModes.forEach { mode ->
+                    ModeSelectionCard(
+                        tonic = selectedTonic,
+                        mode = mode,
+                        isSelected = (mode == selectedMode),
+                        loc = loc,
+                        store = store,
+                        onClick = { selectedMode = mode }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Start Practice Button
+                Button(
+                    onClick = { onStartPractice(selectedTonic, selectedMode) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)})",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                // Matrix Button
+                OutlinedButton(
+                    onClick = onOpenMatrix,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(18.dp)
+                ) {
+                    Icon(Icons.Default.GridView, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = loc.t("practice_matrix"),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(4.dp))

@@ -7,12 +7,18 @@ public class PracticeViewModel: ObservableObject {
     @Published public var metronome: MetronomeEngine
     @Published public var scorePlayer: ScoreAudioPlayer
 
+    @Published public var currentExercise: ExerciseType
+    @Published public var currentEJ1Articulation: EJ1Articulation
+    @Published public var currentEJ2Articulation: EJ1Articulation
+
     @Published public var currentTonic: Tonic
     @Published public var currentMode: ModeType
     @Published public var currentArticulation: ArticulationPattern
 
     @Published public var currentAbcScore: String = ""
     @Published public var showCompletionDialog: Bool = false
+    @Published public var showEJ1CompletionDialog: Bool = false
+    @Published public var showEJ2CompletionDialog: Bool = false
     @Published public var keepScreenAwake: Bool {
         didSet {
             UserDefaults.standard.set(keepScreenAwake, forKey: "FluteModes_keepScreenAwake")
@@ -33,6 +39,10 @@ public class PracticeViewModel: ObservableObject {
 
         let savedAwake = UserDefaults.standard.object(forKey: "FluteModes_keepScreenAwake") as? Bool ?? true
         self.keepScreenAwake = savedAwake
+
+        self.currentExercise = store.lastExerciseType
+        self.currentEJ1Articulation = store.lastEJ1Articulation
+        self.currentEJ2Articulation = store.lastEJ2Articulation
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
@@ -70,6 +80,10 @@ public class PracticeViewModel: ObservableObject {
         updateScore()
     }
 
+    public var currentChromaticArticulation: EJ1Articulation {
+        currentExercise == .ej2 ? currentEJ2Articulation : currentEJ1Articulation
+    }
+
     public var practicedModesCountInCurrentTonic: Int {
         store.practicedModesCount(for: currentTonic)
     }
@@ -90,24 +104,164 @@ public class PracticeViewModel: ObservableObject {
         store.completedArticulationsCount(tonic: currentTonic, mode: currentMode)
     }
 
+    public func selectExercise(_ type: ExerciseType) {
+        scorePlayer.stop()
+        self.currentExercise = type
+        store.lastExerciseType = type
+        store.saveProgress()
+        updateScore()
+    }
+
     public func updateScore() {
-        self.currentAbcScore = ExerciseGenerator.generateABC(
-            tonic: currentTonic,
-            mode: currentMode,
-            articulation: currentArticulation,
-            tempoBPM: metronome.tempoBPM
-        )
+        switch currentExercise {
+        case .ej1:
+            self.currentAbcScore = ExerciseGenerator.generateEJ1ABC(
+                articulation: currentEJ1Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej2:
+            self.currentAbcScore = ExerciseGenerator.generateEJ2ABC(
+                articulation: currentEJ2Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej4:
+            self.currentAbcScore = ExerciseGenerator.generateABC(
+                tonic: currentTonic,
+                mode: currentMode,
+                articulation: currentArticulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        }
     }
 
     public func toggleScorePlayback() {
-        scorePlayer.toggle(
-            tonic: currentTonic,
-            mode: currentMode,
-            articulation: currentArticulation,
-            tempoBPM: metronome.tempoBPM
-        )
+        switch currentExercise {
+        case .ej1:
+            scorePlayer.toggleEJ1(
+                articulation: currentEJ1Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej2:
+            scorePlayer.toggleEJ2(
+                articulation: currentEJ2Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej4:
+            scorePlayer.toggle(
+                tonic: currentTonic,
+                mode: currentMode,
+                articulation: currentArticulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        }
     }
 
+    // MARK: - E.J. 1 & E.J. 2 Articulation Navigation
+    public func selectChromaticArticulation(_ articulation: EJ1Articulation, markPreviousCompleted: Bool = true) {
+        if currentExercise == .ej2 {
+            selectEJ2Articulation(articulation, markPreviousCompleted: markPreviousCompleted)
+        } else {
+            selectEJ1Articulation(articulation, markPreviousCompleted: markPreviousCompleted)
+        }
+    }
+
+    public func advanceToNextChromaticArticulation() {
+        if currentExercise == .ej2 {
+            advanceToNextEJ2Articulation()
+        } else {
+            advanceToNextEJ1Articulation()
+        }
+    }
+
+    public func selectEJ1Articulation(_ articulation: EJ1Articulation, markPreviousCompleted: Bool = true) {
+        scorePlayer.stop()
+        if markPreviousCompleted && articulation != currentEJ1Articulation && currentEJ1Articulation.rawValue >= 1 {
+            store.markEJ1Completed(currentEJ1Articulation)
+        }
+        self.currentExercise = .ej1
+        self.currentEJ1Articulation = articulation
+        store.lastExerciseType = .ej1
+        store.lastEJ1Articulation = articulation
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func selectEJ2Articulation(_ articulation: EJ1Articulation, markPreviousCompleted: Bool = true) {
+        scorePlayer.stop()
+        if markPreviousCompleted && articulation != currentEJ2Articulation && currentEJ2Articulation.rawValue >= 1 {
+            store.markEJ2Completed(currentEJ2Articulation)
+        }
+        self.currentExercise = .ej2
+        self.currentEJ2Articulation = articulation
+        store.lastExerciseType = .ej2
+        store.lastEJ2Articulation = articulation
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func advanceToNextEJ1Articulation() {
+        scorePlayer.stop()
+        if currentEJ1Articulation.rawValue >= 1 {
+            store.markEJ1Completed(currentEJ1Articulation)
+        }
+        let practiceArts = EJ1Articulation.practiceCases
+        if let idx = practiceArts.firstIndex(of: currentEJ1Articulation) {
+            if idx + 1 < practiceArts.count {
+                self.currentEJ1Articulation = practiceArts[idx + 1]
+                store.lastEJ1Articulation = self.currentEJ1Articulation
+                store.saveProgress()
+                updateScore()
+            } else {
+                self.showEJ1CompletionDialog = true
+            }
+        } else {
+            self.currentEJ1Articulation = .allSlurred8
+            store.lastEJ1Articulation = .allSlurred8
+            store.saveProgress()
+            updateScore()
+        }
+    }
+
+    public func advanceToNextEJ2Articulation() {
+        scorePlayer.stop()
+        if currentEJ2Articulation.rawValue >= 1 {
+            store.markEJ2Completed(currentEJ2Articulation)
+        }
+        let practiceArts = EJ1Articulation.practiceCases
+        if let idx = practiceArts.firstIndex(of: currentEJ2Articulation) {
+            if idx + 1 < practiceArts.count {
+                self.currentEJ2Articulation = practiceArts[idx + 1]
+                store.lastEJ2Articulation = self.currentEJ2Articulation
+                store.saveProgress()
+                updateScore()
+            } else {
+                self.showEJ2CompletionDialog = true
+            }
+        } else {
+            self.currentEJ2Articulation = .allSlurred8
+            store.lastEJ2Articulation = .allSlurred8
+            store.saveProgress()
+            updateScore()
+        }
+    }
+
+    public func restartEJ1Round() {
+        scorePlayer.stop()
+        self.currentEJ1Articulation = .allSlurred8
+        store.lastEJ1Articulation = .allSlurred8
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func restartEJ2Round() {
+        scorePlayer.stop()
+        self.currentEJ2Articulation = .allSlurred8
+        store.lastEJ2Articulation = .allSlurred8
+        store.saveProgress()
+        updateScore()
+    }
+
+    // MARK: - E.J. 4 Articulation & Mode Navigation
     public func selectArticulation(_ articulation: ArticulationPattern, markPreviousCompleted: Bool = true) {
         scorePlayer.stop()
         if markPreviousCompleted && articulation != currentArticulation {
@@ -141,8 +295,10 @@ public class PracticeViewModel: ObservableObject {
 
     public func selectMode(tonic: Tonic, mode: ModeType) {
         scorePlayer.stop()
+        self.currentExercise = .ej4
         self.currentTonic = tonic
         self.currentMode = mode
+        store.lastExerciseType = .ej4
 
         // Suggest the first uncompleted articulation for this mode if any
         let uncompleted = ArticulationPattern.allCases.filter {
@@ -203,6 +359,8 @@ public class PracticeViewModel: ObservableObject {
 
     public func suggestNextExercise() {
         scorePlayer.stop()
+        self.currentExercise = .ej4
+        store.lastExerciseType = .ej4
         // Look first for uncompleted modes in current tonic
         let unpracticedInCurrent = ModeType.allCases.filter {
             store.completedArticulationsCount(tonic: currentTonic, mode: $0) == 0

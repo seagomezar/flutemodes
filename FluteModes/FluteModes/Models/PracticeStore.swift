@@ -11,11 +11,22 @@ public struct PracticeItem: Identifiable, Hashable, Codable {
 
 public class PracticeStore: ObservableObject {
     private let storageKey = "FluteModes_CompletedArticulations_v1"
+    private let ej1StorageKey = "FluteModes_EJ1_CompletedArticulations_v1"
+    private let ej2StorageKey = "FluteModes_EJ2_CompletedArticulations_v1"
     private let lastSessionKey = "FluteModes_LastSession_v1"
 
     // Map: "Tonic_Mode" -> Set of completed articulation IDs (1...8)
     @Published public var completedMap: [String: Set<Int>] = [:]
 
+    // E.J. 1 completed articulation IDs (1...10)
+    @Published public var ej1CompletedSet: Set<Int> = []
+
+    // E.J. 2 completed articulation IDs (1...10)
+    @Published public var ej2CompletedSet: Set<Int> = []
+
+    @Published public var lastExerciseType: ExerciseType = .ej1
+    @Published public var lastEJ1Articulation: EJ1Articulation = .allSlurred8
+    @Published public var lastEJ2Articulation: EJ1Articulation = .allSlurred8
     @Published public var lastTonic: Tonic?
     @Published public var lastMode: ModeType?
     @Published public var lastArticulation: ArticulationPattern?
@@ -24,6 +35,110 @@ public class PracticeStore: ObservableObject {
         loadProgress()
     }
 
+    // MARK: - E.J. 1 Progress (10 Official Articulations)
+    public func isEJ1Completed(_ articulation: EJ1Articulation) -> Bool {
+        guard articulation.rawValue >= 1 else { return false }
+        return ej1CompletedSet.contains(articulation.rawValue)
+    }
+
+    public var ej1CompletedCount: Int {
+        ej1CompletedSet.filter { (1...10).contains($0) }.count
+    }
+
+    public var isEJ1FullyCompleted: Bool {
+        ej1CompletedCount == 10
+    }
+
+    public func markEJ1Completed(_ articulation: EJ1Articulation) {
+        if articulation.rawValue >= 1 {
+            ej1CompletedSet.insert(articulation.rawValue)
+        }
+        lastExerciseType = .ej1
+        lastEJ1Articulation = articulation
+        saveProgress()
+    }
+
+    public func unmarkEJ1Completed(_ articulation: EJ1Articulation) {
+        ej1CompletedSet.remove(articulation.rawValue)
+        saveProgress()
+    }
+
+    public func toggleEJ1Completed(_ articulation: EJ1Articulation) {
+        guard articulation.rawValue >= 1 else { return }
+        if isEJ1Completed(articulation) {
+            unmarkEJ1Completed(articulation)
+        } else {
+            markEJ1Completed(articulation)
+        }
+    }
+
+    // MARK: - E.J. 2 Progress (10 Official Articulations)
+    public func isEJ2Completed(_ articulation: EJ1Articulation) -> Bool {
+        guard articulation.rawValue >= 1 else { return false }
+        return ej2CompletedSet.contains(articulation.rawValue)
+    }
+
+    public var ej2CompletedCount: Int {
+        ej2CompletedSet.filter { (1...10).contains($0) }.count
+    }
+
+    public var isEJ2FullyCompleted: Bool {
+        ej2CompletedCount == 10
+    }
+
+    public func markEJ2Completed(_ articulation: EJ1Articulation) {
+        if articulation.rawValue >= 1 {
+            ej2CompletedSet.insert(articulation.rawValue)
+        }
+        lastExerciseType = .ej2
+        lastEJ2Articulation = articulation
+        saveProgress()
+    }
+
+    public func unmarkEJ2Completed(_ articulation: EJ1Articulation) {
+        ej2CompletedSet.remove(articulation.rawValue)
+        saveProgress()
+    }
+
+    public func toggleEJ2Completed(_ articulation: EJ1Articulation) {
+        guard articulation.rawValue >= 1 else { return }
+        if isEJ2Completed(articulation) {
+            unmarkEJ2Completed(articulation)
+        } else {
+            markEJ2Completed(articulation)
+        }
+    }
+
+    // MARK: - Unified Chromatic Exercise Helpers (E.J. 1 & E.J. 2)
+    public func isChromaticCompleted(exercise: ExerciseType, articulation: EJ1Articulation) -> Bool {
+        exercise == .ej2 ? isEJ2Completed(articulation) : isEJ1Completed(articulation)
+    }
+
+    public func isChromaticCompleted(_ articulation: EJ1Articulation, for exercise: ExerciseType) -> Bool {
+        isChromaticCompleted(exercise: exercise, articulation: articulation)
+    }
+
+    public func chromaticCompletedCount(for exercise: ExerciseType) -> Int {
+        exercise == .ej2 ? ej2CompletedCount : ej1CompletedCount
+    }
+
+    public func isChromaticFullyCompleted(for exercise: ExerciseType) -> Bool {
+        exercise == .ej2 ? isEJ2FullyCompleted : isEJ1FullyCompleted
+    }
+
+    public func toggleChromaticCompleted(exercise: ExerciseType, articulation: EJ1Articulation) {
+        if exercise == .ej2 {
+            toggleEJ2Completed(articulation)
+        } else {
+            toggleEJ1Completed(articulation)
+        }
+    }
+
+    public func toggleChromaticCompleted(_ articulation: EJ1Articulation, for exercise: ExerciseType) {
+        toggleChromaticCompleted(exercise: exercise, articulation: articulation)
+    }
+
+    // MARK: - E.J. 4 Progress (84 Modes x 8 Articulations)
     public func isCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern) -> Bool {
         let key = "\(tonic.rawValue)_\(mode.rawValue)"
         return completedMap[key]?.contains(articulation.rawValue) ?? false
@@ -70,6 +185,7 @@ public class PracticeStore: ObservableObject {
         current.insert(articulation.rawValue)
         completedMap[key] = current
 
+        lastExerciseType = .ej4
         lastTonic = tonic
         lastMode = mode
         lastArticulation = articulation
@@ -121,28 +237,45 @@ public class PracticeStore: ObservableObject {
 
     public func resetAll() {
         completedMap.removeAll()
+        ej1CompletedSet.removeAll()
+        ej2CompletedSet.removeAll()
         lastTonic = nil
         lastMode = nil
         lastArticulation = nil
+        lastEJ1Articulation = .allSlurred8
+        lastEJ2Articulation = .allSlurred8
         UserDefaults.standard.removeObject(forKey: storageKey)
+        UserDefaults.standard.removeObject(forKey: ej1StorageKey)
+        UserDefaults.standard.removeObject(forKey: ej2StorageKey)
         UserDefaults.standard.removeObject(forKey: lastSessionKey)
     }
 
-    private func saveProgress() {
+    public func saveProgress() {
         // Convert Set<Int> to Array<Int> for JSON encoding
         let encodable = completedMap.mapValues { Array($0) }
         if let data = try? JSONEncoder().encode(encodable) {
             UserDefaults.standard.set(data, forKey: storageKey)
         }
 
-        if let t = lastTonic, let m = lastMode, let a = lastArticulation {
-            let sessionData: [String: String] = [
-                "tonic": t.rawValue,
-                "mode": String(m.rawValue),
-                "articulation": String(a.rawValue)
-            ]
-            UserDefaults.standard.set(sessionData, forKey: lastSessionKey)
+        if let ej1Data = try? JSONEncoder().encode(Array(ej1CompletedSet)) {
+            UserDefaults.standard.set(ej1Data, forKey: ej1StorageKey)
         }
+
+        if let ej2Data = try? JSONEncoder().encode(Array(ej2CompletedSet)) {
+            UserDefaults.standard.set(ej2Data, forKey: ej2StorageKey)
+        }
+
+        var sessionData: [String: String] = [
+            "exerciseType": lastExerciseType.rawValue,
+            "ej1Articulation": String(lastEJ1Articulation.rawValue),
+            "ej2Articulation": String(lastEJ2Articulation.rawValue)
+        ]
+        if let t = lastTonic, let m = lastMode, let a = lastArticulation {
+            sessionData["tonic"] = t.rawValue
+            sessionData["mode"] = String(m.rawValue)
+            sessionData["articulation"] = String(a.rawValue)
+        }
+        UserDefaults.standard.set(sessionData, forKey: lastSessionKey)
     }
 
     private func loadProgress() {
@@ -151,7 +284,26 @@ public class PracticeStore: ObservableObject {
             self.completedMap = decoded.mapValues { Set($0) }
         }
 
+        if let ej1Data = UserDefaults.standard.data(forKey: ej1StorageKey),
+           let decodedEJ1 = try? JSONDecoder().decode([Int].self, from: ej1Data) {
+            self.ej1CompletedSet = Set(decodedEJ1)
+        }
+
+        if let ej2Data = UserDefaults.standard.data(forKey: ej2StorageKey),
+           let decodedEJ2 = try? JSONDecoder().decode([Int].self, from: ej2Data) {
+            self.ej2CompletedSet = Set(decodedEJ2)
+        }
+
         if let sessionData = UserDefaults.standard.dictionary(forKey: lastSessionKey) as? [String: String] {
+            if let exStr = sessionData["exerciseType"], let ex = ExerciseType(rawValue: exStr) {
+                self.lastExerciseType = ex
+            }
+            if let ej1ArtStr = sessionData["ej1Articulation"], let ej1Int = Int(ej1ArtStr), let ej1Art = EJ1Articulation(rawValue: ej1Int) {
+                self.lastEJ1Articulation = ej1Art
+            }
+            if let ej2ArtStr = sessionData["ej2Articulation"], let ej2Int = Int(ej2ArtStr), let ej2Art = EJ1Articulation(rawValue: ej2Int) {
+                self.lastEJ2Articulation = ej2Art
+            }
             if let tStr = sessionData["tonic"], let t = Tonic(rawValue: tStr) {
                 self.lastTonic = t
             }

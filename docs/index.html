@@ -587,6 +587,122 @@
     .footer-links a:hover {
       color: #fff;
     }
+    .ej1-leduc-wrapper {
+      width: 100%;
+      font-family: "Times New Roman", "Didot", "Georgia", serif;
+      color: #000000;
+      padding: 6px 4px 16px 4px;
+    }
+    .ej1-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 4px 2px 4px;
+    }
+    .ej1-title {
+      font-family: "Arial Narrow", "Helvetica Neue", sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      margin: 0;
+    }
+    .ej1-active-badge {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1d4ed8;
+      background: #dbeafe;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+    .ej1-subtitle {
+      font-family: "Times New Roman", "Georgia", serif;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      margin: 0 0 4px 4px;
+      color: #000000;
+    }
+    .ej1-art-row {
+      width: 100%;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #d1d5db;
+      padding-bottom: 4px;
+    }
+    .ej1-m1-container {
+      position: relative;
+      padding-left: 4%;
+      width: 100%;
+      margin-top: 6px;
+    }
+    .ej1-reprise-label {
+      position: absolute;
+      top: -5px;
+      left: 8.2%;
+      font-family: "Times New Roman", "Georgia", serif;
+      font-size: 11px;
+      font-style: italic;
+      font-weight: bold;
+      letter-spacing: 0.2px;
+      z-index: 10;
+    }
+    .ej1-staff-row {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+    }
+    .ej1-staff-row svg, .ej1-art-row svg {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+    }
+    .ej1-octava-wrap {
+      position: relative;
+    }
+    .ej1-octava-line {
+      position: absolute;
+      top: -2px;
+      left: 3.55%;
+      right: 0.3%;
+      display: flex;
+      align-items: flex-start;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .ej1-octava-last .ej1-octava-line {
+      right: 11.55%;
+    }
+    .ej1-octava-num {
+      font-family: "Times New Roman", "Didot", serif;
+      font-size: 12px;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 1;
+      margin-right: 2px;
+    }
+    .ej1-octava-dots {
+      flex: 1;
+      border-top: 1.3px dashed #000000;
+      height: 1px;
+      margin-top: 4px;
+    }
+    .ej1-octava-hook {
+      width: 1.4px;
+      height: 8px;
+      background: #000000;
+      margin-top: 4px;
+      display: inline-block;
+    }
+    .ej1-plate-footer {
+      text-align: center;
+      font-family: "Times New Roman", serif;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      margin-top: 8px;
+      color: #000000;
+    }
   </style>
 </head>
 <body>
@@ -616,37 +732,41 @@
       <div class="hero-badge">
         <span>✨</span>
         <span class="i18n" 
-              data-es="METODOLOGÍA DEL MAESTRO LEÓN GIRALDO · 84 MODOS · 8 ARTICULACIONES" 
-              data-en="MAESTRO LEÓN GIRALDO'S METHODOLOGY · 84 MODES · 8 ARTICULATIONS">
-          METODOLOGÍA DEL MAESTRO LEÓN GIRALDO · 84 MODOS · 8 ARTICULACIONES
+              data-es="TAFFANEL & GAUBERT (E.J. 1, E.J. 2 & E.J. 4) · SISTEMA PARALELO DEL MAESTRO LEÓN GIRALDO" 
+              data-en="TAFFANEL & GAUBERT (E.J. 1, E.J. 2 & E.J. 4) · MAESTRO LEÓN GIRALDO'S PARALLEL SYSTEM">
+          TAFFANEL & GAUBERT (E.J. 1, E.J. 2 & E.J. 4) · SISTEMA PARALELO DEL MAESTRO LEÓN GIRALDO
         </span>
       </div>
       <h1 class="hero-title i18n" 
-          data-es="Domina todos los Modos en la Flauta Traversa con el Sistema Paralelo" 
-          data-en="Master All Modes on the Concert Flute via the Parallel System">
-        Domina todos los Modos en la Flauta Traversa con el Sistema Paralelo
+          data-es="Domina E.J. 1, E.J. 2 y los 84 Modos Paralelos en la Flauta Traversa" 
+          data-en="Master E.J. 1, E.J. 2 & All 84 Parallel Modes on the Concert Flute">
+        Domina E.J. 1, E.J. 2 y los 84 Modos Paralelos en la Flauta Traversa
       </h1>
       <p class="hero-subtitle i18n"
-         data-es="Basado en el canon de Paul Taffanel y Philippe Gaubert (E.J. 4) y la visión pedagógica del Maestro León Giraldo. Aplicación nativa para iPad con sintetizador acústico de piano de cola, metrónomo uniforme, partituras dinámicas y seguimiento completo."
-         data-en="Based on Paul Taffanel & Philippe Gaubert's canon (E.J. 4) and Maestro León Giraldo's pedagogical vision. Native iPad app featuring a grand piano acoustic synth, uniform metronome, dynamic music notation, and milestone tracking.">
-        Basado en el canon de Paul Taffanel y Philippe Gaubert (E.J. 4) y la visión pedagógica del Maestro León Giraldo. Aplicación nativa para iPad con sintetizador acústico de piano de cola, metrónomo uniforme, partituras dinámicas y seguimiento completo.
+         data-es="Basado en el canon Urtext de Paul Taffanel y Philippe Gaubert (Ediciones Alphonse Leduc A. L. 16.588: E.J. 1, E.J. 2 y E.J. 4) y la visión pedagógica del Maestro León Giraldo. App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo."
+         data-en="Based on Paul Taffanel & Philippe Gaubert's Urtext canon (Editions Alphonse Leduc A. L. 16.588: E.J. 1, E.J. 2 & E.J. 4) and Maestro León Giraldo's pedagogical vision. Native iOS, iPadOS, Android & Web app with grand piano synthesis and milestone tracking.">
+        Basado en el canon Urtext de Paul Taffanel y Philippe Gaubert (Ediciones Alphonse Leduc A. L. 16.588: E.J. 1, E.J. 2 y E.J. 4) y la visión pedagógica del Maestro León Giraldo. App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo.
       </p>
       <div class="cta-group">
         <a href="#preview" class="btn btn-primary">
           <span>🎼</span>
           <span class="i18n" data-es="Probar Atril & Audio en Vivo" data-en="Try Live Stand & Audio">Probar Atril & Audio en Vivo</span>
         </a>
-        <a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download class="btn btn-secondary">
-          <span>📥</span>
-          <span class="i18n" data-es="Descargar Libro PDF (36 Págs)" data-en="Download Master PDF (36 Pages)">Descargar Libro PDF (36 Págs)</span>
+        <a href="ej1.html" class="btn btn-secondary">
+          <span>📘</span>
+          <span class="i18n" data-es="Visor Urtext E. J. 1" data-en="E. J. 1 Urtext Viewer">Visor Urtext E. J. 1</span>
+        </a>
+        <a href="ej2.html" class="btn btn-secondary">
+          <span>📗</span>
+          <span class="i18n" data-es="Visor Urtext E. J. 2" data-en="E. J. 2 Urtext Viewer">Visor Urtext E. J. 2</span>
         </a>
         <a href="https://testflight.apple.com" class="btn btn-secondary">
           <span>🍏</span>
           <span class="i18n" data-es="Probar en TestFlight (iOS)" data-en="Test on TestFlight (iOS)">Probar en TestFlight (iOS)</span>
         </a>
-        <a href="downloads/apk/FluteModes-v1.1.1-release.apk" download class="btn btn-secondary">
+        <a href="downloads/apk/FluteModes-v1.2.0-release.apk" download class="btn btn-secondary">
           <span>🤖</span>
-          <span class="i18n" data-es="Descargar APK v1.1.1 (Android)" data-en="Download APK v1.1.1 (Android)">Descargar APK v1.1.1 (Android)</span>
+          <span class="i18n" data-es="Descargar APK v1.2.0 (Android)" data-en="Download APK v1.2.0 (Android)">Descargar APK v1.2.0 (Android)</span>
         </a>
       </div>
     </section>
@@ -673,8 +793,8 @@
           </div>
           <div class="pillar-box">
             <div class="pillar-num">02</div>
-            <div class="pillar-title i18n" data-es="Mecánica Canónica (EJ 4)" data-en="Canonical Mechanics (EJ 4)">Mecánica Canónica (EJ 4)</div>
-            <p class="pillar-desc i18n" data-es="Construido sobre el patrón periódico de 8 compases de Taffanel & Gaubert, recorriendo 3 octavas con perfecta simetría y resolución a tónica." data-en="Built on Taffanel & Gaubert's 8-measure periodic phrasing, traversing 3 octaves with flawless symmetry and resolution.">Construido sobre el patrón periódico de 8 compases de Taffanel & Gaubert, recorriendo 3 octavas con perfecta simetría y resolución a tónica.</p>
+            <div class="pillar-title i18n" data-es="Mecánica Canónica (EJ 1, EJ 2 y EJ 4)" data-en="Canonical Mechanics (EJ 1, EJ 2 & EJ 4)">Mecánica Canónica (EJ 1, EJ 2 y EJ 4)</div>
+            <p class="pillar-desc i18n" data-es="Integra los pentacordios cromáticos mayores (E.J. 1) y menores (E.J. 2) con sus 10 articulaciones oficiales Leduc junto al estudio periódico de 84 modos paralelos (E.J. 4)." data-en="Integrates chromatic major (E.J. 1) and minor (E.J. 2) pentachords with all 10 official Leduc articulations alongside the 84 parallel modes study (E.J. 4).">Integra los pentacordios cromáticos mayores (E.J. 1) y menores (E.J. 2) con sus 10 articulaciones oficiales Leduc junto al estudio periódico de 84 modos paralelos (E.J. 4).</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-num">03</div>
@@ -690,34 +810,51 @@
       <div class="score-header-top">
         <div>
           <div class="score-title i18n" 
-               data-es="Atril Interactivo de los 84 Modos (Maestro León Giraldo)" 
-               data-en="84 Modes Interactive Stand (Maestro León Giraldo)">
-            Atril Interactivo de los 84 Modos (Maestro León Giraldo)
+               data-es="Atril Interactivo: E. J. 1, E. J. 2 y E. J. 4 (84 Modos)" 
+               data-en="Interactive Stand: E. J. 1, E. J. 2 & E. J. 4 (84 Modes)">
+            Atril Interactivo: E. J. 1, E. J. 2 y E. J. 4 (84 Modos)
           </div>
           <div class="score-subtitle i18n" 
-               data-es="Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real" 
-               data-en="Live ABC music notation engraving with real-time acoustic grand piano synthesis">
-            Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real
+               data-es="Renderizado directo de notación musical ABC Urtext (A. L. 16.588) con sintetizador de piano acústico en tiempo real" 
+               data-en="Live ABC Urtext music notation engraving (A. L. 16.588) with real-time acoustic grand piano synthesis">
+            Renderizado directo de notación musical ABC Urtext (A. L. 16.588) con sintetizador de piano acústico en tiempo real
           </div>
         </div>
       </div>
 
-      <!-- 1. TÓNICA SELECTOR -->
-      <div class="selector-label i18n" data-es="1. Seleccionar Tónica (12 Notas Cromáticas):" data-en="1. Select Tonic (12 Chromatic Roots):">1. Seleccionar Tónica (12 Notas Cromáticas):</div>
-      <div class="tonic-bar" id="tonic-buttons-container">
-        <!-- Rendered dynamically -->
+      <!-- 0. SELECTOR DE EJERCICIO -->
+      <div class="selector-label i18n" data-es="0. Seleccionar Ejercicio:" data-en="0. Select Exercise:">0. Seleccionar Ejercicio:</div>
+      <div class="mode-bar" id="exercise-buttons-container">
+        <button class="mode-btn active" onclick="setExercise('ej1', this)">🎼 E. J. 1 · Pentacordios Mayores (10 Arts.)</button>
+        <button class="mode-btn" onclick="setExercise('ej2', this)">🎼 E. J. 2 · Pentacordios Menores (10 Arts.)</button>
+        <button class="mode-btn" onclick="setExercise('ej4', this)">🎹 E. J. 4 · 84 Modos Paralelos (León Giraldo)</button>
       </div>
 
-      <!-- 2. MODO SELECTOR -->
-      <div class="selector-label i18n" data-es="2. Seleccionar Modo (Sistema Paralelo):" data-en="2. Select Mode (Parallel System):">2. Seleccionar Modo (Sistema Paralelo):</div>
-      <div class="mode-bar" id="mode-buttons-container">
-        <button class="mode-btn active" onclick="setMode(1, this)">1. Jónico (Mayor)</button>
-        <button class="mode-btn" onclick="setMode(2, this)">2. Lidio (♯4)</button>
-        <button class="mode-btn" onclick="setMode(3, this)">3. Mixolidio (♭7)</button>
-        <button class="mode-btn" onclick="setMode(4, this)">4. Dórico (6)</button>
-        <button class="mode-btn" onclick="setMode(5, this)">5. Eólico (Menor)</button>
-        <button class="mode-btn" onclick="setMode(6, this)">6. Frigio (♭2)</button>
-        <button class="mode-btn" onclick="setMode(7, this)">7. Lócrio (♭2, ♭5)</button>
+      <!-- CONTROLES PARA E.J. 1 Y E.J. 2 (10 ARTICULACIONES) -->
+      <div id="chromatic-selectors-wrapper">
+        <div class="selector-label i18n" data-es="Seleccionar Articulación Oficial (Ediciones Alphonse Leduc A. L. 16.588):" data-en="Select Official Articulation (Editions Alphonse Leduc A. L. 16.588):">Seleccionar Articulación Oficial (Ediciones Alphonse Leduc A. L. 16.588):</div>
+        <div class="tonic-bar" id="ej-art-buttons-container"></div>
+      </div>
+
+      <!-- CONTROLES PARA E.J. 4 (TÓNICA Y MODO) -->
+      <div id="ej4-selectors-wrapper" style="display:none;">
+        <!-- 1. TÓNICA SELECTOR -->
+        <div class="selector-label i18n" data-es="1. Seleccionar Tónica (12 Notas Cromáticas):" data-en="1. Select Tonic (12 Chromatic Roots):">1. Seleccionar Tónica (12 Notas Cromáticas):</div>
+        <div class="tonic-bar" id="tonic-buttons-container">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- 2. MODO SELECTOR -->
+        <div class="selector-label i18n" data-es="2. Seleccionar Modo (Sistema Paralelo):" data-en="2. Select Mode (Parallel System):">2. Seleccionar Modo (Sistema Paralelo):</div>
+        <div class="mode-bar" id="mode-buttons-container">
+          <button class="mode-btn active" onclick="setMode(1, this)">1. Jónico (Mayor)</button>
+          <button class="mode-btn" onclick="setMode(2, this)">2. Lidio (♯4)</button>
+          <button class="mode-btn" onclick="setMode(3, this)">3. Mixolidio (♭7)</button>
+          <button class="mode-btn" onclick="setMode(4, this)">4. Dórico (6)</button>
+          <button class="mode-btn" onclick="setMode(5, this)">5. Eólico (Menor)</button>
+          <button class="mode-btn" onclick="setMode(6, this)">6. Frigio (♭2)</button>
+          <button class="mode-btn" onclick="setMode(7, this)">7. Lócrio (♭2, ♭5)</button>
+        </div>
       </div>
 
       <!-- PLAYER CONTROLS BAR -->
@@ -733,10 +870,14 @@
           <span id="tempo-val">90 BPM</span>
         </div>
 
-        <div id="measure-indicator" class="measure-badge">Compás: 1 / 8</div>
+        <div id="measure-indicator" class="measure-badge">Compás: 1 / 31</div>
 
         <div class="action-links-group">
-          <a id="download-abc-btn" href="#" download class="tool-btn">
+          <a id="open-urtext-btn" href="ej1.html" class="tool-btn">
+            <span>🔍</span>
+            <span class="i18n" data-es="Pantalla Completa / Imprimir" data-en="Full Screen / Print">Pantalla Completa / Imprimir</span>
+          </a>
+          <a id="download-abc-btn" href="downloads/abc/00_Taffanel_EJ1_Original_AL16588.abc" download class="tool-btn">
             <span>📥</span>
             <span class="i18n" data-es="Descargar .ABC" data-en="Download .ABC">Descargar .ABC</span>
           </a>
@@ -749,9 +890,9 @@
 
       <!-- SCORE META BANNER -->
       <div class="score-meta-card">
-        <div id="current-mode-title" class="meta-mode-name">Do Jónico (Mayor)</div>
-        <div id="current-mode-formula" class="meta-formula">1 - 2 - 3 - 4 - 5 - 6 - 7</div>
-        <div id="current-mode-badge" class="meta-badge">Escala base mayor sin alteraciones</div>
+        <div id="current-mode-title" class="meta-mode-name">E. J. 1 · Edición Original Leduc (A. L. 16.588)</div>
+        <div id="current-mode-formula" class="meta-formula">Pentacordios Mayores + 7ª Disminuida</div>
+        <div id="current-mode-badge" class="meta-badge">31 Compases Cromáticos · Plicas ↑ (c.1–10) y ↓ (c.11–31) · 8va (c.25–31)</div>
       </div>
 
       <!-- PARCHMENT SCORE CANVAS -->
@@ -837,7 +978,19 @@
         </thead>
         <tbody>
           <tr>
-            <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos)</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 1 (Urtext A. L. 16.588)</td>
+            <td class="i18n" data-es="Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc)." data-en="Major Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official Leduc articulations).">Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc).</td>
+            <td>PDF / ABC / Web</td>
+            <td><a href="downloads/pdf/taffanel_ej1_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej1.html">Visor</a></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 2 (Urtext A. L. 16.588)</td>
+            <td class="i18n" data-es="Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc)." data-en="Minor Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official Leduc articulations).">Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc).</td>
+            <td>PDF / ABC / Web</td>
+            <td><a href="downloads/pdf/taffanel_ej2_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej2.html">Visor</a></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos — E. J. 4)</td>
             <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes by Maestro León Giraldo.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo.</td>
             <td>PDF (7.0 MB)</td>
             <td><a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download>📥 Descargar PDF Maestro</a></td>
@@ -929,9 +1082,9 @@
         <a href="downloads/pdf/metodo_completo_modos_flauta.pdf">Descarga Directa PDF</a>
       </div>
       <p class="i18n"
-         data-es="FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme, EJ4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez."
-         data-en="FluteModes · Pedagogical adaptation of Paul Taffanel & Philippe Gaubert (17 Daily Exercises, EJ4) based on Maestro León Giraldo's routine. Arrangements and development by Sebastian Gomez.">
-        FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme, EJ4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez.
+         data-es="FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme: E.J. 1, E.J. 2 y E.J. 4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez."
+         data-en="FluteModes · Pedagogical adaptation of Paul Taffanel & Philippe Gaubert (17 Daily Exercises: E.J. 1, E.J. 2 & E.J. 4) based on Maestro León Giraldo's routine. Arrangements and development by Sebastian Gomez.">
+        FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme: E.J. 1, E.J. 2 y E.J. 4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez.
       </p>
       <p style="margin-top:8px;">© 2026 Sebastián Gómez. Todos los derechos reservados.</p>
     </div>
@@ -950,7 +1103,303 @@
       updatePlayButton(isPlaying);
     }
 
-    // --- TONICS DATA ---
+    // --- CHROMATIC EXERCISES DATA (E.J. 1 & E.J. 2 - Urtext A. L. 16.588) ---
+    let currentExercise = 'ej1'; // 'ej1', 'ej2', or 'ej4'
+    let currentChromaticArt = 0; // 0 = Original, 1..10 = Articulations
+
+    const CHROMATIC_ART_LIST = [
+      { id: 0,  label: "Orig. Leduc",     name: "Original (Sin articulación fija — A. L. 16.588)", file1: "00_Taffanel_EJ1_Original_AL16588.abc", file2: "00_Taffanel_EJ2_Original_AL16588.abc" },
+      { id: 1,  label: "Art. 1 · (8)",    name: "1. A 8 ligadas (Toda ligada)", file1: "01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc", file2: "01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc" },
+      { id: 2,  label: "Art. 2 · (4)(4)", name: "2. A 4 y 4 ligadas", file1: "02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc", file2: "02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc" },
+      { id: 3,  label: "Art. 3 · ·(3)",   name: "3. 1 picada y 3 ligadas", file1: "03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc", file2: "03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc" },
+      { id: 4,  label: "Art. 4 · (3)·",   name: "4. 3 ligadas y 1 picada", file1: "04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc", file2: "04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc" },
+      { id: 5,  label: "Art. 5 · (2)··",  name: "5. 2 ligadas y 2 picadas", file1: "05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc", file2: "05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc" },
+      { id: 6,  label: "Art. 6 · ··(2)",  name: "6. 2 picadas y 2 ligadas", file1: "06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc", file2: "06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc" },
+      { id: 7,  label: "Art. 7 · ·(2)·",  name: "7. 1 picada, 2 ligadas y 1 picada", file1: "07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc", file2: "07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc" },
+      { id: 8,  label: "Art. 8 · 2+2",    name: "8. De 2 en 2 ligadas", file1: "08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc", file2: "08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc" },
+      { id: 9,  label: "Art. 9 · Sínc.",  name: "9. De 2 en 2 sincopadas (a contratiempo)", file1: "09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc", file2: "09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc" },
+      { id: 10, label: "Art. 10 · Stacc.",name: "10. Todo picado (Staccato)", file1: "10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc", file2: "10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc" }
+    ];
+
+    const EJ1_ARTICULATIONS_ABC = [
+      "X:0",
+      "M:none",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=up",
+      "%%score 1",
+      "(DEF\"^1\"GAGFE) | (DEF\"^2\"G)(AGFE) | .D(EF\"^3\"G) .A(GFE) | (DEF).\"^4\"G (AGF).E | (DE).F.\"^5\"G (AG).F.E | .D.E\"^6\"(FG) .A.G(FE) | .D(EF).\"^7\"G .A(GF).E | (DE)\"^8\"(FG)(AG)(FE) | .D(EF)\"^9\"(GA)(GF).E | .D.E.F.\"^10\"G.A.G.F.E |]"
+    ].join("\n");
+
+    const EJ2_ARTICULATIONS_ABC = [
+      "X:0",
+      "M:C",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=up",
+      "%%score 1",
+      "(DEF\"^1\"GAGFE) | (DEF\"^2\"G)(AGFE) | .D(EF\"^3\"G) .A(GFE) | (DEF).\"^4\"G (AGF).E | (DE).F.\"^5\"G (AG).F.E | .D.E\"^6\"(FG) .A.G(FE) | .D(EF).\"^7\"G .A(GF).E | (DE)\"^8\"(FG)(AG)(FE) | .D(EF)\"^9\"(GA)(GF).E | .D.E.F.\"^10\"G.A.G.F.E |]"
+    ].join("\n");
+
+    const EJ1_RAW_MEASURES = [
+      { num: 1,  beats: ["DE^FGAGFE", "DEFGAGFE", "DEFGAGFE", "DEFGAGFE"], prefix: "|:", suffix: "|", is8va: false },
+      { num: 2,  beats: ["D_E=FG_AGFE", "DEFGAGFE", "DEFGAGFE", "DEFGAFED"], prefix: "", suffix: "|", is8va: false },
+      { num: 3,  beats: ["_EFG_A_BAGF", "EFGABAGF", "EFGABAGF", "EFGABAGF"], prefix: "", suffix: "|", is8va: false },
+      { num: 4,  beats: ["^D=E^F^G=AGFE", "DEFGAGFE", "DEFGAGFE", "DEFGAFED"], prefix: "", suffix: "|", is8va: false },
+      { num: 5,  beats: ["E^F^GABAGF", "EFGABAGF", "EFGABAGF", "EFGABAGF"], prefix: "", suffix: "|", is8va: false },
+      { num: 6,  beats: ["E=F=GA_BAGF", "EFGABAGF", "EFGABAGF", "EFGABGFE"], prefix: "", suffix: "|", is8va: false },
+      { num: 7,  beats: ["FGA_BcBAG", "FGABcBAG", "FGABcBAG", "FGABcBAG"], prefix: "", suffix: "|", is8va: false },
+      { num: 8,  beats: ["^E^F^G^A=BAGF", "EFGABAGF", "EFGABAGF", "EFGABGFE"], prefix: "", suffix: "|", is8va: false },
+      { num: 9,  beats: ["^F^G^AB^cBAG", "FGABcBAG", "FGABcBAG", "FGABcBAG"], prefix: "", suffix: "|", is8va: false },
+      { num: 10, beats: ["^F=G=AB=cBAG", "FGABcBAG", "FGABcBAG", "FGABcAGF"], prefix: "", suffix: "|", is8va: false },
+      { num: 11, beats: ["GABcdcBA", "GABcdcBA", "GABcdcBA", "GABcdcBA"], prefix: "", suffix: "|", is8va: false },
+      { num: 12, beats: ["G_A_Bc_dcBA", "GABcdcBA", "GABcdcBA", "GABcdBAG"], prefix: "", suffix: "|", is8va: false },
+      { num: 13, beats: ["_A_Bc_d_edcB", "ABcdedcB", "ABcdedcB", "ABcdedcB"], prefix: "", suffix: "|", is8va: false },
+      { num: 14, beats: ["^G=A=B^c=dcBA", "GABcdcBA", "GABcdcBA", "GABcdBAG"], prefix: "", suffix: "|", is8va: false },
+      { num: 15, beats: ["AB^cdedcB", "ABcdedcB", "ABcdedcB", "ABcdedcB"], prefix: "", suffix: "|", is8va: false },
+      { num: 16, beats: ["A_B=cd_edcB", "ABcdedcB", "ABcdedcB", "ABcdecBA"], prefix: "", suffix: "|", is8va: false },
+      { num: 17, beats: ["_Bcd_efedc", "Bcdefedc", "Bcdefedc", "Bcdefedc"], prefix: "", suffix: "|", is8va: false },
+      { num: 18, beats: ["^A=B^c^dedcB", "ABcdedcB", "ABcdedcB", "ABcdecBA"], prefix: "", suffix: "|", is8va: false },
+      { num: 19, beats: ["B^c^de^fedc", "Bcdefedc", "Bcdefedc", "Bcdefedc"], prefix: "", suffix: "|", is8va: false },
+      { num: 20, beats: ["B=c=de=fedc", "Bcdefedc", "Bcdefedc", "BcdefdcB"], prefix: "", suffix: "|", is8va: false },
+      { num: 21, beats: ["cdefgfed", "cdefgfed", "cdefgfed", "cdefgfed"], prefix: "", suffix: "|", is8va: false },
+      { num: 22, beats: ["c_d_ef_gfed", "cdefgfed", "cdefgfed", "cdefgedc"], prefix: "", suffix: "|", is8va: false },
+      { num: 23, beats: ["_d_ef_g_agfe", "defgagfe", "defgagfe", "defgagfe"], prefix: "", suffix: "|", is8va: false },
+      { num: 24, beats: ["^c=d=e^f=gfed", "cdefgfed", "cdefgfed", "cdefgedc"], prefix: "", suffix: ":|", is8va: false },
+      { num: 25, beats: ["de^fgagfe", "defgagfe", "defgagfe", "defgagfe"], prefix: "", suffix: "|", is8va: true },
+      { num: 26, beats: ["d_e=fg_agfe", "defgagfe", "defgagfe", "defgafed"], prefix: "", suffix: "|", is8va: true },
+      { num: 27, beats: ["_efg_a_bagf", "efgabagf", "efgabagf", "efgabagf"], prefix: "", suffix: "|", is8va: true },
+      { num: 28, beats: ["^d=e^f^g=agfe", "defgagfe", "defgagfe", "defgafed"], prefix: "", suffix: "|", is8va: true },
+      { num: 29, beats: ["e^f^gabagf", "efgabagf", "efgabagf", "efgabagf"], prefix: "", suffix: "|", is8va: true },
+      { num: 30, beats: ["e=f=ga_bagf", "efgabagf", "efgabagf", "efgabgfe"], prefix: "", suffix: "| f4 z4 z8 |]", is8va: true }
+    ];
+
+    const EJ2_RAW_MEASURES = [
+      { num: 1,  beats: ["DEFGAGFE",     "DEFGAGFE", "DEFGAGFE", "DEFGAGFE"], prefix: "|:", suffix: "|", is8va: false },
+      { num: 2,  beats: ["D_E=F_G_AGFE", "DEFGAGFE", "DEFGAGFE", "DEFGAFED"], prefix: "",   suffix: "|", is8va: false },
+      { num: 3,  beats: ["_EF_G_A_BAGF", "EFGABAGF", "EFGABAGF", "EFGABAGF"], prefix: "",   suffix: "|", is8va: false },
+      { num: 4,  beats: ["^D=E^F=G=AGFE", "DEFGAGFE", "DEFGAGFE", "DEFGAFED"], prefix: "",  suffix: "|", is8va: false },
+      { num: 5,  beats: ["E^FGABAGF",    "EFGABAGF", "EFGABAGF", "EFGABAGF"], prefix: "",   suffix: "|", is8va: false },
+      { num: 6,  beats: ["E=F=G_A_BAGF", "EFGABAGF", "EFGABAGF", "EFGABGFE"], prefix: "",   suffix: "|", is8va: false },
+      { num: 7,  beats: ["FG_A_BcBAG",   "FGABcBAG", "FGABcBAG", "FGABcBAG"], prefix: "",   suffix: "|", is8va: false },
+      { num: 8,  beats: ["^E^F^G=A=BAGF", "EFGABAGF", "EFGABAGF", "EFGABGFE"], prefix: "",  suffix: "|", is8va: false },
+      { num: 9,  beats: ["^F^GAB^cBAG",  "FGABcBAG", "FGABcBAG", "FGABcBAG"], prefix: "",   suffix: "|", is8va: false },
+      { num: 10, beats: ["^F=G=A_B=cBAG", "FGABcBAG", "FGABcBAG", "FGABcAGF"], prefix: "",  suffix: "|", is8va: false },
+      { num: 11, beats: ["GA_BcdcBA",    "GABcdcBA", "GABcdcBA", "GABcdcBA"], prefix: "",   suffix: "|", is8va: false },
+      { num: 12, beats: ["^^F^G^AB^cBAG", "FGABcBAG", "FGABcBAG", "FGABcAGF"], prefix: "",  suffix: "|", is8va: false },
+      { num: 13, beats: ["^G^AB^c^dcBA", "GABcdcBA", "GABcdcBA", "GABcdcBA"], prefix: "",   suffix: "|", is8va: false },
+      { num: 14, beats: ["^G=A=B=c=dcBA", "GABcdcBA", "GABcdcBA", "GABcdBAG"], prefix: "",  suffix: "|", is8va: false },
+      { num: 15, beats: ["ABcdedcB",     "ABcdedcB", "ABcdedcB", "ABcdedcB"], prefix: "",   suffix: "|", is8va: false },
+      { num: 16, beats: ["A_B=c_d_edcB", "ABcdedcB", "ABcdedcB", "ABcdecBA"], prefix: "",   suffix: "|", is8va: false },
+      { num: 17, beats: ["_Bc_d_efedc",  "Bcdefedc", "Bcdefedc", "Bcdefedc"], prefix: "",   suffix: "|", is8va: false },
+      { num: 18, beats: ["^A=B^c=d=edcB", "ABcdedcB", "ABcdedcB", "ABcdecBA"], prefix: "",  suffix: "|", is8va: false },
+      { num: 19, beats: ["B^cde^fedc",   "Bcdefedc", "Bcdefedc", "Bcdefedc"], prefix: "",   suffix: "|", is8va: false },
+      { num: 20, beats: ["B=c=d_e=fedc", "Bcdefedc", "Bcdefedc", "BcdefdcB"], prefix: "",   suffix: "|", is8va: false },
+      { num: 21, beats: ["cd_efgfed",    "cdefgfed", "cdefgfed", "cdefgfed"], prefix: "",   suffix: "|", is8va: false },
+      { num: 22, beats: ["^B^c^d=e^fedc", "Bcdefedc", "Bcdefedc", "BcdefdcB"], prefix: "",  suffix: "|", is8va: false },
+      { num: 23, beats: ["^c^de^f^gfed", "cdefgfed", "cdefgfed", "cdefgfed"], prefix: "",   suffix: "|", is8va: false },
+      { num: 24, beats: ["^c=d=e=f=gfed", "cdefgfed", "cdefgfed", "cdefgedc"], prefix: "",  suffix: ":|", is8va: false },
+      { num: 25, beats: ["defgagfe",     "defgagfe", "defgagfe", "defgagfe"], prefix: "",   suffix: "|", is8va: true },
+      { num: 26, beats: ["d_e=f_g_agfe", "defgagfe", "defgagfe", "defgafed"], prefix: "",   suffix: "|", is8va: true },
+      { num: 27, beats: ["_ef_g_a_bagf", "efgabagf", "efgabagf", "efgabagf"], prefix: "",   suffix: "|", is8va: true },
+      { num: 28, beats: ["^d=e^f=g=agfe", "defgagfe", "defgagfe", "defgafed"], prefix: "",  suffix: "|", is8va: true },
+      { num: 29, beats: ["e^fgabagf",    "efgabagf", "efgabagf", "efgabagf"], prefix: "",   suffix: "|", is8va: true },
+      { num: 30, beats: ["e=f=g_a_bagf", "efgabagf", "efgabagf", "efgabgfe"], prefix: "",   suffix: "| f4 z4 z8 |]", is8va: true }
+    ];
+
+    function split8Notes(beatStr) {
+      return beatStr.match(/[\^_=]*[A-Ga-g]/g) || [];
+    }
+
+    function applyEj1Art(beatStr, artId) {
+      const n = split8Notes(beatStr);
+      if (n.length !== 8 || artId === 0) return beatStr;
+      switch (artId) {
+        case 1: return `(${n[0]}${n[1]}${n[2]}${n[3]}${n[4]}${n[5]}${n[6]}${n[7]})`;
+        case 2: return `(${n[0]}${n[1]}${n[2]}${n[3]})(${n[4]}${n[5]}${n[6]}${n[7]})`;
+        case 3: return `.${n[0]}(${n[1]}${n[2]}${n[3]}).${n[4]}(${n[5]}${n[6]}${n[7]})`;
+        case 4: return `(${n[0]}${n[1]}${n[2]}).${n[3]}(${n[4]}${n[5]}${n[6]}).${n[7]}`;
+        case 5: return `(${n[0]}${n[1]}).${n[2]}.${n[3]}(${n[4]}${n[5]}).${n[6]}.${n[7]}`;
+        case 6: return `.${n[0]}.${n[1]}(${n[2]}${n[3]}).${n[4]}.${n[5]}(${n[6]}${n[7]})`;
+        case 7: return `.${n[0]}(${n[1]}${n[2]}).${n[3]}.${n[4]}(${n[5]}${n[6]}).${n[7]}`;
+        case 8: return `(${n[0]}${n[1]})(${n[2]}${n[3]})(${n[4]}${n[5]})(${n[6]}${n[7]})`;
+        case 9: return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]})(${n[5]}${n[6]}).${n[7]}`;
+        case 10: return `.${n[0]}.${n[1]}.${n[2]}.${n[3]}.${n[4]}.${n[5]}.${n[6]}.${n[7]}`;
+        default: return beatStr;
+      }
+    }
+
+    function buildChromaticAbcString(ejNum, artId) {
+      const isEj2 = (ejNum === 2);
+      const rawMeasures = isEj2 ? EJ2_RAW_MEASURES : EJ1_RAW_MEASURES;
+      const artObj = CHROMATIC_ART_LIST.find(a => a.id === artId) || CHROMATIC_ART_LIST[0];
+      const lines = [
+        "X:1",
+        `T:E. J. ${ejNum} — ${artObj.name}`,
+        "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+        `% EJ${ejNum}_LEDUC_ART:${artId}`,
+        "%%barsperstaff 1",
+        "M:4/2",
+        "L:1/16",
+        "Q:1/4=80",
+        "K:C",
+        "V:1 clef=treble stem=up",
+        "%%score 1"
+      ];
+      let currentStem = "up";
+      rawMeasures.forEach(m => {
+        const reqStem = (m.num <= 10) ? "up" : "down";
+        if (reqStem !== currentStem) {
+          lines.push(`[V:1 stem=${reqStem}]`);
+          currentStem = reqStem;
+        }
+        const artBeats = m.beats.map(b => applyEj1Art(b, artId));
+        if (m.num === 25) artBeats[0] = '"^8va"' + artBeats[0];
+        const body = artBeats.join(" ");
+        const line = m.prefix ? `${m.prefix} ${body} ${m.suffix}` : `${body} ${m.suffix}`;
+        lines.push(line);
+      });
+      return lines.join("\n") + "\n";
+    }
+
+    function renderEjLeduc(exerciseNum, artId) {
+      const paper = document.getElementById("paper");
+      const artObj = CHROMATIC_ART_LIST.find(a => a.id === artId) || CHROMATIC_ART_LIST[0];
+      const isEj2 = (exerciseNum === 2);
+      const rawMeasures = isEj2 ? EJ2_RAW_MEASURES : EJ1_RAW_MEASURES;
+      const artHeaderAbc = isEj2 ? EJ2_ARTICULATIONS_ABC : EJ1_ARTICULATIONS_ABC;
+      const titleStr = isEj2 ? "E. J. 2" : "E. J. 1";
+      const repriseHtml = isEj2 ? "" : `<div class="ej1-reprise-label">Reprise à l'octave</div>`;
+
+      let html = `
+        <div class="ej1-leduc-wrapper">
+          <div class="ej1-top-header">
+            <div class="ej1-title">${titleStr}</div>
+            <div class="ej1-active-badge">${artObj.label}</div>
+          </div>
+          <div class="ej1-subtitle">A travailler successivement avec chacune des dix articulations suivantes:</div>
+          <div id="ej1-art-score" class="ej1-art-row"></div>
+          <div class="ej1-m1-container ej1-staff-row">
+            ${repriseHtml}
+            <div id="ej1-m1-score"></div>
+          </div>
+      `;
+
+      for (let i = 1; i < rawMeasures.length; i++) {
+        const m = rawMeasures[i];
+        const divId = `ej1-m${m.num}-score`;
+        if (m.is8va) {
+          const isLast = (m.num === 30);
+          const cls = isLast ? "ej1-octava-last" : "ej1-octava-full";
+          const hook = isLast ? '<span class="ej1-octava-hook"></span>' : '';
+          html += `
+            <div class="ej1-staff-row ej1-octava-wrap ${cls}">
+              <div class="ej1-octava-line"><span class="ej1-octava-num">8</span><span class="ej1-octava-dots"></span>${hook}</div>
+              <div id="${divId}"></div>
+            </div>
+          `;
+        } else {
+          html += `<div id="${divId}" class="ej1-staff-row"></div>`;
+        }
+      }
+
+      html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
+      paper.innerHTML = html;
+
+      ABCJS.renderAbc("ej1-art-score", artHeaderAbc, {
+        staffwidth: 900,
+        paddingtop: 2,
+        paddingbottom: 2,
+        paddingleft: 0,
+        paddingright: 0,
+        responsive: "resize"
+      });
+
+      for (let i = 0; i < rawMeasures.length; i++) {
+        const m = rawMeasures[i];
+        const divId = `ej1-m${m.num}-score`;
+        const stemDir = (m.num <= 10) ? "up" : "down";
+        const meterStr = (m.num === 1) ? "M:4/2" : "M:none";
+        const staffW = (m.num === 1) ? 855 : 900;
+        const articulatedBeats = m.beats.map(b => applyEj1Art(b, artId)).join(" ");
+        const lineBody = m.prefix ? `${m.prefix} ${articulatedBeats} ${m.suffix}` : `${articulatedBeats} ${m.suffix}`;
+        const abcCode = [
+          `X:${m.num}`,
+          meterStr,
+          "L:1/16",
+          "K:C",
+          `V:1 clef=treble stem=${stemDir}`,
+          "%%score 1",
+          lineBody
+        ].join("\n");
+
+        ABCJS.renderAbc(divId, abcCode, {
+          staffwidth: staffW,
+          paddingtop: 1,
+          paddingbottom: 1,
+          paddingleft: 0,
+          paddingright: 0,
+          responsive: "resize"
+        });
+      }
+    }
+
+    function isStaccatoInChromatic(idxIn8, artId) {
+      const i = idxIn8 % 8;
+      switch (artId) {
+        case 3: return (i === 0 || i === 4);
+        case 4: return (i === 3 || i === 7);
+        case 5: return (i === 2 || i === 3 || i === 6 || i === 7);
+        case 6: return (i === 0 || i === 1 || i === 4 || i === 5);
+        case 7: return (i === 0 || i === 3 || i === 4 || i === 7);
+        case 9: return (i === 0 || i === 7);
+        case 10: return true;
+        default: return false;
+      }
+    }
+
+    function buildChromaticPlaybackEvents(ejNum, artId) {
+      const events = [];
+      for (let mNum = 1; mNum <= 30; mNum++) {
+        const k = Math.floor((mNum - 1) / 2);
+        const isOdd = (mNum % 2 === 1);
+        const base = 62 + k; // D4 = 62 .. E5 = 76
+        let midis = [];
+        if (isOdd) {
+          // Major pentachord (EJ1: 0,2,4,5,7) or Minor pentachord (EJ2: 0,2,3,5,7)
+          const third = (ejNum === 2) ? 3 : 4;
+          const p = [base, base + 2, base + third, base + 5, base + 7];
+          const grp = [p[0], p[1], p[2], p[3], p[4], p[3], p[2], p[1]];
+          midis = [...grp, ...grp, ...grp, ...grp];
+        } else {
+          // Diminished 7th vii° -> next key (EJ1: 0,1,3,5,6; EJ2: 0,1,3,4,6)
+          const fourth = (ejNum === 2) ? 4 : 5;
+          const p = [base, base + 1, base + 3, base + fourth, base + 6];
+          const grp = [p[0], p[1], p[2], p[3], p[4], p[3], p[2], p[1]];
+          const turn = [p[0], p[1], p[2], p[3], p[4], p[2], p[1], p[0]];
+          midis = [...grp, ...grp, ...grp, ...turn];
+        }
+        midis.forEach((midi, idx) => {
+          const freq = 440.0 * Math.pow(2, (midi - 69) / 12);
+          events.push({
+            measure: mNum,
+            freq,
+            dur16: 1,
+            staccato: isStaccatoInChromatic(idx, artId)
+          });
+        });
+      }
+      // Measure 31 final F (written f4 under 8va = F6, MIDI 89)
+      events.push({
+        measure: 31,
+        freq: 440.0 * Math.pow(2, (77 - 69) / 12),
+        dur16: 4,
+        staccato: false
+      });
+      return events;
+    }
+
+    // --- TONICS DATA (E.J. 4) ---
     const TONIC_LIST = [
       { id: "01_si", name: "Si", display: "Si (B3)" },
       { id: "02_do", name: "Do", display: "Do (C4)" },
@@ -976,6 +1425,73 @@
     let playTimeouts = [];
     let currentTempo = 90;
 
+    function initChromaticArtButtons() {
+      const container = document.getElementById("ej-art-buttons-container");
+      if (!container) return;
+      container.innerHTML = "";
+      CHROMATIC_ART_LIST.forEach(art => {
+        const btn = document.createElement("button");
+        btn.className = "tonic-btn" + (art.id === currentChromaticArt ? " active" : "");
+        btn.innerText = art.label;
+        btn.onclick = () => {
+          if (isPlaying) stopPlay();
+          currentChromaticArt = art.id;
+          container.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderActiveChromatic();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function setExercise(ex, btn) {
+      if (isPlaying) stopPlay();
+      currentExercise = ex;
+      document.querySelectorAll("#exercise-buttons-container .mode-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+
+      const chromWrap = document.getElementById("chromatic-selectors-wrapper");
+      const ej4Wrap = document.getElementById("ej4-selectors-wrapper");
+      const urtextBtn = document.getElementById("open-urtext-btn");
+
+      if (ex === 'ej1' || ex === 'ej2') {
+        chromWrap.style.display = "block";
+        ej4Wrap.style.display = "none";
+        if (urtextBtn) {
+          urtextBtn.style.display = "inline-flex";
+          urtextBtn.href = (ex === 'ej2') ? "ej2.html" : "ej1.html";
+        }
+        renderActiveChromatic();
+      } else {
+        chromWrap.style.display = "none";
+        ej4Wrap.style.display = "block";
+        if (urtextBtn) urtextBtn.style.display = "none";
+        renderActiveMode();
+      }
+    }
+
+    function renderActiveChromatic() {
+      const isEj2 = (currentExercise === 'ej2');
+      const ejNum = isEj2 ? 2 : 1;
+      const artObj = CHROMATIC_ART_LIST.find(a => a.id === currentChromaticArt) || CHROMATIC_ART_LIST[0];
+      document.getElementById("current-mode-title").innerText = `E. J. ${ejNum} · ${artObj.name}`;
+      document.getElementById("current-mode-formula").innerText = isEj2
+        ? "Pentacordios Menores + 7ª Disminuida (Re m → Fa m)"
+        : "Pentacordios Mayores + 7ª Disminuida (Re M → Fa M)";
+      document.getElementById("current-mode-badge").innerText = "31 Compases Cromáticos · Plicas ↑ (c.1–10) y ↓ (c.11–30) · 8va (c.25–30)";
+      document.getElementById("measure-indicator").innerText = "Compás: 1 / 31";
+
+      window.CURRENT_ABC_STRING = buildChromaticAbcString(ejNum, currentChromaticArt);
+      renderEjLeduc(ejNum, currentChromaticArt);
+
+      const dlBtn = document.getElementById("download-abc-btn");
+      if (dlBtn) {
+        const fileName = isEj2 ? artObj.file2 : artObj.file1;
+        dlBtn.href = `downloads/abc/${fileName}`;
+        dlBtn.setAttribute("download", fileName);
+      }
+    }
+
     function initTonicButtons() {
       const container = document.getElementById("tonic-buttons-container");
       container.innerHTML = "";
@@ -986,7 +1502,7 @@
         btn.onclick = () => {
           if (isPlaying) stopPlay();
           currentTonicId = t.id;
-          document.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
+          container.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           renderActiveMode();
         };
@@ -997,7 +1513,7 @@
     function setMode(modeNum, btn) {
       if (isPlaying) stopPlay();
       currentModeNum = modeNum;
-      document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll("#mode-buttons-container .mode-btn").forEach(b => b.classList.remove("active"));
       if (btn) btn.classList.add("active");
       renderActiveMode();
     }
@@ -1014,6 +1530,8 @@
       document.getElementById("current-mode-title").innerText = `${currentModeItem.tonicDisplay} ${currentModeItem.modeName}`;
       document.getElementById("current-mode-formula").innerText = currentModeItem.formula;
       document.getElementById("current-mode-badge").innerText = currentModeItem.badge;
+      document.getElementById("measure-indicator").innerText = "Compás: 1 / 8";
+      window.CURRENT_ABC_STRING = currentModeItem.abc;
 
       // Render ABC Music Notation with ABCJS
       ABCJS.renderAbc("paper", currentModeItem.abc, {
@@ -1108,10 +1626,14 @@
         audioCtx = null;
       }
       updatePlayButton(false);
-      document.getElementById("measure-indicator").innerText = "Compás: 1 / 8";
+      document.getElementById("measure-indicator").innerText = (currentExercise === 'ej1' || currentExercise === 'ej2') ? "Compás: 1 / 31" : "Compás: 1 / 8";
     }
 
     function startPlay() {
+      if (currentExercise === 'ej1' || currentExercise === 'ej2') {
+        startChromaticPlay(currentExercise === 'ej2' ? 2 : 1);
+        return;
+      }
       if (!currentModeItem || !currentModeItem.frequencies) return;
       const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioCtxClass();
@@ -1146,9 +1668,45 @@
       playTimeouts.push(finishTid);
     }
 
+    function startChromaticPlay(ejNum) {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioCtxClass();
+      isPlaying = true;
+      updatePlayButton(true);
+
+      const events = buildChromaticPlaybackEvents(ejNum, currentChromaticArt);
+      const secPer16 = (60.0 / currentTempo) / 4.0;
+      let cursor = audioCtx.currentTime + 0.06;
+      let elapsedSec = 0;
+
+      events.forEach(ev => {
+        const fullDur = ev.dur16 * secPer16;
+        const toneDur = ev.staccato ? fullDur * 0.42 : fullDur * 0.94;
+        playAcousticPianoTone(audioCtx, ev.freq, toneDur, cursor);
+
+        const delayMs = elapsedSec * 1000;
+        const mNum = ev.measure;
+        const tid = setTimeout(() => {
+          if (isPlaying) {
+            document.getElementById("measure-indicator").innerText = `Compás: ${mNum} / 31`;
+          }
+        }, delayMs);
+        playTimeouts.push(tid);
+
+        cursor += fullDur;
+        elapsedSec += fullDur;
+      });
+
+      const finishTid = setTimeout(() => {
+        stopPlay();
+      }, (elapsedSec + 0.2) * 1000);
+      playTimeouts.push(finishTid);
+    }
+
     function copyAbcCode() {
-      if (!currentModeItem) return;
-      navigator.clipboard.writeText(currentModeItem.abc).then(() => {
+      const abcToCopy = window.CURRENT_ABC_STRING || (currentModeItem && currentModeItem.abc);
+      if (!abcToCopy) return;
+      navigator.clipboard.writeText(abcToCopy).then(() => {
         const copyText = document.getElementById("copy-btn-text");
         const original = copyText.innerText;
         copyText.innerText = (currentLang === "en") ? "Copied! ✓" : "¡Copiado! ✓";
@@ -1158,8 +1716,9 @@
 
     // --- INITIALIZATION ---
     window.addEventListener("DOMContentLoaded", () => {
+      initChromaticArtButtons();
       initTonicButtons();
-      renderActiveMode();
+      renderActiveChromatic();
     });
   </script>
 </body>

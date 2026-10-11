@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.seagomezar.flutemodes.model.ArticulationPattern
+import com.seagomezar.flutemodes.model.EJ1Articulation
 import com.seagomezar.flutemodes.model.ModeType
 import com.seagomezar.flutemodes.model.Tonic
 import kotlinx.coroutines.*
@@ -27,6 +28,22 @@ class ScoreAudioPlayer {
             stop()
         } else {
             play(tonic, mode, articulation, tempoBPM)
+        }
+    }
+
+    fun toggleEJ1(articulation: EJ1Articulation, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ1(articulation, tempoBPM)
+        }
+    }
+
+    fun toggleEJ2(articulation: EJ1Articulation, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ2(articulation, tempoBPM)
         }
     }
 
@@ -53,51 +70,74 @@ class ScoreAudioPlayer {
 
         playbackJob = scope.launch {
             val buffer = generateScoreBuffer(tonic, mode, articulation, tempoBPM)
-            if (!isActive || buffer.isEmpty()) {
-                withContext(Dispatchers.Main) { isPlaying = false }
-                return@launch
-            }
+            playPcmBuffer(buffer)
+        }
+    }
 
-            try {
-                val attributes = AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build()
+    fun playEJ1(articulation: EJ1Articulation, tempoBPM: Int) {
+        stop()
+        isPlaying = true
 
-                val format = AudioFormat.Builder()
-                    .setSampleRate(sampleRate)
-                    .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                    .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-                    .build()
+        playbackJob = scope.launch {
+            val buffer = generateEJ1ScoreBuffer(articulation, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
 
-                val minBufferSize = AudioTrack.getMinBufferSize(
-                    sampleRate,
-                    AudioFormat.CHANNEL_OUT_MONO,
-                    AudioFormat.ENCODING_PCM_16BIT
-                )
-                val bufferSize = max(minBufferSize, buffer.size * 2)
+    fun playEJ2(articulation: EJ1Articulation, tempoBPM: Int) {
+        stop()
+        isPlaying = true
 
-                val track = AudioTrack(
-                    attributes,
-                    format,
-                    bufferSize,
-                    AudioTrack.MODE_STATIC,
-                    android.media.AudioManager.AUDIO_SESSION_ID_GENERATE
-                )
-                currentTrack = track
+        playbackJob = scope.launch {
+            val buffer = generateEJ2ScoreBuffer(articulation, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
 
-                track.write(buffer, 0, buffer.size)
-                track.play()
+    private suspend fun CoroutineScope.playPcmBuffer(buffer: ShortArray) {
+        if (!isActive || buffer.isEmpty()) {
+            withContext(Dispatchers.Main) { isPlaying = false }
+            return
+        }
 
-                // Calculate total duration
-                val durationMs = (buffer.size.toDouble() / sampleRate * 1000.0).toLong()
-                delay(durationMs)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                withContext(Dispatchers.Main) {
-                    isPlaying = false
-                }
+        try {
+            val attributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+
+            val format = AudioFormat.Builder()
+                .setSampleRate(sampleRate)
+                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                .build()
+
+            val minBufferSize = AudioTrack.getMinBufferSize(
+                sampleRate,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT
+            )
+            val bufferSize = max(minBufferSize, buffer.size * 2)
+
+            val track = AudioTrack(
+                attributes,
+                format,
+                bufferSize,
+                AudioTrack.MODE_STATIC,
+                android.media.AudioManager.AUDIO_SESSION_ID_GENERATE
+            )
+            currentTrack = track
+
+            track.write(buffer, 0, buffer.size)
+            track.play()
+
+            val durationMs = (buffer.size.toDouble() / sampleRate * 1000.0).toLong()
+            delay(durationMs)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            withContext(Dispatchers.Main) {
+                isPlaying = false
             }
         }
     }
@@ -169,6 +209,96 @@ class ScoreAudioPlayer {
         // Final tonic half note
         notes.add(NoteDef(freq = freqForIndex(0), duration = halfDuration, isStaccato = false))
 
+        return renderNotesToPcm(notes)
+    }
+
+    internal fun generateEJ1ScoreBuffer(
+        articulation: EJ1Articulation,
+        tempoBPM: Int
+    ): ShortArray {
+        return generateChromaticPentachordBuffer(isMinor = false, articulation = articulation, tempoBPM = tempoBPM)
+    }
+
+    internal fun generateEJ2ScoreBuffer(
+        articulation: EJ1Articulation,
+        tempoBPM: Int
+    ): ShortArray {
+        return generateChromaticPentachordBuffer(isMinor = true, articulation = articulation, tempoBPM = tempoBPM)
+    }
+
+    private fun generateChromaticPentachordBuffer(
+        isMinor: Boolean,
+        articulation: EJ1Articulation,
+        tempoBPM: Int
+    ): ShortArray {
+        val sixteenthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+        val finalDuration = sixteenthDuration * 4.0
+
+        fun isStaccatoAt(subIndex: Int): Boolean {
+            val i = subIndex % 8
+            return when (articulation) {
+                EJ1Articulation.ORIGINAL,
+                EJ1Articulation.ALL_SLURRED_8,
+                EJ1Articulation.SLURRED_4_AND_4,
+                EJ1Articulation.SLUR_PAIRS_2_BY_2 -> false
+                EJ1Articulation.STACC_1_SLUR_3 -> (i == 0 || i == 4)
+                EJ1Articulation.SLUR_3_STACC_1 -> (i == 3 || i == 7)
+                EJ1Articulation.SLUR_2_STACC_2 -> (i == 2 || i == 3 || i == 6 || i == 7)
+                EJ1Articulation.STACC_2_SLUR_2 -> (i == 0 || i == 1 || i == 4 || i == 5)
+                EJ1Articulation.STACC_1_SLUR_2_STACC_1 -> (i == 0 || i == 3 || i == 4 || i == 7)
+                EJ1Articulation.SLUR_SYNCOPATED -> (i == 0 || i == 7)
+                EJ1Articulation.ALL_STACCATO -> true
+            }
+        }
+
+        val notes = mutableListOf<NoteDef>()
+        fun addGroup(midiNotes: List<Int>) {
+            midiNotes.forEachIndexed { idx, m ->
+                notes.add(
+                    NoteDef(
+                        freq = midiToFrequency(m.toDouble()),
+                        duration = sixteenthDuration,
+                        isStaccato = isStaccatoAt(idx)
+                    )
+                )
+            }
+        }
+
+        val thirdOffset = if (isMinor) 3 else 4
+
+        // 15 chromatic pairs (Measures 1..30), starting on D4 (MIDI 62) up to F5 (MIDI 77)
+        for (k in 0 until 15) {
+            val base = 62 + k
+            // Odd measure: Major (0, 2, 4, 5, 7) or Minor (0, 2, 3, 5, 7) pentachord
+            val pent = listOf(base, base + 2, base + thirdOffset, base + 5, base + 7)
+            val pentGroup = listOf(pent[0], pent[1], pent[2], pent[3], pent[4], pent[3], pent[2], pent[1])
+            repeat(4) {
+                addGroup(pentGroup)
+            }
+
+            // Even measure: Diminished 7th vii° (0, 1, 3, 5, 6) resolving to base + 1
+            val dim = listOf(base, base + 1, base + 3, base + 5, base + 6)
+            val dimGroup = listOf(dim[0], dim[1], dim[2], dim[3], dim[4], dim[3], dim[2], dim[1])
+            val dimTurn  = listOf(dim[0], dim[1], dim[2], dim[3], dim[4], dim[2], dim[1], dim[0])
+            repeat(3) {
+                addGroup(dimGroup)
+            }
+            addGroup(dimTurn)
+        }
+
+        // Final measure M.31: F5 quarter note (MIDI 77)
+        notes.add(
+            NoteDef(
+                freq = midiToFrequency(77.0),
+                duration = finalDuration,
+                isStaccato = false
+            )
+        )
+
+        return renderNotesToPcm(notes)
+    }
+
+    private fun renderNotesToPcm(notes: List<NoteDef>): ShortArray {
         val totalDuration = notes.sumOf { it.duration }
         val totalFrames = (sampleRate * totalDuration).toInt()
         val buffer = ShortArray(totalFrames)
