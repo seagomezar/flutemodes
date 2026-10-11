@@ -122,26 +122,41 @@ public struct PracticeView: View {
         } message: {
             Text(loc.t("ej2_milestone_msg"))
         }
+        .confirmationDialog(
+            loc.t("ej4_milestone_title"),
+            isPresented: $viewModel.showEJ4CompletionDialog,
+            titleVisibility: .visible
+        ) {
+            Button(loc.t("ej4_restart_round")) {
+                viewModel.restartEJ4Round()
+            }
+            Button(loc.t("ej4_go_to_modos")) {
+                viewModel.selectExercise(.modos)
+            }
+            Button(loc.t("stay_mode"), role: .cancel) {}
+        } message: {
+            Text(loc.t("ej4_milestone_msg"))
+        }
     }
 
     // MARK: - Mobile Top Navigation Bar
     private var mobileTopBar: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .center, spacing: 6) {
             Button {
                 dismiss()
             } label: {
-                HStack(spacing: 6) {
+                HStack(spacing: 4) {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                    Text("FluteModes")
-                        .font(.headline)
+                        .font(.system(size: 15, weight: .semibold))
+                    Text("Inicio")
+                        .font(.subheadline.bold())
                 }
                 .foregroundColor(.primary)
             }
 
-            Spacer()
+            Spacer(minLength: 4)
 
-            // Exercise quick switcher (E.J. 1 | E.J. 2 | E.J. 4)
+            // Exercise quick switcher (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
             HStack(spacing: 2) {
                 ForEach(ExerciseType.allCases) { ex in
                     let isSel = viewModel.currentExercise == ex
@@ -149,8 +164,8 @@ public struct PracticeView: View {
                         viewModel.selectExercise(ex)
                     } label: {
                         Text(ex.pillLabel)
-                            .font(.caption2.bold())
-                            .padding(.horizontal, 7)
+                            .font(.system(size: 11, weight: .bold))
+                            .padding(.horizontal, 6)
                             .padding(.vertical, 5)
                             .background(isSel ? Color.primary : Color.clear)
                             .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
@@ -162,13 +177,13 @@ public struct PracticeView: View {
             .background(Color(uiColor: .tertiarySystemFill))
             .cornerRadius(10)
 
-            if viewModel.currentExercise == .ej4 {
+            if viewModel.currentExercise == .modos {
                 Button {
                     navigateToMatrix = true
                 } label: {
                     Image(systemName: "square.grid.3x3.fill")
-                        .font(.subheadline)
-                        .padding(8)
+                        .font(.caption)
+                        .padding(7)
                         .background(Color(uiColor: .tertiarySystemFill))
                         .foregroundColor(.primary)
                         .clipShape(Circle())
@@ -178,19 +193,15 @@ public struct PracticeView: View {
             Button {
                 loc.toggleLanguage()
             } label: {
-                HStack(spacing: 4) {
-                    Text(loc.currentLanguage.flag)
-                    Text(loc.currentLanguage.displayName)
-                        .font(.caption.bold())
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
-                .background(Color(uiColor: .tertiarySystemFill))
-                .foregroundColor(.primary)
-                .cornerRadius(12)
+                Text(loc.currentLanguage.flag)
+                    .font(.subheadline)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 5)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .cornerRadius(10)
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(Color(uiColor: .secondarySystemBackground))
     }
@@ -247,6 +258,60 @@ public struct PracticeView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(Color(uiColor: .systemBackground))
+        } else if viewModel.currentExercise == .ej4 {
+            let completed = viewModel.store.ej4CompletedCount
+            let isAllDone = viewModel.store.isEJ4FullyCompleted
+            let currentArt = viewModel.currentEJ4Articulation
+            let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+
+            VStack(spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("E.J. 4 · \(curSec.fullName)")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+
+                        Text("\(currentArt.title) · \(curSec.measureRange)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
+
+                    Spacer()
+
+                    Text("\(completed)/8 \(loc.t("arts_count"))")
+                        .font(.caption2.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                        .foregroundColor(isAllDone ? Color.green : Color.blue)
+                        .cornerRadius(8)
+                }
+
+                // Horizontal Section Selector Bar (25 Keys)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 6) {
+                        ForEach(EJ4Section.all) { sec in
+                            let isSel = viewModel.currentEJ4Section == sec.id
+                            Button {
+                                viewModel.selectEJ4Section(sec.id)
+                            } label: {
+                                Text("\(sec.shortName) (\(sec.measureRange))")
+                                    .font(.system(size: 11, weight: isSel ? .bold : .medium))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(isSel ? Color.blue : Color(uiColor: .tertiarySystemFill))
+                                    .foregroundColor(isSel ? .white : .primary)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(Color(uiColor: .systemBackground))
         } else {
             VStack(spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
@@ -262,7 +327,6 @@ public struct PracticeView: View {
 
                     Spacer()
 
-                    // Progress badge (e.g. 3/7)
                     Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
                         .font(.caption2.bold().monospacedDigit())
                         .padding(.horizontal, 8)
@@ -364,6 +428,38 @@ public struct PracticeView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
+            } else if viewModel.currentExercise == .ej4 {
+                let completed = viewModel.store.ej4CompletedCount
+                let isAllDone = viewModel.store.isEJ4FullyCompleted
+                let currentArt = viewModel.currentEJ4Articulation
+                let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+
+                VStack(spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text("E.J. 4 · \(curSec.fullName)")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.primary)
+
+                        Text("A. L. 16.588")
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+
+                        Text("\(completed)/8 \(loc.t("arts_count"))")
+                            .font(.caption2.bold().monospacedDigit())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                            .foregroundColor(isAllDone ? Color.green : Color.blue)
+                            .cornerRadius(6)
+                    }
+
+                    Text("\(currentArt.title) | \(curSec.measureRange) de 194")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             } else {
                 // Mode Details Badge (Parallel System)
                 VStack(spacing: 3) {
@@ -379,7 +475,6 @@ public struct PracticeView: View {
                             .background(Color(uiColor: .tertiarySystemFill))
                             .cornerRadius(6)
 
-                        // Tonic modes progress badge (e.g. 3/7)
                         Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
                             .font(.caption2.bold().monospacedDigit())
                             .padding(.horizontal, 6)
@@ -479,10 +574,110 @@ public struct PracticeView: View {
                             Button {
                                 if isCurrent {
                                     if art != .original {
-                                        viewModel.store.toggleChromaticCompleted(art, for: ex)
+                                        _ = viewModel.store.toggleChromaticCompleted(art, for: ex)
                                     }
                                 } else {
                                     viewModel.selectChromaticArticulation(art, markPreviousCompleted: true)
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    if art == .original {
+                                        Image(systemName: "book.pages.fill")
+                                            .font(.system(size: 12, weight: .bold))
+                                            .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .indigo)
+                                    } else {
+                                        Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
+                                    }
+
+                                    Text(art.shortTitle)
+                                        .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 6)
+                }
+            }
+            .background(Color(uiColor: .systemGroupedBackground))
+        } else if viewModel.currentExercise == .ej4 {
+            let completedCount = viewModel.store.ej4CompletedCount
+            let isAllDone = viewModel.store.isEJ4FullyCompleted
+
+            VStack(spacing: 6) {
+                if !isCompact {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(EJ4Section.all) { sec in
+                                let isSel = viewModel.currentEJ4Section == sec.id
+                                Button {
+                                    viewModel.selectEJ4Section(sec.id)
+                                } label: {
+                                    Text("\(sec.shortName) (\(sec.measureRange))")
+                                        .font(.system(size: 11.5, weight: isSel ? .bold : .medium))
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 5)
+                                        .background(isSel ? Color.blue : Color(uiColor: .secondarySystemGroupedBackground))
+                                        .foregroundColor(isSel ? .white : .primary)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
+                    }
+                }
+
+                HStack {
+                    HStack(spacing: 6) {
+                        Text(loc.t("ej4_select_art"))
+                            .font(.caption.bold())
+                            .foregroundColor(.primary)
+
+                        if isAllDone {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                        }
+                    }
+
+                    Spacer()
+
+                    Text("\(completedCount)/8 " + loc.t("arts_count"))
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(EJ4Articulation.allCases) { art in
+                            let isCurrent = viewModel.currentEJ4Articulation == art
+                            let isDone = viewModel.store.isEJ4Completed(art)
+
+                            Button {
+                                if isCurrent {
+                                    if art != .original {
+                                        viewModel.store.toggleEJ4Completed(art)
+                                    }
+                                } else {
+                                    viewModel.selectEJ4Articulation(art, markPreviousCompleted: true)
                                 }
                             } label: {
                                 HStack(spacing: 6) {
@@ -521,7 +716,6 @@ public struct PracticeView: View {
             let isModeFull = completedCount == 8
 
             VStack(spacing: 6) {
-                // Section Header: Fórmulas de Articulación · X/8 arts. completadas
                 HStack {
                     HStack(spacing: 6) {
                         Text(loc.t("articulations_title"))
@@ -560,14 +754,12 @@ public struct PracticeView: View {
 
                             Button {
                                 if isCurrent {
-                                    // Tapping the active pattern toggles its completion
                                     viewModel.store.toggleCompleted(
                                         tonic: viewModel.currentTonic,
                                         mode: viewModel.currentMode,
                                         articulation: pattern
                                     )
                                 } else {
-                                    // Tapping another pattern marks the previous one completed and selects new
                                     viewModel.selectArticulation(pattern, markPreviousCompleted: true)
                                 }
                             } label: {
@@ -704,6 +896,69 @@ public struct PracticeView: View {
                         .cornerRadius(20)
                     }
                 }
+            } else if viewModel.currentExercise == .ej4 {
+                let isAllDone = viewModel.store.isEJ4FullyCompleted
+                let completedCount = viewModel.store.ej4CompletedCount
+
+                Button {
+                    viewModel.advanceToNextEJ4Section()
+                } label: {
+                    HStack(spacing: 6) {
+                        Text("Sig. Tonalidad")
+                            .font(.subheadline.bold())
+                        Text("\(viewModel.currentEJ4Section + 1)/25")
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .clipShape(Capsule())
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(Color(uiColor: .secondarySystemFill))
+                    .foregroundColor(.primary)
+                    .cornerRadius(20)
+                }
+
+                if isAllDone {
+                    Button {
+                        viewModel.showEJ4CompletionDialog = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 16))
+                            Text("✓ \(loc.t("ej4_eight_arts_completed"))")
+                                .font(.subheadline.bold())
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                        .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
+                    }
+                } else {
+                    Button {
+                        viewModel.advanceToNextEJ4Articulation()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text(loc.t("next_art"))
+                                .font(.subheadline.bold())
+                            Text("\(completedCount)/8 \(loc.t("arts_count"))")
+                                .font(.caption.bold().monospacedDigit())
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                .clipShape(Capsule())
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.primary)
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .cornerRadius(20)
+                    }
+                }
             } else {
                 // Next Articulation in Current Mode
                 Button {
@@ -728,7 +983,6 @@ public struct PracticeView: View {
 
                 // Main Pedagogical Action Button
                 if viewModel.areAllModesInCurrentTonicPracticed {
-                    // Milestone: All 7 modes in this tonic practiced!
                     Button {
                         viewModel.showCompletionDialog = true
                     } label: {
@@ -746,7 +1000,6 @@ public struct PracticeView: View {
                         .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
                     }
                 } else if viewModel.store.isModeFullyCompleted(tonic: viewModel.currentTonic, mode: viewModel.currentMode) {
-                    // Current mode fully completed (8/8 arts)!
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
@@ -770,7 +1023,6 @@ public struct PracticeView: View {
                         .cornerRadius(20)
                     }
                 } else {
-                    // Standard: Advance to next mode within current tonic
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
@@ -804,7 +1056,6 @@ public struct PracticeView: View {
         VStack(spacing: 10) {
             // Row 1: Metronome controls + BPM Stepper + Play Piano button
             HStack(spacing: 10) {
-                // Metronome button
                 Button {
                     metronome.toggle()
                 } label: {
@@ -930,9 +1181,80 @@ public struct PracticeView: View {
                         }
                     }
                 }
+            } else if viewModel.currentExercise == .ej4 {
+                let isAllDone = viewModel.store.isEJ4FullyCompleted
+                let completedCount = viewModel.store.ej4CompletedCount
+
+                HStack(spacing: 8) {
+                    Button {
+                        viewModel.advanceToNextEJ4Section()
+                    } label: {
+                        HStack(spacing: 5) {
+                            Text("Sig. Ton.")
+                                .font(.system(size: 13, weight: .semibold))
+                                .lineLimit(1)
+                            Text("\(viewModel.currentEJ4Section + 1)/25")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(Color(uiColor: .tertiarySystemFill))
+                                .clipShape(Capsule())
+                        }
+                        .padding(.horizontal, 10)
+                        .frame(height: 48)
+                        .background(Color(uiColor: .secondarySystemFill))
+                        .foregroundColor(.primary)
+                        .cornerRadius(16)
+                    }
+
+                    if isAllDone {
+                        Button {
+                            viewModel.showEJ4CompletionDialog = true
+                        } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text("✓ \(loc.t("ej4_eight_arts_completed"))")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
+                        }
+                    } else {
+                        Button {
+                            viewModel.advanceToNextEJ4Articulation()
+                        } label: {
+                            HStack(spacing: 6) {
+                                Text(loc.t("next_art"))
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                Text("\(completedCount)/8")
+                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                    .clipShape(Capsule())
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 11, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.primary)
+                            .foregroundColor(Color(uiColor: .systemBackground))
+                            .cornerRadius(16)
+                        }
+                    }
+                }
             } else {
                 HStack(spacing: 8) {
-                    // Next articulation button
                     Button {
                         viewModel.advanceToNextArticulation()
                     } label: {
@@ -954,7 +1276,6 @@ public struct PracticeView: View {
                         .cornerRadius(16)
                     }
 
-                    // Primary Complete & Next button
                     if viewModel.areAllModesInCurrentTonicPracticed {
                         Button {
                             viewModel.showCompletionDialog = true

@@ -8,6 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.seagomezar.flutemodes.model.ArticulationPattern
 import com.seagomezar.flutemodes.model.EJ1Articulation
+import com.seagomezar.flutemodes.model.EJ4Articulation
+import com.seagomezar.flutemodes.model.EJ4Section
+import com.seagomezar.flutemodes.model.ExerciseGenerator
 import com.seagomezar.flutemodes.model.ModeType
 import com.seagomezar.flutemodes.model.Tonic
 import kotlinx.coroutines.*
@@ -44,6 +47,14 @@ class ScoreAudioPlayer {
             stop()
         } else {
             playEJ2(articulation, tempoBPM)
+        }
+    }
+
+    fun toggleEJ4(articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ4(articulation, section, tempoBPM)
         }
     }
 
@@ -90,6 +101,16 @@ class ScoreAudioPlayer {
 
         playbackJob = scope.launch {
             val buffer = generateEJ2ScoreBuffer(articulation, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
+
+    fun playEJ4(articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
+        stop()
+        isPlaying = true
+
+        playbackJob = scope.launch {
+            val buffer = generateEJ4ScoreBuffer(articulation, section, tempoBPM)
             playPcmBuffer(buffer)
         }
     }
@@ -224,6 +245,47 @@ class ScoreAudioPlayer {
         tempoBPM: Int
     ): ShortArray {
         return generateChromaticPentachordBuffer(isMinor = true, articulation = articulation, tempoBPM = tempoBPM)
+    }
+
+    internal fun generateEJ4ScoreBuffer(
+        articulation: EJ4Articulation,
+        section: EJ4Section,
+        tempoBPM: Int
+    ): ShortArray {
+        val eighthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+        val finalDuration = eighthDuration * 4.0
+
+        fun isStaccatoAt(subIndex: Int): Boolean {
+            val i = subIndex % 8
+            return when (articulation) {
+                EJ4Articulation.ORIGINAL,
+                EJ4Articulation.ALL_SLURRED_8,
+                EJ4Articulation.SLURRED_4_AND_4,
+                EJ4Articulation.SLUR_PAIRS_2_BY_2 -> false
+                EJ4Articulation.STACC_1_SLUR_3 -> (i == 0 || i == 4)
+                EJ4Articulation.SLUR_2_STACC_2 -> (i == 2 || i == 3 || i == 6 || i == 7)
+                EJ4Articulation.STACC_2_SLUR_2 -> (i == 0 || i == 1 || i == 4 || i == 5)
+                EJ4Articulation.STACC_1_SLUR_2_STACC_1 -> (i == 0 || i == 3 || i == 4 || i == 7)
+                EJ4Articulation.SLUR_SYNCOPATED -> (i == 0 || i == 7)
+            }
+        }
+
+        val secIdx = section.id.coerceIn(0, ExerciseGenerator.ej4SectionMidiNotes.size - 1)
+        val midiNotes = ExerciseGenerator.ej4SectionMidiNotes[secIdx]
+        val isCoda = (section == EJ4Section.C_CODA)
+
+        val notes = mutableListOf<NoteDef>()
+        for ((idx, m) in midiNotes.withIndex()) {
+            val isLastCodaNote = isCoda && (idx == midiNotes.size - 1)
+            notes.add(
+                NoteDef(
+                    freq = midiToFrequency(m.toDouble()),
+                    duration = if (isLastCodaNote) finalDuration else eighthDuration,
+                    isStaccato = if (isLastCodaNote) false else isStaccatoAt(idx)
+                )
+            )
+        }
+        return renderNotesToPcm(notes)
     }
 
     private fun generateChromaticPentachordBuffer(

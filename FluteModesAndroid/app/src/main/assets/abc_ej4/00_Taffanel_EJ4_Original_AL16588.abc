@@ -1,0 +1,79 @@
+%!abctab2ps
+X:1
+T:E. J. 4 — Original (Como está escrito — A. L. 16.588)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+CDEF GABc dcBA GFED | EFGA Bcde fedc BAGF | GABc defg agfe dcBA |
+Bcde fgab c'bag fedc | Bcde fgab agfe dcBA | GABc defg fedc BAGF |
+EFGA Bcde dcBA GFED | CDEF GABc BA^G=F EdcB  || "^RELATIF MINEUR"ABcd e^f^ga ba^g=f edcB |
+cde^f ^gabc' d'c'ba =g=fed | e^f^ga bc'd'e' =f'e'd'c' ba^g^f | ^gabc' d'e'^f'^g' a'=g'=f'e' d'c'ba |
+^gabc' d'e'=f'=g' f'e'd'c' ba=gf | e^f^ga bc'd'e' d'c'ba =g=fed | cde^f ^gabc' ba^g=f edcB |
+ABcd e^f^ga =g=fed c_BAG  || [K:F] FGAB cdef gfed cBAG | ABcd efga bagf edcB |
+cdef gabc' d'c'ba gfed | efga bc'd'e' f'e'd'c' bagf | efga bc'd'e' d'c'ba gfed |
+cdef gabc' bagf edcB | ABcd efga gfed cBAG | FGAB cdef ed^c_B AGFE ||
+"^MINEUR"DEFG A=B^cd ed^c_B AGFE | FGA=B ^cdef gfed =c_BAG | A=B^cd efga _bagf ed^c=B |
+^cdef ga=b^c' d'=c'_ba gfed | ^cdef ga_b=c' bagf ed=cB | A=B^cd efga gfed =c_BAG |
+FGA=B ^cdef ed^c_B AGFE | DEFG A=B^cd =c_BAG F_edc  || [K:Bb] Bcde fgab c'bag fedc |
+defg abc'd' e'd'c'b agfe | fgab c'd'e'f' g'f'e'd' c'bag | abc'd' e'f'g'a' b'a'g'f' e'd'c'b |
+abc'd' e'f'g'a' g'f'e'd' c'bag | fgab c'd'e'f' e'd'c'b agfe | defg abc'd' c'bag fedc |
+Bcde fgab ag^f_e dcBA  || "^MINEUR"GABc d=e^fg ag^f_e dcBA | Bcd=e ^fgab c'bag =f_edc |
+d=e^fg abc'd' _e'd'c'b ag^f=e | ^fgab c'd'=e'^f' g'=f'_e'd' c'bag | ^fgab c'd'_e'=f' e'd'c'b ag=fe |
+K:Bb
+d=e^fg abc'd' c'bag =f_edc | Bcd=e ^fgab ag^f_e dcBA | GABc d=e^fg =f_edc B_AGF ||
+K:Eb
+EFGA Bcde fedc BAGF | GABc defg agfe dcBA | Bcde fgab c'bag fedc |
+defg abc'd' e'd'c'b agfe | defg abc'd' c'bag fedc | Bcde fgab agfe dcBA |
+GABc defg fedc BAGF | EFGA Bcde dc=B_A GFED  || "^MINEUR"CDEF G=A=Bc dc=B_A GFED |
+EFG=A =Bcde fedc _B_AGF | G=A=Bc defg _agfe dc=B=A | =Bcde fg=a=b c'_b_ag fedc |
+=Bcde fg_a_b agfe dc_BA | G=A=Bc defg fedc _B_AGF | EFG=A =Bcde dc=B_A GFED |
+CDEF G=A=Bc _B_AGF E_dcB  || [K:Ab] ABcd efga bagf edcB | cdef gabc' d'c'ba gfed |
+efga bc'd'e' f'e'd'c' bagf | gabc' d'e'f'g' a'g'f'e' d'c'ba | gabc' d'e'f'g' f'e'd'c' bagf |
+efga bc'd'e' d'c'ba gfed | cdef gabc' bagf edcB | ABcd efga gf=e_d cBAG ||
+"^MINEUR"FGAB c=d=ef gf=e_d cBAG | ABc=d =efga bagf _e_dcB | c=d=ef gabc' _d'c'ba gf=e=d |
+=efga bc'=d'=e' f'_e'_d'c' bagf | =efga bc'_d'_e' d'c'ba gf_ed | c=d=ef gabc' bagf _e_dcB |
+ABc=d =efga gf=e_d cBAG | FGAB c=d=ef _e_dcB A_GFE  || [K:Db] DEFG ABcd edcB AGFE |
+FGAB cdef gfed cBAG | ABcd efga bagf edcB | cdef gabc' d'c'ba gfed |
+cdef gabc' bagf edcB | ABcd efga gfed cBAG | FGAB cdef edcB AGFE |
+DEFG ABcd cB=A_G Fedc  || "^MINEUR"Bcde f=g=ab c'b=a_g fedc | def=g =abc'd' e'd'c'b _a_gfe |
+f=g=ab c'd'e'f' _g'f'e'd' c'b=a=g | =abc'd' e'f'=g'=a' b'_a'_g'f' e'd'c'b | =abc'd' e'f'_g'_a' g'f'e'd' c'b_ag |
+f=g=ab c'd'e'f' e'd'c'b _a_gfe | def=g =abc'd' c'b=a_g fedc | Bcde f=g=ab _a_gfe d_cBA ||
+K:Gb
+GABc defg agfe dcBA | Bcde fgab c'bag fedc | defg abc'd' e'd'c'b agfe |
+fgab c'd'e'f' g'f'e'd' c'bag | fgab c'd'e'f' e'd'c'b agfe | defg abc'd' c'bag fedc |
+Bcde fgab agfe dcBA | GABc defg fe=d_c BAGF  || "^MINEUR"EFGA B=c=de fe=d_c BAGF |
+GAB=c =defg agfe _d_cBA | B=c=de fgab _c'bag fe=d=c | =defg ab=c'=d' e'_d'_c'b agfe |
+=defg ab_c'_d' c'bag fe_dc | B=c=de fgab agfe _d_cBA | GAB=c =defg fe=d_c BAGF |
+EFGA B=c=de _d_cBA G=e^d^c  || [K:B] Bcde fgab c'bag fedc |
+defg abc'd' e'd'c'b agfe | fgab c'd'e'f' g'f'e'd' c'bag | abc'd' e'f'g'a' b'a'g'f' e'd'c'b |
+abc'd' e'f'g'a' g'f'e'd' c'bag | fgab c'd'e'f' e'd'c'b agfe | defg abc'd' c'bag fedc |
+Bcde fgab ag^^fe dcBA  || "^MINEUR"GABc d^e^^fg ag^^f=e dcBA | Bcd^e ^^fgab c'bag ^f=edc |
+d^e^^fg abc'd' =e'd'c'b ag^^f^e | ^^fgab c'd'^e'^^f' g'^f'=e'd' c'bag | ^^fgab c'd'=e'^f' e'd'c'b ag^fe |
+d^e^^fg abc'd' c'bag ^f=edc | Bcd^e ^^fgab ag^^f=e dcBA | GABc d^e^^fg ^f=edc B=AGF ||
+K:E
+EFGA Bcde fedc BAGF | GABc defg agfe dcBA | Bcde fgab c'bag fedc |
+defg abc'd' e'd'c'b agfe | defg abc'd' c'bag fedc | Bcde fgab agfe dcBA |
+GABc defg fedc BAGF | EFGA Bcde dc^BA GFED  || "^MINEUR"CDEF G^A^Bc dc^B=A GFED |
+EFG^A ^Bcde fedc =B=AGF | G^A^Bc defg =agfe dc^B^A | ^Bcde fg^a^b c'=b=ag fedc |
+^Bcde fg=a=b agfe dc=BA | G^A^Bc defg fedc =B=AGF | EFG^A ^Bcde dc^B=A GFED |
+CDEF G^A^Bc =B=AGF E=dcB  || [K:A] ABcd efga bagf edcB | cdef gabc' d'c'ba gfed |
+K:A
+efga bc'd'e' f'e'd'c' bagf | gabc' d'e'f'g' a'g'f'e' d'c'ba | gabc' d'e'f'g' f'e'd'c' bagf |
+efga bc'd'e' d'c'ba gfed | cdef gabc' bagf edcB | ABcd efga gf^ed cBAG ||
+"^MINEUR"FGAB c^d^ef gf^e=d cBAG | ABc^d ^efga bagf =e=dcB | c^d^ef gabc' =d'c'ba gf^e^d |
+^efga bc'^d'^e' f'=e'=d'c' bagf | ^efga bc'=d'=e' d'c'ba gf=ed | c^d^ef gabc' bagf =e=dcB |
+ABc^d ^efga gf^e=d cBAG | FGAB c^d^ef =e=dcB A=GFE  || [K:D] DEFG ABcd edcB AGFE |
+FGAB cdef gfed cBAG | ABcd efga bagf edcB | cdef gabc' d'c'ba gfed |
+cdef gabc' bagf edcB | ABcd efga gfed cBAG | FGAB cdef edcB AGFE |
+DEFG ABcd cB^A=G Fedc  || "^MINEUR"Bcde f^g^ab c'b^a=g fedc | def^g ^abc'd' e'd'c'b =a=gfe |
+f^g^ab c'd'e'f' =g'f'e'd' c'b^a^g | ^abc'd' e'f'^g'^a' b'=a'=g'f' e'd'c'b | ^abc'd' e'f'=g'=a' g'f'e'd' c'b=ag |
+f^g^ab c'd'e'f' e'd'c'b =a=gfe | def^g ^abc'd' c'b^a=g fedc | Bcde f^g^ab =a=gfe d=cBA ||
+K:G
+GABc defg agfe dcBA | Bcde fgab c'bag fedc | defg abc'd' e'd'c'b agfe |
+fgab c'd'e'f' g'f'e'd' c'bag | fgab c'd'e'f' e'd'c'b agfe | defg abc'd' c'bag fedc |
+Bcde fgab agfe dcBA | GABc defg fe^d=c BAGF  || "^MINEUR"EFGA B^c^de fe^d=c BAGF |
+GAB^c ^defg agfe =d=cBA | B^c^de fgab =c'bag fe^d^c | ^defg ab^c'^d' e'=d'=c'b agfe |
+^defg ab=c'=d' c'bag fe=dc | B^c^de fgab agfe =d=cBA | GAB^c ^defg fe^d=c BAGF |
+EFGA B^c^de =d=cBA G=FED  || [K:C] CDEF GABc defg abc'b | agfe dcBA GFED C2z2 |]

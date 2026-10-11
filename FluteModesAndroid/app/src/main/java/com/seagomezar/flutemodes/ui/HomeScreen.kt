@@ -29,11 +29,14 @@ fun HomeScreen(
     onStartPractice: (Tonic, ModeType) -> Unit,
     onStartEJ1Practice: (EJ1Articulation) -> Unit,
     onStartEJ2Practice: (EJ1Articulation) -> Unit,
+    onStartEJ4Practice: (EJ4Articulation, EJ4Section) -> Unit,
     onOpenMatrix: () -> Unit
 ) {
     var selectedExercise by remember { mutableStateOf(store.lastExerciseType) }
     var selectedEJ1Art by remember { mutableStateOf(store.lastEJ1Articulation) }
     var selectedEJ2Art by remember { mutableStateOf(store.lastEJ2Articulation) }
+    var selectedEJ4Art by remember { mutableStateOf(store.lastEJ4Articulation) }
+    var selectedEJ4Section by remember { mutableStateOf(store.lastEJ4Section) }
     var selectedTonic by remember { mutableStateOf(store.lastTonic ?: Tonic.DO_NATURAL) }
     var selectedMode by remember { mutableStateOf(store.lastMode ?: ModeType.IONIAN) }
 
@@ -61,7 +64,7 @@ fun HomeScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = if (selectedExercise.isChromaticExercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
+                            text = if (selectedExercise.isChromaticExercise || selectedExercise.isEJ4Exercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -108,10 +111,10 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Exercise Switcher (E.J. 1 vs E.J. 2 vs E.J. 4)
+            // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 ExerciseType.entries.forEach { ex ->
                     val isSel = selectedExercise == ex
@@ -127,21 +130,22 @@ fun HomeScreen(
                         tonalElevation = if (isSel) 4.dp else 0.dp
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 11.dp),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = if (ex.isChromaticExercise) Icons.Default.MusicNote else Icons.Default.GridView,
+                                imageVector = if (ex.isChromaticExercise || ex.isEJ4Exercise) Icons.Default.MusicNote else Icons.Default.GridView,
                                 contentDescription = null,
-                                modifier = Modifier.size(15.dp),
+                                modifier = Modifier.size(14.dp),
                                 tint = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(3.dp))
                             Text(
-                                text = ex.shortLabel(loc),
-                                fontSize = 12.sp,
+                                text = ex.pillLabel,
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
+                                maxLines = 1,
                                 color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -159,7 +163,8 @@ fun HomeScreen(
                         text = when (selectedExercise) {
                             ExerciseType.EJ1 -> loc.t("ej1_title")
                             ExerciseType.EJ2 -> loc.t("ej2_title")
-                            ExerciseType.EJ4 -> loc.t("subtitle")
+                            ExerciseType.EJ4 -> loc.t("ej4_title")
+                            ExerciseType.MODOS -> loc.t("subtitle")
                         },
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
@@ -170,7 +175,8 @@ fun HomeScreen(
                         text = when (selectedExercise) {
                             ExerciseType.EJ1 -> loc.t("ej1_sub_desc")
                             ExerciseType.EJ2 -> loc.t("ej2_sub_desc")
-                            ExerciseType.EJ4 -> loc.t("sub_desc")
+                            ExerciseType.EJ4 -> loc.t("ej4_sub_desc")
+                            ExerciseType.MODOS -> loc.t("sub_desc")
                         },
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.85f)
@@ -329,6 +335,198 @@ fun HomeScreen(
                         text = "${loc.t(if (isEJ2) "ej2_start_practice" else "ej1_start_practice")} (${currentSelArt.shortTitle(loc)})",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
+                    )
+                }
+            } else if (selectedExercise.isEJ4Exercise) {
+                val doneCount = store.ej4CompletedCount
+                val allDone = store.isEJ4FullyCompleted
+
+                Column {
+                    Text(
+                        text = loc.t("ej4_select_section"),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        EJ4Section.entries.forEach { sec ->
+                            val isSel = sec == selectedEJ4Section
+                            Surface(
+                                onClick = {
+                                    selectedEJ4Section = sec
+                                    store.lastEJ4Section = sec
+                                    store.saveLastSelection()
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                tonalElevation = if (isSel) 4.dp else 0.dp,
+                                modifier = Modifier.padding(vertical = 4.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = sec.shortBadge,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = sec.measureRange,
+                                        fontSize = 10.sp,
+                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = loc.t("ej4_select_art"),
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = loc.t("ej4_header_info"),
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = if (allDone) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                    ) {
+                        Text(
+                            text = "$doneCount/8 ${loc.t("arts_count")}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (allDone) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                }
+
+                EJ4Articulation.entries.forEach { art ->
+                    val isSelected = selectedEJ4Art == art
+                    val isDone = store.isEJ4Completed(art)
+
+                    Surface(
+                        onClick = {
+                            selectedEJ4Art = art
+                            onStartEJ4Practice(art, selectedEJ4Section)
+                        },
+                        shape = RoundedCornerShape(14.dp),
+                        color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+                        border = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .padding(14.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = art.title(loc),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Spacer(modifier = Modifier.height(2.dp))
+                                Text(
+                                    text = art.formulaBadge,
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            if (art == EJ4Articulation.ORIGINAL) {
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = Color(0xFF6366F1).copy(alpha = 0.18f)
+                                ) {
+                                    Text(
+                                        text = "Urtext",
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF6366F1),
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                    )
+                                }
+                            } else if (isDone) {
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = Color(0xFF10B981).copy(alpha = 0.2f)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            tint = Color(0xFF10B981),
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = loc.t("completed"),
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color(0xFF10B981)
+                                        )
+                                    }
+                                }
+                            } else {
+                                Icon(
+                                    Icons.Default.ArrowForward,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Button(
+                    onClick = {
+                        onStartEJ4Practice(selectedEJ4Art, selectedEJ4Section)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "${loc.t("ej4_start_practice")} (${selectedEJ4Section.shortBadge} · ${selectedEJ4Art.shortTitle(loc)})",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1
                     )
                 }
             } else {

@@ -33,6 +33,8 @@ fun PracticeScreen(
     initialExercise: ExerciseType = ExerciseType.EJ1,
     initialEJ1Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
     initialEJ2Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
+    initialEJ4Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+    initialEJ4Section: EJ4Section = EJ4Section.C_MAJOR,
     initialTonic: Tonic,
     initialMode: ModeType,
     store: PracticeStore,
@@ -45,17 +47,22 @@ fun PracticeScreen(
     var currentExercise by remember { mutableStateOf(initialExercise) }
     var currentEJ1Articulation by remember { mutableStateOf(initialEJ1Articulation) }
     var currentEJ2Articulation by remember { mutableStateOf(initialEJ2Articulation) }
+    var currentEJ4Articulation by remember { mutableStateOf(initialEJ4Articulation) }
+    var currentEJ4Section by remember { mutableStateOf(initialEJ4Section) }
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
     var showCompletionDialog by remember { mutableStateOf(false) }
     var showEJ1CompletionDialog by remember { mutableStateOf(false) }
     var showEJ2CompletionDialog by remember { mutableStateOf(false) }
+    var showEJ4CompletionDialog by remember { mutableStateOf(false) }
 
     val currentAbcScore = remember(
         currentExercise,
         currentEJ1Articulation,
         currentEJ2Articulation,
+        currentEJ4Articulation,
+        currentEJ4Section,
         currentTonic,
         currentMode,
         currentArticulation,
@@ -73,7 +80,12 @@ fun PracticeScreen(
                 tempoBPM = metronome.tempoBPM,
                 loc = loc
             )
-            ExerciseType.EJ4 -> ExerciseGenerator.generateABC(
+            ExerciseType.EJ4 -> ExerciseGenerator.generateEJ4ABC(
+                articulation = currentEJ4Articulation,
+                section = currentEJ4Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.MODOS -> ExerciseGenerator.generateABC(
                 tonic = currentTonic,
                 mode = currentMode,
                 articulation = currentArticulation,
@@ -97,6 +109,9 @@ fun PracticeScreen(
 
     val chromaticDoneCount = store.chromaticCompletedCount(currentExercise)
     val isChromaticFullyDone = store.isChromaticFullyCompleted(currentExercise)
+
+    val ej4DoneCount = store.ej4CompletedCount
+    val isEJ4FullyDone = store.isEJ4FullyCompleted
 
     if (showEJ1CompletionDialog) {
         AlertDialog(
@@ -220,6 +235,60 @@ fun PracticeScreen(
         )
     }
 
+    if (showEJ4CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ4CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej4_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej4_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ4()
+                            currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
+                            showEJ4CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej4_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.MODOS
+                            store.lastExerciseType = ExerciseType.MODOS
+                            store.saveLastSelection()
+                            showEJ4CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej4_go_to_modos"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ4CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
     if (showCompletionDialog) {
         AlertDialog(
             onDismissRequest = { showCompletionDialog = false },
@@ -290,7 +359,7 @@ fun PracticeScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -299,15 +368,13 @@ fun PracticeScreen(
                         modifier = Modifier.clickable { onBack() }
                     ) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text("FluteModes", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     }
 
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4)
+                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
                         Surface(
                             shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surfaceVariant
@@ -327,28 +394,28 @@ fun PracticeScreen(
                                     ) {
                                         Text(
                                             text = ex.pillLabel,
-                                            fontSize = 11.sp,
+                                            fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp)
                                         )
                                     }
                                 }
                             }
                         }
 
-                        if (currentExercise == ExerciseType.EJ4) {
+                        if (currentExercise == ExerciseType.MODOS) {
                             IconButton(
                                 onClick = onOpenMatrix,
                                 modifier = Modifier
-                                    .size(34.dp)
+                                    .size(32.dp)
                                     .clip(CircleShape)
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                             ) {
                                 Icon(
                                     Icons.Default.GridView,
                                     contentDescription = "Matrix",
-                                    modifier = Modifier.size(17.dp),
+                                    modifier = Modifier.size(16.dp),
                                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
                             }
@@ -360,11 +427,11 @@ fun PracticeScreen(
                                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                             ),
-                            shape = RoundedCornerShape(12.dp),
-                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                            modifier = Modifier.height(32.dp)
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 4.dp),
+                            modifier = Modifier.height(30.dp)
                         ) {
-                            Text("${loc.currentLanguage.flag} ${loc.currentLanguage.displayName}", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                            Text(loc.currentLanguage.flag, fontSize = 12.sp)
                         }
                     }
                 }
@@ -443,6 +510,80 @@ fun PracticeScreen(
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
+                        }
+                    }
+                } else if (currentExercise.isEJ4Exercise) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = "E.J. 4 · ${currentEJ4Section.title(loc)}",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Text(
+                                    text = "${currentEJ4Articulation.title(loc)} · ${currentEJ4Section.measureRange}",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isEJ4FullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                            ) {
+                                Text(
+                                    text = "$ej4DoneCount/8 ${loc.t("arts_count")}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isEJ4FullyDone) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+
+                        // 25 Tonal Sections Bar
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState()),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            EJ4Section.entries.forEach { sec ->
+                                val isSel = sec == currentEJ4Section
+                                Surface(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        currentEJ4Section = sec
+                                        store.lastEJ4Section = sec
+                                        store.saveLastSelection()
+                                    },
+                                    shape = RoundedCornerShape(10.dp),
+                                    color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                                ) {
+                                    Text(
+                                        text = "${sec.shortBadge} (${sec.measureRange})",
+                                        fontSize = 11.sp,
+                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                    )
+                                }
+                            }
                         }
                     }
                 } else {
@@ -595,6 +736,102 @@ fun PracticeScreen(
                                         currentEJ1Articulation = art
                                         store.lastEJ1Articulation = art
                                     }
+                                    store.saveLastSelection()
+                                }
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            tonalElevation = if (isSelected) 3.dp else 0.dp
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                if (isCompleted) {
+                                    Icon(
+                                        Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(13.dp),
+                                        tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
+                                    )
+                                }
+                                Text(
+                                    text = art.shortTitle(loc),
+                                    fontSize = 12.sp,
+                                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            } else if (currentExercise.isEJ4Exercise) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 16.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = loc.t("ej4_select_art"),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        if (isEJ4FullyDone) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = Color(0xFF10B981),
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = if (isEJ4FullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (ej4DoneCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = "$ej4DoneCount/8 ${loc.t("arts_count")}",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isEJ4FullyDone) Color(0xFF10B981) else if (ej4DoneCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+
+                // E.J. 4 Articulation Bar Chips (0..8)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    EJ4Articulation.entries.forEach { art ->
+                        val isSelected = art == currentEJ4Articulation
+                        val isCompleted = store.isEJ4Completed(art)
+
+                        Surface(
+                            onClick = {
+                                scorePlayer.stop()
+                                if (isSelected) {
+                                    if (art != EJ4Articulation.ORIGINAL) {
+                                        store.toggleEJ4Completed(art)
+                                    }
+                                } else {
+                                    if (currentEJ4Articulation != EJ4Articulation.ORIGINAL) {
+                                        store.markEJ4Completed(currentEJ4Articulation)
+                                    }
+                                    currentEJ4Articulation = art
+                                    store.lastEJ4Articulation = art
                                     store.saveLastSelection()
                                 }
                             },
@@ -813,7 +1050,12 @@ fun PracticeScreen(
                                         articulation = currentEJ2Articulation,
                                         tempoBPM = metronome.tempoBPM
                                     )
-                                    ExerciseType.EJ4 -> scorePlayer.toggle(
+                                    ExerciseType.EJ4 -> scorePlayer.toggleEJ4(
+                                        articulation = currentEJ4Articulation,
+                                        section = currentEJ4Section,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.MODOS -> scorePlayer.toggle(
                                         tonic = currentTonic,
                                         mode = currentMode,
                                         articulation = currentArticulation,
@@ -947,6 +1189,142 @@ fun PracticeScreen(
                                             Icons.Default.ArrowForward,
                                             contentDescription = null,
                                             modifier = Modifier.size(16.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else if (currentExercise.isEJ4Exercise) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    scorePlayer.stop()
+                                    val allSecs = EJ4Section.entries
+                                    val idx = allSecs.indexOf(currentEJ4Section)
+                                    if (idx >= 0) {
+                                        val nextSec = allSecs[(idx + 1) % allSecs.size]
+                                        currentEJ4Section = nextSec
+                                        store.lastEJ4Section = nextSec
+                                        store.saveLastSelection()
+                                    }
+                                },
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier.height(48.dp),
+                                contentPadding = PaddingValues(horizontal = 10.dp)
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                ) {
+                                    Text(
+                                        text = loc.t("ej4_next_section"),
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(percent = 50),
+                                        color = MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        Text(
+                                            text = "${currentEJ4Section.id + 1}/25",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = FontFamily.Monospace,
+                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                            }
+
+                            if (isEJ4FullyDone) {
+                                Button(
+                                    onClick = { showEJ4CompletionDialog = true },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        Text(
+                                            text = "✓ ${loc.t("ej4_eight_arts_completed")}",
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                }
+                            } else {
+                                Button(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        if (currentEJ4Articulation == EJ4Articulation.ORIGINAL) {
+                                            currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
+                                            store.lastEJ4Articulation = currentEJ4Articulation
+                                            store.saveLastSelection()
+                                        } else {
+                                            store.markEJ4Completed(currentEJ4Articulation)
+                                            if (store.isEJ4FullyCompleted) {
+                                                showEJ4CompletionDialog = true
+                                            } else {
+                                                val allPractice = EJ4Articulation.practiceCases
+                                                val idx = allPractice.indexOf(currentEJ4Articulation)
+                                                if (idx >= 0) {
+                                                    val nextArt = allPractice[(idx + 1) % allPractice.size]
+                                                    currentEJ4Articulation = nextArt
+                                                    store.lastEJ4Articulation = nextArt
+                                                    store.saveLastSelection()
+                                                }
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text(
+                                            text = loc.t("next_art"),
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1
+                                        )
+                                        Surface(
+                                            shape = RoundedCornerShape(percent = 50),
+                                            color = Color.White.copy(alpha = 0.2f)
+                                        ) {
+                                            Text(
+                                                text = "$ej4DoneCount/8",
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily.Monospace,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        Icon(
+                                            Icons.Default.ArrowForward,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
                                         )
                                     }
                                 }

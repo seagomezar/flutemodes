@@ -10,6 +10,8 @@ public class PracticeViewModel: ObservableObject {
     @Published public var currentExercise: ExerciseType
     @Published public var currentEJ1Articulation: EJ1Articulation
     @Published public var currentEJ2Articulation: EJ1Articulation
+    @Published public var currentEJ4Articulation: EJ4Articulation
+    @Published public var currentEJ4Section: Int
 
     @Published public var currentTonic: Tonic
     @Published public var currentMode: ModeType
@@ -19,6 +21,7 @@ public class PracticeViewModel: ObservableObject {
     @Published public var showCompletionDialog: Bool = false
     @Published public var showEJ1CompletionDialog: Bool = false
     @Published public var showEJ2CompletionDialog: Bool = false
+    @Published public var showEJ4CompletionDialog: Bool = false
     @Published public var keepScreenAwake: Bool {
         didSet {
             UserDefaults.standard.set(keepScreenAwake, forKey: "FluteModes_keepScreenAwake")
@@ -43,6 +46,8 @@ public class PracticeViewModel: ObservableObject {
         self.currentExercise = store.lastExerciseType
         self.currentEJ1Articulation = store.lastEJ1Articulation
         self.currentEJ2Articulation = store.lastEJ2Articulation
+        self.currentEJ4Articulation = store.lastEJ4Articulation
+        self.currentEJ4Section = store.lastEJ4Section
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
@@ -125,6 +130,12 @@ public class PracticeViewModel: ObservableObject {
                 tempoBPM: metronome.tempoBPM
             )
         case .ej4:
+            self.currentAbcScore = ExerciseGenerator.generateEJ4ABC(
+                sectionIndex: currentEJ4Section,
+                articulation: currentEJ4Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .modos:
             self.currentAbcScore = ExerciseGenerator.generateABC(
                 tonic: currentTonic,
                 mode: currentMode,
@@ -147,6 +158,12 @@ public class PracticeViewModel: ObservableObject {
                 tempoBPM: metronome.tempoBPM
             )
         case .ej4:
+            scorePlayer.toggleEJ4(
+                sectionIndex: currentEJ4Section,
+                articulation: currentEJ4Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .modos:
             scorePlayer.toggle(
                 tonic: currentTonic,
                 mode: currentMode,
@@ -261,7 +278,69 @@ public class PracticeViewModel: ObservableObject {
         updateScore()
     }
 
-    // MARK: - E.J. 4 Articulation & Mode Navigation
+    // MARK: - E.J. 4 Urtext (25 Sections x 8 Articulations)
+    public func selectEJ4Section(_ secIdx: Int) {
+        scorePlayer.stop()
+        let clamped = max(0, min(EJ4Section.all.count - 1, secIdx))
+        self.currentExercise = .ej4
+        self.currentEJ4Section = clamped
+        store.lastExerciseType = .ej4
+        store.lastEJ4Section = clamped
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func advanceToNextEJ4Section() {
+        scorePlayer.stop()
+        let nextSec = (currentEJ4Section + 1) % EJ4Section.all.count
+        selectEJ4Section(nextSec)
+    }
+
+    public func selectEJ4Articulation(_ articulation: EJ4Articulation, markPreviousCompleted: Bool = true) {
+        scorePlayer.stop()
+        if markPreviousCompleted && articulation != currentEJ4Articulation && currentEJ4Articulation.rawValue >= 1 {
+            store.markEJ4Completed(currentEJ4Articulation)
+        }
+        self.currentExercise = .ej4
+        self.currentEJ4Articulation = articulation
+        store.lastExerciseType = .ej4
+        store.lastEJ4Articulation = articulation
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func advanceToNextEJ4Articulation() {
+        scorePlayer.stop()
+        if currentEJ4Articulation.rawValue >= 1 {
+            store.markEJ4Completed(currentEJ4Articulation)
+        }
+        let practiceArts = EJ4Articulation.practiceCases
+        if let idx = practiceArts.firstIndex(of: currentEJ4Articulation) {
+            if idx + 1 < practiceArts.count {
+                self.currentEJ4Articulation = practiceArts[idx + 1]
+                store.lastEJ4Articulation = self.currentEJ4Articulation
+                store.saveProgress()
+                updateScore()
+            } else {
+                self.showEJ4CompletionDialog = true
+            }
+        } else {
+            self.currentEJ4Articulation = .allSlurred8
+            store.lastEJ4Articulation = .allSlurred8
+            store.saveProgress()
+            updateScore()
+        }
+    }
+
+    public func restartEJ4Round() {
+        scorePlayer.stop()
+        self.currentEJ4Articulation = .allSlurred8
+        store.lastEJ4Articulation = .allSlurred8
+        store.saveProgress()
+        updateScore()
+    }
+
+    // MARK: - 84 Modes Articulation & Mode Navigation
     public func selectArticulation(_ articulation: ArticulationPattern, markPreviousCompleted: Bool = true) {
         scorePlayer.stop()
         if markPreviousCompleted && articulation != currentArticulation {
@@ -283,7 +362,6 @@ public class PracticeViewModel: ObservableObject {
                 self.currentArticulation = all[idx + 1]
                 updateScore()
             } else {
-                // Completed all 8 articulations for this mode!
                 if store.areAllSevenModesPracticed(for: currentTonic) {
                     self.showCompletionDialog = true
                 } else {
@@ -295,12 +373,11 @@ public class PracticeViewModel: ObservableObject {
 
     public func selectMode(tonic: Tonic, mode: ModeType) {
         scorePlayer.stop()
-        self.currentExercise = .ej4
+        self.currentExercise = .modos
         self.currentTonic = tonic
         self.currentMode = mode
-        store.lastExerciseType = .ej4
+        store.lastExerciseType = .modos
 
-        // Suggest the first uncompleted articulation for this mode if any
         let uncompleted = ArticulationPattern.allCases.filter {
             !store.isCompleted(tonic: tonic, mode: mode, articulation: $0)
         }
@@ -332,12 +409,10 @@ public class PracticeViewModel: ObservableObject {
         }
     }
 
-    /// Legacy alias for backward compatibility
     public func markCurrentCompletedAndAdvanceMode() {
         advanceToNextMode()
     }
 
-    /// Option A: Continue in the same tonic with the next articulation round
     public func startNextArticulationRound() {
         scorePlayer.stop()
         let allArt = ArticulationPattern.allCases
@@ -349,7 +424,6 @@ public class PracticeViewModel: ObservableObject {
         updateScore()
     }
 
-    /// Option B: Advance to the next chromatic tonic
     public func advanceToNextTonic() {
         scorePlayer.stop()
         self.currentTonic = store.nextTonic(after: currentTonic)
@@ -359,16 +433,14 @@ public class PracticeViewModel: ObservableObject {
 
     public func suggestNextExercise() {
         scorePlayer.stop()
-        self.currentExercise = .ej4
-        store.lastExerciseType = .ej4
-        // Look first for uncompleted modes in current tonic
+        self.currentExercise = .modos
+        store.lastExerciseType = .modos
         let unpracticedInCurrent = ModeType.allCases.filter {
             store.completedArticulationsCount(tonic: currentTonic, mode: $0) == 0
         }
         if let nextMode = unpracticedInCurrent.first {
             self.currentMode = nextMode
         } else {
-            // Find any unpracticed mode in all tonics
             for t in Tonic.allCases {
                 let unpracticed = ModeType.allCases.filter {
                     store.completedArticulationsCount(tonic: t, mode: $0) == 0

@@ -23,6 +23,8 @@ sealed class Screen {
         val exerciseType: ExerciseType = ExerciseType.EJ1,
         val ej1Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
         val ej2Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
+        val ej4Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
+        val ej4Section: EJ4Section = EJ4Section.C_MAJOR,
         val tonic: Tonic = Tonic.DO_NATURAL,
         val mode: ModeType = ModeType.IONIAN
     ) : Screen()
@@ -66,12 +68,14 @@ class MainActivity : ComponentActivity() {
                                 store = store,
                                 loc = loc,
                                 onStartPractice = { tonic, mode ->
-                                    store.lastExerciseType = ExerciseType.EJ4
+                                    store.lastExerciseType = ExerciseType.MODOS
                                     store.saveLastSelection()
                                     currentScreen = Screen.Practice(
-                                        exerciseType = ExerciseType.EJ4,
+                                        exerciseType = ExerciseType.MODOS,
                                         ej1Articulation = store.lastEJ1Articulation,
                                         ej2Articulation = store.lastEJ2Articulation,
+                                        ej4Articulation = store.lastEJ4Articulation,
+                                        ej4Section = store.lastEJ4Section,
                                         tonic = tonic,
                                         mode = mode
                                     )
@@ -84,6 +88,8 @@ class MainActivity : ComponentActivity() {
                                         exerciseType = ExerciseType.EJ1,
                                         ej1Articulation = art,
                                         ej2Articulation = store.lastEJ2Articulation,
+                                        ej4Articulation = store.lastEJ4Articulation,
+                                        ej4Section = store.lastEJ4Section,
                                         tonic = store.lastTonic ?: Tonic.DO_NATURAL,
                                         mode = store.lastMode ?: ModeType.IONIAN
                                     )
@@ -96,6 +102,23 @@ class MainActivity : ComponentActivity() {
                                         exerciseType = ExerciseType.EJ2,
                                         ej1Articulation = store.lastEJ1Articulation,
                                         ej2Articulation = art,
+                                        ej4Articulation = store.lastEJ4Articulation,
+                                        ej4Section = store.lastEJ4Section,
+                                        tonic = store.lastTonic ?: Tonic.DO_NATURAL,
+                                        mode = store.lastMode ?: ModeType.IONIAN
+                                    )
+                                },
+                                onStartEJ4Practice = { art, sec ->
+                                    store.lastExerciseType = ExerciseType.EJ4
+                                    store.lastEJ4Articulation = art
+                                    store.lastEJ4Section = sec
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ExerciseType.EJ4,
+                                        ej1Articulation = store.lastEJ1Articulation,
+                                        ej2Articulation = store.lastEJ2Articulation,
+                                        ej4Articulation = art,
+                                        ej4Section = sec,
                                         tonic = store.lastTonic ?: Tonic.DO_NATURAL,
                                         mode = store.lastMode ?: ModeType.IONIAN
                                     )
@@ -110,6 +133,8 @@ class MainActivity : ComponentActivity() {
                                 initialExercise = screen.exerciseType,
                                 initialEJ1Articulation = screen.ej1Articulation,
                                 initialEJ2Articulation = screen.ej2Articulation,
+                                initialEJ4Articulation = screen.ej4Articulation,
+                                initialEJ4Section = screen.ej4Section,
                                 initialTonic = screen.tonic,
                                 initialMode = screen.mode,
                                 store = store,
@@ -133,12 +158,14 @@ class MainActivity : ComponentActivity() {
                                 store = store,
                                 loc = loc,
                                 onSelectCell = { tonic, mode ->
-                                    store.lastExerciseType = ExerciseType.EJ4
+                                    store.lastExerciseType = ExerciseType.MODOS
                                     store.saveLastSelection()
                                     currentScreen = Screen.Practice(
-                                        exerciseType = ExerciseType.EJ4,
+                                        exerciseType = ExerciseType.MODOS,
                                         ej1Articulation = store.lastEJ1Articulation,
                                         ej2Articulation = store.lastEJ2Articulation,
+                                        ej4Articulation = store.lastEJ4Articulation,
+                                        ej4Section = store.lastEJ4Section,
                                         tonic = tonic,
                                         mode = mode
                                     )

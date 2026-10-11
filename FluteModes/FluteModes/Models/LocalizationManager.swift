@@ -100,8 +100,8 @@ public class LocalizationManager: ObservableObject {
             "🎵 Switch to E. J. 2 (Minor Pentachords)"
         ],
         "ej1_go_to_ej4": [
-            "🎵 Ir a E. J. 4 (84 Modos Paralelos)",
-            "🎵 Switch to E. J. 4 (84 Parallel Modes)"
+            "🎵 Ir a E. J. 4 (Escalas Diatónicas)",
+            "🎵 Switch to E. J. 4 (Diatonic Scales)"
         ],
 
         // E.J. 2 General
@@ -142,8 +142,54 @@ public class LocalizationManager: ObservableObject {
             "🔁 Restart from Articulation 1"
         ],
         "ej2_go_to_ej4": [
-            "🎵 Ir a E. J. 4 (84 Modos Paralelos)",
-            "🎵 Switch to E. J. 4 (84 Parallel Modes)"
+            "🎵 Ir a E. J. 4 (Escalas Diatónicas)",
+            "🎵 Switch to E. J. 4 (Diatonic Scales)"
+        ],
+
+        // E.J. 4 Urtext General
+        "ej4_title": [
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 111–114)",
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 111–114)"
+        ],
+        "ej4_sub_desc": [
+            "Escalas Diatónicas en 24 Tonalidades Mayores y Menores Relativas + Coda (194 compases · 8 articulaciones oficiales)",
+            "Diatonic Scales across 24 Major & Relative Minor Keys + Coda (194 measures · 8 official articulations)"
+        ],
+        "ej4_header_info": [
+            "24 Tonalidades (Mayores y Menores: armónica en c. 1 y 7, melódica/natural) · 194 Compases · 8 Articulaciones",
+            "24 Keys (Major & Minor: harmonic in m. 1 & 7, melodic/natural) · 194 Measures · 8 Articulations"
+        ],
+        "ej4_select_section": [
+            "25 Secciones Tonales (194 Compases)",
+            "25 Tonal Sections (194 Measures)"
+        ],
+        "ej4_select_art": [
+            "8 Articulaciones Oficiales (E. J. 4)",
+            "8 Official Articulations (E. J. 4)"
+        ],
+        "ej4_start_practice": [
+            "Practicar E. J. 4 (Urtext)",
+            "Practice E. J. 4 (Urtext)"
+        ],
+        "ej4_eight_arts_completed": [
+            "8 Articulaciones Completadas",
+            "8 Articulations Completed"
+        ],
+        "ej4_milestone_title": [
+            "¡E. J. 4 Completado (8/8 Articulaciones)!",
+            "E. J. 4 Completed (8/8 Articulations)!"
+        ],
+        "ej4_milestone_msg": [
+            "Has completado las 8 articulaciones oficiales del Ejercicio Diario N.° 4 de Taffanel & Gaubert (194 compases).",
+            "You have completed all 8 official articulations of Taffanel & Gaubert Daily Exercise No. 4 (194 measures)."
+        ],
+        "ej4_restart_round": [
+            "🔁 Volver a Articulación 1",
+            "🔁 Restart from Articulation 1"
+        ],
+        "ej4_go_to_modos": [
+            "🎵 Ir a 84 Modos Paralelos (León Giraldo)",
+            "🎵 Switch to 84 Parallel Modes (León Giraldo)"
         ],
 
         // E.J. 1 Articulations (0..10)

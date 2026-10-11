@@ -760,13 +760,17 @@
           <span>📗</span>
           <span class="i18n" data-es="Visor Urtext E. J. 2" data-en="E. J. 2 Urtext Viewer">Visor Urtext E. J. 2</span>
         </a>
+        <a href="ej4.html" class="btn btn-secondary">
+          <span>📕</span>
+          <span class="i18n" data-es="Visor Urtext E. J. 4" data-en="E. J. 4 Urtext Viewer">Visor Urtext E. J. 4</span>
+        </a>
         <a href="https://testflight.apple.com" class="btn btn-secondary">
           <span>🍏</span>
           <span class="i18n" data-es="Probar en TestFlight (iOS)" data-en="Test on TestFlight (iOS)">Probar en TestFlight (iOS)</span>
         </a>
-        <a href="downloads/apk/FluteModes-v1.2.0-release.apk" download class="btn btn-secondary">
+        <a href="downloads/apk/FluteModes-v1.3.0-release.apk" download class="btn btn-secondary">
           <span>🤖</span>
-          <span class="i18n" data-es="Descargar APK v1.2.0 (Android)" data-en="Download APK v1.2.0 (Android)">Descargar APK v1.2.0 (Android)</span>
+          <span class="i18n" data-es="Descargar APK v1.3.0 (Android)" data-en="Download APK v1.3.0 (Android)">Descargar APK v1.3.0 (Android)</span>
         </a>
       </div>
     </section>
@@ -794,7 +798,7 @@
           <div class="pillar-box">
             <div class="pillar-num">02</div>
             <div class="pillar-title i18n" data-es="Mecánica Canónica (EJ 1, EJ 2 y EJ 4)" data-en="Canonical Mechanics (EJ 1, EJ 2 & EJ 4)">Mecánica Canónica (EJ 1, EJ 2 y EJ 4)</div>
-            <p class="pillar-desc i18n" data-es="Integra los pentacordios cromáticos mayores (E.J. 1) y menores (E.J. 2) con sus 10 articulaciones oficiales Leduc junto al estudio periódico de 84 modos paralelos (E.J. 4)." data-en="Integrates chromatic major (E.J. 1) and minor (E.J. 2) pentachords with all 10 official Leduc articulations alongside the 84 parallel modes study (E.J. 4).">Integra los pentacordios cromáticos mayores (E.J. 1) y menores (E.J. 2) con sus 10 articulaciones oficiales Leduc junto al estudio periódico de 84 modos paralelos (E.J. 4).</p>
+            <p class="pillar-desc i18n" data-es="Integra los pentacordios cromáticos mayores (E.J. 1), menores (E.J. 2) y las 24 escalas diatónicas mayores y menores (E.J. 4 Urtext A.L. 16.588) junto al estudio de 84 modos paralelos." data-en="Integrates chromatic major (E.J. 1) and minor (E.J. 2) pentachords and the 24 diatonic major/minor scales (E.J. 4 Urtext A.L. 16.588) alongside the 84 parallel modes study.">Integra los pentacordios cromáticos mayores (E.J. 1), menores (E.J. 2) y las 24 escalas diatónicas mayores y menores (E.J. 4 Urtext A.L. 16.588) junto al estudio de 84 modos paralelos.</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-num">03</div>
@@ -810,9 +814,9 @@
       <div class="score-header-top">
         <div>
           <div class="score-title i18n" 
-               data-es="Atril Interactivo: E. J. 1, E. J. 2 y E. J. 4 (84 Modos)" 
-               data-en="Interactive Stand: E. J. 1, E. J. 2 & E. J. 4 (84 Modes)">
-            Atril Interactivo: E. J. 1, E. J. 2 y E. J. 4 (84 Modos)
+               data-es="Atril Interactivo: E. J. 1, E. J. 2, E. J. 4 y 84 Modos" 
+               data-en="Interactive Stand: E. J. 1, E. J. 2, E. J. 4 & 84 Modes">
+            Atril Interactivo: E. J. 1, E. J. 2, E. J. 4 y 84 Modos
           </div>
           <div class="score-subtitle i18n" 
                data-es="Renderizado directo de notación musical ABC Urtext (A. L. 16.588) con sintetizador de piano acústico en tiempo real" 
@@ -827,7 +831,8 @@
       <div class="mode-bar" id="exercise-buttons-container">
         <button class="mode-btn active" onclick="setExercise('ej1', this)">🎼 E. J. 1 · Pentacordios Mayores (10 Arts.)</button>
         <button class="mode-btn" onclick="setExercise('ej2', this)">🎼 E. J. 2 · Pentacordios Menores (10 Arts.)</button>
-        <button class="mode-btn" onclick="setExercise('ej4', this)">🎹 E. J. 4 · 84 Modos Paralelos (León Giraldo)</button>
+        <button class="mode-btn" onclick="window.location.href='ej4.html'">🎼 E. J. 4 · Escalas Diatónicas Urtext (24 Ton. · 8 Arts.)</button>
+        <button class="mode-btn" onclick="setExercise('ej4', this)">🎹 84 Modos Paralelos (León Giraldo)</button>
       </div>
 
       <!-- CONTROLES PARA E.J. 1 Y E.J. 2 (10 ARTICULACIONES) -->
@@ -990,7 +995,13 @@
             <td><a href="downloads/pdf/taffanel_ej2_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej2.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos — E. J. 4)</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 4 (Urtext A. L. 16.588)</td>
+            <td class="i18n" data-es="Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales Leduc)." data-en="Diatonic Major & Minor Scales (Melodic asc. / Harmonic desc. in 1st & penultimate bars, 24 keys + Coda, 194 measures, pp. 111–114, and 8 official Leduc articulations).">Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales Leduc).</td>
+            <td>PDF / ABC / Web</td>
+            <td><a href="downloads/pdf/taffanel_ej4_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/09_Coleccion_Completa_Taffanel_EJ4_8_Articulaciones.abc" download>ABC (8 Arts.)</a> · <a href="ej4.html">Visor</a></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos Paralelos)</td>
             <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes by Maestro León Giraldo.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo.</td>
             <td>PDF (7.0 MB)</td>
             <td><a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download>📥 Descargar PDF Maestro</a></td>

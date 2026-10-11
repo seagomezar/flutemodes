@@ -20,9 +20,15 @@ class PracticeStore(context: Context) {
     var ej2CompletedSet by mutableStateOf<Set<Int>>(emptySet())
         private set
 
+    // Completed E.J. 4 articulation IDs (1..8)
+    var ej4CompletedSet by mutableStateOf<Set<Int>>(emptySet())
+        private set
+
     var lastExerciseType by mutableStateOf(ExerciseType.EJ1)
     var lastEJ1Articulation by mutableStateOf(EJ1Articulation.ORIGINAL)
     var lastEJ2Articulation by mutableStateOf(EJ1Articulation.ORIGINAL)
+    var lastEJ4Articulation by mutableStateOf(EJ4Articulation.ORIGINAL)
+    var lastEJ4Section by mutableStateOf(EJ4Section.C_MAJOR)
 
     var lastTonic by mutableStateOf<Tonic?>(null)
     var lastMode by mutableStateOf<ModeType?>(null)
@@ -120,6 +126,46 @@ class PracticeStore(context: Context) {
         saveProgress()
     }
 
+    // --- E.J. 4 (Urtext) Progress ---
+    fun isEJ4Completed(articulation: EJ4Articulation): Boolean {
+        if (articulation == EJ4Articulation.ORIGINAL) return false
+        return ej4CompletedSet.contains(articulation.id)
+    }
+
+    val ej4CompletedCount: Int
+        get() = ej4CompletedSet.size
+
+    val isEJ4FullyCompleted: Boolean
+        get() = ej4CompletedSet.size == 8
+
+    fun markEJ4Completed(articulation: EJ4Articulation) {
+        if (articulation != EJ4Articulation.ORIGINAL) {
+            ej4CompletedSet = ej4CompletedSet + articulation.id
+        }
+        lastExerciseType = ExerciseType.EJ4
+        lastEJ4Articulation = articulation
+        saveProgress()
+    }
+
+    fun unmarkEJ4Completed(articulation: EJ4Articulation) {
+        ej4CompletedSet = ej4CompletedSet - articulation.id
+        saveProgress()
+    }
+
+    fun toggleEJ4Completed(articulation: EJ4Articulation) {
+        if (articulation == EJ4Articulation.ORIGINAL) return
+        if (isEJ4Completed(articulation)) {
+            unmarkEJ4Completed(articulation)
+        } else {
+            markEJ4Completed(articulation)
+        }
+    }
+
+    fun resetEJ4() {
+        ej4CompletedSet = emptySet()
+        saveProgress()
+    }
+
     // --- Unified Chromatic Helpers ---
     fun isChromaticCompleted(articulation: EJ1Articulation, exercise: ExerciseType): Boolean {
         return if (exercise == ExerciseType.EJ2) isEJ2Completed(articulation) else isEJ1Completed(articulation)
@@ -149,7 +195,7 @@ class PracticeStore(context: Context) {
         }
     }
 
-    // --- E.J. 4 Progress ---
+    // --- 84 Modos Progress ---
     fun isCompleted(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern): Boolean {
         val key = "${tonic.name}_${mode.name}"
         return completedMap[key]?.contains(articulation.id) ?: false
@@ -192,7 +238,7 @@ class PracticeStore(context: Context) {
         current.add(articulation.id)
         completedMap[key] = current
 
-        lastExerciseType = ExerciseType.EJ4
+        lastExerciseType = ExerciseType.MODOS
         lastTonic = tonic
         lastMode = mode
         lastArticulation = articulation
@@ -236,6 +282,7 @@ class PracticeStore(context: Context) {
         completedMap.clear()
         ej1CompletedSet = emptySet()
         ej2CompletedSet = emptySet()
+        ej4CompletedSet = emptySet()
         lastTonic = null
         lastMode = null
         lastArticulation = null
@@ -253,9 +300,12 @@ class PracticeStore(context: Context) {
         }
         editor.putString("ej1_completed", ej1CompletedSet.joinToString(","))
         editor.putString("ej2_completed", ej2CompletedSet.joinToString(","))
+        editor.putString("ej4_completed", ej4CompletedSet.joinToString(","))
         editor.putString("last_exercise_type", lastExerciseType.name)
         editor.putString("last_ej1_articulation", lastEJ1Articulation.name)
         editor.putString("last_ej2_articulation", lastEJ2Articulation.name)
+        editor.putString("last_ej4_articulation", lastEJ4Articulation.name)
+        editor.putString("last_ej4_section", lastEJ4Section.name)
         lastTonic?.let { editor.putString("last_tonic", it.name) }
         lastMode?.let { editor.putString("last_mode", it.name) }
         lastArticulation?.let { editor.putString("last_articulation", it.name) }
@@ -287,6 +337,13 @@ class PracticeStore(context: Context) {
                 .filter { it in 1..10 }
                 .toSet()
         }
+        val ej4Str = prefs.getString("ej4_completed", null)
+        if (!ej4Str.isNullOrBlank()) {
+            ej4CompletedSet = ej4Str.split(",")
+                .mapNotNull { it.trim().toIntOrNull() }
+                .filter { it in 1..8 }
+                .toSet()
+        }
         val exStr = prefs.getString("last_exercise_type", null)
         if (exStr != null) {
             lastExerciseType = runCatching { ExerciseType.valueOf(exStr) }.getOrDefault(ExerciseType.EJ1)
@@ -298,6 +355,14 @@ class PracticeStore(context: Context) {
         val ej2ArtStr = prefs.getString("last_ej2_articulation", null)
         if (ej2ArtStr != null) {
             lastEJ2Articulation = runCatching { EJ1Articulation.valueOf(ej2ArtStr) }.getOrDefault(EJ1Articulation.ORIGINAL)
+        }
+        val ej4ArtStr = prefs.getString("last_ej4_articulation", null)
+        if (ej4ArtStr != null) {
+            lastEJ4Articulation = runCatching { EJ4Articulation.valueOf(ej4ArtStr) }.getOrDefault(EJ4Articulation.ORIGINAL)
+        }
+        val ej4SecStr = prefs.getString("last_ej4_section", null)
+        if (ej4SecStr != null) {
+            lastEJ4Section = runCatching { EJ4Section.valueOf(ej4SecStr) }.getOrDefault(EJ4Section.C_MAJOR)
         }
         val tStr = prefs.getString("last_tonic", null)
         val mStr = prefs.getString("last_mode", null)

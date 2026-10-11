@@ -1,0 +1,641 @@
+%!abctab2ps
+% Colección Completa E. J. 4 (8 Articulaciones Oficiales — A. L. 16.588)
+
+X:1
+T:E. J. 4 — Articulación 1 — 8 ligadas: (CDEFGABc)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+(CDEF GABc) (dcBA GFED) | (EFGA Bcde) (fedc BAGF) | (GABc defg) (agfe dcBA) |
+(Bcde fgab) (c'bag fedc) | (Bcde fgab) (agfe dcBA) | (GABc defg) (fedc BAGF) |
+(EFGA Bcde) (dcBA GFED) | (CDEF GABc) (BA^G=F EdcB)  || "^RELATIF MINEUR"(ABcd e^f^ga) (ba^g=f edcB) |
+(cde^f ^gabc') (d'c'ba =g=fed) | (e^f^ga bc'd'e') (=f'e'd'c' ba^g^f) | (^gabc' d'e'^f'^g') (a'=g'=f'e' d'c'ba) |
+(^gabc' d'e'=f'=g') (f'e'd'c' ba=gf) | (e^f^ga bc'd'e') (d'c'ba =g=fed) | (cde^f ^gabc') (ba^g=f edcB) |
+(ABcd e^f^ga) (=g=fed c_BAG)  || [K:F] (FGAB cdef) (gfed cBAG) | (ABcd efga) (bagf edcB) |
+(cdef gabc') (d'c'ba gfed) | (efga bc'd'e') (f'e'd'c' bagf) | (efga bc'd'e') (d'c'ba gfed) |
+(cdef gabc') (bagf edcB) | (ABcd efga) (gfed cBAG) | (FGAB cdef) (ed^c_B AGFE) ||
+"^MINEUR"(DEFG A=B^cd) (ed^c_B AGFE) | (FGA=B ^cdef) (gfed =c_BAG) | (A=B^cd efga) (_bagf ed^c=B) |
+(^cdef ga=b^c') (d'=c'_ba gfed) | (^cdef ga_b=c') (bagf ed=cB) | (A=B^cd efga) (gfed =c_BAG) |
+(FGA=B ^cdef) (ed^c_B AGFE) | (DEFG A=B^cd) (=c_BAG F_edc)  || [K:Bb] (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (fgab c'd'e'f') (g'f'e'd' c'bag) | (abc'd' e'f'g'a') (b'a'g'f' e'd'c'b) |
+(abc'd' e'f'g'a') (g'f'e'd' c'bag) | (fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (ag^f_e dcBA)  || "^MINEUR"(GABc d=e^fg) (ag^f_e dcBA) | (Bcd=e ^fgab) (c'bag =f_edc) |
+(d=e^fg abc'd') (_e'd'c'b ag^f=e) | (^fgab c'd'=e'^f') (g'=f'_e'd' c'bag) | (^fgab c'd'_e'=f') (e'd'c'b ag=fe) |
+K:Bb
+(d=e^fg abc'd') (c'bag =f_edc) | (Bcd=e ^fgab) (ag^f_e dcBA) | (GABc d=e^fg) (=f_edc B_AGF) ||
+K:Eb
+(EFGA Bcde) (fedc BAGF) | (GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) | (Bcde fgab) (agfe dcBA) |
+(GABc defg) (fedc BAGF) | (EFGA Bcde) (dc=B_A GFED)  || "^MINEUR"(CDEF G=A=Bc) (dc=B_A GFED) |
+(EFG=A =Bcde) (fedc _B_AGF) | (G=A=Bc defg) (_agfe dc=B=A) | (=Bcde fg=a=b) (c'_b_ag fedc) |
+(=Bcde fg_a_b) (agfe dc_BA) | (G=A=Bc defg) (fedc _B_AGF) | (EFG=A =Bcde) (dc=B_A GFED) |
+(CDEF G=A=Bc) (_B_AGF E_dcB)  || [K:Ab] (ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+(efga bc'd'e') (f'e'd'c' bagf) | (gabc' d'e'f'g') (a'g'f'e' d'c'ba) | (gabc' d'e'f'g') (f'e'd'c' bagf) |
+(efga bc'd'e') (d'c'ba gfed) | (cdef gabc') (bagf edcB) | (ABcd efga) (gf=e_d cBAG) ||
+"^MINEUR"(FGAB c=d=ef) (gf=e_d cBAG) | (ABc=d =efga) (bagf _e_dcB) | (c=d=ef gabc') (_d'c'ba gf=e=d) |
+(=efga bc'=d'=e') (f'_e'_d'c' bagf) | (=efga bc'_d'_e') (d'c'ba gf_ed) | (c=d=ef gabc') (bagf _e_dcB) |
+(ABc=d =efga) (gf=e_d cBAG) | (FGAB c=d=ef) (_e_dcB A_GFE)  || [K:Db] (DEFG ABcd) (edcB AGFE) |
+(FGAB cdef) (gfed cBAG) | (ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+(cdef gabc') (bagf edcB) | (ABcd efga) (gfed cBAG) | (FGAB cdef) (edcB AGFE) |
+(DEFG ABcd) (cB=A_G Fedc)  || "^MINEUR"(Bcde f=g=ab) (c'b=a_g fedc) | (def=g =abc'd') (e'd'c'b _a_gfe) |
+(f=g=ab c'd'e'f') (_g'f'e'd' c'b=a=g) | (=abc'd' e'f'=g'=a') (b'_a'_g'f' e'd'c'b) | (=abc'd' e'f'_g'_a') (g'f'e'd' c'b_ag) |
+(f=g=ab c'd'e'f') (e'd'c'b _a_gfe) | (def=g =abc'd') (c'b=a_g fedc) | (Bcde f=g=ab) (_a_gfe d_cBA) ||
+K:Gb
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) | (defg abc'd') (e'd'c'b agfe) |
+(fgab c'd'e'f') (g'f'e'd' c'bag) | (fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fe=d_c BAGF)  || "^MINEUR"(EFGA B=c=de) (fe=d_c BAGF) |
+(GAB=c =defg) (agfe _d_cBA) | (B=c=de fgab) (_c'bag fe=d=c) | (=defg ab=c'=d') (e'_d'_c'b agfe) |
+(=defg ab_c'_d') (c'bag fe_dc) | (B=c=de fgab) (agfe _d_cBA) | (GAB=c =defg) (fe=d_c BAGF) |
+(EFGA B=c=de) (_d_cBA G=e^d^c)  || [K:B] (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (fgab c'd'e'f') (g'f'e'd' c'bag) | (abc'd' e'f'g'a') (b'a'g'f' e'd'c'b) |
+(abc'd' e'f'g'a') (g'f'e'd' c'bag) | (fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (ag^^fe dcBA)  || "^MINEUR"(GABc d^e^^fg) (ag^^f=e dcBA) | (Bcd^e ^^fgab) (c'bag ^f=edc) |
+(d^e^^fg abc'd') (=e'd'c'b ag^^f^e) | (^^fgab c'd'^e'^^f') (g'^f'=e'd' c'bag) | (^^fgab c'd'=e'^f') (e'd'c'b ag^fe) |
+(d^e^^fg abc'd') (c'bag ^f=edc) | (Bcd^e ^^fgab) (ag^^f=e dcBA) | (GABc d^e^^fg) (^f=edc B=AGF) ||
+K:E
+(EFGA Bcde) (fedc BAGF) | (GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) |
+(defg abc'd') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) | (Bcde fgab) (agfe dcBA) |
+(GABc defg) (fedc BAGF) | (EFGA Bcde) (dc^BA GFED)  || "^MINEUR"(CDEF G^A^Bc) (dc^B=A GFED) |
+(EFG^A ^Bcde) (fedc =B=AGF) | (G^A^Bc defg) (=agfe dc^B^A) | (^Bcde fg^a^b) (c'=b=ag fedc) |
+(^Bcde fg=a=b) (agfe dc=BA) | (G^A^Bc defg) (fedc =B=AGF) | (EFG^A ^Bcde) (dc^B=A GFED) |
+(CDEF G^A^Bc) (=B=AGF E=dcB)  || [K:A] (ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+K:A
+(efga bc'd'e') (f'e'd'c' bagf) | (gabc' d'e'f'g') (a'g'f'e' d'c'ba) | (gabc' d'e'f'g') (f'e'd'c' bagf) |
+(efga bc'd'e') (d'c'ba gfed) | (cdef gabc') (bagf edcB) | (ABcd efga) (gf^ed cBAG) ||
+"^MINEUR"(FGAB c^d^ef) (gf^e=d cBAG) | (ABc^d ^efga) (bagf =e=dcB) | (c^d^ef gabc') (=d'c'ba gf^e^d) |
+(^efga bc'^d'^e') (f'=e'=d'c' bagf) | (^efga bc'=d'=e') (d'c'ba gf=ed) | (c^d^ef gabc') (bagf =e=dcB) |
+(ABc^d ^efga) (gf^e=d cBAG) | (FGAB c^d^ef) (=e=dcB A=GFE)  || [K:D] (DEFG ABcd) (edcB AGFE) |
+(FGAB cdef) (gfed cBAG) | (ABcd efga) (bagf edcB) | (cdef gabc') (d'c'ba gfed) |
+(cdef gabc') (bagf edcB) | (ABcd efga) (gfed cBAG) | (FGAB cdef) (edcB AGFE) |
+(DEFG ABcd) (cB^A=G Fedc)  || "^MINEUR"(Bcde f^g^ab) (c'b^a=g fedc) | (def^g ^abc'd') (e'd'c'b =a=gfe) |
+(f^g^ab c'd'e'f') (=g'f'e'd' c'b^a^g) | (^abc'd' e'f'^g'^a') (b'=a'=g'f' e'd'c'b) | (^abc'd' e'f'=g'=a') (g'f'e'd' c'b=ag) |
+(f^g^ab c'd'e'f') (e'd'c'b =a=gfe) | (def^g ^abc'd') (c'b^a=g fedc) | (Bcde f^g^ab) (=a=gfe d=cBA) ||
+K:G
+(GABc defg) (agfe dcBA) | (Bcde fgab) (c'bag fedc) | (defg abc'd') (e'd'c'b agfe) |
+(fgab c'd'e'f') (g'f'e'd' c'bag) | (fgab c'd'e'f') (e'd'c'b agfe) | (defg abc'd') (c'bag fedc) |
+(Bcde fgab) (agfe dcBA) | (GABc defg) (fe^d=c BAGF)  || "^MINEUR"(EFGA B^c^de) (fe^d=c BAGF) |
+(GAB^c ^defg) (agfe =d=cBA) | (B^c^de fgab) (=c'bag fe^d^c) | (^defg ab^c'^d') (e'=d'=c'b agfe) |
+(^defg ab=c'=d') (c'bag fe=dc) | (B^c^de fgab) (agfe =d=cBA) | (GAB^c ^defg) (fe^d=c BAGF) |
+(EFGA B^c^de) (=d=cBA G=FED)  || [K:C] (CDEF GABc) (defg abc'b) | (agfe dcBA) (GFED C2z2) |]
+
+
+X:2
+T:E. J. 4 — Articulación 2 — 4 y 4 ligadas: (CDEF)(GABc)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+(CDEF) (GABc) (dcBA) (GFED) | (EFGA) (Bcde) (fedc) (BAGF) | (GABc) (defg) (agfe) (dcBA) |
+(Bcde) (fgab) (c'bag) (fedc) | (Bcde) (fgab) (agfe) (dcBA) | (GABc) (defg) (fedc) (BAGF) |
+(EFGA) (Bcde) (dcBA) (GFED) | (CDEF) (GABc) (BA^G=F) (EdcB)  || "^RELATIF MINEUR"(ABcd) (e^f^ga) (ba^g=f) (edcB) |
+(cde^f) (^gabc') (d'c'ba) (=g=fed) | (e^f^ga) (bc'd'e') (=f'e'd'c') (ba^g^f) | (^gabc') (d'e'^f'^g') (a'=g'=f'e') (d'c'ba) |
+(^gabc') (d'e'=f'=g') (f'e'd'c') (ba=gf) | (e^f^ga) (bc'd'e') (d'c'ba) (=g=fed) | (cde^f) (^gabc') (ba^g=f) (edcB) |
+(ABcd) (e^f^ga) (=g=fed) (c_BAG)  || [K:F] (FGAB) (cdef) (gfed) (cBAG) | (ABcd) (efga) (bagf) (edcB) |
+(cdef) (gabc') (d'c'ba) (gfed) | (efga) (bc'd'e') (f'e'd'c') (bagf) | (efga) (bc'd'e') (d'c'ba) (gfed) |
+(cdef) (gabc') (bagf) (edcB) | (ABcd) (efga) (gfed) (cBAG) | (FGAB) (cdef) (ed^c_B) (AGFE) ||
+"^MINEUR"(DEFG) (A=B^cd) (ed^c_B) (AGFE) | (FGA=B) (^cdef) (gfed) (=c_BAG) | (A=B^cd) (efga) (_bagf) (ed^c=B) |
+(^cdef) (ga=b^c') (d'=c'_ba) (gfed) | (^cdef) (ga_b=c') (bagf) (ed=cB) | (A=B^cd) (efga) (gfed) (=c_BAG) |
+(FGA=B) (^cdef) (ed^c_B) (AGFE) | (DEFG) (A=B^cd) (=c_BAG) (F_edc)  || [K:Bb] (Bcde) (fgab) (c'bag) (fedc) |
+(defg) (abc'd') (e'd'c'b) (agfe) | (fgab) (c'd'e'f') (g'f'e'd') (c'bag) | (abc'd') (e'f'g'a') (b'a'g'f') (e'd'c'b) |
+(abc'd') (e'f'g'a') (g'f'e'd') (c'bag) | (fgab) (c'd'e'f') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) |
+(Bcde) (fgab) (ag^f_e) (dcBA)  || "^MINEUR"(GABc) (d=e^fg) (ag^f_e) (dcBA) | (Bcd=e) (^fgab) (c'bag) (=f_edc) |
+(d=e^fg) (abc'd') (_e'd'c'b) (ag^f=e) | (^fgab) (c'd'=e'^f') (g'=f'_e'd') (c'bag) | (^fgab) (c'd'_e'=f') (e'd'c'b) (ag=fe) |
+K:Bb
+(d=e^fg) (abc'd') (c'bag) (=f_edc) | (Bcd=e) (^fgab) (ag^f_e) (dcBA) | (GABc) (d=e^fg) (=f_edc) (B_AGF) ||
+K:Eb
+(EFGA) (Bcde) (fedc) (BAGF) | (GABc) (defg) (agfe) (dcBA) | (Bcde) (fgab) (c'bag) (fedc) |
+(defg) (abc'd') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) | (Bcde) (fgab) (agfe) (dcBA) |
+(GABc) (defg) (fedc) (BAGF) | (EFGA) (Bcde) (dc=B_A) (GFED)  || "^MINEUR"(CDEF) (G=A=Bc) (dc=B_A) (GFED) |
+(EFG=A) (=Bcde) (fedc) (_B_AGF) | (G=A=Bc) (defg) (_agfe) (dc=B=A) | (=Bcde) (fg=a=b) (c'_b_ag) (fedc) |
+(=Bcde) (fg_a_b) (agfe) (dc_BA) | (G=A=Bc) (defg) (fedc) (_B_AGF) | (EFG=A) (=Bcde) (dc=B_A) (GFED) |
+(CDEF) (G=A=Bc) (_B_AGF) (E_dcB)  || [K:Ab] (ABcd) (efga) (bagf) (edcB) | (cdef) (gabc') (d'c'ba) (gfed) |
+(efga) (bc'd'e') (f'e'd'c') (bagf) | (gabc') (d'e'f'g') (a'g'f'e') (d'c'ba) | (gabc') (d'e'f'g') (f'e'd'c') (bagf) |
+(efga) (bc'd'e') (d'c'ba) (gfed) | (cdef) (gabc') (bagf) (edcB) | (ABcd) (efga) (gf=e_d) (cBAG) ||
+"^MINEUR"(FGAB) (c=d=ef) (gf=e_d) (cBAG) | (ABc=d) (=efga) (bagf) (_e_dcB) | (c=d=ef) (gabc') (_d'c'ba) (gf=e=d) |
+(=efga) (bc'=d'=e') (f'_e'_d'c') (bagf) | (=efga) (bc'_d'_e') (d'c'ba) (gf_ed) | (c=d=ef) (gabc') (bagf) (_e_dcB) |
+(ABc=d) (=efga) (gf=e_d) (cBAG) | (FGAB) (c=d=ef) (_e_dcB) (A_GFE)  || [K:Db] (DEFG) (ABcd) (edcB) (AGFE) |
+(FGAB) (cdef) (gfed) (cBAG) | (ABcd) (efga) (bagf) (edcB) | (cdef) (gabc') (d'c'ba) (gfed) |
+(cdef) (gabc') (bagf) (edcB) | (ABcd) (efga) (gfed) (cBAG) | (FGAB) (cdef) (edcB) (AGFE) |
+(DEFG) (ABcd) (cB=A_G) (Fedc)  || "^MINEUR"(Bcde) (f=g=ab) (c'b=a_g) (fedc) | (def=g) (=abc'd') (e'd'c'b) (_a_gfe) |
+(f=g=ab) (c'd'e'f') (_g'f'e'd') (c'b=a=g) | (=abc'd') (e'f'=g'=a') (b'_a'_g'f') (e'd'c'b) | (=abc'd') (e'f'_g'_a') (g'f'e'd') (c'b_ag) |
+(f=g=ab) (c'd'e'f') (e'd'c'b) (_a_gfe) | (def=g) (=abc'd') (c'b=a_g) (fedc) | (Bcde) (f=g=ab) (_a_gfe) (d_cBA) ||
+K:Gb
+(GABc) (defg) (agfe) (dcBA) | (Bcde) (fgab) (c'bag) (fedc) | (defg) (abc'd') (e'd'c'b) (agfe) |
+(fgab) (c'd'e'f') (g'f'e'd') (c'bag) | (fgab) (c'd'e'f') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) |
+(Bcde) (fgab) (agfe) (dcBA) | (GABc) (defg) (fe=d_c) (BAGF)  || "^MINEUR"(EFGA) (B=c=de) (fe=d_c) (BAGF) |
+(GAB=c) (=defg) (agfe) (_d_cBA) | (B=c=de) (fgab) (_c'bag) (fe=d=c) | (=defg) (ab=c'=d') (e'_d'_c'b) (agfe) |
+(=defg) (ab_c'_d') (c'bag) (fe_dc) | (B=c=de) (fgab) (agfe) (_d_cBA) | (GAB=c) (=defg) (fe=d_c) (BAGF) |
+(EFGA) (B=c=de) (_d_cBA) (G=e^d^c)  || [K:B] (Bcde) (fgab) (c'bag) (fedc) |
+(defg) (abc'd') (e'd'c'b) (agfe) | (fgab) (c'd'e'f') (g'f'e'd') (c'bag) | (abc'd') (e'f'g'a') (b'a'g'f') (e'd'c'b) |
+(abc'd') (e'f'g'a') (g'f'e'd') (c'bag) | (fgab) (c'd'e'f') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) |
+(Bcde) (fgab) (ag^^fe) (dcBA)  || "^MINEUR"(GABc) (d^e^^fg) (ag^^f=e) (dcBA) | (Bcd^e) (^^fgab) (c'bag) (^f=edc) |
+(d^e^^fg) (abc'd') (=e'd'c'b) (ag^^f^e) | (^^fgab) (c'd'^e'^^f') (g'^f'=e'd') (c'bag) | (^^fgab) (c'd'=e'^f') (e'd'c'b) (ag^fe) |
+(d^e^^fg) (abc'd') (c'bag) (^f=edc) | (Bcd^e) (^^fgab) (ag^^f=e) (dcBA) | (GABc) (d^e^^fg) (^f=edc) (B=AGF) ||
+K:E
+(EFGA) (Bcde) (fedc) (BAGF) | (GABc) (defg) (agfe) (dcBA) | (Bcde) (fgab) (c'bag) (fedc) |
+(defg) (abc'd') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) | (Bcde) (fgab) (agfe) (dcBA) |
+(GABc) (defg) (fedc) (BAGF) | (EFGA) (Bcde) (dc^BA) (GFED)  || "^MINEUR"(CDEF) (G^A^Bc) (dc^B=A) (GFED) |
+(EFG^A) (^Bcde) (fedc) (=B=AGF) | (G^A^Bc) (defg) (=agfe) (dc^B^A) | (^Bcde) (fg^a^b) (c'=b=ag) (fedc) |
+(^Bcde) (fg=a=b) (agfe) (dc=BA) | (G^A^Bc) (defg) (fedc) (=B=AGF) | (EFG^A) (^Bcde) (dc^B=A) (GFED) |
+(CDEF) (G^A^Bc) (=B=AGF) (E=dcB)  || [K:A] (ABcd) (efga) (bagf) (edcB) | (cdef) (gabc') (d'c'ba) (gfed) |
+K:A
+(efga) (bc'd'e') (f'e'd'c') (bagf) | (gabc') (d'e'f'g') (a'g'f'e') (d'c'ba) | (gabc') (d'e'f'g') (f'e'd'c') (bagf) |
+(efga) (bc'd'e') (d'c'ba) (gfed) | (cdef) (gabc') (bagf) (edcB) | (ABcd) (efga) (gf^ed) (cBAG) ||
+"^MINEUR"(FGAB) (c^d^ef) (gf^e=d) (cBAG) | (ABc^d) (^efga) (bagf) (=e=dcB) | (c^d^ef) (gabc') (=d'c'ba) (gf^e^d) |
+(^efga) (bc'^d'^e') (f'=e'=d'c') (bagf) | (^efga) (bc'=d'=e') (d'c'ba) (gf=ed) | (c^d^ef) (gabc') (bagf) (=e=dcB) |
+(ABc^d) (^efga) (gf^e=d) (cBAG) | (FGAB) (c^d^ef) (=e=dcB) (A=GFE)  || [K:D] (DEFG) (ABcd) (edcB) (AGFE) |
+(FGAB) (cdef) (gfed) (cBAG) | (ABcd) (efga) (bagf) (edcB) | (cdef) (gabc') (d'c'ba) (gfed) |
+(cdef) (gabc') (bagf) (edcB) | (ABcd) (efga) (gfed) (cBAG) | (FGAB) (cdef) (edcB) (AGFE) |
+(DEFG) (ABcd) (cB^A=G) (Fedc)  || "^MINEUR"(Bcde) (f^g^ab) (c'b^a=g) (fedc) | (def^g) (^abc'd') (e'd'c'b) (=a=gfe) |
+(f^g^ab) (c'd'e'f') (=g'f'e'd') (c'b^a^g) | (^abc'd') (e'f'^g'^a') (b'=a'=g'f') (e'd'c'b) | (^abc'd') (e'f'=g'=a') (g'f'e'd') (c'b=ag) |
+(f^g^ab) (c'd'e'f') (e'd'c'b) (=a=gfe) | (def^g) (^abc'd') (c'b^a=g) (fedc) | (Bcde) (f^g^ab) (=a=gfe) (d=cBA) ||
+K:G
+(GABc) (defg) (agfe) (dcBA) | (Bcde) (fgab) (c'bag) (fedc) | (defg) (abc'd') (e'd'c'b) (agfe) |
+(fgab) (c'd'e'f') (g'f'e'd') (c'bag) | (fgab) (c'd'e'f') (e'd'c'b) (agfe) | (defg) (abc'd') (c'bag) (fedc) |
+(Bcde) (fgab) (agfe) (dcBA) | (GABc) (defg) (fe^d=c) (BAGF)  || "^MINEUR"(EFGA) (B^c^de) (fe^d=c) (BAGF) |
+(GAB^c) (^defg) (agfe) (=d=cBA) | (B^c^de) (fgab) (=c'bag) (fe^d^c) | (^defg) (ab^c'^d') (e'=d'=c'b) (agfe) |
+(^defg) (ab=c'=d') (c'bag) (fe=dc) | (B^c^de) (fgab) (agfe) (=d=cBA) | (GAB^c) (^defg) (fe^d=c) (BAGF) |
+(EFGA) (B^c^de) (=d=cBA) (G=FED)  || [K:C] (CDEF) (GABc) (defg) (abc'b) | (agfe) (dcBA) (GFED C2z2) |]
+
+
+X:3
+T:E. J. 4 — Articulación 3 — 1 picada y 3 ligadas: .C(DEF) .G(ABc)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+.C(DEF) .G(ABc) .d(cBA) .G(FED) | .E(FGA) .B(cde) .f(edc) .B(AGF) | .G(ABc) .d(efg) .a(gfe) .d(cBA) |
+.B(cde) .f(gab) .c'(bag) .f(edc) | .B(cde) .f(gab) .a(gfe) .d(cBA) | .G(ABc) .d(efg) .f(edc) .B(AGF) |
+.E(FGA) .B(cde) .d(cBA) .G(FED) | .C(DEF) .G(ABc) .B(A^G=F) .E(dcB)  || "^RELATIF MINEUR".A(Bcd) .e(^f^ga) .b(a^g=f) .e(dcB) |
+.c(de^f) .^g(abc') .d'(c'ba) .=g(=fed) | .e(^f^ga) .b(c'd'e') .=f'(e'd'c') .b(a^g^f) | .^g(abc') .d'(e'^f'^g') .a'(=g'=f'e') .d'(c'ba) |
+.^g(abc') .d'(e'=f'=g') .f'(e'd'c') .b(a=gf) | .e(^f^ga) .b(c'd'e') .d'(c'ba) .=g(=fed) | .c(de^f) .^g(abc') .b(a^g=f) .e(dcB) |
+.A(Bcd) .e(^f^ga) .=g(=fed) .c(_BAG)  || [K:F] .F(GAB) .c(def) .g(fed) .c(BAG) | .A(Bcd) .e(fga) .b(agf) .e(dcB) |
+.c(def) .g(abc') .d'(c'ba) .g(fed) | .e(fga) .b(c'd'e') .f'(e'd'c') .b(agf) | .e(fga) .b(c'd'e') .d'(c'ba) .g(fed) |
+.c(def) .g(abc') .b(agf) .e(dcB) | .A(Bcd) .e(fga) .g(fed) .c(BAG) | .F(GAB) .c(def) .e(d^c_B) .A(GFE) ||
+"^MINEUR".D(EFG) .A(=B^cd) .e(d^c_B) .A(GFE) | .F(GA=B) .^c(def) .g(fed) .=c(_BAG) | .A(=B^cd) .e(fga) ._b(agf) .e(d^c=B) |
+.^c(def) .g(a=b^c') .d'(=c'_ba) .g(fed) | .^c(def) .g(a_b=c') .b(agf) .e(d=cB) | .A(=B^cd) .e(fga) .g(fed) .=c(_BAG) |
+.F(GA=B) .^c(def) .e(d^c_B) .A(GFE) | .D(EFG) .A(=B^cd) .=c(_BAG) .F(_edc)  || [K:Bb] .B(cde) .f(gab) .c'(bag) .f(edc) |
+.d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) | .f(gab) .c'(d'e'f') .g'(f'e'd') .c'(bag) | .a(bc'd') .e'(f'g'a') .b'(a'g'f') .e'(d'c'b) |
+.a(bc'd') .e'(f'g'a') .g'(f'e'd') .c'(bag) | .f(gab) .c'(d'e'f') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) |
+.B(cde) .f(gab) .a(g^f_e) .d(cBA)  || "^MINEUR".G(ABc) .d(=e^fg) .a(g^f_e) .d(cBA) | .B(cd=e) .^f(gab) .c'(bag) .=f(_edc) |
+.d(=e^fg) .a(bc'd') ._e'(d'c'b) .a(g^f=e) | .^f(gab) .c'(d'=e'^f') .g'(=f'_e'd') .c'(bag) | .^f(gab) .c'(d'_e'=f') .e'(d'c'b) .a(g=fe) |
+K:Bb
+.d(=e^fg) .a(bc'd') .c'(bag) .=f(_edc) | .B(cd=e) .^f(gab) .a(g^f_e) .d(cBA) | .G(ABc) .d(=e^fg) .=f(_edc) .B(_AGF) ||
+K:Eb
+.E(FGA) .B(cde) .f(edc) .B(AGF) | .G(ABc) .d(efg) .a(gfe) .d(cBA) | .B(cde) .f(gab) .c'(bag) .f(edc) |
+.d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) | .B(cde) .f(gab) .a(gfe) .d(cBA) |
+.G(ABc) .d(efg) .f(edc) .B(AGF) | .E(FGA) .B(cde) .d(c=B_A) .G(FED)  || "^MINEUR".C(DEF) .G(=A=Bc) .d(c=B_A) .G(FED) |
+.E(FG=A) .=B(cde) .f(edc) ._B(_AGF) | .G(=A=Bc) .d(efg) ._a(gfe) .d(c=B=A) | .=B(cde) .f(g=a=b) .c'(_b_ag) .f(edc) |
+.=B(cde) .f(g_a_b) .a(gfe) .d(c_BA) | .G(=A=Bc) .d(efg) .f(edc) ._B(_AGF) | .E(FG=A) .=B(cde) .d(c=B_A) .G(FED) |
+.C(DEF) .G(=A=Bc) ._B(_AGF) .E(_dcB)  || [K:Ab] .A(Bcd) .e(fga) .b(agf) .e(dcB) | .c(def) .g(abc') .d'(c'ba) .g(fed) |
+.e(fga) .b(c'd'e') .f'(e'd'c') .b(agf) | .g(abc') .d'(e'f'g') .a'(g'f'e') .d'(c'ba) | .g(abc') .d'(e'f'g') .f'(e'd'c') .b(agf) |
+.e(fga) .b(c'd'e') .d'(c'ba) .g(fed) | .c(def) .g(abc') .b(agf) .e(dcB) | .A(Bcd) .e(fga) .g(f=e_d) .c(BAG) ||
+"^MINEUR".F(GAB) .c(=d=ef) .g(f=e_d) .c(BAG) | .A(Bc=d) .=e(fga) .b(agf) ._e(_dcB) | .c(=d=ef) .g(abc') ._d'(c'ba) .g(f=e=d) |
+.=e(fga) .b(c'=d'=e') .f'(_e'_d'c') .b(agf) | .=e(fga) .b(c'_d'_e') .d'(c'ba) .g(f_ed) | .c(=d=ef) .g(abc') .b(agf) ._e(_dcB) |
+.A(Bc=d) .=e(fga) .g(f=e_d) .c(BAG) | .F(GAB) .c(=d=ef) ._e(_dcB) .A(_GFE)  || [K:Db] .D(EFG) .A(Bcd) .e(dcB) .A(GFE) |
+.F(GAB) .c(def) .g(fed) .c(BAG) | .A(Bcd) .e(fga) .b(agf) .e(dcB) | .c(def) .g(abc') .d'(c'ba) .g(fed) |
+.c(def) .g(abc') .b(agf) .e(dcB) | .A(Bcd) .e(fga) .g(fed) .c(BAG) | .F(GAB) .c(def) .e(dcB) .A(GFE) |
+.D(EFG) .A(Bcd) .c(B=A_G) .F(edc)  || "^MINEUR".B(cde) .f(=g=ab) .c'(b=a_g) .f(edc) | .d(ef=g) .=a(bc'd') .e'(d'c'b) ._a(_gfe) |
+.f(=g=ab) .c'(d'e'f') ._g'(f'e'd') .c'(b=a=g) | .=a(bc'd') .e'(f'=g'=a') .b'(_a'_g'f') .e'(d'c'b) | .=a(bc'd') .e'(f'_g'_a') .g'(f'e'd') .c'(b_ag) |
+.f(=g=ab) .c'(d'e'f') .e'(d'c'b) ._a(_gfe) | .d(ef=g) .=a(bc'd') .c'(b=a_g) .f(edc) | .B(cde) .f(=g=ab) ._a(_gfe) .d(_cBA) ||
+K:Gb
+.G(ABc) .d(efg) .a(gfe) .d(cBA) | .B(cde) .f(gab) .c'(bag) .f(edc) | .d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) |
+.f(gab) .c'(d'e'f') .g'(f'e'd') .c'(bag) | .f(gab) .c'(d'e'f') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) |
+.B(cde) .f(gab) .a(gfe) .d(cBA) | .G(ABc) .d(efg) .f(e=d_c) .B(AGF)  || "^MINEUR".E(FGA) .B(=c=de) .f(e=d_c) .B(AGF) |
+.G(AB=c) .=d(efg) .a(gfe) ._d(_cBA) | .B(=c=de) .f(gab) ._c'(bag) .f(e=d=c) | .=d(efg) .a(b=c'=d') .e'(_d'_c'b) .a(gfe) |
+.=d(efg) .a(b_c'_d') .c'(bag) .f(e_dc) | .B(=c=de) .f(gab) .a(gfe) ._d(_cBA) | .G(AB=c) .=d(efg) .f(e=d_c) .B(AGF) |
+.E(FGA) .B(=c=de) ._d(_cBA) .G(=e^d^c)  || [K:B] .B(cde) .f(gab) .c'(bag) .f(edc) |
+.d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) | .f(gab) .c'(d'e'f') .g'(f'e'd') .c'(bag) | .a(bc'd') .e'(f'g'a') .b'(a'g'f') .e'(d'c'b) |
+.a(bc'd') .e'(f'g'a') .g'(f'e'd') .c'(bag) | .f(gab) .c'(d'e'f') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) |
+.B(cde) .f(gab) .a(g^^fe) .d(cBA)  || "^MINEUR".G(ABc) .d(^e^^fg) .a(g^^f=e) .d(cBA) | .B(cd^e) .^^f(gab) .c'(bag) .^f(=edc) |
+.d(^e^^fg) .a(bc'd') .=e'(d'c'b) .a(g^^f^e) | .^^f(gab) .c'(d'^e'^^f') .g'(^f'=e'd') .c'(bag) | .^^f(gab) .c'(d'=e'^f') .e'(d'c'b) .a(g^fe) |
+.d(^e^^fg) .a(bc'd') .c'(bag) .^f(=edc) | .B(cd^e) .^^f(gab) .a(g^^f=e) .d(cBA) | .G(ABc) .d(^e^^fg) .^f(=edc) .B(=AGF) ||
+K:E
+.E(FGA) .B(cde) .f(edc) .B(AGF) | .G(ABc) .d(efg) .a(gfe) .d(cBA) | .B(cde) .f(gab) .c'(bag) .f(edc) |
+.d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) | .B(cde) .f(gab) .a(gfe) .d(cBA) |
+.G(ABc) .d(efg) .f(edc) .B(AGF) | .E(FGA) .B(cde) .d(c^BA) .G(FED)  || "^MINEUR".C(DEF) .G(^A^Bc) .d(c^B=A) .G(FED) |
+.E(FG^A) .^B(cde) .f(edc) .=B(=AGF) | .G(^A^Bc) .d(efg) .=a(gfe) .d(c^B^A) | .^B(cde) .f(g^a^b) .c'(=b=ag) .f(edc) |
+.^B(cde) .f(g=a=b) .a(gfe) .d(c=BA) | .G(^A^Bc) .d(efg) .f(edc) .=B(=AGF) | .E(FG^A) .^B(cde) .d(c^B=A) .G(FED) |
+.C(DEF) .G(^A^Bc) .=B(=AGF) .E(=dcB)  || [K:A] .A(Bcd) .e(fga) .b(agf) .e(dcB) | .c(def) .g(abc') .d'(c'ba) .g(fed) |
+K:A
+.e(fga) .b(c'd'e') .f'(e'd'c') .b(agf) | .g(abc') .d'(e'f'g') .a'(g'f'e') .d'(c'ba) | .g(abc') .d'(e'f'g') .f'(e'd'c') .b(agf) |
+.e(fga) .b(c'd'e') .d'(c'ba) .g(fed) | .c(def) .g(abc') .b(agf) .e(dcB) | .A(Bcd) .e(fga) .g(f^ed) .c(BAG) ||
+"^MINEUR".F(GAB) .c(^d^ef) .g(f^e=d) .c(BAG) | .A(Bc^d) .^e(fga) .b(agf) .=e(=dcB) | .c(^d^ef) .g(abc') .=d'(c'ba) .g(f^e^d) |
+.^e(fga) .b(c'^d'^e') .f'(=e'=d'c') .b(agf) | .^e(fga) .b(c'=d'=e') .d'(c'ba) .g(f=ed) | .c(^d^ef) .g(abc') .b(agf) .=e(=dcB) |
+.A(Bc^d) .^e(fga) .g(f^e=d) .c(BAG) | .F(GAB) .c(^d^ef) .=e(=dcB) .A(=GFE)  || [K:D] .D(EFG) .A(Bcd) .e(dcB) .A(GFE) |
+.F(GAB) .c(def) .g(fed) .c(BAG) | .A(Bcd) .e(fga) .b(agf) .e(dcB) | .c(def) .g(abc') .d'(c'ba) .g(fed) |
+.c(def) .g(abc') .b(agf) .e(dcB) | .A(Bcd) .e(fga) .g(fed) .c(BAG) | .F(GAB) .c(def) .e(dcB) .A(GFE) |
+.D(EFG) .A(Bcd) .c(B^A=G) .F(edc)  || "^MINEUR".B(cde) .f(^g^ab) .c'(b^a=g) .f(edc) | .d(ef^g) .^a(bc'd') .e'(d'c'b) .=a(=gfe) |
+.f(^g^ab) .c'(d'e'f') .=g'(f'e'd') .c'(b^a^g) | .^a(bc'd') .e'(f'^g'^a') .b'(=a'=g'f') .e'(d'c'b) | .^a(bc'd') .e'(f'=g'=a') .g'(f'e'd') .c'(b=ag) |
+.f(^g^ab) .c'(d'e'f') .e'(d'c'b) .=a(=gfe) | .d(ef^g) .^a(bc'd') .c'(b^a=g) .f(edc) | .B(cde) .f(^g^ab) .=a(=gfe) .d(=cBA) ||
+K:G
+.G(ABc) .d(efg) .a(gfe) .d(cBA) | .B(cde) .f(gab) .c'(bag) .f(edc) | .d(efg) .a(bc'd') .e'(d'c'b) .a(gfe) |
+.f(gab) .c'(d'e'f') .g'(f'e'd') .c'(bag) | .f(gab) .c'(d'e'f') .e'(d'c'b) .a(gfe) | .d(efg) .a(bc'd') .c'(bag) .f(edc) |
+.B(cde) .f(gab) .a(gfe) .d(cBA) | .G(ABc) .d(efg) .f(e^d=c) .B(AGF)  || "^MINEUR".E(FGA) .B(^c^de) .f(e^d=c) .B(AGF) |
+.G(AB^c) .^d(efg) .a(gfe) .=d(=cBA) | .B(^c^de) .f(gab) .=c'(bag) .f(e^d^c) | .^d(efg) .a(b^c'^d') .e'(=d'=c'b) .a(gfe) |
+.^d(efg) .a(b=c'=d') .c'(bag) .f(e=dc) | .B(^c^de) .f(gab) .a(gfe) .=d(=cBA) | .G(AB^c) .^d(efg) .f(e^d=c) .B(AGF) |
+.E(FGA) .B(^c^de) .=d(=cBA) .G(=FED)  || [K:C] .C(DEF) .G(ABc) .d(efg) .a(bc'b) | .a(gfe) .d(cBA) .G(FED) .C2z2 |]
+
+
+X:4
+T:E. J. 4 — Articulación 4 — 2 ligadas y 2 picadas: (CD).E.F (GA).B.c
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+(CD).E.F (GA).B.c (dc).B.A (GF).E.D | (EF).G.A (Bc).d.e (fe).d.c (BA).G.F | (GA).B.c (de).f.g (ag).f.e (dc).B.A |
+(Bc).d.e (fg).a.b (c'b).a.g (fe).d.c | (Bc).d.e (fg).a.b (ag).f.e (dc).B.A | (GA).B.c (de).f.g (fe).d.c (BA).G.F |
+(EF).G.A (Bc).d.e (dc).B.A (GF).E.D | (CD).E.F (GA).B.c (BA).^G.=F (Ed).c.B  || "^RELATIF MINEUR"(AB).c.d (e^f).^g.a (ba).^g.=f (ed).c.B |
+(cd).e.^f (^ga).b.c' (d'c').b.a (=g=f).e.d | (e^f).^g.a (bc').d'.e' (=f'e').d'.c' (ba).^g.^f | (^ga).b.c' (d'e').^f'.^g' (a'=g').=f'.e' (d'c').b.a |
+(^ga).b.c' (d'e').=f'.=g' (f'e').d'.c' (ba).=g.f | (e^f).^g.a (bc').d'.e' (d'c').b.a (=g=f).e.d | (cd).e.^f (^ga).b.c' (ba).^g.=f (ed).c.B |
+(AB).c.d (e^f).^g.a (=g=f).e.d (c_B).A.G  || [K:F] (FG).A.B (cd).e.f (gf).e.d (cB).A.G | (AB).c.d (ef).g.a (ba).g.f (ed).c.B |
+(cd).e.f (ga).b.c' (d'c').b.a (gf).e.d | (ef).g.a (bc').d'.e' (f'e').d'.c' (ba).g.f | (ef).g.a (bc').d'.e' (d'c').b.a (gf).e.d |
+(cd).e.f (ga).b.c' (ba).g.f (ed).c.B | (AB).c.d (ef).g.a (gf).e.d (cB).A.G | (FG).A.B (cd).e.f (ed).^c._B (AG).F.E ||
+"^MINEUR"(DE).F.G (A=B).^c.d (ed).^c._B (AG).F.E | (FG).A.=B (^cd).e.f (gf).e.d (=c_B).A.G | (A=B).^c.d (ef).g.a (_ba).g.f (ed).^c.=B |
+(^cd).e.f (ga).=b.^c' (d'=c')._b.a (gf).e.d | (^cd).e.f (ga)._b.=c' (ba).g.f (ed).=c.B | (A=B).^c.d (ef).g.a (gf).e.d (=c_B).A.G |
+(FG).A.=B (^cd).e.f (ed).^c._B (AG).F.E | (DE).F.G (A=B).^c.d (=c_B).A.G (F_e).d.c  || [K:Bb] (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c |
+(de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e | (fg).a.b (c'd').e'.f' (g'f').e'.d' (c'b).a.g | (ab).c'.d' (e'f').g'.a' (b'a').g'.f' (e'd').c'.b |
+(ab).c'.d' (e'f').g'.a' (g'f').e'.d' (c'b).a.g | (fg).a.b (c'd').e'.f' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c |
+(Bc).d.e (fg).a.b (ag).^f._e (dc).B.A  || "^MINEUR"(GA).B.c (d=e).^f.g (ag).^f._e (dc).B.A | (Bc).d.=e (^fg).a.b (c'b).a.g (=f_e).d.c |
+(d=e).^f.g (ab).c'.d' (_e'd').c'.b (ag).^f.=e | (^fg).a.b (c'd').=e'.^f' (g'=f')._e'.d' (c'b).a.g | (^fg).a.b (c'd')._e'.=f' (e'd').c'.b (ag).=f.e |
+K:Bb
+(d=e).^f.g (ab).c'.d' (c'b).a.g (=f_e).d.c | (Bc).d.=e (^fg).a.b (ag).^f._e (dc).B.A | (GA).B.c (d=e).^f.g (=f_e).d.c (B_A).G.F ||
+K:Eb
+(EF).G.A (Bc).d.e (fe).d.c (BA).G.F | (GA).B.c (de).f.g (ag).f.e (dc).B.A | (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c |
+(de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c | (Bc).d.e (fg).a.b (ag).f.e (dc).B.A |
+(GA).B.c (de).f.g (fe).d.c (BA).G.F | (EF).G.A (Bc).d.e (dc).=B._A (GF).E.D  || "^MINEUR"(CD).E.F (G=A).=B.c (dc).=B._A (GF).E.D |
+(EF).G.=A (=Bc).d.e (fe).d.c (_B_A).G.F | (G=A).=B.c (de).f.g (_ag).f.e (dc).=B.=A | (=Bc).d.e (fg).=a.=b (c'_b)._a.g (fe).d.c |
+(=Bc).d.e (fg)._a._b (ag).f.e (dc)._B.A | (G=A).=B.c (de).f.g (fe).d.c (_B_A).G.F | (EF).G.=A (=Bc).d.e (dc).=B._A (GF).E.D |
+(CD).E.F (G=A).=B.c (_B_A).G.F (E_d).c.B  || [K:Ab] (AB).c.d (ef).g.a (ba).g.f (ed).c.B | (cd).e.f (ga).b.c' (d'c').b.a (gf).e.d |
+(ef).g.a (bc').d'.e' (f'e').d'.c' (ba).g.f | (ga).b.c' (d'e').f'.g' (a'g').f'.e' (d'c').b.a | (ga).b.c' (d'e').f'.g' (f'e').d'.c' (ba).g.f |
+(ef).g.a (bc').d'.e' (d'c').b.a (gf).e.d | (cd).e.f (ga).b.c' (ba).g.f (ed).c.B | (AB).c.d (ef).g.a (gf).=e._d (cB).A.G ||
+"^MINEUR"(FG).A.B (c=d).=e.f (gf).=e._d (cB).A.G | (AB).c.=d (=ef).g.a (ba).g.f (_e_d).c.B | (c=d).=e.f (ga).b.c' (_d'c').b.a (gf).=e.=d |
+(=ef).g.a (bc').=d'.=e' (f'_e')._d'.c' (ba).g.f | (=ef).g.a (bc')._d'._e' (d'c').b.a (gf)._e.d | (c=d).=e.f (ga).b.c' (ba).g.f (_e_d).c.B |
+(AB).c.=d (=ef).g.a (gf).=e._d (cB).A.G | (FG).A.B (c=d).=e.f (_e_d).c.B (A_G).F.E  || [K:Db] (DE).F.G (AB).c.d (ed).c.B (AG).F.E |
+(FG).A.B (cd).e.f (gf).e.d (cB).A.G | (AB).c.d (ef).g.a (ba).g.f (ed).c.B | (cd).e.f (ga).b.c' (d'c').b.a (gf).e.d |
+(cd).e.f (ga).b.c' (ba).g.f (ed).c.B | (AB).c.d (ef).g.a (gf).e.d (cB).A.G | (FG).A.B (cd).e.f (ed).c.B (AG).F.E |
+(DE).F.G (AB).c.d (cB).=A._G (Fe).d.c  || "^MINEUR"(Bc).d.e (f=g).=a.b (c'b).=a._g (fe).d.c | (de).f.=g (=ab).c'.d' (e'd').c'.b (_a_g).f.e |
+(f=g).=a.b (c'd').e'.f' (_g'f').e'.d' (c'b).=a.=g | (=ab).c'.d' (e'f').=g'.=a' (b'_a')._g'.f' (e'd').c'.b | (=ab).c'.d' (e'f')._g'._a' (g'f').e'.d' (c'b)._a.g |
+(f=g).=a.b (c'd').e'.f' (e'd').c'.b (_a_g).f.e | (de).f.=g (=ab).c'.d' (c'b).=a._g (fe).d.c | (Bc).d.e (f=g).=a.b (_a_g).f.e (d_c).B.A ||
+K:Gb
+(GA).B.c (de).f.g (ag).f.e (dc).B.A | (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c | (de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e |
+(fg).a.b (c'd').e'.f' (g'f').e'.d' (c'b).a.g | (fg).a.b (c'd').e'.f' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c |
+(Bc).d.e (fg).a.b (ag).f.e (dc).B.A | (GA).B.c (de).f.g (fe).=d._c (BA).G.F  || "^MINEUR"(EF).G.A (B=c).=d.e (fe).=d._c (BA).G.F |
+(GA).B.=c (=de).f.g (ag).f.e (_d_c).B.A | (B=c).=d.e (fg).a.b (_c'b).a.g (fe).=d.=c | (=de).f.g (ab).=c'.=d' (e'_d')._c'.b (ag).f.e |
+(=de).f.g (ab)._c'._d' (c'b).a.g (fe)._d.c | (B=c).=d.e (fg).a.b (ag).f.e (_d_c).B.A | (GA).B.=c (=de).f.g (fe).=d._c (BA).G.F |
+(EF).G.A (B=c).=d.e (_d_c).B.A (G=e).^d.^c  || [K:B] (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c |
+(de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e | (fg).a.b (c'd').e'.f' (g'f').e'.d' (c'b).a.g | (ab).c'.d' (e'f').g'.a' (b'a').g'.f' (e'd').c'.b |
+(ab).c'.d' (e'f').g'.a' (g'f').e'.d' (c'b).a.g | (fg).a.b (c'd').e'.f' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c |
+(Bc).d.e (fg).a.b (ag).^^f.e (dc).B.A  || "^MINEUR"(GA).B.c (d^e).^^f.g (ag).^^f.=e (dc).B.A | (Bc).d.^e (^^fg).a.b (c'b).a.g (^f=e).d.c |
+(d^e).^^f.g (ab).c'.d' (=e'd').c'.b (ag).^^f.^e | (^^fg).a.b (c'd').^e'.^^f' (g'^f').=e'.d' (c'b).a.g | (^^fg).a.b (c'd').=e'.^f' (e'd').c'.b (ag).^f.e |
+(d^e).^^f.g (ab).c'.d' (c'b).a.g (^f=e).d.c | (Bc).d.^e (^^fg).a.b (ag).^^f.=e (dc).B.A | (GA).B.c (d^e).^^f.g (^f=e).d.c (B=A).G.F ||
+K:E
+(EF).G.A (Bc).d.e (fe).d.c (BA).G.F | (GA).B.c (de).f.g (ag).f.e (dc).B.A | (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c |
+(de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c | (Bc).d.e (fg).a.b (ag).f.e (dc).B.A |
+(GA).B.c (de).f.g (fe).d.c (BA).G.F | (EF).G.A (Bc).d.e (dc).^B.A (GF).E.D  || "^MINEUR"(CD).E.F (G^A).^B.c (dc).^B.=A (GF).E.D |
+(EF).G.^A (^Bc).d.e (fe).d.c (=B=A).G.F | (G^A).^B.c (de).f.g (=ag).f.e (dc).^B.^A | (^Bc).d.e (fg).^a.^b (c'=b).=a.g (fe).d.c |
+(^Bc).d.e (fg).=a.=b (ag).f.e (dc).=B.A | (G^A).^B.c (de).f.g (fe).d.c (=B=A).G.F | (EF).G.^A (^Bc).d.e (dc).^B.=A (GF).E.D |
+(CD).E.F (G^A).^B.c (=B=A).G.F (E=d).c.B  || [K:A] (AB).c.d (ef).g.a (ba).g.f (ed).c.B | (cd).e.f (ga).b.c' (d'c').b.a (gf).e.d |
+K:A
+(ef).g.a (bc').d'.e' (f'e').d'.c' (ba).g.f | (ga).b.c' (d'e').f'.g' (a'g').f'.e' (d'c').b.a | (ga).b.c' (d'e').f'.g' (f'e').d'.c' (ba).g.f |
+(ef).g.a (bc').d'.e' (d'c').b.a (gf).e.d | (cd).e.f (ga).b.c' (ba).g.f (ed).c.B | (AB).c.d (ef).g.a (gf).^e.d (cB).A.G ||
+"^MINEUR"(FG).A.B (c^d).^e.f (gf).^e.=d (cB).A.G | (AB).c.^d (^ef).g.a (ba).g.f (=e=d).c.B | (c^d).^e.f (ga).b.c' (=d'c').b.a (gf).^e.^d |
+(^ef).g.a (bc').^d'.^e' (f'=e').=d'.c' (ba).g.f | (^ef).g.a (bc').=d'.=e' (d'c').b.a (gf).=e.d | (c^d).^e.f (ga).b.c' (ba).g.f (=e=d).c.B |
+(AB).c.^d (^ef).g.a (gf).^e.=d (cB).A.G | (FG).A.B (c^d).^e.f (=e=d).c.B (A=G).F.E  || [K:D] (DE).F.G (AB).c.d (ed).c.B (AG).F.E |
+(FG).A.B (cd).e.f (gf).e.d (cB).A.G | (AB).c.d (ef).g.a (ba).g.f (ed).c.B | (cd).e.f (ga).b.c' (d'c').b.a (gf).e.d |
+(cd).e.f (ga).b.c' (ba).g.f (ed).c.B | (AB).c.d (ef).g.a (gf).e.d (cB).A.G | (FG).A.B (cd).e.f (ed).c.B (AG).F.E |
+(DE).F.G (AB).c.d (cB).^A.=G (Fe).d.c  || "^MINEUR"(Bc).d.e (f^g).^a.b (c'b).^a.=g (fe).d.c | (de).f.^g (^ab).c'.d' (e'd').c'.b (=a=g).f.e |
+(f^g).^a.b (c'd').e'.f' (=g'f').e'.d' (c'b).^a.^g | (^ab).c'.d' (e'f').^g'.^a' (b'=a').=g'.f' (e'd').c'.b | (^ab).c'.d' (e'f').=g'.=a' (g'f').e'.d' (c'b).=a.g |
+(f^g).^a.b (c'd').e'.f' (e'd').c'.b (=a=g).f.e | (de).f.^g (^ab).c'.d' (c'b).^a.=g (fe).d.c | (Bc).d.e (f^g).^a.b (=a=g).f.e (d=c).B.A ||
+K:G
+(GA).B.c (de).f.g (ag).f.e (dc).B.A | (Bc).d.e (fg).a.b (c'b).a.g (fe).d.c | (de).f.g (ab).c'.d' (e'd').c'.b (ag).f.e |
+(fg).a.b (c'd').e'.f' (g'f').e'.d' (c'b).a.g | (fg).a.b (c'd').e'.f' (e'd').c'.b (ag).f.e | (de).f.g (ab).c'.d' (c'b).a.g (fe).d.c |
+(Bc).d.e (fg).a.b (ag).f.e (dc).B.A | (GA).B.c (de).f.g (fe).^d.=c (BA).G.F  || "^MINEUR"(EF).G.A (B^c).^d.e (fe).^d.=c (BA).G.F |
+(GA).B.^c (^de).f.g (ag).f.e (=d=c).B.A | (B^c).^d.e (fg).a.b (=c'b).a.g (fe).^d.^c | (^de).f.g (ab).^c'.^d' (e'=d').=c'.b (ag).f.e |
+(^de).f.g (ab).=c'.=d' (c'b).a.g (fe).=d.c | (B^c).^d.e (fg).a.b (ag).f.e (=d=c).B.A | (GA).B.^c (^de).f.g (fe).^d.=c (BA).G.F |
+(EF).G.A (B^c).^d.e (=d=c).B.A (G=F).E.D  || [K:C] (CD).E.F (GA).B.c (de).f.g (ab).c'.b | (ag).f.e (dc).B.A (GF).E.D .C2z2 |]
+
+
+X:5
+T:E. J. 4 — Articulación 5 — 2 picadas y 2 ligadas: .C.D(EF) .G.A(Bc)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+.C.D(EF) .G.A(Bc) .d.c(BA) .G.F(ED) | .E.F(GA) .B.c(de) .f.e(dc) .B.A(GF) | .G.A(Bc) .d.e(fg) .a.g(fe) .d.c(BA) |
+.B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) | .B.c(de) .f.g(ab) .a.g(fe) .d.c(BA) | .G.A(Bc) .d.e(fg) .f.e(dc) .B.A(GF) |
+.E.F(GA) .B.c(de) .d.c(BA) .G.F(ED) | .C.D(EF) .G.A(Bc) .B.A(^G=F) .E.d(cB)  || "^RELATIF MINEUR".A.B(cd) .e.^f(^ga) .b.a(^g=f) .e.d(cB) |
+.c.d(e^f) .^g.a(bc') .d'.c'(ba) .=g.=f(ed) | .e.^f(^ga) .b.c'(d'e') .=f'.e'(d'c') .b.a(^g^f) | .^g.a(bc') .d'.e'(^f'^g') .a'.=g'(=f'e') .d'.c'(ba) |
+.^g.a(bc') .d'.e'(=f'=g') .f'.e'(d'c') .b.a(=gf) | .e.^f(^ga) .b.c'(d'e') .d'.c'(ba) .=g.=f(ed) | .c.d(e^f) .^g.a(bc') .b.a(^g=f) .e.d(cB) |
+.A.B(cd) .e.^f(^ga) .=g.=f(ed) .c._B(AG)  || [K:F] .F.G(AB) .c.d(ef) .g.f(ed) .c.B(AG) | .A.B(cd) .e.f(ga) .b.a(gf) .e.d(cB) |
+.c.d(ef) .g.a(bc') .d'.c'(ba) .g.f(ed) | .e.f(ga) .b.c'(d'e') .f'.e'(d'c') .b.a(gf) | .e.f(ga) .b.c'(d'e') .d'.c'(ba) .g.f(ed) |
+.c.d(ef) .g.a(bc') .b.a(gf) .e.d(cB) | .A.B(cd) .e.f(ga) .g.f(ed) .c.B(AG) | .F.G(AB) .c.d(ef) .e.d(^c_B) .A.G(FE) ||
+"^MINEUR".D.E(FG) .A.=B(^cd) .e.d(^c_B) .A.G(FE) | .F.G(A=B) .^c.d(ef) .g.f(ed) .=c._B(AG) | .A.=B(^cd) .e.f(ga) ._b.a(gf) .e.d(^c=B) |
+.^c.d(ef) .g.a(=b^c') .d'.=c'(_ba) .g.f(ed) | .^c.d(ef) .g.a(_b=c') .b.a(gf) .e.d(=cB) | .A.=B(^cd) .e.f(ga) .g.f(ed) .=c._B(AG) |
+.F.G(A=B) .^c.d(ef) .e.d(^c_B) .A.G(FE) | .D.E(FG) .A.=B(^cd) .=c._B(AG) .F._e(dc)  || [K:Bb] .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) |
+.d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) | .f.g(ab) .c'.d'(e'f') .g'.f'(e'd') .c'.b(ag) | .a.b(c'd') .e'.f'(g'a') .b'.a'(g'f') .e'.d'(c'b) |
+.a.b(c'd') .e'.f'(g'a') .g'.f'(e'd') .c'.b(ag) | .f.g(ab) .c'.d'(e'f') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) |
+.B.c(de) .f.g(ab) .a.g(^f_e) .d.c(BA)  || "^MINEUR".G.A(Bc) .d.=e(^fg) .a.g(^f_e) .d.c(BA) | .B.c(d=e) .^f.g(ab) .c'.b(ag) .=f._e(dc) |
+.d.=e(^fg) .a.b(c'd') ._e'.d'(c'b) .a.g(^f=e) | .^f.g(ab) .c'.d'(=e'^f') .g'.=f'(_e'd') .c'.b(ag) | .^f.g(ab) .c'.d'(_e'=f') .e'.d'(c'b) .a.g(=fe) |
+K:Bb
+.d.=e(^fg) .a.b(c'd') .c'.b(ag) .=f._e(dc) | .B.c(d=e) .^f.g(ab) .a.g(^f_e) .d.c(BA) | .G.A(Bc) .d.=e(^fg) .=f._e(dc) .B._A(GF) ||
+K:Eb
+.E.F(GA) .B.c(de) .f.e(dc) .B.A(GF) | .G.A(Bc) .d.e(fg) .a.g(fe) .d.c(BA) | .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) |
+.d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) | .B.c(de) .f.g(ab) .a.g(fe) .d.c(BA) |
+.G.A(Bc) .d.e(fg) .f.e(dc) .B.A(GF) | .E.F(GA) .B.c(de) .d.c(=B_A) .G.F(ED)  || "^MINEUR".C.D(EF) .G.=A(=Bc) .d.c(=B_A) .G.F(ED) |
+.E.F(G=A) .=B.c(de) .f.e(dc) ._B._A(GF) | .G.=A(=Bc) .d.e(fg) ._a.g(fe) .d.c(=B=A) | .=B.c(de) .f.g(=a=b) .c'._b(_ag) .f.e(dc) |
+.=B.c(de) .f.g(_a_b) .a.g(fe) .d.c(_BA) | .G.=A(=Bc) .d.e(fg) .f.e(dc) ._B._A(GF) | .E.F(G=A) .=B.c(de) .d.c(=B_A) .G.F(ED) |
+.C.D(EF) .G.=A(=Bc) ._B._A(GF) .E._d(cB)  || [K:Ab] .A.B(cd) .e.f(ga) .b.a(gf) .e.d(cB) | .c.d(ef) .g.a(bc') .d'.c'(ba) .g.f(ed) |
+.e.f(ga) .b.c'(d'e') .f'.e'(d'c') .b.a(gf) | .g.a(bc') .d'.e'(f'g') .a'.g'(f'e') .d'.c'(ba) | .g.a(bc') .d'.e'(f'g') .f'.e'(d'c') .b.a(gf) |
+.e.f(ga) .b.c'(d'e') .d'.c'(ba) .g.f(ed) | .c.d(ef) .g.a(bc') .b.a(gf) .e.d(cB) | .A.B(cd) .e.f(ga) .g.f(=e_d) .c.B(AG) ||
+"^MINEUR".F.G(AB) .c.=d(=ef) .g.f(=e_d) .c.B(AG) | .A.B(c=d) .=e.f(ga) .b.a(gf) ._e._d(cB) | .c.=d(=ef) .g.a(bc') ._d'.c'(ba) .g.f(=e=d) |
+.=e.f(ga) .b.c'(=d'=e') .f'._e'(_d'c') .b.a(gf) | .=e.f(ga) .b.c'(_d'_e') .d'.c'(ba) .g.f(_ed) | .c.=d(=ef) .g.a(bc') .b.a(gf) ._e._d(cB) |
+.A.B(c=d) .=e.f(ga) .g.f(=e_d) .c.B(AG) | .F.G(AB) .c.=d(=ef) ._e._d(cB) .A._G(FE)  || [K:Db] .D.E(FG) .A.B(cd) .e.d(cB) .A.G(FE) |
+.F.G(AB) .c.d(ef) .g.f(ed) .c.B(AG) | .A.B(cd) .e.f(ga) .b.a(gf) .e.d(cB) | .c.d(ef) .g.a(bc') .d'.c'(ba) .g.f(ed) |
+.c.d(ef) .g.a(bc') .b.a(gf) .e.d(cB) | .A.B(cd) .e.f(ga) .g.f(ed) .c.B(AG) | .F.G(AB) .c.d(ef) .e.d(cB) .A.G(FE) |
+.D.E(FG) .A.B(cd) .c.B(=A_G) .F.e(dc)  || "^MINEUR".B.c(de) .f.=g(=ab) .c'.b(=a_g) .f.e(dc) | .d.e(f=g) .=a.b(c'd') .e'.d'(c'b) ._a._g(fe) |
+.f.=g(=ab) .c'.d'(e'f') ._g'.f'(e'd') .c'.b(=a=g) | .=a.b(c'd') .e'.f'(=g'=a') .b'._a'(_g'f') .e'.d'(c'b) | .=a.b(c'd') .e'.f'(_g'_a') .g'.f'(e'd') .c'.b(_ag) |
+.f.=g(=ab) .c'.d'(e'f') .e'.d'(c'b) ._a._g(fe) | .d.e(f=g) .=a.b(c'd') .c'.b(=a_g) .f.e(dc) | .B.c(de) .f.=g(=ab) ._a._g(fe) .d._c(BA) ||
+K:Gb
+.G.A(Bc) .d.e(fg) .a.g(fe) .d.c(BA) | .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) | .d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) |
+.f.g(ab) .c'.d'(e'f') .g'.f'(e'd') .c'.b(ag) | .f.g(ab) .c'.d'(e'f') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) |
+.B.c(de) .f.g(ab) .a.g(fe) .d.c(BA) | .G.A(Bc) .d.e(fg) .f.e(=d_c) .B.A(GF)  || "^MINEUR".E.F(GA) .B.=c(=de) .f.e(=d_c) .B.A(GF) |
+.G.A(B=c) .=d.e(fg) .a.g(fe) ._d._c(BA) | .B.=c(=de) .f.g(ab) ._c'.b(ag) .f.e(=d=c) | .=d.e(fg) .a.b(=c'=d') .e'._d'(_c'b) .a.g(fe) |
+.=d.e(fg) .a.b(_c'_d') .c'.b(ag) .f.e(_dc) | .B.=c(=de) .f.g(ab) .a.g(fe) ._d._c(BA) | .G.A(B=c) .=d.e(fg) .f.e(=d_c) .B.A(GF) |
+.E.F(GA) .B.=c(=de) ._d._c(BA) .G.=e(^d^c)  || [K:B] .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) |
+.d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) | .f.g(ab) .c'.d'(e'f') .g'.f'(e'd') .c'.b(ag) | .a.b(c'd') .e'.f'(g'a') .b'.a'(g'f') .e'.d'(c'b) |
+.a.b(c'd') .e'.f'(g'a') .g'.f'(e'd') .c'.b(ag) | .f.g(ab) .c'.d'(e'f') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) |
+.B.c(de) .f.g(ab) .a.g(^^fe) .d.c(BA)  || "^MINEUR".G.A(Bc) .d.^e(^^fg) .a.g(^^f=e) .d.c(BA) | .B.c(d^e) .^^f.g(ab) .c'.b(ag) .^f.=e(dc) |
+.d.^e(^^fg) .a.b(c'd') .=e'.d'(c'b) .a.g(^^f^e) | .^^f.g(ab) .c'.d'(^e'^^f') .g'.^f'(=e'd') .c'.b(ag) | .^^f.g(ab) .c'.d'(=e'^f') .e'.d'(c'b) .a.g(^fe) |
+.d.^e(^^fg) .a.b(c'd') .c'.b(ag) .^f.=e(dc) | .B.c(d^e) .^^f.g(ab) .a.g(^^f=e) .d.c(BA) | .G.A(Bc) .d.^e(^^fg) .^f.=e(dc) .B.=A(GF) ||
+K:E
+.E.F(GA) .B.c(de) .f.e(dc) .B.A(GF) | .G.A(Bc) .d.e(fg) .a.g(fe) .d.c(BA) | .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) |
+.d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) | .B.c(de) .f.g(ab) .a.g(fe) .d.c(BA) |
+.G.A(Bc) .d.e(fg) .f.e(dc) .B.A(GF) | .E.F(GA) .B.c(de) .d.c(^BA) .G.F(ED)  || "^MINEUR".C.D(EF) .G.^A(^Bc) .d.c(^B=A) .G.F(ED) |
+.E.F(G^A) .^B.c(de) .f.e(dc) .=B.=A(GF) | .G.^A(^Bc) .d.e(fg) .=a.g(fe) .d.c(^B^A) | .^B.c(de) .f.g(^a^b) .c'.=b(=ag) .f.e(dc) |
+.^B.c(de) .f.g(=a=b) .a.g(fe) .d.c(=BA) | .G.^A(^Bc) .d.e(fg) .f.e(dc) .=B.=A(GF) | .E.F(G^A) .^B.c(de) .d.c(^B=A) .G.F(ED) |
+.C.D(EF) .G.^A(^Bc) .=B.=A(GF) .E.=d(cB)  || [K:A] .A.B(cd) .e.f(ga) .b.a(gf) .e.d(cB) | .c.d(ef) .g.a(bc') .d'.c'(ba) .g.f(ed) |
+K:A
+.e.f(ga) .b.c'(d'e') .f'.e'(d'c') .b.a(gf) | .g.a(bc') .d'.e'(f'g') .a'.g'(f'e') .d'.c'(ba) | .g.a(bc') .d'.e'(f'g') .f'.e'(d'c') .b.a(gf) |
+.e.f(ga) .b.c'(d'e') .d'.c'(ba) .g.f(ed) | .c.d(ef) .g.a(bc') .b.a(gf) .e.d(cB) | .A.B(cd) .e.f(ga) .g.f(^ed) .c.B(AG) ||
+"^MINEUR".F.G(AB) .c.^d(^ef) .g.f(^e=d) .c.B(AG) | .A.B(c^d) .^e.f(ga) .b.a(gf) .=e.=d(cB) | .c.^d(^ef) .g.a(bc') .=d'.c'(ba) .g.f(^e^d) |
+.^e.f(ga) .b.c'(^d'^e') .f'.=e'(=d'c') .b.a(gf) | .^e.f(ga) .b.c'(=d'=e') .d'.c'(ba) .g.f(=ed) | .c.^d(^ef) .g.a(bc') .b.a(gf) .=e.=d(cB) |
+.A.B(c^d) .^e.f(ga) .g.f(^e=d) .c.B(AG) | .F.G(AB) .c.^d(^ef) .=e.=d(cB) .A.=G(FE)  || [K:D] .D.E(FG) .A.B(cd) .e.d(cB) .A.G(FE) |
+.F.G(AB) .c.d(ef) .g.f(ed) .c.B(AG) | .A.B(cd) .e.f(ga) .b.a(gf) .e.d(cB) | .c.d(ef) .g.a(bc') .d'.c'(ba) .g.f(ed) |
+.c.d(ef) .g.a(bc') .b.a(gf) .e.d(cB) | .A.B(cd) .e.f(ga) .g.f(ed) .c.B(AG) | .F.G(AB) .c.d(ef) .e.d(cB) .A.G(FE) |
+.D.E(FG) .A.B(cd) .c.B(^A=G) .F.e(dc)  || "^MINEUR".B.c(de) .f.^g(^ab) .c'.b(^a=g) .f.e(dc) | .d.e(f^g) .^a.b(c'd') .e'.d'(c'b) .=a.=g(fe) |
+.f.^g(^ab) .c'.d'(e'f') .=g'.f'(e'd') .c'.b(^a^g) | .^a.b(c'd') .e'.f'(^g'^a') .b'.=a'(=g'f') .e'.d'(c'b) | .^a.b(c'd') .e'.f'(=g'=a') .g'.f'(e'd') .c'.b(=ag) |
+.f.^g(^ab) .c'.d'(e'f') .e'.d'(c'b) .=a.=g(fe) | .d.e(f^g) .^a.b(c'd') .c'.b(^a=g) .f.e(dc) | .B.c(de) .f.^g(^ab) .=a.=g(fe) .d.=c(BA) ||
+K:G
+.G.A(Bc) .d.e(fg) .a.g(fe) .d.c(BA) | .B.c(de) .f.g(ab) .c'.b(ag) .f.e(dc) | .d.e(fg) .a.b(c'd') .e'.d'(c'b) .a.g(fe) |
+.f.g(ab) .c'.d'(e'f') .g'.f'(e'd') .c'.b(ag) | .f.g(ab) .c'.d'(e'f') .e'.d'(c'b) .a.g(fe) | .d.e(fg) .a.b(c'd') .c'.b(ag) .f.e(dc) |
+.B.c(de) .f.g(ab) .a.g(fe) .d.c(BA) | .G.A(Bc) .d.e(fg) .f.e(^d=c) .B.A(GF)  || "^MINEUR".E.F(GA) .B.^c(^de) .f.e(^d=c) .B.A(GF) |
+.G.A(B^c) .^d.e(fg) .a.g(fe) .=d.=c(BA) | .B.^c(^de) .f.g(ab) .=c'.b(ag) .f.e(^d^c) | .^d.e(fg) .a.b(^c'^d') .e'.=d'(=c'b) .a.g(fe) |
+.^d.e(fg) .a.b(=c'=d') .c'.b(ag) .f.e(=dc) | .B.^c(^de) .f.g(ab) .a.g(fe) .=d.=c(BA) | .G.A(B^c) .^d.e(fg) .f.e(^d=c) .B.A(GF) |
+.E.F(GA) .B.^c(^de) .=d.=c(BA) .G.=F(ED)  || [K:C] .C.D(EF) .G.A(Bc) .d.e(fg) .a.b(c'b) | .a.g(fe) .d.c(BA) .G.F(ED) .C2z2 |]
+
+
+X:6
+T:E. J. 4 — Articulación 6 — Sincopadas de 4: .C(DE).F .G(AB).c
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+.C(DE).F .G(AB).c .d(cB).A .G(FE).D | .E(FG).A .B(cd).e .f(ed).c .B(AG).F | .G(AB).c .d(ef).g .a(gf).e .d(cB).A |
+.B(cd).e .f(ga).b .c'(ba).g .f(ed).c | .B(cd).e .f(ga).b .a(gf).e .d(cB).A | .G(AB).c .d(ef).g .f(ed).c .B(AG).F |
+.E(FG).A .B(cd).e .d(cB).A .G(FE).D | .C(DE).F .G(AB).c .B(A^G).=F .E(dc).B  || "^RELATIF MINEUR".A(Bc).d .e(^f^g).a .b(a^g).=f .e(dc).B |
+.c(de).^f .^g(ab).c' .d'(c'b).a .=g(=fe).d | .e(^f^g).a .b(c'd').e' .=f'(e'd').c' .b(a^g).^f | .^g(ab).c' .d'(e'^f').^g' .a'(=g'=f').e' .d'(c'b).a |
+.^g(ab).c' .d'(e'=f').=g' .f'(e'd').c' .b(a=g).f | .e(^f^g).a .b(c'd').e' .d'(c'b).a .=g(=fe).d | .c(de).^f .^g(ab).c' .b(a^g).=f .e(dc).B |
+.A(Bc).d .e(^f^g).a .=g(=fe).d .c(_BA).G  || [K:F] .F(GA).B .c(de).f .g(fe).d .c(BA).G | .A(Bc).d .e(fg).a .b(ag).f .e(dc).B |
+.c(de).f .g(ab).c' .d'(c'b).a .g(fe).d | .e(fg).a .b(c'd').e' .f'(e'd').c' .b(ag).f | .e(fg).a .b(c'd').e' .d'(c'b).a .g(fe).d |
+.c(de).f .g(ab).c' .b(ag).f .e(dc).B | .A(Bc).d .e(fg).a .g(fe).d .c(BA).G | .F(GA).B .c(de).f .e(d^c)._B .A(GF).E ||
+"^MINEUR".D(EF).G .A(=B^c).d .e(d^c)._B .A(GF).E | .F(GA).=B .^c(de).f .g(fe).d .=c(_BA).G | .A(=B^c).d .e(fg).a ._b(ag).f .e(d^c).=B |
+.^c(de).f .g(a=b).^c' .d'(=c'_b).a .g(fe).d | .^c(de).f .g(a_b).=c' .b(ag).f .e(d=c).B | .A(=B^c).d .e(fg).a .g(fe).d .=c(_BA).G |
+.F(GA).=B .^c(de).f .e(d^c)._B .A(GF).E | .D(EF).G .A(=B^c).d .=c(_BA).G .F(_ed).c  || [K:Bb] .B(cd).e .f(ga).b .c'(ba).g .f(ed).c |
+.d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e | .f(ga).b .c'(d'e').f' .g'(f'e').d' .c'(ba).g | .a(bc').d' .e'(f'g').a' .b'(a'g').f' .e'(d'c').b |
+.a(bc').d' .e'(f'g').a' .g'(f'e').d' .c'(ba).g | .f(ga).b .c'(d'e').f' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c |
+.B(cd).e .f(ga).b .a(g^f)._e .d(cB).A  || "^MINEUR".G(AB).c .d(=e^f).g .a(g^f)._e .d(cB).A | .B(cd).=e .^f(ga).b .c'(ba).g .=f(_ed).c |
+.d(=e^f).g .a(bc').d' ._e'(d'c').b .a(g^f).=e | .^f(ga).b .c'(d'=e').^f' .g'(=f'_e').d' .c'(ba).g | .^f(ga).b .c'(d'_e').=f' .e'(d'c').b .a(g=f).e |
+K:Bb
+.d(=e^f).g .a(bc').d' .c'(ba).g .=f(_ed).c | .B(cd).=e .^f(ga).b .a(g^f)._e .d(cB).A | .G(AB).c .d(=e^f).g .=f(_ed).c .B(_AG).F ||
+K:Eb
+.E(FG).A .B(cd).e .f(ed).c .B(AG).F | .G(AB).c .d(ef).g .a(gf).e .d(cB).A | .B(cd).e .f(ga).b .c'(ba).g .f(ed).c |
+.d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c | .B(cd).e .f(ga).b .a(gf).e .d(cB).A |
+.G(AB).c .d(ef).g .f(ed).c .B(AG).F | .E(FG).A .B(cd).e .d(c=B)._A .G(FE).D  || "^MINEUR".C(DE).F .G(=A=B).c .d(c=B)._A .G(FE).D |
+.E(FG).=A .=B(cd).e .f(ed).c ._B(_AG).F | .G(=A=B).c .d(ef).g ._a(gf).e .d(c=B).=A | .=B(cd).e .f(g=a).=b .c'(_b_a).g .f(ed).c |
+.=B(cd).e .f(g_a)._b .a(gf).e .d(c_B).A | .G(=A=B).c .d(ef).g .f(ed).c ._B(_AG).F | .E(FG).=A .=B(cd).e .d(c=B)._A .G(FE).D |
+.C(DE).F .G(=A=B).c ._B(_AG).F .E(_dc).B  || [K:Ab] .A(Bc).d .e(fg).a .b(ag).f .e(dc).B | .c(de).f .g(ab).c' .d'(c'b).a .g(fe).d |
+.e(fg).a .b(c'd').e' .f'(e'd').c' .b(ag).f | .g(ab).c' .d'(e'f').g' .a'(g'f').e' .d'(c'b).a | .g(ab).c' .d'(e'f').g' .f'(e'd').c' .b(ag).f |
+.e(fg).a .b(c'd').e' .d'(c'b).a .g(fe).d | .c(de).f .g(ab).c' .b(ag).f .e(dc).B | .A(Bc).d .e(fg).a .g(f=e)._d .c(BA).G ||
+"^MINEUR".F(GA).B .c(=d=e).f .g(f=e)._d .c(BA).G | .A(Bc).=d .=e(fg).a .b(ag).f ._e(_dc).B | .c(=d=e).f .g(ab).c' ._d'(c'b).a .g(f=e).=d |
+.=e(fg).a .b(c'=d').=e' .f'(_e'_d').c' .b(ag).f | .=e(fg).a .b(c'_d')._e' .d'(c'b).a .g(f_e).d | .c(=d=e).f .g(ab).c' .b(ag).f ._e(_dc).B |
+.A(Bc).=d .=e(fg).a .g(f=e)._d .c(BA).G | .F(GA).B .c(=d=e).f ._e(_dc).B .A(_GF).E  || [K:Db] .D(EF).G .A(Bc).d .e(dc).B .A(GF).E |
+.F(GA).B .c(de).f .g(fe).d .c(BA).G | .A(Bc).d .e(fg).a .b(ag).f .e(dc).B | .c(de).f .g(ab).c' .d'(c'b).a .g(fe).d |
+.c(de).f .g(ab).c' .b(ag).f .e(dc).B | .A(Bc).d .e(fg).a .g(fe).d .c(BA).G | .F(GA).B .c(de).f .e(dc).B .A(GF).E |
+.D(EF).G .A(Bc).d .c(B=A)._G .F(ed).c  || "^MINEUR".B(cd).e .f(=g=a).b .c'(b=a)._g .f(ed).c | .d(ef).=g .=a(bc').d' .e'(d'c').b ._a(_gf).e |
+.f(=g=a).b .c'(d'e').f' ._g'(f'e').d' .c'(b=a).=g | .=a(bc').d' .e'(f'=g').=a' .b'(_a'_g').f' .e'(d'c').b | .=a(bc').d' .e'(f'_g')._a' .g'(f'e').d' .c'(b_a).g |
+.f(=g=a).b .c'(d'e').f' .e'(d'c').b ._a(_gf).e | .d(ef).=g .=a(bc').d' .c'(b=a)._g .f(ed).c | .B(cd).e .f(=g=a).b ._a(_gf).e .d(_cB).A ||
+K:Gb
+.G(AB).c .d(ef).g .a(gf).e .d(cB).A | .B(cd).e .f(ga).b .c'(ba).g .f(ed).c | .d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e |
+.f(ga).b .c'(d'e').f' .g'(f'e').d' .c'(ba).g | .f(ga).b .c'(d'e').f' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c |
+.B(cd).e .f(ga).b .a(gf).e .d(cB).A | .G(AB).c .d(ef).g .f(e=d)._c .B(AG).F  || "^MINEUR".E(FG).A .B(=c=d).e .f(e=d)._c .B(AG).F |
+.G(AB).=c .=d(ef).g .a(gf).e ._d(_cB).A | .B(=c=d).e .f(ga).b ._c'(ba).g .f(e=d).=c | .=d(ef).g .a(b=c').=d' .e'(_d'_c').b .a(gf).e |
+.=d(ef).g .a(b_c')._d' .c'(ba).g .f(e_d).c | .B(=c=d).e .f(ga).b .a(gf).e ._d(_cB).A | .G(AB).=c .=d(ef).g .f(e=d)._c .B(AG).F |
+.E(FG).A .B(=c=d).e ._d(_cB).A .G(=e^d).^c  || [K:B] .B(cd).e .f(ga).b .c'(ba).g .f(ed).c |
+.d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e | .f(ga).b .c'(d'e').f' .g'(f'e').d' .c'(ba).g | .a(bc').d' .e'(f'g').a' .b'(a'g').f' .e'(d'c').b |
+.a(bc').d' .e'(f'g').a' .g'(f'e').d' .c'(ba).g | .f(ga).b .c'(d'e').f' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c |
+.B(cd).e .f(ga).b .a(g^^f).e .d(cB).A  || "^MINEUR".G(AB).c .d(^e^^f).g .a(g^^f).=e .d(cB).A | .B(cd).^e .^^f(ga).b .c'(ba).g .^f(=ed).c |
+.d(^e^^f).g .a(bc').d' .=e'(d'c').b .a(g^^f).^e | .^^f(ga).b .c'(d'^e').^^f' .g'(^f'=e').d' .c'(ba).g | .^^f(ga).b .c'(d'=e').^f' .e'(d'c').b .a(g^f).e |
+.d(^e^^f).g .a(bc').d' .c'(ba).g .^f(=ed).c | .B(cd).^e .^^f(ga).b .a(g^^f).=e .d(cB).A | .G(AB).c .d(^e^^f).g .^f(=ed).c .B(=AG).F ||
+K:E
+.E(FG).A .B(cd).e .f(ed).c .B(AG).F | .G(AB).c .d(ef).g .a(gf).e .d(cB).A | .B(cd).e .f(ga).b .c'(ba).g .f(ed).c |
+.d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c | .B(cd).e .f(ga).b .a(gf).e .d(cB).A |
+.G(AB).c .d(ef).g .f(ed).c .B(AG).F | .E(FG).A .B(cd).e .d(c^B).A .G(FE).D  || "^MINEUR".C(DE).F .G(^A^B).c .d(c^B).=A .G(FE).D |
+.E(FG).^A .^B(cd).e .f(ed).c .=B(=AG).F | .G(^A^B).c .d(ef).g .=a(gf).e .d(c^B).^A | .^B(cd).e .f(g^a).^b .c'(=b=a).g .f(ed).c |
+.^B(cd).e .f(g=a).=b .a(gf).e .d(c=B).A | .G(^A^B).c .d(ef).g .f(ed).c .=B(=AG).F | .E(FG).^A .^B(cd).e .d(c^B).=A .G(FE).D |
+.C(DE).F .G(^A^B).c .=B(=AG).F .E(=dc).B  || [K:A] .A(Bc).d .e(fg).a .b(ag).f .e(dc).B | .c(de).f .g(ab).c' .d'(c'b).a .g(fe).d |
+K:A
+.e(fg).a .b(c'd').e' .f'(e'd').c' .b(ag).f | .g(ab).c' .d'(e'f').g' .a'(g'f').e' .d'(c'b).a | .g(ab).c' .d'(e'f').g' .f'(e'd').c' .b(ag).f |
+.e(fg).a .b(c'd').e' .d'(c'b).a .g(fe).d | .c(de).f .g(ab).c' .b(ag).f .e(dc).B | .A(Bc).d .e(fg).a .g(f^e).d .c(BA).G ||
+"^MINEUR".F(GA).B .c(^d^e).f .g(f^e).=d .c(BA).G | .A(Bc).^d .^e(fg).a .b(ag).f .=e(=dc).B | .c(^d^e).f .g(ab).c' .=d'(c'b).a .g(f^e).^d |
+.^e(fg).a .b(c'^d').^e' .f'(=e'=d').c' .b(ag).f | .^e(fg).a .b(c'=d').=e' .d'(c'b).a .g(f=e).d | .c(^d^e).f .g(ab).c' .b(ag).f .=e(=dc).B |
+.A(Bc).^d .^e(fg).a .g(f^e).=d .c(BA).G | .F(GA).B .c(^d^e).f .=e(=dc).B .A(=GF).E  || [K:D] .D(EF).G .A(Bc).d .e(dc).B .A(GF).E |
+.F(GA).B .c(de).f .g(fe).d .c(BA).G | .A(Bc).d .e(fg).a .b(ag).f .e(dc).B | .c(de).f .g(ab).c' .d'(c'b).a .g(fe).d |
+.c(de).f .g(ab).c' .b(ag).f .e(dc).B | .A(Bc).d .e(fg).a .g(fe).d .c(BA).G | .F(GA).B .c(de).f .e(dc).B .A(GF).E |
+.D(EF).G .A(Bc).d .c(B^A).=G .F(ed).c  || "^MINEUR".B(cd).e .f(^g^a).b .c'(b^a).=g .f(ed).c | .d(ef).^g .^a(bc').d' .e'(d'c').b .=a(=gf).e |
+.f(^g^a).b .c'(d'e').f' .=g'(f'e').d' .c'(b^a).^g | .^a(bc').d' .e'(f'^g').^a' .b'(=a'=g').f' .e'(d'c').b | .^a(bc').d' .e'(f'=g').=a' .g'(f'e').d' .c'(b=a).g |
+.f(^g^a).b .c'(d'e').f' .e'(d'c').b .=a(=gf).e | .d(ef).^g .^a(bc').d' .c'(b^a).=g .f(ed).c | .B(cd).e .f(^g^a).b .=a(=gf).e .d(=cB).A ||
+K:G
+.G(AB).c .d(ef).g .a(gf).e .d(cB).A | .B(cd).e .f(ga).b .c'(ba).g .f(ed).c | .d(ef).g .a(bc').d' .e'(d'c').b .a(gf).e |
+.f(ga).b .c'(d'e').f' .g'(f'e').d' .c'(ba).g | .f(ga).b .c'(d'e').f' .e'(d'c').b .a(gf).e | .d(ef).g .a(bc').d' .c'(ba).g .f(ed).c |
+.B(cd).e .f(ga).b .a(gf).e .d(cB).A | .G(AB).c .d(ef).g .f(e^d).=c .B(AG).F  || "^MINEUR".E(FG).A .B(^c^d).e .f(e^d).=c .B(AG).F |
+.G(AB).^c .^d(ef).g .a(gf).e .=d(=cB).A | .B(^c^d).e .f(ga).b .=c'(ba).g .f(e^d).^c | .^d(ef).g .a(b^c').^d' .e'(=d'=c').b .a(gf).e |
+.^d(ef).g .a(b=c').=d' .c'(ba).g .f(e=d).c | .B(^c^d).e .f(ga).b .a(gf).e .=d(=cB).A | .G(AB).^c .^d(ef).g .f(e^d).=c .B(AG).F |
+.E(FG).A .B(^c^d).e .=d(=cB).A .G(=FE).D  || [K:C] .C(DE).F .G(AB).c .d(ef).g .a(bc').b | .a(gf).e .d(cB).A .G(FE).D .C2z2 |]
+
+
+X:7
+T:E. J. 4 — Articulación 7 — De 2 en 2 ligadas: (CD)(EF)(GA)(Bc)
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+(CD)(EF) (GA)(Bc) (dc)(BA) (GF)(ED) | (EF)(GA) (Bc)(de) (fe)(dc) (BA)(GF) | (GA)(Bc) (de)(fg) (ag)(fe) (dc)(BA) |
+(Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) | (Bc)(de) (fg)(ab) (ag)(fe) (dc)(BA) | (GA)(Bc) (de)(fg) (fe)(dc) (BA)(GF) |
+(EF)(GA) (Bc)(de) (dc)(BA) (GF)(ED) | (CD)(EF) (GA)(Bc) (BA)(^G=F) (Ed)(cB)  || "^RELATIF MINEUR"(AB)(cd) (e^f)(^ga) (ba)(^g=f) (ed)(cB) |
+(cd)(e^f) (^ga)(bc') (d'c')(ba) (=g=f)(ed) | (e^f)(^ga) (bc')(d'e') (=f'e')(d'c') (ba)(^g^f) | (^ga)(bc') (d'e')(^f'^g') (a'=g')(=f'e') (d'c')(ba) |
+(^ga)(bc') (d'e')(=f'=g') (f'e')(d'c') (ba)(=gf) | (e^f)(^ga) (bc')(d'e') (d'c')(ba) (=g=f)(ed) | (cd)(e^f) (^ga)(bc') (ba)(^g=f) (ed)(cB) |
+(AB)(cd) (e^f)(^ga) (=g=f)(ed) (c_B)(AG)  || [K:F] (FG)(AB) (cd)(ef) (gf)(ed) (cB)(AG) | (AB)(cd) (ef)(ga) (ba)(gf) (ed)(cB) |
+(cd)(ef) (ga)(bc') (d'c')(ba) (gf)(ed) | (ef)(ga) (bc')(d'e') (f'e')(d'c') (ba)(gf) | (ef)(ga) (bc')(d'e') (d'c')(ba) (gf)(ed) |
+(cd)(ef) (ga)(bc') (ba)(gf) (ed)(cB) | (AB)(cd) (ef)(ga) (gf)(ed) (cB)(AG) | (FG)(AB) (cd)(ef) (ed)(^c_B) (AG)(FE) ||
+"^MINEUR"(DE)(FG) (A=B)(^cd) (ed)(^c_B) (AG)(FE) | (FG)(A=B) (^cd)(ef) (gf)(ed) (=c_B)(AG) | (A=B)(^cd) (ef)(ga) (_ba)(gf) (ed)(^c=B) |
+(^cd)(ef) (ga)(=b^c') (d'=c')(_ba) (gf)(ed) | (^cd)(ef) (ga)(_b=c') (ba)(gf) (ed)(=cB) | (A=B)(^cd) (ef)(ga) (gf)(ed) (=c_B)(AG) |
+(FG)(A=B) (^cd)(ef) (ed)(^c_B) (AG)(FE) | (DE)(FG) (A=B)(^cd) (=c_B)(AG) (F_e)(dc)  || [K:Bb] (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) |
+(de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) | (fg)(ab) (c'd')(e'f') (g'f')(e'd') (c'b)(ag) | (ab)(c'd') (e'f')(g'a') (b'a')(g'f') (e'd')(c'b) |
+(ab)(c'd') (e'f')(g'a') (g'f')(e'd') (c'b)(ag) | (fg)(ab) (c'd')(e'f') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) |
+(Bc)(de) (fg)(ab) (ag)(^f_e) (dc)(BA)  || "^MINEUR"(GA)(Bc) (d=e)(^fg) (ag)(^f_e) (dc)(BA) | (Bc)(d=e) (^fg)(ab) (c'b)(ag) (=f_e)(dc) |
+(d=e)(^fg) (ab)(c'd') (_e'd')(c'b) (ag)(^f=e) | (^fg)(ab) (c'd')(=e'^f') (g'=f')(_e'd') (c'b)(ag) | (^fg)(ab) (c'd')(_e'=f') (e'd')(c'b) (ag)(=fe) |
+K:Bb
+(d=e)(^fg) (ab)(c'd') (c'b)(ag) (=f_e)(dc) | (Bc)(d=e) (^fg)(ab) (ag)(^f_e) (dc)(BA) | (GA)(Bc) (d=e)(^fg) (=f_e)(dc) (B_A)(GF) ||
+K:Eb
+(EF)(GA) (Bc)(de) (fe)(dc) (BA)(GF) | (GA)(Bc) (de)(fg) (ag)(fe) (dc)(BA) | (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) |
+(de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) | (Bc)(de) (fg)(ab) (ag)(fe) (dc)(BA) |
+(GA)(Bc) (de)(fg) (fe)(dc) (BA)(GF) | (EF)(GA) (Bc)(de) (dc)(=B_A) (GF)(ED)  || "^MINEUR"(CD)(EF) (G=A)(=Bc) (dc)(=B_A) (GF)(ED) |
+(EF)(G=A) (=Bc)(de) (fe)(dc) (_B_A)(GF) | (G=A)(=Bc) (de)(fg) (_ag)(fe) (dc)(=B=A) | (=Bc)(de) (fg)(=a=b) (c'_b)(_ag) (fe)(dc) |
+(=Bc)(de) (fg)(_a_b) (ag)(fe) (dc)(_BA) | (G=A)(=Bc) (de)(fg) (fe)(dc) (_B_A)(GF) | (EF)(G=A) (=Bc)(de) (dc)(=B_A) (GF)(ED) |
+(CD)(EF) (G=A)(=Bc) (_B_A)(GF) (E_d)(cB)  || [K:Ab] (AB)(cd) (ef)(ga) (ba)(gf) (ed)(cB) | (cd)(ef) (ga)(bc') (d'c')(ba) (gf)(ed) |
+(ef)(ga) (bc')(d'e') (f'e')(d'c') (ba)(gf) | (ga)(bc') (d'e')(f'g') (a'g')(f'e') (d'c')(ba) | (ga)(bc') (d'e')(f'g') (f'e')(d'c') (ba)(gf) |
+(ef)(ga) (bc')(d'e') (d'c')(ba) (gf)(ed) | (cd)(ef) (ga)(bc') (ba)(gf) (ed)(cB) | (AB)(cd) (ef)(ga) (gf)(=e_d) (cB)(AG) ||
+"^MINEUR"(FG)(AB) (c=d)(=ef) (gf)(=e_d) (cB)(AG) | (AB)(c=d) (=ef)(ga) (ba)(gf) (_e_d)(cB) | (c=d)(=ef) (ga)(bc') (_d'c')(ba) (gf)(=e=d) |
+(=ef)(ga) (bc')(=d'=e') (f'_e')(_d'c') (ba)(gf) | (=ef)(ga) (bc')(_d'_e') (d'c')(ba) (gf)(_ed) | (c=d)(=ef) (ga)(bc') (ba)(gf) (_e_d)(cB) |
+(AB)(c=d) (=ef)(ga) (gf)(=e_d) (cB)(AG) | (FG)(AB) (c=d)(=ef) (_e_d)(cB) (A_G)(FE)  || [K:Db] (DE)(FG) (AB)(cd) (ed)(cB) (AG)(FE) |
+(FG)(AB) (cd)(ef) (gf)(ed) (cB)(AG) | (AB)(cd) (ef)(ga) (ba)(gf) (ed)(cB) | (cd)(ef) (ga)(bc') (d'c')(ba) (gf)(ed) |
+(cd)(ef) (ga)(bc') (ba)(gf) (ed)(cB) | (AB)(cd) (ef)(ga) (gf)(ed) (cB)(AG) | (FG)(AB) (cd)(ef) (ed)(cB) (AG)(FE) |
+(DE)(FG) (AB)(cd) (cB)(=A_G) (Fe)(dc)  || "^MINEUR"(Bc)(de) (f=g)(=ab) (c'b)(=a_g) (fe)(dc) | (de)(f=g) (=ab)(c'd') (e'd')(c'b) (_a_g)(fe) |
+(f=g)(=ab) (c'd')(e'f') (_g'f')(e'd') (c'b)(=a=g) | (=ab)(c'd') (e'f')(=g'=a') (b'_a')(_g'f') (e'd')(c'b) | (=ab)(c'd') (e'f')(_g'_a') (g'f')(e'd') (c'b)(_ag) |
+(f=g)(=ab) (c'd')(e'f') (e'd')(c'b) (_a_g)(fe) | (de)(f=g) (=ab)(c'd') (c'b)(=a_g) (fe)(dc) | (Bc)(de) (f=g)(=ab) (_a_g)(fe) (d_c)(BA) ||
+K:Gb
+(GA)(Bc) (de)(fg) (ag)(fe) (dc)(BA) | (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) | (de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) |
+(fg)(ab) (c'd')(e'f') (g'f')(e'd') (c'b)(ag) | (fg)(ab) (c'd')(e'f') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) |
+(Bc)(de) (fg)(ab) (ag)(fe) (dc)(BA) | (GA)(Bc) (de)(fg) (fe)(=d_c) (BA)(GF)  || "^MINEUR"(EF)(GA) (B=c)(=de) (fe)(=d_c) (BA)(GF) |
+(GA)(B=c) (=de)(fg) (ag)(fe) (_d_c)(BA) | (B=c)(=de) (fg)(ab) (_c'b)(ag) (fe)(=d=c) | (=de)(fg) (ab)(=c'=d') (e'_d')(_c'b) (ag)(fe) |
+(=de)(fg) (ab)(_c'_d') (c'b)(ag) (fe)(_dc) | (B=c)(=de) (fg)(ab) (ag)(fe) (_d_c)(BA) | (GA)(B=c) (=de)(fg) (fe)(=d_c) (BA)(GF) |
+(EF)(GA) (B=c)(=de) (_d_c)(BA) (G=e)(^d^c)  || [K:B] (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) |
+(de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) | (fg)(ab) (c'd')(e'f') (g'f')(e'd') (c'b)(ag) | (ab)(c'd') (e'f')(g'a') (b'a')(g'f') (e'd')(c'b) |
+(ab)(c'd') (e'f')(g'a') (g'f')(e'd') (c'b)(ag) | (fg)(ab) (c'd')(e'f') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) |
+(Bc)(de) (fg)(ab) (ag)(^^fe) (dc)(BA)  || "^MINEUR"(GA)(Bc) (d^e)(^^fg) (ag)(^^f=e) (dc)(BA) | (Bc)(d^e) (^^fg)(ab) (c'b)(ag) (^f=e)(dc) |
+(d^e)(^^fg) (ab)(c'd') (=e'd')(c'b) (ag)(^^f^e) | (^^fg)(ab) (c'd')(^e'^^f') (g'^f')(=e'd') (c'b)(ag) | (^^fg)(ab) (c'd')(=e'^f') (e'd')(c'b) (ag)(^fe) |
+(d^e)(^^fg) (ab)(c'd') (c'b)(ag) (^f=e)(dc) | (Bc)(d^e) (^^fg)(ab) (ag)(^^f=e) (dc)(BA) | (GA)(Bc) (d^e)(^^fg) (^f=e)(dc) (B=A)(GF) ||
+K:E
+(EF)(GA) (Bc)(de) (fe)(dc) (BA)(GF) | (GA)(Bc) (de)(fg) (ag)(fe) (dc)(BA) | (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) |
+(de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) | (Bc)(de) (fg)(ab) (ag)(fe) (dc)(BA) |
+(GA)(Bc) (de)(fg) (fe)(dc) (BA)(GF) | (EF)(GA) (Bc)(de) (dc)(^BA) (GF)(ED)  || "^MINEUR"(CD)(EF) (G^A)(^Bc) (dc)(^B=A) (GF)(ED) |
+(EF)(G^A) (^Bc)(de) (fe)(dc) (=B=A)(GF) | (G^A)(^Bc) (de)(fg) (=ag)(fe) (dc)(^B^A) | (^Bc)(de) (fg)(^a^b) (c'=b)(=ag) (fe)(dc) |
+(^Bc)(de) (fg)(=a=b) (ag)(fe) (dc)(=BA) | (G^A)(^Bc) (de)(fg) (fe)(dc) (=B=A)(GF) | (EF)(G^A) (^Bc)(de) (dc)(^B=A) (GF)(ED) |
+(CD)(EF) (G^A)(^Bc) (=B=A)(GF) (E=d)(cB)  || [K:A] (AB)(cd) (ef)(ga) (ba)(gf) (ed)(cB) | (cd)(ef) (ga)(bc') (d'c')(ba) (gf)(ed) |
+K:A
+(ef)(ga) (bc')(d'e') (f'e')(d'c') (ba)(gf) | (ga)(bc') (d'e')(f'g') (a'g')(f'e') (d'c')(ba) | (ga)(bc') (d'e')(f'g') (f'e')(d'c') (ba)(gf) |
+(ef)(ga) (bc')(d'e') (d'c')(ba) (gf)(ed) | (cd)(ef) (ga)(bc') (ba)(gf) (ed)(cB) | (AB)(cd) (ef)(ga) (gf)(^ed) (cB)(AG) ||
+"^MINEUR"(FG)(AB) (c^d)(^ef) (gf)(^e=d) (cB)(AG) | (AB)(c^d) (^ef)(ga) (ba)(gf) (=e=d)(cB) | (c^d)(^ef) (ga)(bc') (=d'c')(ba) (gf)(^e^d) |
+(^ef)(ga) (bc')(^d'^e') (f'=e')(=d'c') (ba)(gf) | (^ef)(ga) (bc')(=d'=e') (d'c')(ba) (gf)(=ed) | (c^d)(^ef) (ga)(bc') (ba)(gf) (=e=d)(cB) |
+(AB)(c^d) (^ef)(ga) (gf)(^e=d) (cB)(AG) | (FG)(AB) (c^d)(^ef) (=e=d)(cB) (A=G)(FE)  || [K:D] (DE)(FG) (AB)(cd) (ed)(cB) (AG)(FE) |
+(FG)(AB) (cd)(ef) (gf)(ed) (cB)(AG) | (AB)(cd) (ef)(ga) (ba)(gf) (ed)(cB) | (cd)(ef) (ga)(bc') (d'c')(ba) (gf)(ed) |
+(cd)(ef) (ga)(bc') (ba)(gf) (ed)(cB) | (AB)(cd) (ef)(ga) (gf)(ed) (cB)(AG) | (FG)(AB) (cd)(ef) (ed)(cB) (AG)(FE) |
+(DE)(FG) (AB)(cd) (cB)(^A=G) (Fe)(dc)  || "^MINEUR"(Bc)(de) (f^g)(^ab) (c'b)(^a=g) (fe)(dc) | (de)(f^g) (^ab)(c'd') (e'd')(c'b) (=a=g)(fe) |
+(f^g)(^ab) (c'd')(e'f') (=g'f')(e'd') (c'b)(^a^g) | (^ab)(c'd') (e'f')(^g'^a') (b'=a')(=g'f') (e'd')(c'b) | (^ab)(c'd') (e'f')(=g'=a') (g'f')(e'd') (c'b)(=ag) |
+(f^g)(^ab) (c'd')(e'f') (e'd')(c'b) (=a=g)(fe) | (de)(f^g) (^ab)(c'd') (c'b)(^a=g) (fe)(dc) | (Bc)(de) (f^g)(^ab) (=a=g)(fe) (d=c)(BA) ||
+K:G
+(GA)(Bc) (de)(fg) (ag)(fe) (dc)(BA) | (Bc)(de) (fg)(ab) (c'b)(ag) (fe)(dc) | (de)(fg) (ab)(c'd') (e'd')(c'b) (ag)(fe) |
+(fg)(ab) (c'd')(e'f') (g'f')(e'd') (c'b)(ag) | (fg)(ab) (c'd')(e'f') (e'd')(c'b) (ag)(fe) | (de)(fg) (ab)(c'd') (c'b)(ag) (fe)(dc) |
+(Bc)(de) (fg)(ab) (ag)(fe) (dc)(BA) | (GA)(Bc) (de)(fg) (fe)(^d=c) (BA)(GF)  || "^MINEUR"(EF)(GA) (B^c)(^de) (fe)(^d=c) (BA)(GF) |
+(GA)(B^c) (^de)(fg) (ag)(fe) (=d=c)(BA) | (B^c)(^de) (fg)(ab) (=c'b)(ag) (fe)(^d^c) | (^de)(fg) (ab)(^c'^d') (e'=d')(=c'b) (ag)(fe) |
+(^de)(fg) (ab)(=c'=d') (c'b)(ag) (fe)(=dc) | (B^c)(^de) (fg)(ab) (ag)(fe) (=d=c)(BA) | (GA)(B^c) (^de)(fg) (fe)(^d=c) (BA)(GF) |
+(EF)(GA) (B^c)(^de) (=d=c)(BA) (G=F)(ED)  || [K:C] (CD)(EF) (GA)(Bc) (de)(fg) (ab)(c'b) | (ag)(fe) (dc)(BA) (GF)(ED) .C2z2 |]
+
+
+X:8
+T:E. J. 4 — Articulación 8 — Sincopadas de 8: .C(DE)(FG)(AB).c
+C:Paul Taffanel & Philippe Gaubert (Alphonse Leduc A. L. 16.588, págs. 111–114)
+M:4/2
+L:1/8
+Q:1/4=116
+K:C
+.C(DE)(FG)(AB).c .d(cB)(AG)(FE).D | .E(FG)(AB)(cd).e .f(ed)(cB)(AG).F | .G(AB)(cd)(ef).g .a(gf)(ed)(cB).A |
+.B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c | .B(cd)(ef)(ga).b .a(gf)(ed)(cB).A | .G(AB)(cd)(ef).g .f(ed)(cB)(AG).F |
+.E(FG)(AB)(cd).e .d(cB)(AG)(FE).D | .C(DE)(FG)(AB).c .B(A^G)(=FE)(dc).B  || "^RELATIF MINEUR".A(Bc)(de)(^f^g).a .b(a^g)(=fe)(dc).B |
+.c(de)(^f^g)(ab).c' .d'(c'b)(a=g)(=fe).d | .e(^f^g)(ab)(c'd').e' .=f'(e'd')(c'b)(a^g).^f | .^g(ab)(c'd')(e'^f').^g' .a'(=g'=f')(e'd')(c'b).a |
+.^g(ab)(c'd')(e'=f').=g' .f'(e'd')(c'b)(a=g).f | .e(^f^g)(ab)(c'd').e' .d'(c'b)(a=g)(=fe).d | .c(de)(^f^g)(ab).c' .b(a^g)(=fe)(dc).B |
+.A(Bc)(de)(^f^g).a .=g(=fe)(dc)(_BA).G  || [K:F] .F(GA)(Bc)(de).f .g(fe)(dc)(BA).G | .A(Bc)(de)(fg).a .b(ag)(fe)(dc).B |
+.c(de)(fg)(ab).c' .d'(c'b)(ag)(fe).d | .e(fg)(ab)(c'd').e' .f'(e'd')(c'b)(ag).f | .e(fg)(ab)(c'd').e' .d'(c'b)(ag)(fe).d |
+.c(de)(fg)(ab).c' .b(ag)(fe)(dc).B | .A(Bc)(de)(fg).a .g(fe)(dc)(BA).G | .F(GA)(Bc)(de).f .e(d^c)(_BA)(GF).E ||
+"^MINEUR".D(EF)(GA)(=B^c).d .e(d^c)(_BA)(GF).E | .F(GA)(=B^c)(de).f .g(fe)(d=c)(_BA).G | .A(=B^c)(de)(fg).a ._b(ag)(fe)(d^c).=B |
+.^c(de)(fg)(a=b).^c' .d'(=c'_b)(ag)(fe).d | .^c(de)(fg)(a_b).=c' .b(ag)(fe)(d=c).B | .A(=B^c)(de)(fg).a .g(fe)(d=c)(_BA).G |
+.F(GA)(=B^c)(de).f .e(d^c)(_BA)(GF).E | .D(EF)(GA)(=B^c).d .=c(_BA)(GF)(_ed).c  || [K:Bb] .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c |
+.d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e | .f(ga)(bc')(d'e').f' .g'(f'e')(d'c')(ba).g | .a(bc')(d'e')(f'g').a' .b'(a'g')(f'e')(d'c').b |
+.a(bc')(d'e')(f'g').a' .g'(f'e')(d'c')(ba).g | .f(ga)(bc')(d'e').f' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c |
+.B(cd)(ef)(ga).b .a(g^f)(_ed)(cB).A  || "^MINEUR".G(AB)(cd)(=e^f).g .a(g^f)(_ed)(cB).A | .B(cd)(=e^f)(ga).b .c'(ba)(g=f)(_ed).c |
+.d(=e^f)(ga)(bc').d' ._e'(d'c')(ba)(g^f).=e | .^f(ga)(bc')(d'=e').^f' .g'(=f'_e')(d'c')(ba).g | .^f(ga)(bc')(d'_e').=f' .e'(d'c')(ba)(g=f).e |
+K:Bb
+.d(=e^f)(ga)(bc').d' .c'(ba)(g=f)(_ed).c | .B(cd)(=e^f)(ga).b .a(g^f)(_ed)(cB).A | .G(AB)(cd)(=e^f).g .=f(_ed)(cB)(_AG).F ||
+K:Eb
+.E(FG)(AB)(cd).e .f(ed)(cB)(AG).F | .G(AB)(cd)(ef).g .a(gf)(ed)(cB).A | .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c |
+.d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c | .B(cd)(ef)(ga).b .a(gf)(ed)(cB).A |
+.G(AB)(cd)(ef).g .f(ed)(cB)(AG).F | .E(FG)(AB)(cd).e .d(c=B)(_AG)(FE).D  || "^MINEUR".C(DE)(FG)(=A=B).c .d(c=B)(_AG)(FE).D |
+.E(FG)(=A=B)(cd).e .f(ed)(c_B)(_AG).F | .G(=A=B)(cd)(ef).g ._a(gf)(ed)(c=B).=A | .=B(cd)(ef)(g=a).=b .c'(_b_a)(gf)(ed).c |
+.=B(cd)(ef)(g_a)._b .a(gf)(ed)(c_B).A | .G(=A=B)(cd)(ef).g .f(ed)(c_B)(_AG).F | .E(FG)(=A=B)(cd).e .d(c=B)(_AG)(FE).D |
+.C(DE)(FG)(=A=B).c ._B(_AG)(FE)(_dc).B  || [K:Ab] .A(Bc)(de)(fg).a .b(ag)(fe)(dc).B | .c(de)(fg)(ab).c' .d'(c'b)(ag)(fe).d |
+.e(fg)(ab)(c'd').e' .f'(e'd')(c'b)(ag).f | .g(ab)(c'd')(e'f').g' .a'(g'f')(e'd')(c'b).a | .g(ab)(c'd')(e'f').g' .f'(e'd')(c'b)(ag).f |
+.e(fg)(ab)(c'd').e' .d'(c'b)(ag)(fe).d | .c(de)(fg)(ab).c' .b(ag)(fe)(dc).B | .A(Bc)(de)(fg).a .g(f=e)(_dc)(BA).G ||
+"^MINEUR".F(GA)(Bc)(=d=e).f .g(f=e)(_dc)(BA).G | .A(Bc)(=d=e)(fg).a .b(ag)(f_e)(_dc).B | .c(=d=e)(fg)(ab).c' ._d'(c'b)(ag)(f=e).=d |
+.=e(fg)(ab)(c'=d').=e' .f'(_e'_d')(c'b)(ag).f | .=e(fg)(ab)(c'_d')._e' .d'(c'b)(ag)(f_e).d | .c(=d=e)(fg)(ab).c' .b(ag)(f_e)(_dc).B |
+.A(Bc)(=d=e)(fg).a .g(f=e)(_dc)(BA).G | .F(GA)(Bc)(=d=e).f ._e(_dc)(BA)(_GF).E  || [K:Db] .D(EF)(GA)(Bc).d .e(dc)(BA)(GF).E |
+.F(GA)(Bc)(de).f .g(fe)(dc)(BA).G | .A(Bc)(de)(fg).a .b(ag)(fe)(dc).B | .c(de)(fg)(ab).c' .d'(c'b)(ag)(fe).d |
+.c(de)(fg)(ab).c' .b(ag)(fe)(dc).B | .A(Bc)(de)(fg).a .g(fe)(dc)(BA).G | .F(GA)(Bc)(de).f .e(dc)(BA)(GF).E |
+.D(EF)(GA)(Bc).d .c(B=A)(_GF)(ed).c  || "^MINEUR".B(cd)(ef)(=g=a).b .c'(b=a)(_gf)(ed).c | .d(ef)(=g=a)(bc').d' .e'(d'c')(b_a)(_gf).e |
+.f(=g=a)(bc')(d'e').f' ._g'(f'e')(d'c')(b=a).=g | .=a(bc')(d'e')(f'=g').=a' .b'(_a'_g')(f'e')(d'c').b | .=a(bc')(d'e')(f'_g')._a' .g'(f'e')(d'c')(b_a).g |
+.f(=g=a)(bc')(d'e').f' .e'(d'c')(b_a)(_gf).e | .d(ef)(=g=a)(bc').d' .c'(b=a)(_gf)(ed).c | .B(cd)(ef)(=g=a).b ._a(_gf)(ed)(_cB).A ||
+K:Gb
+.G(AB)(cd)(ef).g .a(gf)(ed)(cB).A | .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c | .d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e |
+.f(ga)(bc')(d'e').f' .g'(f'e')(d'c')(ba).g | .f(ga)(bc')(d'e').f' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c |
+.B(cd)(ef)(ga).b .a(gf)(ed)(cB).A | .G(AB)(cd)(ef).g .f(e=d)(_cB)(AG).F  || "^MINEUR".E(FG)(AB)(=c=d).e .f(e=d)(_cB)(AG).F |
+.G(AB)(=c=d)(ef).g .a(gf)(e_d)(_cB).A | .B(=c=d)(ef)(ga).b ._c'(ba)(gf)(e=d).=c | .=d(ef)(ga)(b=c').=d' .e'(_d'_c')(ba)(gf).e |
+.=d(ef)(ga)(b_c')._d' .c'(ba)(gf)(e_d).c | .B(=c=d)(ef)(ga).b .a(gf)(e_d)(_cB).A | .G(AB)(=c=d)(ef).g .f(e=d)(_cB)(AG).F |
+.E(FG)(AB)(=c=d).e ._d(_cB)(AG)(=e^d).^c  || [K:B] .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c |
+.d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e | .f(ga)(bc')(d'e').f' .g'(f'e')(d'c')(ba).g | .a(bc')(d'e')(f'g').a' .b'(a'g')(f'e')(d'c').b |
+.a(bc')(d'e')(f'g').a' .g'(f'e')(d'c')(ba).g | .f(ga)(bc')(d'e').f' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c |
+.B(cd)(ef)(ga).b .a(g^^f)(ed)(cB).A  || "^MINEUR".G(AB)(cd)(^e^^f).g .a(g^^f)(=ed)(cB).A | .B(cd)(^e^^f)(ga).b .c'(ba)(g^f)(=ed).c |
+.d(^e^^f)(ga)(bc').d' .=e'(d'c')(ba)(g^^f).^e | .^^f(ga)(bc')(d'^e').^^f' .g'(^f'=e')(d'c')(ba).g | .^^f(ga)(bc')(d'=e').^f' .e'(d'c')(ba)(g^f).e |
+.d(^e^^f)(ga)(bc').d' .c'(ba)(g^f)(=ed).c | .B(cd)(^e^^f)(ga).b .a(g^^f)(=ed)(cB).A | .G(AB)(cd)(^e^^f).g .^f(=ed)(cB)(=AG).F ||
+K:E
+.E(FG)(AB)(cd).e .f(ed)(cB)(AG).F | .G(AB)(cd)(ef).g .a(gf)(ed)(cB).A | .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c |
+.d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c | .B(cd)(ef)(ga).b .a(gf)(ed)(cB).A |
+.G(AB)(cd)(ef).g .f(ed)(cB)(AG).F | .E(FG)(AB)(cd).e .d(c^B)(AG)(FE).D  || "^MINEUR".C(DE)(FG)(^A^B).c .d(c^B)(=AG)(FE).D |
+.E(FG)(^A^B)(cd).e .f(ed)(c=B)(=AG).F | .G(^A^B)(cd)(ef).g .=a(gf)(ed)(c^B).^A | .^B(cd)(ef)(g^a).^b .c'(=b=a)(gf)(ed).c |
+.^B(cd)(ef)(g=a).=b .a(gf)(ed)(c=B).A | .G(^A^B)(cd)(ef).g .f(ed)(c=B)(=AG).F | .E(FG)(^A^B)(cd).e .d(c^B)(=AG)(FE).D |
+.C(DE)(FG)(^A^B).c .=B(=AG)(FE)(=dc).B  || [K:A] .A(Bc)(de)(fg).a .b(ag)(fe)(dc).B | .c(de)(fg)(ab).c' .d'(c'b)(ag)(fe).d |
+K:A
+.e(fg)(ab)(c'd').e' .f'(e'd')(c'b)(ag).f | .g(ab)(c'd')(e'f').g' .a'(g'f')(e'd')(c'b).a | .g(ab)(c'd')(e'f').g' .f'(e'd')(c'b)(ag).f |
+.e(fg)(ab)(c'd').e' .d'(c'b)(ag)(fe).d | .c(de)(fg)(ab).c' .b(ag)(fe)(dc).B | .A(Bc)(de)(fg).a .g(f^e)(dc)(BA).G ||
+"^MINEUR".F(GA)(Bc)(^d^e).f .g(f^e)(=dc)(BA).G | .A(Bc)(^d^e)(fg).a .b(ag)(f=e)(=dc).B | .c(^d^e)(fg)(ab).c' .=d'(c'b)(ag)(f^e).^d |
+.^e(fg)(ab)(c'^d').^e' .f'(=e'=d')(c'b)(ag).f | .^e(fg)(ab)(c'=d').=e' .d'(c'b)(ag)(f=e).d | .c(^d^e)(fg)(ab).c' .b(ag)(f=e)(=dc).B |
+.A(Bc)(^d^e)(fg).a .g(f^e)(=dc)(BA).G | .F(GA)(Bc)(^d^e).f .=e(=dc)(BA)(=GF).E  || [K:D] .D(EF)(GA)(Bc).d .e(dc)(BA)(GF).E |
+.F(GA)(Bc)(de).f .g(fe)(dc)(BA).G | .A(Bc)(de)(fg).a .b(ag)(fe)(dc).B | .c(de)(fg)(ab).c' .d'(c'b)(ag)(fe).d |
+.c(de)(fg)(ab).c' .b(ag)(fe)(dc).B | .A(Bc)(de)(fg).a .g(fe)(dc)(BA).G | .F(GA)(Bc)(de).f .e(dc)(BA)(GF).E |
+.D(EF)(GA)(Bc).d .c(B^A)(=GF)(ed).c  || "^MINEUR".B(cd)(ef)(^g^a).b .c'(b^a)(=gf)(ed).c | .d(ef)(^g^a)(bc').d' .e'(d'c')(b=a)(=gf).e |
+.f(^g^a)(bc')(d'e').f' .=g'(f'e')(d'c')(b^a).^g | .^a(bc')(d'e')(f'^g').^a' .b'(=a'=g')(f'e')(d'c').b | .^a(bc')(d'e')(f'=g').=a' .g'(f'e')(d'c')(b=a).g |
+.f(^g^a)(bc')(d'e').f' .e'(d'c')(b=a)(=gf).e | .d(ef)(^g^a)(bc').d' .c'(b^a)(=gf)(ed).c | .B(cd)(ef)(^g^a).b .=a(=gf)(ed)(=cB).A ||
+K:G
+.G(AB)(cd)(ef).g .a(gf)(ed)(cB).A | .B(cd)(ef)(ga).b .c'(ba)(gf)(ed).c | .d(ef)(ga)(bc').d' .e'(d'c')(ba)(gf).e |
+.f(ga)(bc')(d'e').f' .g'(f'e')(d'c')(ba).g | .f(ga)(bc')(d'e').f' .e'(d'c')(ba)(gf).e | .d(ef)(ga)(bc').d' .c'(ba)(gf)(ed).c |
+.B(cd)(ef)(ga).b .a(gf)(ed)(cB).A | .G(AB)(cd)(ef).g .f(e^d)(=cB)(AG).F  || "^MINEUR".E(FG)(AB)(^c^d).e .f(e^d)(=cB)(AG).F |
+.G(AB)(^c^d)(ef).g .a(gf)(e=d)(=cB).A | .B(^c^d)(ef)(ga).b .=c'(ba)(gf)(e^d).^c | .^d(ef)(ga)(b^c').^d' .e'(=d'=c')(ba)(gf).e |
+.^d(ef)(ga)(b=c').=d' .c'(ba)(gf)(e=d).c | .B(^c^d)(ef)(ga).b .a(gf)(e=d)(=cB).A | .G(AB)(^c^d)(ef).g .f(e^d)(=cB)(AG).F |
+.E(FG)(AB)(^c^d).e .=d(=cB)(AG)(=FE).D  || [K:C] .C(DE)(FG)(AB).c .d(ef)(ga)(bc').b | .a(gf)(ed)(cB).A .G(FE)(D C2z2) |]

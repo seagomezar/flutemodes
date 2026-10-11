@@ -75,8 +75,8 @@ public struct HomeView: View {
                                     .foregroundColor(.primary)
                             }
 
-                            // Exercise Selector (E.J. 1 | E.J. 2 | E.J. 4)
-                            HStack(spacing: 8) {
+                            // Exercise Selector (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
+                            HStack(spacing: 6) {
                                 ForEach(ExerciseType.allCases) { exercise in
                                     let isSelected = viewModel.currentExercise == exercise
                                     Button {
@@ -84,17 +84,17 @@ public struct HomeView: View {
                                             viewModel.selectExercise(exercise)
                                         }
                                     } label: {
-                                        HStack(spacing: 5) {
-                                            Image(systemName: exercise.isChromaticExercise ? "music.quarternote.3" : "dial.medium.fill")
-                                                .font(.caption.bold())
-                                            Text(isCompact ? exercise.shortLabel : exercise.displayTitle)
-                                                .font(.system(size: isCompact ? 12 : 14, weight: .bold))
+                                        HStack(spacing: 4) {
+                                            Image(systemName: exercise.isLeducExercise ? "music.quarternote.3" : "dial.medium.fill")
+                                                .font(.caption2.bold())
+                                            Text(isCompact ? exercise.pillLabel : exercise.displayTitle)
+                                                .font(.system(size: isCompact ? 11.5 : 13.5, weight: .bold))
                                                 .lineLimit(1)
-                                                .minimumScaleFactor(0.8)
+                                                .minimumScaleFactor(0.75)
                                         }
                                         .frame(maxWidth: .infinity)
                                         .padding(.vertical, 10)
-                                        .padding(.horizontal, isCompact ? 8 : 12)
+                                        .padding(.horizontal, isCompact ? 6 : 10)
                                         .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
                                         .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
                                         .cornerRadius(14)
@@ -106,12 +106,12 @@ public struct HomeView: View {
                                 }
                             }
 
-                            Text(viewModel.currentExercise == .ej1 ? loc.t("ej1_title") : (viewModel.currentExercise == .ej2 ? loc.t("ej2_title") : loc.t("subtitle")))
+                            Text(headerTitle)
                                 .font(isCompact ? .subheadline.weight(.semibold) : .headline)
                                 .foregroundColor(.primary)
                                 .multilineTextAlignment(.center)
 
-                            Text(viewModel.currentExercise == .ej1 ? loc.t("ej1_sub_desc") : (viewModel.currentExercise == .ej2 ? loc.t("ej2_sub_desc") : loc.t("sub_desc")))
+                            Text(headerSubDesc)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
@@ -120,7 +120,6 @@ public struct HomeView: View {
                         if viewModel.currentExercise.isChromaticExercise {
                             ej1ArticulationsCard
 
-                            // E.J. 1 / E.J. 2 Primary Action
                             VStack(spacing: 12) {
                                 Button {
                                     navigateToPractice = true
@@ -129,6 +128,64 @@ public struct HomeView: View {
                                         Image(systemName: "play.fill")
                                         Text("\(loc.t(viewModel.currentExercise == .ej2 ? "ej2_start_practice" : "ej1_start_practice")) (\(viewModel.currentChromaticArticulation.shortTitle))")
                                             .font(.headline)
+                                    }
+                                    .foregroundColor(Color(uiColor: .systemBackground))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 52)
+                                    .background(Color.primary)
+                                    .cornerRadius(26)
+                                }
+                            }
+                        } else if viewModel.currentExercise == .ej4 {
+                            // E.J. 4 Section Selector (25 Tonal Sections)
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(loc.t("ej4_select_section").uppercased())
+                                    .font(.caption.bold())
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal, 4)
+
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 8) {
+                                        ForEach(EJ4Section.all) { sec in
+                                            let isSelected = viewModel.currentEJ4Section == sec.id
+                                            Button {
+                                                viewModel.selectEJ4Section(sec.id)
+                                            } label: {
+                                                VStack(spacing: 2) {
+                                                    Text(sec.shortName)
+                                                        .font(.system(size: 13, weight: isSelected ? .bold : .semibold))
+                                                    Text(sec.measureRange)
+                                                        .font(.system(size: 10))
+                                                        .opacity(0.8)
+                                                }
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 7)
+                                                .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                                .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
+                                                .cornerRadius(14)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 14)
+                                                        .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            ej4ArticulationsCard
+
+                            VStack(spacing: 12) {
+                                let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+                                Button {
+                                    navigateToPractice = true
+                                } label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "play.fill")
+                                        Text("\(loc.t("ej4_start_practice")) (\(curSec.shortName) · \(viewModel.currentEJ4Articulation.shortTitle))")
+                                            .font(.headline)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.8)
                                     }
                                     .foregroundColor(Color(uiColor: .systemBackground))
                                     .frame(maxWidth: .infinity)
@@ -303,6 +360,19 @@ public struct HomeView: View {
                             viewModel.selectExercise(.ej2)
                             viewModel.selectEJ2Articulation(art, markPreviousCompleted: false)
                         }
+                    } else if arg.hasPrefix("ej4Art=") || arg.hasPrefix("-ej4Art=") {
+                        if let valStr = arg.split(separator: "=").last,
+                           let raw = Int(valStr),
+                           let art = EJ4Articulation(rawValue: raw) {
+                            viewModel.selectExercise(.ej4)
+                            viewModel.selectEJ4Articulation(art, markPreviousCompleted: false)
+                        }
+                    } else if arg.hasPrefix("ej4Sec=") || arg.hasPrefix("-ej4Sec=") {
+                        if let valStr = arg.split(separator: "=").last,
+                           let sec = Int(valStr) {
+                            viewModel.selectExercise(.ej4)
+                            viewModel.selectEJ4Section(sec)
+                        }
                     }
                 }
                 if CommandLine.arguments.contains("-openPractice") || CommandLine.arguments.contains("openPractice") {
@@ -316,6 +386,135 @@ public struct HomeView: View {
                 }
             }
         }
+    }
+
+    private var headerTitle: String {
+        switch viewModel.currentExercise {
+        case .ej1: return loc.t("ej1_title")
+        case .ej2: return loc.t("ej2_title")
+        case .ej4: return loc.t("ej4_title")
+        case .modos: return loc.t("subtitle")
+        }
+    }
+
+    private var headerSubDesc: String {
+        switch viewModel.currentExercise {
+        case .ej1: return loc.t("ej1_sub_desc")
+        case .ej2: return loc.t("ej2_sub_desc")
+        case .ej4: return loc.t("ej4_sub_desc")
+        case .modos: return loc.t("sub_desc")
+        }
+    }
+
+    private var ej4ArticulationsCard: some View {
+        let completedCount = viewModel.store.ej4CompletedCount
+        let isAllDone = viewModel.store.isEJ4FullyCompleted
+
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(loc.t("ej4_select_art"))
+                        .font(.title3.bold())
+                        .foregroundColor(.primary)
+                    Text(loc.t("ej4_header_info"))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                HStack(spacing: 4) {
+                    if isAllDone {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(.green)
+                    }
+                    Text("\(completedCount)/8 \(loc.t("arts_count"))")
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
+                }
+            }
+
+            VStack(spacing: 0) {
+                ForEach(EJ4Articulation.allCases) { art in
+                    let isSelected = viewModel.currentEJ4Articulation == art
+                    let isDone = viewModel.store.isEJ4Completed(art)
+
+                    Button {
+                        viewModel.selectEJ4Articulation(art, markPreviousCompleted: false)
+                        navigateToPractice = true
+                    } label: {
+                        HStack(spacing: 12) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(art.title)
+                                    .font(.subheadline.weight(isSelected ? .bold : .semibold))
+                                    .foregroundColor(.primary)
+                                    .multilineTextAlignment(.leading)
+                                Text(art.formulaBadge)
+                                    .font(.caption2.monospaced())
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            if art == .original {
+                                Text("Urtext")
+                                    .font(.caption2.bold())
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                                    .background(Color.indigo.opacity(0.15))
+                                    .foregroundColor(.indigo)
+                                    .cornerRadius(6)
+                            } else if isDone {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                    Text(loc.t("completed"))
+                                        .font(.caption2.bold())
+                                        .foregroundColor(.green)
+                                }
+                            } else if isSelected {
+                                Text(loc.t("in_progress"))
+                                    .font(.caption2.bold())
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color.orange.opacity(0.15))
+                                    .foregroundColor(.orange)
+                                    .cornerRadius(6)
+                            } else {
+                                Image(systemName: "chevron.right")
+                                    .font(.caption2.bold())
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 12)
+                        .background(isSelected ? Color.primary.opacity(0.05) : Color.clear)
+                    }
+
+                    if art.id != EJ4Articulation.allCases.last?.id {
+                        Divider()
+                    }
+                }
+            }
+            .background(Color(uiColor: .systemBackground))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(uiColor: .separator), lineWidth: 0.5)
+            )
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(uiColor: .separator), lineWidth: 0.5)
+        )
     }
 
     private var ej1ArticulationsCard: some View {
@@ -365,6 +564,7 @@ public struct HomeView: View {
                                 Text(art.title)
                                     .font(.subheadline.weight(isSelected ? .bold : .semibold))
                                     .foregroundColor(.primary)
+                                    .multilineTextAlignment(.leading)
                                 Text(art.formulaBadge)
                                     .font(.caption2.monospaced())
                                     .foregroundColor(.secondary)

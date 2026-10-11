@@ -208,4 +208,42 @@ final class FluteModesTests: XCTestCase {
         XCTAssertTrue(store.isEJ1FullyCompleted)
         XCTAssertTrue(store.isEJ2FullyCompleted)
     }
+
+    func testEJ4AllSectionsAndArticulationsGenerateValidAbc() {
+        XCTAssertEqual(EJ4Section.all.count, 25, "E. J. 4 must have 25 sections (24 keys + Coda)")
+        XCTAssertEqual(ExerciseGenerator.ej4SectionMidiNotes.count, 25, "E. J. 4 must have 25 MIDI note arrays")
+        // Verify A Minor (section 1) has harmonic minor descent (80 = G#5, 77 = F5) in measure 1 (indices 10, 11) and measure 7 (indices 106, 107)
+        let aMinorNotes = ExerciseGenerator.ej4SectionMidiNotes[1]
+        XCTAssertEqual(aMinorNotes[10], 80, "A minor m.1 descent must have G#5 (MIDI 80)")
+        XCTAssertEqual(aMinorNotes[11], 77, "A minor m.1 descent must have F5 (MIDI 77)")
+        XCTAssertEqual(aMinorNotes[106], 80, "A minor m.7 descent must have G#5 (MIDI 80)")
+        XCTAssertEqual(aMinorNotes[107], 77, "A minor m.7 descent must have F5 (MIDI 77)")
+
+        for sec in EJ4Section.all {
+            for art in EJ4Articulation.allCases {
+                let ej4Abc = ExerciseGenerator.generateEJ4ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 120)
+                XCTAssertTrue(ej4Abc.contains("% EJ4_LEDUC_ART:\(art.rawValue):SEC:\(sec.id)"), "E. J. 4 ABC must include EJ4_LEDUC_ART:SEC header")
+                XCTAssertTrue(ej4Abc.contains("Q:1/4=120"), "E. J. 4 ABC must include tempo Q:1/4=120")
+            }
+            let midiNotes = ExerciseGenerator.ej4SectionMidiNotes[sec.id]
+            let expectedNotes = sec.id < 24 ? 128 : 29
+            XCTAssertEqual(midiNotes.count, expectedNotes, "Section \(sec.shortTitle) should generate \(expectedNotes) MIDI notes")
+        }
+    }
+
+    func testEJ4PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.ej4CompletedCount, 0)
+        XCTAssertFalse(store.isEJ4FullyCompleted)
+
+        for art in EJ4Articulation.practiceCases {
+            store.markEJ4Completed(art)
+        }
+
+        XCTAssertEqual(store.ej4CompletedCount, 8)
+        XCTAssertTrue(store.isEJ4FullyCompleted)
+    }
 }
+

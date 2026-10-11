@@ -194,4 +194,19 @@ class PracticeStoreTest {
         assertTrue(store.isEJ1FullyCompleted)
         assertTrue(store.isEJ2FullyCompleted)
     }
+
+    @Test
+    fun testEJ4CompletionTracking() {
+        store.resetAll()
+        assertEquals(0, store.ej4CompletedCount)
+        assertFalse(store.isEJ4FullyCompleted)
+
+        for (art in EJ4Articulation.practiceCases) {
+            store.markEJ4Completed(art)
+        }
+
+        assertEquals(8, store.ej4CompletedCount)
+        assertTrue(store.isEJ4FullyCompleted)
+    }
 }
+

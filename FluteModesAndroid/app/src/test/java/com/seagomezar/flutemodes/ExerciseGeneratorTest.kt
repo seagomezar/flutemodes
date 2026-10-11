@@ -152,4 +152,28 @@ class ExerciseGeneratorTest {
             assertTrue(ej2Abc.contains("^B"))
         }
     }
+
+    @Test
+    fun testEJ4AllSectionsAndArticulationsGenerateValidAbc() {
+        assertEquals(25, EJ4Section.entries.size)
+        assertEquals(25, ExerciseGenerator.ej4SectionMidiNotes.size)
+        val aMinorNotes = ExerciseGenerator.ej4SectionMidiNotes[1]
+        assertEquals(80, aMinorNotes[10])
+        assertEquals(77, aMinorNotes[11])
+        assertEquals(80, aMinorNotes[106])
+        assertEquals(77, aMinorNotes[107])
+
+        for (sec in EJ4Section.entries) {
+            for (art in EJ4Articulation.entries) {
+                val ej4Abc = ExerciseGenerator.generateEJ4ABC(articulation = art, section = sec, tempoBPM = 120)
+                assertTrue(ej4Abc.contains("% EJ4_LEDUC_ART:${art.id}:SEC:${sec.id}"))
+                assertTrue(ej4Abc.contains("Q:1/2=120"))
+            }
+            val midiNotes = ExerciseGenerator.ej4SectionMidiNotes[sec.id]
+            val expectedNotes = if (sec.id < 24) 128 else 29
+            assertEquals("Section ${sec.name} should generate $expectedNotes MIDI notes", expectedNotes, midiNotes.size)
+        }
+    }
 }
+
+

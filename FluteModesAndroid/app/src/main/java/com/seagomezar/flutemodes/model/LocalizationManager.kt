@@ -153,7 +153,7 @@ class LocalizationManager(context: Context) {
         ),
         "ej1_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
         "ej1_go_to_ej2" to Pair("🎵 Ir a E. J. 2 (Pentacordios Menores)", "🎵 Go to E. J. 2 (Minor Pentachords)"),
-        "ej1_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (84 Modos Paralelos)", "🎵 Go to E. J. 4 (84 Parallel Modes)"),
+        "ej1_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (Escalas Diatónicas)", "🎵 Go to E. J. 4 (Diatonic Scales)"),
 
         // E.J. 2 Taffanel & Gaubert (A. L. 16.588)
         "ej2_title" to Pair(
@@ -180,7 +180,38 @@ class LocalizationManager(context: Context) {
             "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 2."
         ),
         "ej2_restart_round" to Pair("🔁 Reiniciar las 10 Articulaciones", "🔁 Restart 10 Articulations"),
-        "ej2_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (84 Modos Paralelos)", "🎵 Go to E. J. 4 (84 Parallel Modes)"),
+        "ej2_go_to_ej4" to Pair("🎵 Ir a E. J. 4 (Escalas Diatónicas)", "🎵 Go to E. J. 4 (Diatonic Scales)"),
+
+        // E.J. 4 Urtext Taffanel & Gaubert (A. L. 16.588, pp. 111–114)
+        "ej4_title" to Pair(
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 111–114)",
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 111–114)"
+        ),
+        "ej4_sub_desc" to Pair(
+            "Escalas Diatónicas en 24 Tonalidades Mayores y Menores Relativas + Coda (194 compases · 8 articulaciones oficiales)",
+            "Diatonic Scales across 24 Major & Relative Minor Keys + Coda (194 measures · 8 official articulations)"
+        ),
+        "ej4_header_info" to Pair(
+            "24 Tonalidades (Mayores y Menores: armónica en c. 1 y 7, melódica/natural) · 194 Compases · 8 Articulaciones",
+            "24 Keys (Major & Minor: harmonic in m. 1 & 7, melodic/natural) · 194 Measures · 8 Articulations"
+        ),
+        "ej4_select_section" to Pair(
+            "25 Secciones Tonales (194 Compases)",
+            "25 Tonal Sections (194 Measures)"
+        ),
+        "ej4_select_art" to Pair(
+            "Las 8 Articulaciones Oficiales (E. J. 4)",
+            "The 8 Official Articulations (E. J. 4)"
+        ),
+        "ej4_start_practice" to Pair("Practicar E. J. 4 (Urtext)", "Practice E. J. 4 (Urtext)"),
+        "ej4_eight_arts_completed" to Pair("8 Articulaciones Completadas", "8 Articulations Completed"),
+        "ej4_milestone_title" to Pair("¡E. J. 4 Completado (8/8 Articulaciones)!", "E. J. 4 Completed (8/8 Articulations)!"),
+        "ej4_milestone_msg" to Pair(
+            "Has completado las 8 articulaciones oficiales del Ejercicio Diario N° 4 de Taffanel & Gaubert (194 compases).",
+            "You have completed all 8 official articulations of Taffanel & Gaubert's Daily Exercise No. 4 (194 measures)."
+        ),
+        "ej4_restart_round" to Pair("🔁 Reiniciar las 8 Articulaciones", "🔁 Restart 8 Articulations"),
+        "ej4_go_to_modos" to Pair("🎵 Ir a 84 Modos Paralelos (León Giraldo)", "🎵 Go to 84 Parallel Modes (León Giraldo)"),
 
         "ej1_art_0_title" to Pair("0. Edición Original Leduc (4 ligadas + 4 picadas)", "0. Original Leduc Edition (4 slurred + 4 staccato)"),
         "ej1_art_1_title" to Pair("1. Ocho notas ligadas", "1. Eight notes slurred"),
