@@ -30,36 +30,32 @@ public class ScoreAudioPlayer: ObservableObject {
         }
     }
 
-    public func toggleEJ4(sectionIndex: Int, articulation: EJ4Articulation, tempoBPM: Int) {
+    public func toggleEJ4(exercise: ExerciseType = .ej4, sectionIndex: Int, articulation: EJ4Articulation, tempoBPM: Int) {
         if isPlaying {
             stop()
         } else {
-            playEJ4(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+            playEJ4(exercise: exercise, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+        }
+    }
+
+    public func toggleEJ5Type(exercise: ExerciseType, sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        if isPlaying {
+            stop()
+        } else {
+            playEJ5Type(exercise: exercise, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
         }
     }
 
     public func toggleEJ5(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
-        if isPlaying {
-            stop()
-        } else {
-            playEJ5(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
-        }
+        toggleEJ5Type(exercise: .ej5, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
     }
 
     public func toggleEJ10(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
-        if isPlaying {
-            stop()
-        } else {
-            playEJ10(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
-        }
+        toggleEJ5Type(exercise: .ej10, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
     }
 
     public func toggleEJ11(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
-        if isPlaying {
-            stop()
-        } else {
-            playEJ11(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
-        }
+        toggleEJ5Type(exercise: .ej11, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
     }
 
     public func stop() {
@@ -135,7 +131,7 @@ public class ScoreAudioPlayer: ObservableObject {
         player.play()
     }
 
-    public func playEJ4(sectionIndex: Int, articulation: EJ4Articulation, tempoBPM: Int) {
+    public func playEJ4(exercise: ExerciseType = .ej4, sectionIndex: Int, articulation: EJ4Articulation, tempoBPM: Int) {
         stop()
 
         AppAudioEngine.shared.ensureEngineRunning()
@@ -143,6 +139,7 @@ public class ScoreAudioPlayer: ObservableObject {
         let format = AppAudioEngine.shared.standardFormat
 
         guard let buffer = generateEJ4ScoreBuffer(
+            exercise: exercise,
             sectionIndex: sectionIndex,
             articulation: articulation,
             tempoBPM: tempoBPM,
@@ -170,7 +167,7 @@ public class ScoreAudioPlayer: ObservableObject {
         playEJ5Type(exercise: .ej11, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
     }
 
-    private func playEJ5Type(exercise: ExerciseType, sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+    public func playEJ5Type(exercise: ExerciseType, sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
         stop()
 
         AppAudioEngine.shared.ensureEngineRunning()
@@ -218,11 +215,15 @@ public class ScoreAudioPlayer: ObservableObject {
         case .ej5:  allSections = ExerciseGenerator.ej5SectionMidiNotes
         case .ej10: allSections = ExerciseGenerator.ej10SectionMidiNotes
         case .ej11: allSections = ExerciseGenerator.ej11SectionMidiNotes
+        case .r1:   allSections = ExerciseGenerator.r1SectionMidiNotes
+        case .r5:   allSections = ExerciseGenerator.r5SectionMidiNotes
         default:    allSections = ExerciseGenerator.ej5SectionMidiNotes
         }
         let clampedSec = max(0, min(allSections.count - 1, sectionIndex))
         let midiNotes = allSections[clampedSec]
-        let sixteenthDuration = (60.0 / Double(tempoBPM)) / 4.0
+        let baseNoteDuration = (exercise == .r5)
+            ? ((60.0 / Double(tempoBPM)) / 6.0)
+            : ((60.0 / Double(tempoBPM)) / 4.0)
 
         func isStaccatoAt(_ subIndex: Int) -> Bool {
             let i = subIndex % 6
@@ -246,27 +247,45 @@ public class ScoreAudioPlayer: ObservableObject {
 
         var notes: [NoteDef] = []
         for (idx, m) in midiNotes.enumerated() {
-            let isLongFinal = (idx == midiNotes.count - 1) && (exercise == .ej5 || clampedSec == 11)
-            notes.append(NoteDef(
-                freq: Self.midiToFrequency(Double(m)),
-                duration: isLongFinal ? (sixteenthDuration * 6.0) : sixteenthDuration,
-                isStaccato: isLongFinal ? false : isStaccatoAt(idx)
-            ))
+            let isLast = (idx == midiNotes.count - 1)
+            if isLast && (exercise == .r1 || exercise == .r5) {
+                notes.append(NoteDef(
+                    freq: Self.midiToFrequency(Double(m)),
+                    duration: baseNoteDuration * 2.0,
+                    isStaccato: true
+                ))
+            } else {
+                let isLongFinal = isLast && (exercise == .ej5 || clampedSec == 11)
+                notes.append(NoteDef(
+                    freq: Self.midiToFrequency(Double(m)),
+                    duration: isLongFinal ? (baseNoteDuration * 6.0) : baseNoteDuration,
+                    isStaccato: isLongFinal ? false : isStaccatoAt(idx)
+                ))
+            }
         }
 
         return synthesizePianoNotes(notes, sampleRate: sampleRate, format: format)
     }
 
     public func generateEJ4ScoreBuffer(
+        exercise: ExerciseType = .ej4,
         sectionIndex: Int,
         articulation: EJ4Articulation,
         tempoBPM: Int,
         format: AVAudioFormat
     ) -> AVAudioPCMBuffer? {
         let sampleRate = format.sampleRate
-        let clampedSec = max(0, min(ExerciseGenerator.ej4SectionMidiNotes.count - 1, sectionIndex))
-        let midiNotes = ExerciseGenerator.ej4SectionMidiNotes[clampedSec]
-        let eighthDuration = (60.0 / Double(tempoBPM)) / 2.0
+        let allSections: [[Int]]
+        switch exercise {
+        case .r2: allSections = ExerciseGenerator.r2SectionMidiNotes
+        case .r4: allSections = ExerciseGenerator.r4SectionMidiNotes
+        default:  allSections = ExerciseGenerator.ej4SectionMidiNotes
+        }
+        let clampedSec = max(0, min(allSections.count - 1, sectionIndex))
+        let midiNotes = allSections[clampedSec]
+        let baseDuration = (exercise == .ej4)
+            ? ((60.0 / Double(tempoBPM)) / 2.0)
+            : ((60.0 / Double(tempoBPM)) / 4.0)
 
         func isStaccatoAt(_ subIndex: Int) -> Bool {
             let i = subIndex % 8
@@ -288,12 +307,22 @@ public class ScoreAudioPlayer: ObservableObject {
 
         var notes: [NoteDef] = []
         for (idx, m) in midiNotes.enumerated() {
-            let isLastInCoda = (clampedSec == 24 && idx == midiNotes.count - 1)
-            notes.append(NoteDef(
-                freq: Self.midiToFrequency(Double(m)),
-                duration: isLastInCoda ? (eighthDuration * 4.0) : eighthDuration,
-                isStaccato: isLastInCoda ? false : isStaccatoAt(idx)
-            ))
+            let isLast = (idx == midiNotes.count - 1)
+            if isLast && (exercise == .r2 || exercise == .r4) {
+                notes.append(NoteDef(
+                    freq: Self.midiToFrequency(Double(m)),
+                    duration: baseDuration * 2.0,
+                    isStaccato: true
+                ))
+            } else {
+                let isLastInCoda = (exercise == .ej4 && clampedSec == 24 && isLast)
+                let subIdx = (exercise == .r2) ? ((idx >= 4) ? (idx - 4) : (idx + 4)) : idx
+                notes.append(NoteDef(
+                    freq: Self.midiToFrequency(Double(m)),
+                    duration: isLastInCoda ? (baseDuration * 4.0) : baseDuration,
+                    isStaccato: isLastInCoda ? false : isStaccatoAt(subIdx)
+                ))
+            }
         }
 
         return synthesizePianoNotes(notes, sampleRate: sampleRate, format: format)

@@ -1,0 +1,83 @@
+X:10
+T:Reichert Op. 5, Nº 5 — Arpèges en Tresillos 2/4 (pp. 10–13) — 9. Sincopadas de a 2
+C:Mathieu-André Reichert (1830–1880) · Ed. B. Schott's Söhne, Plate 20623
+M:2/4
+L:1/16
+Q:1/8=160
+K:C
+V:1 clef=treble
+% --- 1. Do Mayor (C Major) ---
+[K:C] !segno!.c(eg) (c'e).g .c(eg) (Ge).g | .d(fg) (bf).g .d(fg) (Gf).g | .B(fg) (d'f).g .B(fg) (Gf).g | .c(eg) (c'e).g .c(eg) (Ge).g |
+.c(eg) (e'e).g .B(e^g) (d'e).g | .A(ea) (c'e).a .F(d_a) (d'd).a | .G(eg) (c'e).g .G(fg) (bf).g | (ceg c'eg) !wedge!c2 !fine!z2 |]
+% --- 2. La menor (Relatif Mineur) ---
+[K:Am] .A(ce) (ac).e .A(ce) (Ec).e | .B(de) (^gd).e .B(de) (Ed).e | .^G(de) (bd).e .G(de) (Ed).e | .A(ce) (ac).e .A(ce) (Ec).e |
+.A(ce) (c'c).e .G(^ce) (_bc).e | .F(df) (ad).f .D(df) (=bd).f | .E(=ce) (ac).e .E(de) (^gd).e | (Ace ace) !wedge!A2 z2 ||
+% --- 3. Fa Mayor (F Major) ---
+[K:F] .f(ac') (f'a).c' .f(ac') (ca).c' | .g(bc') (e'b).c' .g(bc') (cb).c' | .e(bc') (g'b).c' .e(bc') (cb).c' | .f(ac') (f'a).c' .f(ac') (ca).c' |
+.f(ac') (a'a).c' .e(a^c') (g'a).c' | .d(ad') (f'a).d' .B(g_d') (g'g).d' | .c(ac') (f'a).c' .c(bc') (e'b).c' | (fac' f'ac') !wedge!f2 z2 ||
+% --- 4. Re menor (Mineur) ---
+[K:Dm] .d(fa) (d'f).a .d(fa) (Af).a | .e(ga) (^c'g).a .e(ga) (Ag).a | .^c(ga) (e'g).a .c(ga) (Ag).a | .d(fa) (d'f).a .d(fa) (Af).a |
+.d(fa) (f'f).a .c(^fa) (_e'f).a | .B(gb) (d'g).b .G(gb) (=e'g).b | .A(=fa) (d'f).a .A(ga) (^c'g).a | (dfa d'fa) !wedge!d2 z2 ||
+% --- 5. Si♭ Mayor (B♭ Major) ---
+[K:Bb] .B(df) (bd).f .B(df) (Fd).f | .c(ef) (ae).f .c(ef) (Fe).f | .A(ef) (c'e).f .A(ef) (Fe).f | .B(df) (bd).f .B(df) (Fd).f |
+.B(df) (d'd).f .A(d^f) (c'd).f | .G(dg) (bd).g .E(c_g) (c'c).g | .F(df) (bd).f .F(ef) (ae).f | (Bdf bdf) !wedge!B2 z2 ||
+% --- 6. Sol menor (Mineur) ---
+[K:Gm] .G(Bd) (gB).d .G(Bd) (DB).d | .A(cd) (^fc).d .A(cd) (Dc).d | .^F(cd) (ac).d .F(cd) (Dc).d | .G(Bd) (gB).d .G(Bd) (DB).d |
+.G(Bd) (bB).d .F(=Bd) (_aB).d | .E(ce) (gc).e .C(ce) (=ac).e | .D(_Bd) (gB).d .D(cd) (^fc).d | (GBd gBd) !wedge!G2 z2 ||
+% --- 7. Mi♭ Mayor (E♭ Major) ---
+[K:Eb] .e(gb) (e'g).b .e(gb) (Bg).b | .f(ab) (d'a).b .f(ab) (Ba).b | .d(ab) (f'a).b .d(ab) (Ba).b | .e(gb) (e'g).b .e(gb) (Bg).b |
+.e(gb) (g'g).b .d(g=b) (f'g).b | .c(gc') (e'g).c' .A(f_c') (f'f).c' | .B(gb) (e'g).b .B(ab) (d'a).b | (egb e'gb) !wedge!e2 z2 ||
+% --- 8. Do menor (Mineur) ---
+[K:Cm] .c(eg) (c'e).g .c(eg) (Ge).g | .d(fg) (=bf).g .d(fg) (Gf).g | .=B(fg) (d'f).g .B(fg) (Gf).g | .c(eg) (c'e).g .c(eg) (Ge).g |
+.c(eg) (e'e).g .B(=eg) (_d'e).g | .A(fa) (c'f).a .F(fa) (=d'f).a | .G(_eg) (c'e).g .G(fg) (=bf).g | (ceg c'eg) !wedge!c2 z2 ||
+% --- 9. La♭ Mayor (A♭ Major) ---
+[K:Ab] .A(ce) (ac).e .A(ce) (Ec).e | .B(de) (gd).e .B(de) (Ed).e | .G(de) (bd).e .G(de) (Ed).e | .A(ce) (ac).e .A(ce) (Ec).e |
+.A(ce) (c'c).e .G(c=e) (bc).e | .F(cf) (ac).f .D(B_f) (bB).f | .E(ce) (ac).e .E(de) (gd).e | (Ace ace) !wedge!A2 z2 ||
+% --- 10. Fa menor (Mineur) ---
+[K:Fm] .f(ac') (f'a).c' .f(ac') (ca).c' | .g(bc') (=e'b).c' .g(bc') (cb).c' | .=e(bc') (g'b).c' .e(bc') (cb).c' | .f(ac') (f'a).c' .f(ac') (ca).c' |
+.f(ac') (a'a).c' .e(=ac') (_g'a).c' | .d(bd') (f'b).d' .B(bd') (=g'b).d' | .c(_ac') (f'a).c' .c(bc') (=e'b).c' | (fac' f'ac') !wedge!f2 z2 ||
+% --- 11. Re♭ Mayor (D♭ Major) ---
+[K:Db] .d(fa) (d'f).a .d(fa) (Af).a | .e(ga) (c'g).a .e(ga) (Ag).a | .c(ga) (e'g).a .c(ga) (Ag).a | .d(fa) (d'f).a .d(fa) (Af).a |
+.d(fa) (f'f).a .c(f=a) (e'f).a | .B(fb) (d'f).b .G(e__b) (e'e).b | .A(fa) (d'f).a .A(ga) (c'g).a | (dfa d'fa) !wedge!d2 z2 ||
+% --- 12. Si♭ menor (Mineur) ---
+[K:Bbm] .B(df) (bd).f .B(df) (Fd).f | .c(ef) (=ae).f .c(ef) (Fe).f | .=A(ef) (c'e).f .A(ef) (Fe).f | .B(df) (bd).f .B(df) (Fd).f |
+.B(df) (d'd).f .A(=df) (_c'd).f | .G(eg) (be).g .E(eg) (=c'e).g | .F(_df) (bd).f .F(ef) (=ae).f | (Bdf bdf) !wedge!B2 z2 ||
+% --- 13. Sol♭ Mayor (G♭ Major) ---
+[K:Gb] .g(bd') (g'b).d' .g(bd') (db).d' | .a(c'd') (f'c').d' .a(c'd') (dc').d' | .f(c'd') (a'c').d' .f(c'd') (dc').d' | .g(bd') (g'b).d' .g(bd') (db).d' |
+.g(bd') (b'b).d' .f(b=d') (a'b).d' | .e(be') (g'b).e' .c(a__e') (a'a).e' | .d(bd') (g'b).d' .d(c'd') (f'c').d' | (gbd' g'bd') !wedge!g2 z2 ||
+% --- 14. Mi♭ menor (Mineur) ---
+[K:Ebm] .e(gb) (e'g).b .e(gb) (Bg).b | .f(ab) (=d'a).b .f(ab) (Ba).b | .=d(ab) (f'a).b .d(ab) (Ba).b | .e(gb) (e'g).b .e(gb) (Bg).b |
+.e(gb) (g'g).b .d(=gb) (_f'g).b | .c(ac') (e'a).c' .A(ac') (=f'a).c' | .B(_gb) (e'g).b .B(ab) (=d'a).b | (egb e'gb) !wedge!e2 z2 ||
+% --- 15. Si Mayor (B Major) ---
+[K:B] .B(df) (bd).f .B(df) (Fd).f | .c(ef) (ae).f .c(ef) (Fe).f | .A(ef) (c'e).f .A(ef) (Fe).f | .B(df) (bd).f .B(df) (Fd).f |
+.B(df) (d'd).f .A(d^^f) (c'd).f | .G(dg) (bd).g .E(c=g) (c'c).g | .F(df) (bd).f .F(ef) (ae).f | (Bdf bdf) !wedge!B2 z2 ||
+% --- 16. Sol♯ menor (Mineur) ---
+[K:G#m] .G(Bd) (gB).d .G(Bd) (DB).d | .A(cd) (^^fc).d .A(cd) (Dc).d | .^^F(cd) (ac).d .F(cd) (Dc).d | .G(Bd) (gB).d .G(Bd) (DB).d |
+.G(Bd) (bB).d .F(^Bd) (=aB).d | .E(ce) (gc).e .C(ce) (^ac).e | .D(=Bd) (gB).d .D(cd) (^^fc).d | (GBd gBd) !wedge!G2 z2 ||
+% --- 17. Mi Mayor (E Major) ---
+[K:E] .e(gb) (e'g).b .e(gb) (Bg).b | .f(ab) (d'a).b .f(ab) (Ba).b | .d(ab) (f'a).b .d(ab) (Ba).b | .e(gb) (e'g).b .e(gb) (Bg).b |
+.e(gb) (g'g).b .d(g^b) (f'g).b | .c(gc') (e'g).c' .A(f=c') (f'f).c' | .B(gb) (e'g).b .B(ab) (d'a).b | (egb e'gb) !wedge!e2 z2 ||
+% --- 18. Do♯ menor (Mineur) ---
+[K:C#m] .c(eg) (c'e).g .c(eg) (Ge).g | .d(fg) (^bf).g .d(fg) (Gf).g | .^B(fg) (d'f).g .B(fg) (Gf).g | .c(eg) (c'e).g .c(eg) (Ge).g |
+.c(eg) (e'e).g .B(^eg) (=d'e).g | .A(fa) (c'f).a .F(fa) (^d'f).a | .G(=eg) (c'e).g .G(fg) (^bf).g | (ceg c'eg) !wedge!c2 z2 ||
+% --- 19. La Mayor (A Major) ---
+[K:A] .A(ce) (ac).e .A(ce) (Ec).e | .B(de) (gd).e .B(de) (Ed).e | .G(de) (bd).e .G(de) (Ed).e | .A(ce) (ac).e .A(ce) (Ec).e |
+.A(ce) (c'c).e .G(c^e) (bc).e | .F(cf) (ac).f .D(B=f) (bB).f | .E(ce) (ac).e .E(de) (gd).e | (Ace ace) !wedge!A2 z2 ||
+% --- 20. Fa♯ menor (Mineur) ---
+[K:F#m] .f(ac') (f'a).c' .f(ac') (ca).c' | .g(bc') (^e'b).c' .g(bc') (cb).c' | .^e(bc') (g'b).c' .e(bc') (cb).c' | .f(ac') (f'a).c' .f(ac') (ca).c' |
+.f(ac') (a'a).c' .e(^ac') (=g'a).c' | .d(bd') (f'b).d' .B(bd') (^g'b).d' | .c(=ac') (f'a).c' .c(bc') (^e'b).c' | (fac' f'ac') !wedge!f2 z2 ||
+% --- 21. Re Mayor (D Major) ---
+[K:D] .d(fa) (d'f).a .d(fa) (Af).a | .e(ga) (c'g).a .e(ga) (Ag).a | .c(ga) (e'g).a .c(ga) (Ag).a | .d(fa) (d'f).a .d(fa) (Af).a |
+.d(fa) (f'f).a .c(f^a) (e'f).a | .B(fb) (d'f).b .G(e_b) (e'e).b | .A(fa) (d'f).a .A(ga) (c'g).a | (dfa d'fa) !wedge!d2 z2 ||
+% --- 22. Si menor (Mineur) ---
+[K:Bm] .B(df) (bd).f .B(df) (Fd).f | .c(ef) (^ae).f .c(ef) (Fe).f | .^A(ef) (c'e).f .A(ef) (Fe).f | .B(df) (bd).f .B(df) (Fd).f |
+.B(df) (d'd).f .A(^df) (=c'd).f | .G(eg) (be).g .E(eg) (^c'e).g | .F(=df) (bd).f .F(ef) (^ae).f | (Bdf bdf) !wedge!B2 z2 ||
+% --- 23. Sol Mayor (G Major) ---
+[K:G] .G(Bd) (gB).d .G(Bd) (DB).d | .A(cd) (fc).d .A(cd) (Dc).d | .F(cd) (ac).d .F(cd) (Dc).d | .G(Bd) (gB).d .G(Bd) (DB).d |
+.G(Bd) (bB).d .F(B^d) (aB).d | .E(Be) (gB).e .C(A_e) (aA).e | .D(Bd) (gB).d .D(cd) (fc).d | (GBd gBd) !wedge!G2 z2 ||
+% --- 24. Mi menor (Mineur) ---
+[K:Em] .e(gb) (e'g).b .e(gb) (Bg).b | .f(ab) (^d'a).b .f(ab) (Ba).b | .^d(ab) (f'a).b .d(ab) (Ba).b | .e(gb) (e'g).b .e(gb) (Bg).b |
+.e(gb) (g'g).b .d(^gb) (=f'g).b | .c(ac') (e'a).c' .A(ac') (^f'a).c' | .B(=gb) (e'g).b .B(ab) (^d'a).b | (egb e'gb) !wedge!e2 !D.S.!z2 |]
+% --- 25. Do Mayor (D.S. al Fine) ---
+[K:C] .c(eg) (c'e).g .c(eg) (Ge).g | .d(fg) (bf).g .d(fg) (Gf).g | .B(fg) (d'f).g .B(fg) (Gf).g | .c(eg) (c'e).g .c(eg) (Ge).g |
+.c(eg) (e'e).g .B(e^g) (d'e).g | .A(ea) (c'e).a .F(d_a) (d'd).a | .G(eg) (c'e).g .G(fg) (bf).g | (ceg c'eg) !wedge!c2 !fine!z2 |]

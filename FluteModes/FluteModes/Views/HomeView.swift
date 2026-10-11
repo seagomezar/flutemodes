@@ -137,10 +137,15 @@ public struct HomeView: View {
                                     .cornerRadius(26)
                                 }
                             }
-                        } else if viewModel.currentExercise == .ej4 {
-                            // E.J. 4 Section Selector (25 Tonal Sections)
+                        } else if viewModel.currentExercise.isEJ4Exercise {
+                            let ex = viewModel.currentExercise
+                            let secTitleKey = ex == .r2 ? "r2_select_section" : (ex == .r4 ? "r4_select_section" : "ej4_select_section")
+                            let startBtnKey = ex == .r2 ? "r2_start_practice" : (ex == .r4 ? "r4_start_practice" : "ej4_start_practice")
+                            let curSecIdx = viewModel.currentEJ4TypeSectionIndex
+                            let curArt = viewModel.currentEJ4TypeArticulation
+
                             VStack(alignment: .leading, spacing: 10) {
-                                Text(loc.t("ej4_select_section").uppercased())
+                                Text(loc.t(secTitleKey).uppercased())
                                     .font(.caption.bold())
                                     .foregroundColor(.secondary)
                                     .padding(.horizontal, 4)
@@ -148,14 +153,14 @@ public struct HomeView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 8) {
                                         ForEach(EJ4Section.all) { sec in
-                                            let isSelected = viewModel.currentEJ4Section == sec.id
+                                            let isSelected = curSecIdx == sec.id
                                             Button {
-                                                viewModel.selectEJ4Section(sec.id)
+                                                viewModel.selectEJ4Section(sec.id, for: ex)
                                             } label: {
                                                 VStack(spacing: 2) {
-                                                    Text(sec.shortName)
+                                                    Text(sec.shortName(for: ex))
                                                         .font(.system(size: 13, weight: isSelected ? .bold : .semibold))
-                                                    Text(sec.measureRange)
+                                                    Text(sec.measureRange(for: ex))
                                                         .font(.system(size: 10))
                                                         .opacity(0.8)
                                                 }
@@ -177,13 +182,13 @@ public struct HomeView: View {
                             ej4ArticulationsCard
 
                             VStack(spacing: 12) {
-                                let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+                                let curSec = EJ4Section.all[max(0, min(24, curSecIdx))]
                                 Button {
                                     navigateToPractice = true
                                 } label: {
                                     HStack(spacing: 10) {
                                         Image(systemName: "play.fill")
-                                        Text("\(loc.t("ej4_start_practice")) (\(curSec.shortName) · \(viewModel.currentEJ4Articulation.shortTitle))")
+                                        Text("\(loc.t(startBtnKey)) (\(curSec.shortName(for: ex)) · \(curArt.shortTitle))")
                                             .font(.headline)
                                             .lineLimit(1)
                                             .minimumScaleFactor(0.8)
@@ -197,10 +202,33 @@ public struct HomeView: View {
                             }
                         } else if viewModel.currentExercise.isEJ5TypeExercise {
                             let ex = viewModel.currentExercise
-                            let secTitleKey = ex == .ej5 ? "ej5_select_section" : (ex == .ej10 ? "ej10_select_section" : "ej11_select_section")
-                            let startBtnKey = ex == .ej5 ? "ej5_start_practice" : (ex == .ej10 ? "ej10_start_practice" : "ej11_start_practice")
+                            let secTitleKey: String = {
+                                switch ex {
+                                case .ej5:  return "ej5_select_section"
+                                case .ej10: return "ej10_select_section"
+                                case .ej11: return "ej11_select_section"
+                                case .r1:   return "r1_select_section"
+                                case .r5:   return "r5_select_section"
+                                default:    return "ej5_select_section"
+                                }
+                            }()
+                            let startBtnKey: String = {
+                                switch ex {
+                                case .ej5:  return "ej5_start_practice"
+                                case .ej10: return "ej10_start_practice"
+                                case .ej11: return "ej11_start_practice"
+                                case .r1:   return "r1_start_practice"
+                                case .r5:   return "r5_start_practice"
+                                default:    return "ej5_start_practice"
+                                }
+                            }()
                             let curSecIdx = viewModel.currentEJ5TypeSectionIndex
-                            let curShortName = ex == .ej5 ? EJ5Section.all[curSecIdx].shortName : EJ10Section.all[curSecIdx].shortName
+                            let curShortName: String = {
+                                if ex.isReichertExercise {
+                                    return EJ4Section.all[max(0, min(24, curSecIdx))].shortName(for: ex)
+                                }
+                                return ex == .ej5 ? EJ5Section.all[curSecIdx].shortName : EJ10Section.all[curSecIdx].shortName
+                            }()
 
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(loc.t(secTitleKey).uppercased())
@@ -210,10 +238,14 @@ public struct HomeView: View {
 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 8) {
-                                        ForEach(0..<12, id: \.self) { idx in
+                                        ForEach(0..<ex.sectionCount, id: \.self) { idx in
                                             let isSelected = curSecIdx == idx
-                                            let shortName = ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName
-                                            let mRange = ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange
+                                            let shortName = ex.isReichertExercise
+                                                ? EJ4Section.all[idx].shortName(for: ex)
+                                                : (ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName)
+                                            let mRange = ex.isReichertExercise
+                                                ? EJ4Section.all[idx].measureRange(for: ex)
+                                                : (ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange)
                                             Button {
                                                 viewModel.selectEJ5TypeSection(idx)
                                             } label: {
@@ -461,6 +493,10 @@ public struct HomeView: View {
         case .ej5: return loc.t("ej5_title")
         case .ej10: return loc.t("ej10_title")
         case .ej11: return loc.t("ej11_title")
+        case .r1: return loc.t("r1_title")
+        case .r2: return loc.t("r2_title")
+        case .r4: return loc.t("r4_title")
+        case .r5: return loc.t("r5_title")
         case .modos: return loc.t("subtitle")
         }
     }
@@ -473,6 +509,10 @@ public struct HomeView: View {
         case .ej5: return loc.t("ej5_sub_desc")
         case .ej10: return loc.t("ej10_sub_desc")
         case .ej11: return loc.t("ej11_sub_desc")
+        case .r1: return loc.t("r1_sub_desc")
+        case .r2: return loc.t("r2_sub_desc")
+        case .r4: return loc.t("r4_sub_desc")
+        case .r5: return loc.t("r5_sub_desc")
         case .modos: return loc.t("sub_desc")
         }
     }
@@ -481,8 +521,26 @@ public struct HomeView: View {
         let ex = viewModel.currentExercise
         let completedCount = viewModel.store.ej5TypeCompletedCount(for: ex)
         let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
-        let selectArtKey = ex == .ej5 ? "ej5_select_art" : (ex == .ej10 ? "ej10_select_art" : "ej11_select_art")
-        let headerInfoKey = ex == .ej5 ? "ej5_header_info" : (ex == .ej10 ? "ej10_header_info" : "ej11_header_info")
+        let selectArtKey: String = {
+            switch ex {
+            case .ej5:  return "ej5_select_art"
+            case .ej10: return "ej10_select_art"
+            case .ej11: return "ej11_select_art"
+            case .r1:   return "r1_select_art"
+            case .r5:   return "r5_select_art"
+            default:    return "ej5_select_art"
+            }
+        }()
+        let headerInfoKey: String = {
+            switch ex {
+            case .ej5:  return "ej5_header_info"
+            case .ej10: return "ej10_header_info"
+            case .ej11: return "ej11_header_info"
+            case .r1:   return "r1_header_info"
+            case .r5:   return "r5_header_info"
+            default:    return "ej5_header_info"
+            }
+        }()
 
         return VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
@@ -592,16 +650,19 @@ public struct HomeView: View {
     }
 
     private var ej4ArticulationsCard: some View {
-        let completedCount = viewModel.store.ej4CompletedCount
-        let isAllDone = viewModel.store.isEJ4FullyCompleted
+        let ex = viewModel.currentExercise
+        let completedCount = viewModel.store.ej4TypeCompletedCount(for: ex)
+        let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+        let selectArtKey = ex == .r2 ? "r2_select_art" : (ex == .r4 ? "r4_select_art" : "ej4_select_art")
+        let headerInfoKey = ex == .r2 ? "r2_header_info" : (ex == .r4 ? "r4_header_info" : "ej4_header_info")
 
         return VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(loc.t("ej4_select_art"))
+                    Text(loc.t(selectArtKey))
                         .font(.title3.bold())
                         .foregroundColor(.primary)
-                    Text(loc.t("ej4_header_info"))
+                    Text(loc.t(headerInfoKey))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -625,11 +686,11 @@ public struct HomeView: View {
 
             VStack(spacing: 0) {
                 ForEach(EJ4Articulation.allCases) { art in
-                    let isSelected = viewModel.currentEJ4Articulation == art
-                    let isDone = viewModel.store.isEJ4Completed(art)
+                    let isSelected = viewModel.currentEJ4TypeArticulation == art
+                    let isDone = viewModel.store.isEJ4Completed(art, for: ex)
 
                     Button {
-                        viewModel.selectEJ4Articulation(art, markPreviousCompleted: false)
+                        viewModel.selectEJ4Articulation(art, for: ex, markPreviousCompleted: false)
                         navigateToPractice = true
                     } label: {
                         HStack(spacing: 12) {

@@ -216,6 +216,25 @@ class MainActivity : ComponentActivity() {
                                         mode = store.lastMode ?: ModeType.IONIAN
                                     )
                                 },
+                                onStartReichertPractice = { ex ->
+                                    store.lastExerciseType = ex
+                                    store.saveLastSelection()
+                                    currentScreen = Screen.Practice(
+                                        exerciseType = ex,
+                                        ej1Articulation = store.lastEJ1Articulation,
+                                        ej2Articulation = store.lastEJ2Articulation,
+                                        ej4Articulation = store.lastEJ4Articulation,
+                                        ej4Section = store.lastEJ4Section,
+                                        ej5Articulation = store.lastEJ5Articulation,
+                                        ej5Section = store.lastEJ5Section,
+                                        ej10Articulation = store.lastEJ10Articulation,
+                                        ej10Section = store.lastEJ10Section,
+                                        ej11Articulation = store.lastEJ11Articulation,
+                                        ej11Section = store.lastEJ11Section,
+                                        tonic = store.lastTonic ?: Tonic.DO_NATURAL,
+                                        mode = store.lastMode ?: ModeType.IONIAN
+                                    )
+                                },
                                 onOpenMatrix = {
                                     currentScreen = Screen.Matrix
                                 }

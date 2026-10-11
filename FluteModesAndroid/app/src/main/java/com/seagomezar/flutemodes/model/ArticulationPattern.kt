@@ -7,22 +7,32 @@ enum class ExerciseType(val id: String) {
     EJ5("ej5"),
     EJ10("ej10"),
     EJ11("ej11"),
+    R1("r1"),
+    R2("r2"),
+    R4("r4"),
+    R5("r5"),
     MODOS("modos");
 
     val isChromaticExercise: Boolean
         get() = this == EJ1 || this == EJ2
 
+    val isReichertExercise: Boolean
+        get() = this == R1 || this == R2 || this == R4 || this == R5
+
     val isEJ4Exercise: Boolean
-        get() = this == EJ4
+        get() = this == EJ4 || this == R2 || this == R4
 
     val isEJ5TypeExercise: Boolean
-        get() = this == EJ5 || this == EJ10 || this == EJ11
+        get() = this == EJ5 || this == EJ10 || this == EJ11 || this == R1 || this == R5
 
     val isSectionedLeducExercise: Boolean
-        get() = this == EJ4 || this == EJ5 || this == EJ10 || this == EJ11
+        get() = isEJ4Exercise || isEJ5TypeExercise
 
     val isLeducExercise: Boolean
         get() = this != MODOS
+
+    val sectionCount: Int
+        get() = if (isEJ4Exercise || isReichertExercise) 25 else 12
 
     val pillLabel: String
         get() = when (this) {
@@ -32,6 +42,10 @@ enum class ExerciseType(val id: String) {
             EJ5 -> "E.J. 5"
             EJ10 -> "E.J. 10"
             EJ11 -> "E.J. 11"
+            R1 -> "R. 1"
+            R2 -> "R. 2"
+            R4 -> "R. 4"
+            R5 -> "R. 5"
             MODOS -> "84 Modos"
         }
 
@@ -44,6 +58,10 @@ enum class ExerciseType(val id: String) {
             EJ5 -> if (isEn) "E.J. 5 · Chromatic (10 Arts.)" else "E.J. 5 · Cromáticas (10 Arts.)"
             EJ10 -> if (isEn) "E.J. 10 · Arpeggios (10 Arts.)" else "E.J. 10 · Arpegios (10 Arts.)"
             EJ11 -> if (isEn) "E.J. 11 · Broken Arp. (10 Arts.)" else "E.J. 11 · Arp. Quebrados (10 Arts.)"
+            R1 -> if (isEn) "R. 1 · Reichert Nº 1 (10 Arts.)" else "R. 1 · Reichert Nº 1 (10 Arts.)"
+            R2 -> if (isEn) "R. 2 · Reichert Nº 2 (8 Arts.)" else "R. 2 · Reichert Nº 2 (8 Arts.)"
+            R4 -> if (isEn) "R. 4 · Reichert Nº 4 (8 Arts.)" else "R. 4 · Reichert Nº 4 (8 Arts.)"
+            R5 -> if (isEn) "R. 5 · Reichert Nº 5 (10 Arts.)" else "R. 5 · Reichert Nº 5 (10 Arts.)"
             MODOS -> if (isEn) "84 Parallel Modes" else "84 Modos Paralelos"
         }
     }
@@ -57,6 +75,10 @@ enum class ExerciseType(val id: String) {
             EJ5 -> "E.J. 5"
             EJ10 -> "E.J. 10"
             EJ11 -> "E.J. 11"
+            R1 -> "R. 1"
+            R2 -> "R. 2"
+            R4 -> "R. 4"
+            R5 -> "R. 5"
             MODOS -> if (isEn) "84 Modes" else "84 Modos"
         }
     }
@@ -79,7 +101,7 @@ enum class EJ4Articulation(
     fun title(loc: LocalizationManager): String {
         val isEn = loc.currentLanguage == AppLanguage.ENGLISH
         return when (this) {
-            ORIGINAL -> if (isEn) "0. Original (As written — A. L. 16.588)" else "0. Original (Como está escrito — A. L. 16.588)"
+            ORIGINAL -> if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
             ALL_SLURRED_8 -> if (isEn) "1. 8 slurred: (CDEFGABc)" else "1. 8 ligadas: (CDEFGABc)"
             SLURRED_4_AND_4 -> if (isEn) "2. 4 and 4 slurred: (CDEF)(GABc)" else "2. 4 y 4 ligadas: (CDEF)(GABc)"
             STACC_1_SLUR_3 -> if (isEn) "3. 1 staccato, 3 slurred: .C(DEF) .G(ABc)" else "3. 1 picada y 3 ligadas: .C(DEF) .G(ABc)"
@@ -129,7 +151,7 @@ enum class EJ5Articulation(val id: Int) {
         val isEn = loc.currentLanguage == AppLanguage.ENGLISH
         val is98 = (exercise == ExerciseType.EJ11)
         return when (this) {
-            ORIGINAL -> if (isEn) "0. Original (As written — A. L. 16.588)" else "0. Original (Como está escrito — A. L. 16.588)"
+            ORIGINAL -> if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
             ALL_SLURRED -> if (is98) {
                 if (isEn) "1. 18 slurred (full measure)" else "1. 18 ligadas (compás completo)"
             } else {
@@ -237,8 +259,47 @@ enum class EJ4Section(
     E_MINOR(23,  "24. Mi m",   "24. Mi menor (Mineur)",           "24. E minor (Relative Minor)",  "c. 185–192", "G"),
     C_CODA(24,   "25. Coda",   "25. Do Mayor (Coda Final)",       "25. C Major (Final Coda)",      "c. 193–194", "C");
 
-    fun title(loc: LocalizationManager): String =
-        if (loc.currentLanguage == AppLanguage.ENGLISH) titleEn else titleEs
+    fun title(loc: LocalizationManager, exercise: ExerciseType = ExerciseType.EJ4): String {
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+        if (exercise.isReichertExercise) {
+            if (id == 12) return if (isEn) "13. F♯ Major" else "13. Fa♯ Mayor (F♯ Major)"
+            if (id == 13) return if (isEn) "14. D♯ minor (Relative Minor)" else "14. Re♯ menor (D♯ minor)"
+            if (id == 24) return if (isEn) "25. C Major (D.S. al Fine)" else "25. Do Mayor (D.S. al Fine)"
+        }
+        return if (isEn) titleEn else titleEs
+    }
+
+    fun shortBadge(exercise: ExerciseType): String {
+        if (exercise.isReichertExercise) {
+            if (id == 12) return "13. Fa♯ M"
+            if (id == 13) return "14. Re♯ m"
+            if (id == 24) return "25. D.S. Fine"
+        }
+        return shortBadge
+    }
+
+    fun measureRange(exercise: ExerciseType): String {
+        return when (exercise) {
+            ExerciseType.R1, ExerciseType.R4 -> {
+                val s = id * 4 + 1
+                "c. $s–${s + 3}"
+            }
+            ExerciseType.R2, ExerciseType.R5 -> {
+                val s = id * 8 + 1
+                "c. $s–${s + 7}"
+            }
+            else -> measureRange
+        }
+    }
+
+    val r1MeasureRange: String
+        get() = measureRange(ExerciseType.R1)
+
+    val r2MeasureRange: String
+        get() = measureRange(ExerciseType.R2)
+
+    val r5MeasureRange: String
+        get() = measureRange(ExerciseType.R5)
 }
 
 enum class EJ5Section(

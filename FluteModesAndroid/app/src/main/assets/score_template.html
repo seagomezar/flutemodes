@@ -918,8 +918,27 @@
       }
     }
 // === END EJ5_10_11 LEDUC ===
-
-    function renderScore(abcString) {
+function renderScore(abcString) {
+      const r1Match = abcString && abcString.match(/%\s*R1_SCHOTT_ART:(\d+):SEC:(\d+)/);
+      if (r1Match) {
+        renderR1Schott(parseInt(r1Match[1], 10) || 0, parseInt(r1Match[2], 10) || 0);
+        return;
+      }
+      const r2Match = abcString && abcString.match(/%\s*R2_SCHOTT_ART:(\d+):SEC:(\d+)/);
+      if (r2Match) {
+        renderR2Schott(parseInt(r2Match[1], 10) || 0, parseInt(r2Match[2], 10) || 0);
+        return;
+      }
+      const r4Match = abcString && abcString.match(/%\s*R4_SCHOTT_ART:(\d+):SEC:(\d+)/);
+      if (r4Match) {
+        renderR4Schott(parseInt(r4Match[1], 10) || 0, parseInt(r4Match[2], 10) || 0);
+        return;
+      }
+      const r5Match = abcString && abcString.match(/%\s*R5_SCHOTT_ART:(\d+):SEC:(\d+)/);
+      if (r5Match) {
+        renderR5Schott(parseInt(r5Match[1], 10) || 0, parseInt(r5Match[2], 10) || 0);
+        return;
+      }
       const ej5Match = abcString && abcString.match(/%\s*EJ5_LEDUC_ART:(\d+):SEC:(\d+)/);
       if (ej5Match) {
         const artId = parseInt(ej5Match[1], 10) || 0;

@@ -61,6 +61,14 @@ fun PracticeScreen(
     var currentEJ10Section by remember { mutableStateOf(initialEJ10Section) }
     var currentEJ11Articulation by remember { mutableStateOf(initialEJ11Articulation) }
     var currentEJ11Section by remember { mutableStateOf(initialEJ11Section) }
+    var currentR1Articulation by remember { mutableStateOf(store.lastR1Articulation) }
+    var currentR1Section by remember { mutableStateOf(store.lastR1Section) }
+    var currentR2Articulation by remember { mutableStateOf(store.lastR2Articulation) }
+    var currentR2Section by remember { mutableStateOf(store.lastR2Section) }
+    var currentR4Articulation by remember { mutableStateOf(store.lastR4Articulation) }
+    var currentR4Section by remember { mutableStateOf(store.lastR4Section) }
+    var currentR5Articulation by remember { mutableStateOf(store.lastR5Articulation) }
+    var currentR5Section by remember { mutableStateOf(store.lastR5Section) }
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
@@ -84,6 +92,14 @@ fun PracticeScreen(
         currentEJ10Section,
         currentEJ11Articulation,
         currentEJ11Section,
+        currentR1Articulation,
+        currentR1Section,
+        currentR2Articulation,
+        currentR2Section,
+        currentR4Articulation,
+        currentR4Section,
+        currentR5Articulation,
+        currentR5Section,
         currentTonic,
         currentMode,
         currentArticulation,
@@ -121,6 +137,26 @@ fun PracticeScreen(
                 section = currentEJ11Section,
                 tempoBPM = metronome.tempoBPM
             )
+            ExerciseType.R1 -> ExerciseGenerator.generateR1ABC(
+                articulation = currentR1Articulation,
+                section = currentR1Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.R2 -> ExerciseGenerator.generateR2ABC(
+                articulation = currentR2Articulation,
+                section = currentR2Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.R4 -> ExerciseGenerator.generateR4ABC(
+                articulation = currentR4Articulation,
+                section = currentR4Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.R5 -> ExerciseGenerator.generateR5ABC(
+                articulation = currentR5Articulation,
+                section = currentR5Section,
+                tempoBPM = metronome.tempoBPM
+            )
             ExerciseType.MODOS -> ExerciseGenerator.generateABC(
                 tonic = currentTonic,
                 mode = currentMode,
@@ -146,8 +182,8 @@ fun PracticeScreen(
     val chromaticDoneCount = store.chromaticCompletedCount(currentExercise)
     val isChromaticFullyDone = store.isChromaticFullyCompleted(currentExercise)
 
-    val ej4DoneCount = store.ej4CompletedCount
-    val isEJ4FullyDone = store.isEJ4FullyCompleted
+    val ej4DoneCount = store.ej4TypeCompletedCount(currentExercise)
+    val isEJ4FullyDone = store.isEJ4TypeFullyCompleted(currentExercise)
 
     val ej5TypeDoneCount = store.ej5TypeCompletedCount(currentExercise)
     val isEJ5TypeFullyDone = store.isEJ5TypeFullyCompleted(currentExercise)
@@ -279,7 +315,7 @@ fun PracticeScreen(
             onDismissRequest = { showEJ4CompletionDialog = false },
             title = {
                 Text(
-                    text = loc.t("ej4_milestone_title"),
+                    text = "¡${currentExercise.pillLabel} Completado (8/8 Articulaciones)!",
                     fontWeight = FontWeight.Bold
                 )
             },
@@ -294,8 +330,22 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            store.resetEJ4()
-                            currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
+                            store.resetEJ4(currentExercise)
+                            when (currentExercise) {
+                                ExerciseType.R2 -> {
+                                    currentR2Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR2Articulation = currentR2Articulation
+                                }
+                                ExerciseType.R4 -> {
+                                    currentR4Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastR4Articulation = currentR4Articulation
+                                }
+                                else -> {
+                                    currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
+                                    store.lastEJ4Articulation = currentEJ4Articulation
+                                }
+                            }
+                            store.saveLastSelection()
                             showEJ4CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -306,15 +356,26 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            currentExercise = ExerciseType.EJ5
-                            store.lastExerciseType = ExerciseType.EJ5
+                            val nextEx = when (currentExercise) {
+                                ExerciseType.R2 -> ExerciseType.R4
+                                ExerciseType.R4 -> ExerciseType.R5
+                                else -> ExerciseType.EJ5
+                            }
+                            currentExercise = nextEx
+                            store.lastExerciseType = nextEx
                             store.saveLastSelection()
                             showEJ4CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
-                        Text(loc.t("ej5_title"))
+                        Text(
+                            when (currentExercise) {
+                                ExerciseType.R2 -> loc.t("r4_title")
+                                ExerciseType.R4 -> loc.t("r5_title")
+                                else -> loc.t("ej5_title")
+                            }
+                        )
                     }
 
                     TextButton(
@@ -441,12 +502,12 @@ fun PracticeScreen(
             onDismissRequest = { showEJ11CompletionDialog = false },
             title = {
                 Text(
-                    text = loc.t("ej11_milestone_title"),
+                    text = "¡${currentExercise.pillLabel} Completado (10/10 Articulaciones)!",
                     fontWeight = FontWeight.Bold
                 )
             },
             text = {
-                Text(text = loc.t("ej11_milestone_msg"))
+                Text(text = loc.t("ej1_milestone_msg"))
             },
             confirmButton = {
                 Column(
@@ -456,27 +517,52 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            store.resetEJ5Type(ExerciseType.EJ11)
-                            currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
+                            store.resetEJ5Type(currentExercise)
+                            when (currentExercise) {
+                                ExerciseType.R1 -> {
+                                    currentR1Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR1Articulation = currentR1Articulation
+                                }
+                                ExerciseType.R5 -> {
+                                    currentR5Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastR5Articulation = currentR5Articulation
+                                }
+                                else -> {
+                                    currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
+                                    store.lastEJ11Articulation = currentEJ11Articulation
+                                }
+                            }
+                            store.saveLastSelection()
                             showEJ11CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(loc.t("ej11_restart_round"))
+                        Text(loc.t("ej1_restart_round"))
                     }
 
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            currentExercise = ExerciseType.MODOS
-                            store.lastExerciseType = ExerciseType.MODOS
+                            val nextEx = when (currentExercise) {
+                                ExerciseType.EJ11 -> ExerciseType.R1
+                                ExerciseType.R1 -> ExerciseType.R2
+                                else -> ExerciseType.MODOS
+                            }
+                            currentExercise = nextEx
+                            store.lastExerciseType = nextEx
                             store.saveLastSelection()
                             showEJ11CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
-                        Text(loc.t("ej11_go_to_modos"))
+                        Text(
+                            when (currentExercise) {
+                                ExerciseType.EJ11 -> loc.t("r1_title")
+                                ExerciseType.R1 -> loc.t("r2_title")
+                                else -> loc.t("ej4_go_to_modos")
+                            }
+                        )
                     }
 
                     TextButton(
@@ -721,6 +807,22 @@ fun PracticeScreen(
                         }
                     }
                 } else if (currentExercise.isEJ4Exercise) {
+                    val curArt = when (currentExercise) {
+                        ExerciseType.R2 -> currentR2Articulation
+                        ExerciseType.R4 -> currentR4Articulation
+                        else -> currentEJ4Articulation
+                    }
+                    val curSec = when (currentExercise) {
+                        ExerciseType.R2 -> currentR2Section
+                        ExerciseType.R4 -> currentR4Section
+                        else -> currentEJ4Section
+                    }
+                    val curMeasRange = when (currentExercise) {
+                        ExerciseType.R2 -> curSec.r2MeasureRange
+                        ExerciseType.R4 -> curSec.r1MeasureRange
+                        else -> curSec.measureRange
+                    }
+
                     Column(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -732,7 +834,7 @@ fun PracticeScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "E.J. 4 · ${currentEJ4Section.title(loc)}",
+                                    text = "${currentExercise.pillLabel} · ${curSec.title(loc)}",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface,
@@ -740,7 +842,7 @@ fun PracticeScreen(
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = "${currentEJ4Articulation.title(loc)} · ${currentEJ4Section.measureRange}",
+                                    text = "${curArt.title(loc)} · $curMeasRange",
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     maxLines = 1,
@@ -772,19 +874,36 @@ fun PracticeScreen(
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             EJ4Section.entries.forEach { sec ->
-                                val isSel = sec == currentEJ4Section
+                                val isSel = sec == curSec
+                                val secRange = when (currentExercise) {
+                                    ExerciseType.R2 -> sec.r2MeasureRange
+                                    ExerciseType.R4 -> sec.r1MeasureRange
+                                    else -> sec.measureRange
+                                }
                                 Surface(
                                     onClick = {
                                         scorePlayer.stop()
-                                        currentEJ4Section = sec
-                                        store.lastEJ4Section = sec
+                                        when (currentExercise) {
+                                            ExerciseType.R2 -> {
+                                                currentR2Section = sec
+                                                store.lastR2Section = sec
+                                            }
+                                            ExerciseType.R4 -> {
+                                                currentR4Section = sec
+                                                store.lastR4Section = sec
+                                            }
+                                            else -> {
+                                                currentEJ4Section = sec
+                                                store.lastEJ4Section = sec
+                                            }
+                                        }
                                         store.saveLastSelection()
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
                                 ) {
                                     Text(
-                                        text = "${sec.shortBadge} (${sec.measureRange})",
+                                        text = "${sec.shortBadge} ($secRange)",
                                         fontSize = 11.sp,
                                         fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
                                         color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -799,18 +918,24 @@ fun PracticeScreen(
                         ExerciseType.EJ5 -> currentEJ5Articulation
                         ExerciseType.EJ10 -> currentEJ10Articulation
                         ExerciseType.EJ11 -> currentEJ11Articulation
+                        ExerciseType.R1 -> currentR1Articulation
+                        ExerciseType.R5 -> currentR5Articulation
                         else -> currentEJ5Articulation
                     }
                     val secTitle = when (currentExercise) {
                         ExerciseType.EJ5 -> "E.J. 5 · ${currentEJ5Section.title(loc)}"
                         ExerciseType.EJ10 -> "E.J. 10 · ${currentEJ10Section.title(loc)}"
                         ExerciseType.EJ11 -> "E.J. 11 · ${currentEJ11Section.title(loc)}"
+                        ExerciseType.R1 -> "R. 1 · ${currentR1Section.title(loc)}"
+                        ExerciseType.R5 -> "R. 5 · ${currentR5Section.title(loc)}"
                         else -> ""
                     }
                     val measRange = when (currentExercise) {
                         ExerciseType.EJ5 -> currentEJ5Section.measureRange
                         ExerciseType.EJ10 -> currentEJ10Section.measureRange
                         ExerciseType.EJ11 -> currentEJ11Section.measureRange
+                        ExerciseType.R1 -> currentR1Section.r1MeasureRange
+                        ExerciseType.R5 -> currentR5Section.r5MeasureRange
                         else -> ""
                     }
 
@@ -878,6 +1003,42 @@ fun PracticeScreen(
                                     ) {
                                         Text(
                                             text = "${sec.shortBadge} (${sec.measureRange})",
+                                            fontSize = 11.sp,
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        } else if (currentExercise.isReichertExercise) {
+                            val curSec = if (currentExercise == ExerciseType.R5) currentR5Section else currentR1Section
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                EJ4Section.entries.forEach { sec ->
+                                    val isSel = sec == curSec
+                                    val mRange = if (currentExercise == ExerciseType.R5) sec.r5MeasureRange else sec.r1MeasureRange
+                                    Surface(
+                                        onClick = {
+                                            scorePlayer.stop()
+                                            if (currentExercise == ExerciseType.R5) {
+                                                currentR5Section = sec
+                                                store.lastR5Section = sec
+                                            } else {
+                                                currentR1Section = sec
+                                                store.lastR1Section = sec
+                                            }
+                                            store.saveLastSelection()
+                                        },
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        Text(
+                                            text = "${sec.shortBadge} ($mRange)",
                                             fontSize = 11.sp,
                                             fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
                                             color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -1105,6 +1266,12 @@ fun PracticeScreen(
                     }
                 }
             } else if (currentExercise.isEJ4Exercise) {
+                val curArt = when (currentExercise) {
+                    ExerciseType.R2 -> currentR2Articulation
+                    ExerciseType.R4 -> currentR4Articulation
+                    else -> currentEJ4Articulation
+                }
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1144,7 +1311,7 @@ fun PracticeScreen(
                     }
                 }
 
-                // E.J. 4 Articulation Bar Chips (0..8)
+                // E.J. 4 / R. 2 / R. 4 Articulation Bar Chips (0..8)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1154,22 +1321,34 @@ fun PracticeScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     EJ4Articulation.entries.forEach { art ->
-                        val isSelected = art == currentEJ4Articulation
-                        val isCompleted = store.isEJ4Completed(art)
+                        val isSelected = art == curArt
+                        val isCompleted = store.isEJ4Completed(art, currentExercise)
 
                         Surface(
                             onClick = {
                                 scorePlayer.stop()
                                 if (isSelected) {
                                     if (art != EJ4Articulation.ORIGINAL) {
-                                        store.toggleEJ4Completed(art)
+                                        store.toggleEJ4Completed(art, currentExercise)
                                     }
                                 } else {
-                                    if (currentEJ4Articulation != EJ4Articulation.ORIGINAL) {
-                                        store.markEJ4Completed(currentEJ4Articulation)
+                                    if (curArt != EJ4Articulation.ORIGINAL) {
+                                        store.markEJ4Completed(curArt, currentExercise)
                                     }
-                                    currentEJ4Articulation = art
-                                    store.lastEJ4Articulation = art
+                                    when (currentExercise) {
+                                        ExerciseType.R2 -> {
+                                            currentR2Articulation = art
+                                            store.lastR2Articulation = art
+                                        }
+                                        ExerciseType.R4 -> {
+                                            currentR4Articulation = art
+                                            store.lastR4Articulation = art
+                                        }
+                                        else -> {
+                                            currentEJ4Articulation = art
+                                            store.lastEJ4Articulation = art
+                                        }
+                                    }
                                     store.saveLastSelection()
                                 }
                             },
@@ -1205,6 +1384,8 @@ fun PracticeScreen(
                     ExerciseType.EJ5 -> currentEJ5Articulation
                     ExerciseType.EJ10 -> currentEJ10Articulation
                     ExerciseType.EJ11 -> currentEJ11Articulation
+                    ExerciseType.R1 -> currentR1Articulation
+                    ExerciseType.R5 -> currentR5Articulation
                     else -> currentEJ5Articulation
                 }
 
@@ -1247,7 +1428,7 @@ fun PracticeScreen(
                     }
                 }
 
-                // E.J. 5 / E.J. 10 / E.J. 11 Articulation Bar Chips (0..10)
+                // E.J. 5 / E.J. 10 / E.J. 11 / R. 1 / R. 5 Articulation Bar Chips (0..10)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1283,6 +1464,14 @@ fun PracticeScreen(
                                         ExerciseType.EJ11 -> {
                                             currentEJ11Articulation = art
                                             store.lastEJ11Articulation = art
+                                        }
+                                        ExerciseType.R1 -> {
+                                            currentR1Articulation = art
+                                            store.lastR1Articulation = art
+                                        }
+                                        ExerciseType.R5 -> {
+                                            currentR5Articulation = art
+                                            store.lastR5Articulation = art
                                         }
                                         else -> {}
                                     }
@@ -1507,7 +1696,8 @@ fun PracticeScreen(
                                     ExerciseType.EJ4 -> scorePlayer.toggleEJ4(
                                         articulation = currentEJ4Articulation,
                                         section = currentEJ4Section,
-                                        tempoBPM = metronome.tempoBPM
+                                        tempoBPM = metronome.tempoBPM,
+                                        exercise = ExerciseType.EJ4
                                     )
                                     ExerciseType.EJ5 -> scorePlayer.toggleEJ5(
                                         articulation = currentEJ5Articulation,
@@ -1523,6 +1713,30 @@ fun PracticeScreen(
                                         articulation = currentEJ11Articulation,
                                         section = currentEJ11Section,
                                         tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.R1 -> scorePlayer.toggleEJ5Type(
+                                        articulation = currentR1Articulation,
+                                        sectionIndex = currentR1Section.id,
+                                        tempoBPM = metronome.tempoBPM,
+                                        exercise = ExerciseType.R1
+                                    )
+                                    ExerciseType.R2 -> scorePlayer.toggleEJ4(
+                                        articulation = currentR2Articulation,
+                                        section = currentR2Section,
+                                        tempoBPM = metronome.tempoBPM,
+                                        exercise = ExerciseType.R2
+                                    )
+                                    ExerciseType.R4 -> scorePlayer.toggleEJ4(
+                                        articulation = currentR4Articulation,
+                                        section = currentR4Section,
+                                        tempoBPM = metronome.tempoBPM,
+                                        exercise = ExerciseType.R4
+                                    )
+                                    ExerciseType.R5 -> scorePlayer.toggleEJ5Type(
+                                        articulation = currentR5Articulation,
+                                        sectionIndex = currentR5Section.id,
+                                        tempoBPM = metronome.tempoBPM,
+                                        exercise = ExerciseType.R5
                                     )
                                     ExerciseType.MODOS -> scorePlayer.toggle(
                                         tonic = currentTonic,
@@ -1664,6 +1878,17 @@ fun PracticeScreen(
                             }
                         }
                     } else if (currentExercise.isEJ4Exercise) {
+                        val curArt = when (currentExercise) {
+                            ExerciseType.R2 -> currentR2Articulation
+                            ExerciseType.R4 -> currentR4Articulation
+                            else -> currentEJ4Articulation
+                        }
+                        val curSec = when (currentExercise) {
+                            ExerciseType.R2 -> currentR2Section
+                            ExerciseType.R4 -> currentR4Section
+                            else -> currentEJ4Section
+                        }
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -1672,11 +1897,23 @@ fun PracticeScreen(
                                 onClick = {
                                     scorePlayer.stop()
                                     val allSecs = EJ4Section.entries
-                                    val idx = allSecs.indexOf(currentEJ4Section)
+                                    val idx = allSecs.indexOf(curSec)
                                     if (idx >= 0) {
                                         val nextSec = allSecs[(idx + 1) % allSecs.size]
-                                        currentEJ4Section = nextSec
-                                        store.lastEJ4Section = nextSec
+                                        when (currentExercise) {
+                                            ExerciseType.R2 -> {
+                                                currentR2Section = nextSec
+                                                store.lastR2Section = nextSec
+                                            }
+                                            ExerciseType.R4 -> {
+                                                currentR4Section = nextSec
+                                                store.lastR4Section = nextSec
+                                            }
+                                            else -> {
+                                                currentEJ4Section = nextSec
+                                                store.lastEJ4Section = nextSec
+                                            }
+                                        }
                                         store.saveLastSelection()
                                     }
                                 },
@@ -1699,7 +1936,7 @@ fun PracticeScreen(
                                         color = MaterialTheme.colorScheme.surfaceVariant
                                     ) {
                                         Text(
-                                            text = "${currentEJ4Section.id + 1}/25",
+                                            text = "${curSec.id + 1}/25",
                                             fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
                                             fontFamily = FontFamily.Monospace,
@@ -1741,21 +1978,46 @@ fun PracticeScreen(
                                 Button(
                                     onClick = {
                                         scorePlayer.stop()
-                                        if (currentEJ4Articulation == EJ4Articulation.ORIGINAL) {
-                                            currentEJ4Articulation = EJ4Articulation.ALL_SLURRED_8
-                                            store.lastEJ4Articulation = currentEJ4Articulation
+                                        if (curArt == EJ4Articulation.ORIGINAL) {
+                                            val firstArt = EJ4Articulation.ALL_SLURRED_8
+                                            when (currentExercise) {
+                                                ExerciseType.R2 -> {
+                                                    currentR2Articulation = firstArt
+                                                    store.lastR2Articulation = firstArt
+                                                }
+                                                ExerciseType.R4 -> {
+                                                    currentR4Articulation = firstArt
+                                                    store.lastR4Articulation = firstArt
+                                                }
+                                                else -> {
+                                                    currentEJ4Articulation = firstArt
+                                                    store.lastEJ4Articulation = firstArt
+                                                }
+                                            }
                                             store.saveLastSelection()
                                         } else {
-                                            store.markEJ4Completed(currentEJ4Articulation)
-                                            if (store.isEJ4FullyCompleted) {
+                                            store.markEJ4Completed(curArt, currentExercise)
+                                            if (store.isEJ4FullyCompleted(currentExercise)) {
                                                 showEJ4CompletionDialog = true
                                             } else {
                                                 val allPractice = EJ4Articulation.practiceCases
-                                                val idx = allPractice.indexOf(currentEJ4Articulation)
+                                                val idx = allPractice.indexOf(curArt)
                                                 if (idx >= 0) {
                                                     val nextArt = allPractice[(idx + 1) % allPractice.size]
-                                                    currentEJ4Articulation = nextArt
-                                                    store.lastEJ4Articulation = nextArt
+                                                    when (currentExercise) {
+                                                        ExerciseType.R2 -> {
+                                                            currentR2Articulation = nextArt
+                                                            store.lastR2Articulation = nextArt
+                                                        }
+                                                        ExerciseType.R4 -> {
+                                                            currentR4Articulation = nextArt
+                                                            store.lastR4Articulation = nextArt
+                                                        }
+                                                        else -> {
+                                                            currentEJ4Articulation = nextArt
+                                                            store.lastEJ4Articulation = nextArt
+                                                        }
+                                                    }
                                                     store.saveLastSelection()
                                                 }
                                             }
@@ -1804,6 +2066,8 @@ fun PracticeScreen(
                             ExerciseType.EJ5 -> currentEJ5Articulation
                             ExerciseType.EJ10 -> currentEJ10Articulation
                             ExerciseType.EJ11 -> currentEJ11Articulation
+                            ExerciseType.R1 -> currentR1Articulation
+                            ExerciseType.R5 -> currentR5Articulation
                             else -> currentEJ5Articulation
                         }
 
@@ -1821,6 +2085,21 @@ fun PracticeScreen(
                                             val nextSec = allSecs[(idx + 1) % allSecs.size]
                                             currentEJ5Section = nextSec
                                             store.lastEJ5Section = nextSec
+                                            store.saveLastSelection()
+                                        }
+                                    } else if (currentExercise.isReichertExercise) {
+                                        val allSecs = EJ4Section.entries
+                                        val curSec = if (currentExercise == ExerciseType.R5) currentR5Section else currentR1Section
+                                        val idx = allSecs.indexOf(curSec)
+                                        if (idx >= 0) {
+                                            val nextSec = allSecs[(idx + 1) % allSecs.size]
+                                            if (currentExercise == ExerciseType.R5) {
+                                                currentR5Section = nextSec
+                                                store.lastR5Section = nextSec
+                                            } else {
+                                                currentR1Section = nextSec
+                                                store.lastR1Section = nextSec
+                                            }
                                             store.saveLastSelection()
                                         }
                                     } else {
@@ -1853,7 +2132,7 @@ fun PracticeScreen(
                                             ExerciseType.EJ5 -> loc.t("ej5_next_section")
                                             ExerciseType.EJ10 -> loc.t("ej10_next_section")
                                             ExerciseType.EJ11 -> loc.t("ej11_next_section")
-                                            else -> ""
+                                            else -> loc.t("ej4_next_section")
                                         },
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.SemiBold,
@@ -1867,6 +2146,8 @@ fun PracticeScreen(
                                             ExerciseType.EJ5 -> "${currentEJ5Section.id + 1}/12"
                                             ExerciseType.EJ10 -> "${currentEJ10Section.id + 1}/12"
                                             ExerciseType.EJ11 -> "${currentEJ11Section.id + 1}/12"
+                                            ExerciseType.R1 -> "${currentR1Section.id + 1}/25"
+                                            ExerciseType.R5 -> "${currentR5Section.id + 1}/25"
                                             else -> ""
                                         }
                                         Text(
@@ -1886,8 +2167,7 @@ fun PracticeScreen(
                                         when (currentExercise) {
                                             ExerciseType.EJ5 -> showEJ5CompletionDialog = true
                                             ExerciseType.EJ10 -> showEJ10CompletionDialog = true
-                                            ExerciseType.EJ11 -> showEJ11CompletionDialog = true
-                                            else -> {}
+                                            else -> showEJ11CompletionDialog = true
                                         }
                                     },
                                     modifier = Modifier
@@ -1909,8 +2189,7 @@ fun PracticeScreen(
                                         val doneLabel = when (currentExercise) {
                                             ExerciseType.EJ5 -> loc.t("ej5_ten_arts_completed")
                                             ExerciseType.EJ10 -> loc.t("ej10_ten_arts_completed")
-                                            ExerciseType.EJ11 -> loc.t("ej11_ten_arts_completed")
-                                            else -> ""
+                                            else -> loc.t("ej11_ten_arts_completed")
                                         }
                                         Text(
                                             text = "✓ $doneLabel",
@@ -1939,6 +2218,14 @@ fun PracticeScreen(
                                                     currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
                                                     store.lastEJ11Articulation = currentEJ11Articulation
                                                 }
+                                                ExerciseType.R1 -> {
+                                                    currentR1Articulation = EJ5Articulation.ALL_SLURRED
+                                                    store.lastR1Articulation = currentR1Articulation
+                                                }
+                                                ExerciseType.R5 -> {
+                                                    currentR5Articulation = EJ5Articulation.ALL_SLURRED
+                                                    store.lastR5Articulation = currentR5Articulation
+                                                }
                                                 else -> {}
                                             }
                                             store.saveLastSelection()
@@ -1948,8 +2235,7 @@ fun PracticeScreen(
                                                 when (currentExercise) {
                                                     ExerciseType.EJ5 -> showEJ5CompletionDialog = true
                                                     ExerciseType.EJ10 -> showEJ10CompletionDialog = true
-                                                    ExerciseType.EJ11 -> showEJ11CompletionDialog = true
-                                                    else -> {}
+                                                    else -> showEJ11CompletionDialog = true
                                                 }
                                             } else {
                                                 val allPractice = EJ5Articulation.practiceCases
@@ -1968,6 +2254,14 @@ fun PracticeScreen(
                                                         ExerciseType.EJ11 -> {
                                                             currentEJ11Articulation = nextArt
                                                             store.lastEJ11Articulation = nextArt
+                                                        }
+                                                        ExerciseType.R1 -> {
+                                                            currentR1Articulation = nextArt
+                                                            store.lastR1Articulation = nextArt
+                                                        }
+                                                        ExerciseType.R5 -> {
+                                                            currentR5Articulation = nextArt
+                                                            store.lastR5Articulation = nextArt
                                                         }
                                                         else -> {}
                                                     }

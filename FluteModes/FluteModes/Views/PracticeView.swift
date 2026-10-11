@@ -123,34 +123,38 @@ public struct PracticeView: View {
             Text(loc.t("ej2_milestone_msg"))
         }
         .confirmationDialog(
-            loc.t("ej4_milestone_title"),
+            "¡\(viewModel.currentExercise.pillLabel) Completado (8/8 Articulaciones)!",
             isPresented: $viewModel.showEJ4CompletionDialog,
             titleVisibility: .visible
         ) {
             Button(loc.t("ej4_restart_round")) {
                 viewModel.restartEJ4Round()
             }
+            Button("🎵 Siguiente Tonalidad (\( (viewModel.currentEJ4TypeSectionIndex + 1) % 25 + 1 )/25)") {
+                viewModel.advanceToNextEJ4Section()
+            }
             Button(loc.t("ej4_go_to_modos")) {
                 viewModel.selectExercise(.modos)
             }
             Button(loc.t("stay_mode"), role: .cancel) {}
         } message: {
-            Text(loc.t("ej4_milestone_msg"))
+            Text("Has completado las 8 articulaciones de \(viewModel.currentExercise.pillLabel).")
         }
         .confirmationDialog(
             "¡\(viewModel.currentExercise.pillLabel) Completado (10/10 Articulaciones)!",
             isPresented: $viewModel.showEJ5TypeCompletionDialog,
             titleVisibility: .visible
         ) {
+            let secTotal = viewModel.currentExercise.sectionCount
             Button("🔁 Volver a Articulación 1") {
                 viewModel.restartEJ5TypeRound()
             }
-            Button("🎵 Siguiente Sección (\( (viewModel.currentEJ5TypeSectionIndex + 1) % 12 + 1 )/12)") {
+            Button("🎵 Siguiente Sección (\( (viewModel.currentEJ5TypeSectionIndex + 1) % secTotal + 1 )/\(secTotal))") {
                 viewModel.advanceToNextEJ5TypeSection()
             }
             Button(loc.t("stay_mode"), role: .cancel) {}
         } message: {
-            Text("Has completado las 10 articulaciones oficiales de \(viewModel.currentExercise.pillLabel) de Taffanel & Gaubert.")
+            Text("Has completado las 10 articulaciones de \(viewModel.currentExercise.pillLabel).")
         }
     }
 
@@ -169,7 +173,7 @@ public struct PracticeView: View {
                 .foregroundColor(.primary)
             }
 
-            // Exercise quick switcher (Horizontal Scroll for 7 exercises)
+            // Exercise quick switcher (Horizontal Scroll for exercises)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
                     ForEach(ExerciseType.allCases) { ex in
@@ -273,21 +277,23 @@ public struct PracticeView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(Color(uiColor: .systemBackground))
-        } else if viewModel.currentExercise == .ej4 {
-            let completed = viewModel.store.ej4CompletedCount
-            let isAllDone = viewModel.store.isEJ4FullyCompleted
-            let currentArt = viewModel.currentEJ4Articulation
-            let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+        } else if viewModel.currentExercise.isEJ4Exercise {
+            let ex = viewModel.currentExercise
+            let completed = viewModel.store.ej4TypeCompletedCount(for: ex)
+            let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+            let currentArt = viewModel.currentEJ4TypeArticulation
+            let curSecIdx = viewModel.currentEJ4TypeSectionIndex
+            let curSec = EJ4Section.all[max(0, min(24, curSecIdx))]
 
             VStack(spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("E.J. 4 · \(curSec.fullName)")
+                        Text("\(ex.pillLabel) · \(curSec.fullName(for: ex))")
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(.primary)
                             .lineLimit(1)
 
-                        Text("\(currentArt.title) · \(curSec.measureRange)")
+                        Text("\(currentArt.title) · \(curSec.measureRange(for: ex))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
@@ -308,11 +314,11 @@ public struct PracticeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 6) {
                         ForEach(EJ4Section.all) { sec in
-                            let isSel = viewModel.currentEJ4Section == sec.id
+                            let isSel = curSecIdx == sec.id
                             Button {
-                                viewModel.selectEJ4Section(sec.id)
+                                viewModel.selectEJ4Section(sec.id, for: ex)
                             } label: {
-                                Text("\(sec.shortName) (\(sec.measureRange))")
+                                Text("\(sec.shortName(for: ex)) (\(sec.measureRange(for: ex)))")
                                     .font(.system(size: 11, weight: isSel ? .bold : .medium))
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
@@ -333,8 +339,12 @@ public struct PracticeView: View {
             let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
             let currentArt = viewModel.currentEJ5TypeArticulation
             let curSecIdx = viewModel.currentEJ5TypeSectionIndex
-            let fullName = ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName
-            let mRange = ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange
+            let fullName = ex.isReichertExercise
+                ? EJ4Section.all[max(0, min(24, curSecIdx))].fullName(for: ex)
+                : (ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName)
+            let mRange = ex.isReichertExercise
+                ? EJ4Section.all[max(0, min(24, curSecIdx))].measureRange(for: ex)
+                : (ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange)
 
             VStack(spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
@@ -361,13 +371,17 @@ public struct PracticeView: View {
                         .cornerRadius(8)
                 }
 
-                // Horizontal Section Selector Bar (12 Sections)
+                // Horizontal Section Selector Bar
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 6) {
-                        ForEach(0..<12, id: \.self) { idx in
+                        ForEach(0..<ex.sectionCount, id: \.self) { idx in
                             let isSel = curSecIdx == idx
-                            let shortName = ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName
-                            let rangeStr = ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange
+                            let shortName = ex.isReichertExercise
+                                ? EJ4Section.all[idx].shortName(for: ex)
+                                : (ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName)
+                            let rangeStr = ex.isReichertExercise
+                                ? EJ4Section.all[idx].measureRange(for: ex)
+                                : (ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange)
                             Button {
                                 viewModel.selectEJ5TypeSection(idx)
                             } label: {
@@ -504,19 +518,23 @@ public struct PracticeView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-            } else if viewModel.currentExercise == .ej4 {
-                let completed = viewModel.store.ej4CompletedCount
-                let isAllDone = viewModel.store.isEJ4FullyCompleted
-                let currentArt = viewModel.currentEJ4Articulation
-                let curSec = EJ4Section.all[max(0, min(24, viewModel.currentEJ4Section))]
+            } else if viewModel.currentExercise.isEJ4Exercise {
+                let ex = viewModel.currentExercise
+                let completed = viewModel.store.ej4TypeCompletedCount(for: ex)
+                let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+                let currentArt = viewModel.currentEJ4TypeArticulation
+                let curSecIdx = viewModel.currentEJ4TypeSectionIndex
+                let curSec = EJ4Section.all[max(0, min(24, curSecIdx))]
+                let totalMeas = ex == .r2 ? "200" : (ex == .r4 ? "100" : "194")
+                let plateLabel = ex.isReichertExercise ? "Schott 20623" : "A. L. 16.588"
 
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
-                        Text("E.J. 4 · \(curSec.fullName)")
+                        Text("\(ex.pillLabel) · \(curSec.fullName(for: ex))")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.primary)
 
-                        Text("A. L. 16.588")
+                        Text(plateLabel)
                             .font(.caption2.bold())
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
@@ -532,7 +550,7 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(currentArt.title) | \(curSec.measureRange) de 194")
+                    Text("\(currentArt.title) | \(curSec.measureRange(for: ex)) de \(totalMeas)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -542,9 +560,14 @@ public struct PracticeView: View {
                 let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
                 let currentArt = viewModel.currentEJ5TypeArticulation
                 let curSecIdx = viewModel.currentEJ5TypeSectionIndex
-                let fullName = ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName
-                let mRange = ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange
-                let totalMeas = ex == .ej5 ? "60" : "121"
+                let fullName = ex.isReichertExercise
+                    ? EJ4Section.all[max(0, min(24, curSecIdx))].fullName(for: ex)
+                    : (ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName)
+                let mRange = ex.isReichertExercise
+                    ? EJ4Section.all[max(0, min(24, curSecIdx))].measureRange(for: ex)
+                    : (ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange)
+                let totalMeas = ex == .r1 ? "100" : (ex == .r5 ? "200" : (ex == .ej5 ? "60" : "121"))
+                let plateLabel = ex.isReichertExercise ? "Schott 20623" : "A. L. 16.588"
 
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
@@ -553,7 +576,7 @@ public struct PracticeView: View {
                             .foregroundColor(.primary)
                             .lineLimit(1)
 
-                        Text("A. L. 16.588")
+                        Text(plateLabel)
                             .font(.caption2.bold())
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
@@ -724,20 +747,23 @@ public struct PracticeView: View {
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
-        } else if viewModel.currentExercise == .ej4 {
-            let completedCount = viewModel.store.ej4CompletedCount
-            let isAllDone = viewModel.store.isEJ4FullyCompleted
+        } else if viewModel.currentExercise.isEJ4Exercise {
+            let ex = viewModel.currentExercise
+            let completedCount = viewModel.store.ej4TypeCompletedCount(for: ex)
+            let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+            let curSecIdx = viewModel.currentEJ4TypeSectionIndex
+            let selectArtKey = ex == .r2 ? "r2_select_art" : (ex == .r4 ? "r4_select_art" : "ej4_select_art")
 
             VStack(spacing: 6) {
                 if !isCompact {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
                             ForEach(EJ4Section.all) { sec in
-                                let isSel = viewModel.currentEJ4Section == sec.id
+                                let isSel = curSecIdx == sec.id
                                 Button {
-                                    viewModel.selectEJ4Section(sec.id)
+                                    viewModel.selectEJ4Section(sec.id, for: ex)
                                 } label: {
-                                    Text("\(sec.shortName) (\(sec.measureRange))")
+                                    Text("\(sec.shortName(for: ex)) (\(sec.measureRange(for: ex)))")
                                         .font(.system(size: 11.5, weight: isSel ? .bold : .medium))
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 5)
@@ -754,7 +780,7 @@ public struct PracticeView: View {
 
                 HStack {
                     HStack(spacing: 6) {
-                        Text(loc.t("ej4_select_art"))
+                        Text(loc.t(selectArtKey))
                             .font(.caption.bold())
                             .foregroundColor(.primary)
 
@@ -781,16 +807,16 @@ public struct PracticeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
                         ForEach(EJ4Articulation.allCases) { art in
-                            let isCurrent = viewModel.currentEJ4Articulation == art
-                            let isDone = viewModel.store.isEJ4Completed(art)
+                            let isCurrent = viewModel.currentEJ4TypeArticulation == art
+                            let isDone = viewModel.store.isEJ4Completed(art, for: ex)
 
                             Button {
                                 if isCurrent {
                                     if art != .original {
-                                        viewModel.store.toggleEJ4Completed(art)
+                                        viewModel.store.toggleEJ4Completed(art, for: ex)
                                     }
                                 } else {
-                                    viewModel.selectEJ4Articulation(art, markPreviousCompleted: true)
+                                    viewModel.selectEJ4Articulation(art, for: ex, markPreviousCompleted: true)
                                 }
                             } label: {
                                 HStack(spacing: 6) {
@@ -829,16 +855,29 @@ public struct PracticeView: View {
             let completedCount = viewModel.store.ej5TypeCompletedCount(for: ex)
             let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
             let curSecIdx = viewModel.currentEJ5TypeSectionIndex
-            let selectArtKey = ex == .ej5 ? "ej5_select_art" : (ex == .ej10 ? "ej10_select_art" : "ej11_select_art")
+            let selectArtKey: String = {
+                switch ex {
+                case .ej5:  return "ej5_select_art"
+                case .ej10: return "ej10_select_art"
+                case .ej11: return "ej11_select_art"
+                case .r1:   return "r1_select_art"
+                case .r5:   return "r5_select_art"
+                default:    return "ej5_select_art"
+                }
+            }()
 
             VStack(spacing: 6) {
                 if !isCompact {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
-                            ForEach(0..<12, id: \.self) { idx in
+                            ForEach(0..<ex.sectionCount, id: \.self) { idx in
                                 let isSel = curSecIdx == idx
-                                let shortName = ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName
-                                let mRange = ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange
+                                let shortName = ex.isReichertExercise
+                                    ? EJ4Section.all[idx].shortName(for: ex)
+                                    : (ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName)
+                                let mRange = ex.isReichertExercise
+                                    ? EJ4Section.all[idx].measureRange(for: ex)
+                                    : (ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange)
                                 Button {
                                     viewModel.selectEJ5TypeSection(idx)
                                 } label: {
@@ -1114,9 +1153,10 @@ public struct PracticeView: View {
                         .cornerRadius(20)
                     }
                 }
-            } else if viewModel.currentExercise == .ej4 {
-                let isAllDone = viewModel.store.isEJ4FullyCompleted
-                let completedCount = viewModel.store.ej4CompletedCount
+            } else if viewModel.currentExercise.isEJ4Exercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+                let completedCount = viewModel.store.ej4TypeCompletedCount(for: ex)
 
                 Button {
                     viewModel.advanceToNextEJ4Section()
@@ -1124,7 +1164,7 @@ public struct PracticeView: View {
                     HStack(spacing: 6) {
                         Text("Sig. Tonalidad")
                             .font(.subheadline.bold())
-                        Text("\(viewModel.currentEJ4Section + 1)/25")
+                        Text("\(viewModel.currentEJ4TypeSectionIndex + 1)/25")
                             .font(.caption.bold().monospacedDigit())
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
@@ -1186,9 +1226,9 @@ public struct PracticeView: View {
                     viewModel.advanceToNextEJ5TypeSection()
                 } label: {
                     HStack(spacing: 6) {
-                        Text(ex == .ej5 ? "Sig. Escala" : "Sig. Serie")
+                        Text(ex.isReichertExercise ? "Sig. Tonalidad" : (ex == .ej5 ? "Sig. Escala" : "Sig. Serie"))
                             .font(.subheadline.bold())
-                        Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/12")
+                        Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/\(ex.sectionCount)")
                             .font(.caption.bold().monospacedDigit())
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
@@ -1463,9 +1503,10 @@ public struct PracticeView: View {
                         }
                     }
                 }
-            } else if viewModel.currentExercise == .ej4 {
-                let isAllDone = viewModel.store.isEJ4FullyCompleted
-                let completedCount = viewModel.store.ej4CompletedCount
+            } else if viewModel.currentExercise.isEJ4Exercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isEJ4TypeFullyCompleted(for: ex)
+                let completedCount = viewModel.store.ej4TypeCompletedCount(for: ex)
 
                 HStack(spacing: 8) {
                     Button {
@@ -1475,7 +1516,7 @@ public struct PracticeView: View {
                             Text("Sig. Ton.")
                                 .font(.system(size: 13, weight: .semibold))
                                 .lineLimit(1)
-                            Text("\(viewModel.currentEJ4Section + 1)/25")
+                            Text("\(viewModel.currentEJ4TypeSectionIndex + 1)/25")
                                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                                 .padding(.horizontal, 5)
                                 .padding(.vertical, 2)
@@ -1545,10 +1586,10 @@ public struct PracticeView: View {
                         viewModel.advanceToNextEJ5TypeSection()
                     } label: {
                         HStack(spacing: 5) {
-                            Text(ex == .ej5 ? "Sig. Esc." : "Sig. Serie")
+                            Text(ex.isReichertExercise ? "Sig. Ton." : (ex == .ej5 ? "Sig. Esc." : "Sig. Serie"))
                                 .font(.system(size: 13, weight: .semibold))
                                 .lineLimit(1)
-                            Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/12")
+                            Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/\(ex.sectionCount)")
                                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                                 .padding(.horizontal, 5)
                                 .padding(.vertical, 2)

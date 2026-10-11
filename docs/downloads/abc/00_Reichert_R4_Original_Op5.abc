@@ -1,0 +1,83 @@
+X:1
+T:Reichert Op. 5, Nº 4 — Exercice d'Agilité en 4/4 (pp. 8–9) — Edición Original (Schott 20623)
+C:Mathieu-André Reichert (1830–1880) · Ed. B. Schott's Söhne, Plate 20623
+M:C
+L:1/16
+Q:1/4=128
+K:C
+V:1 clef=treble
+% --- 1. Do Mayor (C Major) ---
+[K:C] !segno!(CEGA G^FGE EGcd cBcG | Gcef e^dec cega g^fge |
+Gcef e^dec EGc=d cBcG | CEGc egce GcEG !wedge!C2) !fine!z2 |]
+% --- 2. La menor (Relatif Mineur) ---
+[K:Am] (Acef e^dec ceab a^gae | eac'd' c'bc'a ac'e'f' e'^d'e'c' |
+eac'd' c'bc'a ceab a^gae | Acea c'e'ac' eace !wedge!A2) z2 ||
+% --- 3. Fa Mayor (F Major) ---
+[K:F] (FAcd c=BcA Acfg fefc | cfab a^gaf fac'd' c'=bc'a |
+cfab a^gaf Acf=g fefc | FAcf ac'fa cfAc !wedge!F2) z2 ||
+% --- 4. Re menor (Mineur) ---
+[K:Dm] (DFAB A^GAF FAde d^cdA | Adfg fefd dfab a^gaf |
+Adfg fefd FAde d^cdA | DFAd fadf AdFA !wedge!D2) z2 ||
+% --- 5. Si♭ Mayor (B♭ Major) ---
+[K:Bb] (Bdfg f=efd dfbc' babf | fbd'e' d'^c'd'b bd'f'g' f'=e'f'd' |
+fbd'e' d'^c'd'b dfb=c' babf | Bdfb d'f'bd' fbdf !wedge!B2) z2 ||
+% --- 6. Sol menor (Mineur) ---
+[K:Gm] (GBde d^cdB Bdga g^fgd | dgbc' babg gbd'e' d'^c'd'b |
+dgbc' babg Bdga g^fgd | GBdg bd'gb dgBd !wedge!G2) z2 ||
+% --- 7. Mi♭ Mayor (E♭ Major) ---
+[K:Eb] (EGBc B=ABG GBef edeB | Bega g^fge egbc' b=abg |
+Bega g^fge GBe=f edeB | EGBe gbeg BeGB !wedge!E2) z2 ||
+% --- 8. Do menor (Mineur) ---
+[K:Cm] (cega g^fge egc'd' c'=bc'g | gc'e'f' e'd'e'c' c'e'g'a' g'^f'g'e' |
+gc'e'f' e'd'e'c' egc'd' c'=bc'g | cegc' e'g'c'e' gc'eg !wedge!c2) z2 ||
+% --- 9. La♭ Mayor (A♭ Major) ---
+[K:Ab] (Acef e=dec ceab agae | eac'd' c'=bc'a ac'e'f' e'=d'e'c' |
+eac'd' c'=bc'a cea_b agae | Acea c'e'ac' eace !wedge!A2) z2 ||
+% --- 10. Fa menor (Mineur) ---
+[K:Fm] (FAcd c=BcA Acfg f=efc | cfab agaf fac'd' c'=bc'a |
+cfab agaf Acfg f=efc | FAcf ac'fa cfAc !wedge!F2) z2 ||
+% --- 11. Re♭ Mayor (D♭ Major) ---
+[K:Db] (dfab a=gaf fad'e' d'c'd'a | ad'f'g' f'=e'f'd' d'f'a'b' a'=g'a'f' |
+ad'f'g' f'=e'f'd' fad'_e' d'c'd'a | dfad' f'a'd'f' ad'fa !wedge!d2) z2 ||
+% --- 12. Si♭ menor (Mineur) ---
+[K:Bbm] (Bdfg f=efd dfbc' b=abf | fbd'e' d'c'd'b bd'f'g' f'=e'f'd' |
+fbd'e' d'c'd'b dfbc' b=abf | Bdfb d'f'bd' fbdf !wedge!B2) z2 ||
+% --- 13. Sol♭ Mayor (G♭ Major) ---
+[K:Gb] (GBde d=cdB Bdga gfgd | dgbc' b=abg gbd'e' d'=c'd'b |
+dgbc' b=abg Bdg_a gfgd | GBdg bd'gb dgBd !wedge!G2) z2 ||
+% --- 14. Mi♭ menor (Mineur) ---
+[K:Ebm] (EGBc B=ABG GBef e=deB | Bega gfge egbc' b=abg |
+Bega gfge GBef e=deB | EGBe gbeg BeGB !wedge!E2) z2 ||
+% --- 15. Si Mayor (B Major) ---
+[K:B] (Bdfg f^efd dfbc' babf | fbd'e' d'^^c'd'b bd'f'g' f'^e'f'd' |
+fbd'e' d'^^c'd'b dfb^c' babf | Bdfb d'f'bd' fbdf !wedge!B2) z2 ||
+% --- 16. Sol♯ menor (Mineur) ---
+[K:G#m] (GBde d^^cdB Bdga g^^fgd | dgbc' babg gbd'e' d'^^c'd'b |
+dgbc' babg Bdga g^^fgd | GBdg bd'gb dgBd !wedge!G2) z2 ||
+% --- 17. Mi Mayor (E Major) ---
+[K:E] (EGBc B^ABG GBef edeB | Bega g^^fge egbc' b^abg |
+Bega g^^fge GBe^f edeB | EGBe gbeg BeGB !wedge!E2) z2 ||
+% --- 18. Do♯ menor (Mineur) ---
+[K:C#m] "^8va..."(CEGA G^^FGE EGcd c^BcG | Gcef edec cega g^^fge |
+Gcef edec EGcd c^BcG | CEGc egce GcEG !wedge!C2) z2 ||
+% --- 19. La Mayor (A Major) ---
+[K:A] (Acef e^dec ceab agae | eac'd' c'^bc'a ac'e'f' e'^d'e'c' |
+eac'd' c'^bc'a cea=b agae | Acea c'e'ac' eace !wedge!A2) z2 ||
+% --- 20. Fa♯ menor (Mineur) ---
+[K:F#m] (FAcd c^BcA Acfg f^efc | cfab agaf fac'd' c'^bc'a |
+cfab agaf Acfg f^efc | FAcf ac'fa cfAc !wedge!F2) z2 ||
+% --- 21. Re Mayor (D Major) ---
+[K:D] (DFAB A^GAF FAde dcdA | Adfg f^efd dfab a^gaf |
+Adfg f^efd FAd=e dcdA | DFAd fadf AdFA !wedge!D2) z2 ||
+% --- 22. Si menor (Mineur) ---
+[K:Bm] (Bdfg f^efd dfbc' b^abf | fbd'e' d'c'd'b bd'f'g' f'^e'f'd' |
+fbd'e' d'c'd'b dfbc' b^abf | Bdfb d'f'bd' fbdf !wedge!B2) z2 ||
+% --- 23. Sol Mayor (G Major) ---
+[K:G] (GBde d^cdB Bdga gfgd | dgbc' b^abg gbd'e' d'^c'd'b |
+dgbc' b^abg Bdg=a gfgd | GBdg bd'gb dgBd !wedge!G2) z2 ||
+% --- 24. Mi menor (Mineur) ---
+[K:Em] (EGBc B^ABG GBef e^deB | Bega gfge egbc' b^abg |
+Bega gfge GBef e^deB | EGBe gbeg BeGB !wedge!E2) !D.S.!z2 |]
+% --- 25. Do Mayor (D.S. al Fine) ---
+[K:C] (CEGA G^FGE EGcd cBcG | Gcef e^dec cega g^fge |
+Gcef e^dec EGc=d cBcG | CEGc egce GcEG !wedge!C2) !fine!z2 |]

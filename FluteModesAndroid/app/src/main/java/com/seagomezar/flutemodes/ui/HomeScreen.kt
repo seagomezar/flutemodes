@@ -33,6 +33,7 @@ fun HomeScreen(
     onStartEJ5Practice: (EJ5Articulation, EJ5Section) -> Unit,
     onStartEJ10Practice: (EJ5Articulation, EJ10Section) -> Unit,
     onStartEJ11Practice: (EJ5Articulation, EJ10Section) -> Unit,
+    onStartReichertPractice: (ExerciseType) -> Unit = {},
     onOpenMatrix: () -> Unit
 ) {
     var selectedExercise by remember { mutableStateOf(store.lastExerciseType) }
@@ -46,6 +47,14 @@ fun HomeScreen(
     var selectedEJ10Section by remember { mutableStateOf(store.lastEJ10Section) }
     var selectedEJ11Art by remember { mutableStateOf(store.lastEJ11Articulation) }
     var selectedEJ11Section by remember { mutableStateOf(store.lastEJ11Section) }
+    var selectedR1Art by remember { mutableStateOf(store.lastR1Articulation) }
+    var selectedR1Section by remember { mutableStateOf(store.lastR1Section) }
+    var selectedR2Art by remember { mutableStateOf(store.lastR2Articulation) }
+    var selectedR2Section by remember { mutableStateOf(store.lastR2Section) }
+    var selectedR4Art by remember { mutableStateOf(store.lastR4Articulation) }
+    var selectedR4Section by remember { mutableStateOf(store.lastR4Section) }
+    var selectedR5Art by remember { mutableStateOf(store.lastR5Articulation) }
+    var selectedR5Section by remember { mutableStateOf(store.lastR5Section) }
     var selectedTonic by remember { mutableStateOf(store.lastTonic ?: Tonic.DO_NATURAL) }
     var selectedMode by remember { mutableStateOf(store.lastMode ?: ModeType.IONIAN) }
 
@@ -73,7 +82,7 @@ fun HomeScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = if (selectedExercise.isChromaticExercise || selectedExercise.isEJ4Exercise || selectedExercise.isEJ5TypeExercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
+                            text = if (selectedExercise.isReichertExercise) "M.-A. Reichert · Op. 5 (Schott 20623)" else if (selectedExercise.isChromaticExercise || selectedExercise.isEJ4Exercise || selectedExercise.isEJ5TypeExercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -120,7 +129,7 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | E.J. 5 | E.J. 10 | E.J. 11 | 84 Modos)
+            // Exercise Switcher
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -177,6 +186,10 @@ fun HomeScreen(
                             ExerciseType.EJ5 -> loc.t("ej5_title")
                             ExerciseType.EJ10 -> loc.t("ej10_title")
                             ExerciseType.EJ11 -> loc.t("ej11_title")
+                            ExerciseType.R1 -> loc.t("r1_title")
+                            ExerciseType.R2 -> loc.t("r2_title")
+                            ExerciseType.R4 -> loc.t("r4_title")
+                            ExerciseType.R5 -> loc.t("r5_title")
                             ExerciseType.MODOS -> loc.t("subtitle")
                         },
                         fontSize = 15.sp,
@@ -192,6 +205,10 @@ fun HomeScreen(
                             ExerciseType.EJ5 -> loc.t("ej5_sub_desc")
                             ExerciseType.EJ10 -> loc.t("ej10_sub_desc")
                             ExerciseType.EJ11 -> loc.t("ej11_sub_desc")
+                            ExerciseType.R1 -> loc.t("r1_sub_desc")
+                            ExerciseType.R2 -> loc.t("r2_sub_desc")
+                            ExerciseType.R4 -> loc.t("r4_sub_desc")
+                            ExerciseType.R5 -> loc.t("r5_sub_desc")
                             ExerciseType.MODOS -> loc.t("sub_desc")
                         },
                         fontSize = 12.sp,
@@ -354,12 +371,23 @@ fun HomeScreen(
                     )
                 }
             } else if (selectedExercise.isEJ4Exercise) {
-                val doneCount = store.ej4CompletedCount
-                val allDone = store.isEJ4FullyCompleted
+                val ex = selectedExercise
+                val doneCount = store.ej4TypeCompletedCount(ex)
+                val allDone = store.isEJ4TypeFullyCompleted(ex)
+                val curSec = when (ex) {
+                    ExerciseType.R2 -> selectedR2Section
+                    ExerciseType.R4 -> selectedR4Section
+                    else -> selectedEJ4Section
+                }
+                val curArt = when (ex) {
+                    ExerciseType.R2 -> selectedR2Art
+                    ExerciseType.R4 -> selectedR4Art
+                    else -> selectedEJ4Art
+                }
 
                 Column {
                     Text(
-                        text = loc.t("ej4_select_section"),
+                        text = loc.t("${ex.id}_select_section"),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -373,11 +401,23 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         EJ4Section.entries.forEach { sec ->
-                            val isSel = sec == selectedEJ4Section
+                            val isSel = sec == curSec
                             Surface(
                                 onClick = {
-                                    selectedEJ4Section = sec
-                                    store.lastEJ4Section = sec
+                                    when (ex) {
+                                        ExerciseType.R2 -> {
+                                            selectedR2Section = sec
+                                            store.lastR2Section = sec
+                                        }
+                                        ExerciseType.R4 -> {
+                                            selectedR4Section = sec
+                                            store.lastR4Section = sec
+                                        }
+                                        else -> {
+                                            selectedEJ4Section = sec
+                                            store.lastEJ4Section = sec
+                                        }
+                                    }
                                     store.saveLastSelection()
                                 },
                                 shape = RoundedCornerShape(12.dp),
@@ -390,13 +430,13 @@ fun HomeScreen(
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Text(
-                                        text = sec.shortBadge,
+                                        text = sec.shortBadge(ex),
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                     Text(
-                                        text = sec.measureRange,
+                                        text = sec.measureRange(ex),
                                         fontSize = 10.sp,
                                         color = if (isSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                                     )
@@ -413,13 +453,13 @@ fun HomeScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = loc.t("ej4_select_art"),
+                            text = loc.t("${ex.id}_select_art"),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = loc.t("ej4_header_info"),
+                            text = loc.t("${ex.id}_header_info"),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -440,13 +480,27 @@ fun HomeScreen(
                 }
 
                 EJ4Articulation.entries.forEach { art ->
-                    val isSelected = selectedEJ4Art == art
-                    val isDone = store.isEJ4Completed(art)
+                    val isSelected = curArt == art
+                    val isDone = store.isEJ4Completed(art, ex)
 
                     Surface(
                         onClick = {
-                            selectedEJ4Art = art
-                            onStartEJ4Practice(art, selectedEJ4Section)
+                            when (ex) {
+                                ExerciseType.R2 -> {
+                                    selectedR2Art = art
+                                    store.lastR2Articulation = art
+                                    onStartReichertPractice(ex)
+                                }
+                                ExerciseType.R4 -> {
+                                    selectedR4Art = art
+                                    store.lastR4Articulation = art
+                                    onStartReichertPractice(ex)
+                                }
+                                else -> {
+                                    selectedEJ4Art = art
+                                    onStartEJ4Practice(art, selectedEJ4Section)
+                                }
+                            }
                         },
                         shape = RoundedCornerShape(14.dp),
                         color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
@@ -469,7 +523,7 @@ fun HomeScreen(
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = art.formulaBadge,
+                                    text = if (art == EJ4Articulation.ORIGINAL && ex.isReichertExercise) "Schott 20623" else art.formulaBadge,
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -528,7 +582,11 @@ fun HomeScreen(
 
                 Button(
                     onClick = {
-                        onStartEJ4Practice(selectedEJ4Art, selectedEJ4Section)
+                        if (ex.isReichertExercise) {
+                            onStartReichertPractice(ex)
+                        } else {
+                            onStartEJ4Practice(selectedEJ4Art, selectedEJ4Section)
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -539,37 +597,80 @@ fun HomeScreen(
                     Icon(Icons.Default.PlayArrow, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "${loc.t("ej4_start_practice")} (${selectedEJ4Section.shortBadge} · ${selectedEJ4Art.shortTitle(loc)})",
+                        text = "${loc.t("${ex.id}_start_practice")} (${curSec.shortBadge(ex)} · ${curArt.shortTitle(loc)})",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1
                     )
                 }
             } else if (selectedExercise.isEJ5TypeExercise) {
-                val doneCount = store.ej5TypeCompletedCount(selectedExercise)
-                val allDone = store.isEJ5TypeFullyCompleted(selectedExercise)
-                val currentSelArt = when (selectedExercise) {
+                val ex = selectedExercise
+                val doneCount = store.ej5TypeCompletedCount(ex)
+                val allDone = store.isEJ5TypeFullyCompleted(ex)
+                val currentSelArt = when (ex) {
                     ExerciseType.EJ5 -> selectedEJ5Art
                     ExerciseType.EJ10 -> selectedEJ10Art
                     ExerciseType.EJ11 -> selectedEJ11Art
+                    ExerciseType.R1 -> selectedR1Art
+                    ExerciseType.R5 -> selectedR5Art
                     else -> selectedEJ5Art
                 }
 
                 Column {
                     Text(
-                        text = when (selectedExercise) {
-                            ExerciseType.EJ5 -> loc.t("ej5_select_section")
-                            ExerciseType.EJ10 -> loc.t("ej10_select_section")
-                            ExerciseType.EJ11 -> loc.t("ej11_select_section")
-                            else -> loc.t("ej5_select_section")
-                        },
+                        text = loc.t("${ex.id}_select_section"),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
                     )
 
-                    if (selectedExercise == ExerciseType.EJ5) {
+                    if (ex.isReichertExercise) {
+                        val curSec = if (ex == ExerciseType.R5) selectedR5Section else selectedR1Section
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState()),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            EJ4Section.entries.forEach { sec ->
+                                val isSel = sec == curSec
+                                Surface(
+                                    onClick = {
+                                        if (ex == ExerciseType.R5) {
+                                            selectedR5Section = sec
+                                            store.lastR5Section = sec
+                                        } else {
+                                            selectedR1Section = sec
+                                            store.lastR1Section = sec
+                                        }
+                                        store.saveLastSelection()
+                                    },
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                    tonalElevation = if (isSel) 4.dp else 0.dp,
+                                    modifier = Modifier.padding(vertical = 4.dp)
+                                ) {
+                                    Column(
+                                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Text(
+                                            text = sec.shortBadge(ex),
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = sec.measureRange(ex),
+                                            fontSize = 10.sp,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else if (ex == ExerciseType.EJ5) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -609,7 +710,7 @@ fun HomeScreen(
                             }
                         }
                     } else {
-                        val curSec = if (selectedExercise == ExerciseType.EJ11) selectedEJ11Section else selectedEJ10Section
+                        val curSec = if (ex == ExerciseType.EJ11) selectedEJ11Section else selectedEJ10Section
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -620,7 +721,7 @@ fun HomeScreen(
                                 val isSel = sec == curSec
                                 Surface(
                                     onClick = {
-                                        if (selectedExercise == ExerciseType.EJ11) {
+                                        if (ex == ExerciseType.EJ11) {
                                             selectedEJ11Section = sec
                                             store.lastEJ11Section = sec
                                         } else {
@@ -663,23 +764,13 @@ fun HomeScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = when (selectedExercise) {
-                                ExerciseType.EJ5 -> loc.t("ej5_select_art")
-                                ExerciseType.EJ10 -> loc.t("ej10_select_art")
-                                ExerciseType.EJ11 -> loc.t("ej11_select_art")
-                                else -> loc.t("ej5_select_art")
-                            },
+                            text = loc.t("${ex.id}_select_art"),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = when (selectedExercise) {
-                                ExerciseType.EJ5 -> loc.t("ej5_header_info")
-                                ExerciseType.EJ10 -> loc.t("ej10_header_info")
-                                ExerciseType.EJ11 -> loc.t("ej11_header_info")
-                                else -> loc.t("ej5_header_info")
-                            },
+                            text = loc.t("${ex.id}_header_info"),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -701,11 +792,11 @@ fun HomeScreen(
 
                 EJ5Articulation.entries.forEach { art ->
                     val isSelected = currentSelArt == art
-                    val isDone = store.isEJ5TypeCompleted(art, selectedExercise)
+                    val isDone = store.isEJ5TypeCompleted(art, ex)
 
                     Surface(
                         onClick = {
-                            when (selectedExercise) {
+                            when (ex) {
                                 ExerciseType.EJ5 -> {
                                     selectedEJ5Art = art
                                     onStartEJ5Practice(art, selectedEJ5Section)
@@ -717,6 +808,16 @@ fun HomeScreen(
                                 ExerciseType.EJ11 -> {
                                     selectedEJ11Art = art
                                     onStartEJ11Practice(art, selectedEJ11Section)
+                                }
+                                ExerciseType.R1 -> {
+                                    selectedR1Art = art
+                                    store.lastR1Articulation = art
+                                    onStartReichertPractice(ex)
+                                }
+                                ExerciseType.R5 -> {
+                                    selectedR5Art = art
+                                    store.lastR5Articulation = art
+                                    onStartReichertPractice(ex)
                                 }
                                 else -> {}
                             }
@@ -735,14 +836,14 @@ fun HomeScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = art.title(loc),
+                                    text = art.title(loc, ex),
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = art.formulaBadge,
+                                    text = art.formulaBadge(ex),
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -801,10 +902,11 @@ fun HomeScreen(
 
                 Button(
                     onClick = {
-                        when (selectedExercise) {
+                        when (ex) {
                             ExerciseType.EJ5 -> onStartEJ5Practice(selectedEJ5Art, selectedEJ5Section)
                             ExerciseType.EJ10 -> onStartEJ10Practice(selectedEJ10Art, selectedEJ10Section)
                             ExerciseType.EJ11 -> onStartEJ11Practice(selectedEJ11Art, selectedEJ11Section)
+                            ExerciseType.R1, ExerciseType.R5 -> onStartReichertPractice(ex)
                             else -> {}
                         }
                     },
@@ -816,10 +918,12 @@ fun HomeScreen(
                 ) {
                     Icon(Icons.Default.PlayArrow, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    val startLabel = when (selectedExercise) {
-                        ExerciseType.EJ5 -> "${loc.t("ej5_start_practice")} (${selectedEJ5Section.shortBadge} · ${selectedEJ5Art.shortTitle(loc)})"
-                        ExerciseType.EJ10 -> "${loc.t("ej10_start_practice")} (${selectedEJ10Section.shortBadge} · ${selectedEJ10Art.shortTitle(loc)})"
-                        ExerciseType.EJ11 -> "${loc.t("ej11_start_practice")} (${selectedEJ11Section.shortBadge} · ${selectedEJ11Art.shortTitle(loc)})"
+                    val startLabel = when (ex) {
+                        ExerciseType.EJ5 -> "${loc.t("ej5_start_practice")} (${selectedEJ5Section.shortBadge} · ${selectedEJ5Art.shortTitle(loc, ex)})"
+                        ExerciseType.EJ10 -> "${loc.t("ej10_start_practice")} (${selectedEJ10Section.shortBadge} · ${selectedEJ10Art.shortTitle(loc, ex)})"
+                        ExerciseType.EJ11 -> "${loc.t("ej11_start_practice")} (${selectedEJ11Section.shortBadge} · ${selectedEJ11Art.shortTitle(loc, ex)})"
+                        ExerciseType.R1 -> "${loc.t("r1_start_practice")} (${selectedR1Section.shortBadge(ex)} · ${selectedR1Art.shortTitle(loc, ex)})"
+                        ExerciseType.R5 -> "${loc.t("r5_start_practice")} (${selectedR5Section.shortBadge(ex)} · ${selectedR5Art.shortTitle(loc, ex)})"
                         else -> ""
                     }
                     Text(

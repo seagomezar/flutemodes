@@ -7,6 +7,10 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
     case ej5 = "EJ5"
     case ej10 = "EJ10"
     case ej11 = "EJ11"
+    case r1 = "R1"
+    case r2 = "R2"
+    case r4 = "R4"
+    case r5 = "R5"
     case modos = "MODOS"
 
     public var id: String { rawValue }
@@ -15,20 +19,34 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         self == .ej1 || self == .ej2
     }
 
-    public var isEJ4Exercise: Bool {
-        self == .ej4
+    public var isReichertExercise: Bool {
+        self == .r1 || self == .r2 || self == .r4 || self == .r5
     }
 
+    /// 8-Articulation, 25-Key exercises (T&G E.J. 4, Reichert Nº 2, Reichert Nº 4)
+    public var isEJ4Exercise: Bool {
+        self == .ej4 || self == .r2 || self == .r4
+    }
+
+    /// 10-Articulation sectioned exercises (T&G E.J. 5/10/11, Reichert Nº 1, Reichert Nº 5)
     public var isEJ5TypeExercise: Bool {
-        self == .ej5 || self == .ej10 || self == .ej11
+        self == .ej5 || self == .ej10 || self == .ej11 || self == .r1 || self == .r5
     }
 
     public var isSectionedLeducExercise: Bool {
-        self == .ej4 || self == .ej5 || self == .ej10 || self == .ej11
+        isEJ4Exercise || isEJ5TypeExercise
     }
 
     public var isLeducExercise: Bool {
         self != .modos
+    }
+
+    public var sectionCount: Int {
+        switch self {
+        case .ej4, .r1, .r2, .r4, .r5: return 25
+        case .ej5, .ej10, .ej11: return 12
+        default: return 12
+        }
     }
 
     public var pillLabel: String {
@@ -40,6 +58,10 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej5: return "E.J. 5"
         case .ej10: return "E.J. 10"
         case .ej11: return "E.J. 11"
+        case .r1: return "R. 1"
+        case .r2: return "R. 2"
+        case .r4: return "R. 4"
+        case .r5: return "R. 5"
         case .modos: return isEn ? "84 Modes" : "84 Modos"
         }
     }
@@ -53,6 +75,10 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej5: return isEn ? "E.J. 5 · Chromatic (10 Arts.)" : "E.J. 5 · Cromáticas (10 Arts.)"
         case .ej10: return isEn ? "E.J. 10 · Arpeggios (10 Arts.)" : "E.J. 10 · Arpegios (10 Arts.)"
         case .ej11: return isEn ? "E.J. 11 · Broken Arp. (10 Arts.)" : "E.J. 11 · Arp. Quebrados (10 Arts.)"
+        case .r1: return isEn ? "Reichert 1 · 6/8 (10 Arts.)" : "Reichert 1 · 6/8 (10 Arts.)"
+        case .r2: return isEn ? "Reichert 2 · 2/4 (8 Arts.)" : "Reichert 2 · 2/4 (8 Arts.)"
+        case .r4: return isEn ? "Reichert 4 · 4/4 (8 Arts.)" : "Reichert 4 · 4/4 (8 Arts.)"
+        case .r5: return isEn ? "Reichert 5 · Triplets (10 Arts.)" : "Reichert 5 · Tresillos (10 Arts.)"
         case .modos: return isEn ? "84 Parallel Modes" : "84 Modos Paralelos"
         }
     }
@@ -66,6 +92,10 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej5: return isEn ? "E.J. 5 (Chromatic)" : "E.J. 5 (Cromáticas)"
         case .ej10: return isEn ? "E.J. 10 (Arpeggios)" : "E.J. 10 (Arpegios)"
         case .ej11: return isEn ? "E.J. 11 (Broken Arp.)" : "E.J. 11 (Arp. Quebr.)"
+        case .r1: return isEn ? "Reichert 1 (6/8)" : "Reichert 1 (6/8)"
+        case .r2: return isEn ? "Reichert 2 (2/4)" : "Reichert 2 (2/4)"
+        case .r4: return isEn ? "Reichert 4 (4/4)" : "Reichert 4 (4/4)"
+        case .r5: return isEn ? "Reichert 5 (Triplets)" : "Reichert 5 (Tresillos)"
         case .modos: return isEn ? "84 Modes" : "84 Modos"
         }
     }
@@ -289,6 +319,31 @@ public struct EJ4Section: Identifiable, Equatable {
         EJ4Section(id: 23, shortName: "24. Mi m",  fullName: "24. Mi menor (Mineur)",           measureRange: "c. 185–192", isMinor: true),
         EJ4Section(id: 24, shortName: "25. Coda",  fullName: "25. Do Mayor (Coda Final)",       measureRange: "c. 193–194", isMinor: false)
     ]
+
+    public func shortName(for exercise: ExerciseType) -> String {
+        if id == 24 && exercise.isReichertExercise {
+            return "25. D.S."
+        }
+        return shortName
+    }
+
+    public func fullName(for exercise: ExerciseType) -> String {
+        if id == 24 && exercise.isReichertExercise {
+            return "25. Do Mayor (D.S. al Fine)"
+        }
+        return fullName
+    }
+
+    public func measureRange(for exercise: ExerciseType) -> String {
+        switch exercise {
+        case .r1, .r4:
+            return id < 24 ? "c. \(id * 4 + 1)–\(id * 4 + 4)" : "c. 97–100 (D.S.)"
+        case .r2, .r5:
+            return id < 24 ? "c. \(id * 8 + 1)–\(id * 8 + 8)" : "c. 193–200 (D.S.)"
+        default:
+            return measureRange
+        }
+    }
 }
 
 public struct EJ5Section: Identifiable, Equatable {

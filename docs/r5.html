@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M. A. Reichert — Op. 5, Nº 5 (7 Exercices Journaliers · Urtext Schott 20623, págs. 10–13)</title>
+  <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-dark: #1e293b;
+      --border-dark: rgba(255,255,255,0.12);
+      --paper: #fdfaf3;
+      --paper-border: #d6cfc2;
+      --ink: #111827;
+      --accent: #2563eb;
+      --gold: #f59e0b;
+      --emerald: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      padding-bottom: 48px;
+    }
+    .top-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 12px 20px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .toolbar-row {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.2px;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .controls-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .play-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
+      transition: all 0.15s ease;
+    }
+    .play-btn:hover { transform: translateY(-1px); }
+    .play-btn.playing {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 3px 12px rgba(239, 68, 68, 0.4);
+    }
+    .tempo-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-dark);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .tempo-box input[type="range"] {
+      width: 80px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .tool-btn {
+      background: rgba(255,255,255,0.08);
+      color: #e2e8f0;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s;
+    }
+    .tool-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    .selector-strip {
+      max-width: 1360px;
+      margin: 8px auto 0 auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .strip-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+    .strip-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+      margin-right: 4px;
+      min-width: 125px;
+    }
+    .pill-btn {
+      background: rgba(255,255,255,0.06);
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .pill-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+    .pill-btn.active {
+      background: var(--gold);
+      color: #0f172a;
+      border-color: var(--gold);
+      font-weight: 800;
+    }
+    .pill-btn.active-sec {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #60a5fa;
+      font-weight: 700;
+    }
+    .pages-wrapper {
+      max-width: 1360px;
+      margin: 22px auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .leduc-page {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--paper-border);
+      border-radius: 6px;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.45);
+      padding: 22px 26px 16px 26px;
+      position: relative;
+    }
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1.5px solid #1f2937;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+    .ej-main-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+    .ej-page-num {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .ej-instruction {
+      text-align: center;
+      font-style: italic;
+      font-size: 13px;
+      color: #1f2937;
+      margin-bottom: 5px;
+    }
+    .art-strip-box {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid #d6cfc2;
+      border-radius: 4px;
+      padding: 3px 6px 1px 6px;
+      margin-bottom: 8px;
+    }
+    .art-strip-box svg {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+    }
+    .focus-card {
+      display: none;
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.16);
+    }
+    .focus-card.visible { display: block; }
+    .focus-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .focus-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #92400e;
+    }
+    .focus-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #78350f;
+      border: 1px solid #f59e0b;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+    .systems-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .system-row {
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      padding: 0 2px;
+      margin: -4px 0;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .system-row:hover {
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .system-row.active-system {
+      background: rgba(245, 158, 11, 0.18);
+      border-left: 3px solid #d97706;
+      padding-left: 4px;
+    }
+    .sys-label {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      color: #475569;
+      min-width: 62px;
+      text-align: right;
+      padding-right: 6px;
+      user-select: none;
+      line-height: 1.15;
+    }
+    .sys-label .sec-tag {
+      display: block;
+      font-size: 9px;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .system-staff {
+      flex: 1;
+      min-width: 0;
+    }
+    .system-staff svg {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+    }
+    .page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 5px;
+      border-top: 1px solid #d6cfc2;
+      font-size: 11px;
+      color: #4b5563;
+      font-weight: 600;
+    }
+    .abc-drawer {
+      max-width: 1360px;
+      margin: 18px auto 0 auto;
+      padding: 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    details.abc-details {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    details.abc-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      color: #93c5fd;
+    }
+    .abc-textarea {
+      width: 100%;
+      height: 220px;
+      margin-top: 10px;
+      background: #090d16;
+      color: #a7f3d0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+    @page {
+      size: A4 portrait;
+      margin: 3mm;
+    }
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .top-toolbar, .abc-drawer, .focus-card { display: none !important; }
+      .pages-wrapper { margin: 0; padding: 0; max-width: 100%; gap: 0; }
+      .leduc-page {
+        box-shadow: none;
+        border: none;
+        padding: 1mm 2mm;
+        zoom: 0.56;
+        page-break-after: always;
+        break-after: page;
+      }
+      .leduc-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .system-row { margin: -6px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-toolbar">
+    <div class="toolbar-row">
+      <div>
+        <div class="brand-title">
+          <span>🪈 M. A. Reichert — 7 Exercices Journaliers, Op. 5 · Nº 5 (R. 5)</span>
+        </div>
+        <div class="brand-sub">
+          Edición Urtext B. Schott's Söhne (Mainz, Plate 20623, págs. 10–13) · Tresillos de Arpegios en 24 Tonalidades (2/4) + D.S. al Fine
+        </div>
+      </div>
+
+      <div class="controls-wrap">
+        <button id="play-btn" class="play-btn" onclick="togglePlay()">
+          <span id="play-icon">▶</span>
+          <span id="play-label">Escuchar Piano</span>
+        </button>
+
+        <div class="tempo-box">
+          <span>♪ =</span>
+          <input type="range" id="tempo-slider" min="100" max="192" value="152" oninput="updateTempo(this.value)">
+          <strong id="tempo-label">152 BPM</strong>
+        </div>
+
+        <span id="measure-badge" class="tool-btn" style="cursor:default;">
+          Tonalidades: 1–24 + D.S.
+        </span>
+
+        <button class="tool-btn" onclick="copyCurrentAbc()">
+          📋 <span id="copy-label">Copiar ABC</span>
+        </button>
+
+        <a id="download-abc-link" class="tool-btn" href="downloads/abc/00_Reichert_R5_Original_Op5.abc" download>
+          ⬇ ABC Activo
+        </a>
+
+        <a class="tool-btn" href="downloads/pdf/reichert_r5_transcripcion.pdf" target="_blank">
+          📄 PDF Alta Resolución
+        </a>
+
+        <a class="tool-btn" href="index.html">
+          ← Portal
+        </a>
+      </div>
+    </div>
+
+    <div class="selector-strip">
+      <div class="strip-row" id="art-buttons-row">
+        <span class="strip-label">Articulación:</span>
+      </div>
+      <div class="strip-row" id="sec-buttons-row">
+        <span class="strip-label">Tonalidad (24 + D.S.):</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="pages-wrapper">
+    <div id="focus-card" class="focus-card">
+      <div class="focus-header">
+        <div class="focus-title" id="focus-title">🎯 Tonalidad Activa: 1. Do Mayor</div>
+        <div class="focus-badge" id="focus-badge">Compases 1–4</div>
+      </div>
+      <div id="focus-staff"></div>
+    </div>
+    
+    <section class="leduc-page" id="page-10">
+      <div class="page-header">
+        <span class="ej-main-title">7 EXERCICES JOURNALIERS POUR LA FLÛTE · Op. 5 — Nº 5</span>
+        <span class="ej-page-num">Pág. 10</span>
+      </div>
+      <div class="ej-instruction">de 144 à 184 = ♪ · Tonalidades 1–6 (Do Mayor a Sol menor · Compases 1–48)</div>
+      <div class="ej-instruction">A travailler successivement avec chacune des articulations suivantes :</div>
+      <div class="art-strip-box">
+        <div id="art-strip-1"></div>
+        <div id="art-strip-2"></div>
+      </div>
+      <div class="systems-list" id="systems-page-10"></div>
+      <div class="page-footer">
+        <span>M. A. Reichert — 7 Exercices Journaliers pour la Flûte, Op. 5</span>
+        <span>B. Schott's Söhne · Plate 20623</span>
+        <span>Página 10</span>
+      </div>
+    </section>
+    <section class="leduc-page" id="page-11">
+      <div class="page-header">
+        <span class="ej-main-title">REICHERT Op. 5 — Nº 5 (Pág. 11)</span>
+        <span class="ej-page-num">Pág. 11</span>
+      </div>
+      <div class="ej-instruction">Tonalidades 7–12 (Mi♭ Mayor a Si♭ menor · Compases 49–96)</div>
+      <div class="systems-list" id="systems-page-11"></div>
+      <div class="page-footer">
+        <span>M. A. Reichert — 7 Exercices Journaliers pour la Flûte, Op. 5</span>
+        <span>B. Schott's Söhne · Plate 20623</span>
+        <span>Página 11</span>
+      </div>
+    </section>
+    <section class="leduc-page" id="page-12">
+      <div class="page-header">
+        <span class="ej-main-title">REICHERT Op. 5 — Nº 5 (Pág. 12)</span>
+        <span class="ej-page-num">Pág. 12</span>
+      </div>
+      <div class="ej-instruction">Tonalidades 13–18 (Sol♭ Mayor a Do♯ menor · Compases 97–144)</div>
+      <div class="systems-list" id="systems-page-12"></div>
+      <div class="page-footer">
+        <span>M. A. Reichert — 7 Exercices Journaliers pour la Flûte, Op. 5</span>
+        <span>B. Schott's Söhne · Plate 20623</span>
+        <span>Página 12</span>
+      </div>
+    </section>
+    <section class="leduc-page" id="page-13">
+      <div class="page-header">
+        <span class="ej-main-title">REICHERT Op. 5 — Nº 5 (Pág. 13)</span>
+        <span class="ej-page-num">Pág. 13</span>
+      </div>
+      <div class="ej-instruction">Tonalidades 19–24 (La Mayor a Mi menor + D.S. al Fine · Compases 145–200)</div>
+      <div class="systems-list" id="systems-page-13"></div>
+      <div class="page-footer">
+        <span>M. A. Reichert — 7 Exercices Journaliers pour la Flûte, Op. 5</span>
+        <span>B. Schott's Söhne · Plate 20623</span>
+        <span>Página 13</span>
+      </div>
+    </section>
+  </main>
+
+  <section class="abc-drawer">
+    <details class="abc-details">
+      <summary>🔍 Ver / Copiar Código Fuente ABC Completo de la Articulación Activa</summary>
+      <textarea id="abc-source-box" class="abc-textarea" readonly></textarea>
+    </details>
+  </section>
+
+  <script>
+    const EX_CODE = "R5";
+    const EX_ARTS = [{"id": 0, "meter": "6/8", "name": "Edición Original (Schott 20623)", "short": "0. Orig.", "formula": "Legato fraseado completo (Urtext Schott)", "slug": "00_Original_Op5", "fname": "00_Reichert_R5_Original_Op5.abc"}, {"id": 1, "meter": "6/8", "name": "1. 12 Ligadas (Compás completo)", "short": "1. (12)", "formula": "(12) · Compás entero ligado", "slug": "01_Articulacion_01_12_Ligadas", "fname": "01_Reichert_R5_Articulacion_01_12_Ligadas.abc"}, {"id": 2, "meter": "6/8", "name": "2. 6 y 6 Ligadas", "short": "2. (6)(6)", "formula": "(6) + (6) · Seisillos ligados", "slug": "02_Articulacion_02_6_y_6_Ligadas", "fname": "02_Reichert_R5_Articulacion_02_6_y_6_Ligadas.abc"}, {"id": 3, "meter": "6/8", "name": "3. 4 Ligadas y 2 Picadas", "short": "3. (4)··", "formula": "(4)·· (4)··", "slug": "03_Articulacion_03_4_Ligadas_2_Picadas", "fname": "03_Reichert_R5_Articulacion_03_4_Ligadas_2_Picadas.abc"}, {"id": 4, "meter": "6/8", "name": "4. 2 Picadas y 4 Ligadas", "short": "4. ··(4)", "formula": "··(4) ··(4)", "slug": "04_Articulacion_04_2_Picadas_4_Ligadas", "fname": "04_Reichert_R5_Articulacion_04_2_Picadas_4_Ligadas.abc"}, {"id": 5, "meter": "6/8", "name": "5. 2 Ligadas y 4 Picadas", "short": "5. (2)····", "formula": "(2)···· (2)····", "slug": "05_Articulacion_05_2_Ligadas_4_Picadas", "fname": "05_Reichert_R5_Articulacion_05_2_Ligadas_4_Picadas.abc"}, {"id": 6, "meter": "2/4", "name": "6. De 3 en 3 Ligadas", "short": "6. (3)(3)(3)(3)", "formula": "(3)(3)(3)(3) · 4 grupos de 3", "slug": "06_Articulacion_06_De_3_en_3_Ligadas", "fname": "06_Reichert_R5_Articulacion_06_De_3_en_3_Ligadas.abc"}, {"id": 7, "meter": "2/4", "name": "7. 3 Ligadas y 3 Picadas", "short": "7. (3)···(3)···", "formula": "(3)··· (3)···", "slug": "07_Articulacion_07_3_Ligadas_3_Picadas", "fname": "07_Reichert_R5_Articulacion_07_3_Ligadas_3_Picadas.abc"}, {"id": 8, "meter": "6/8", "name": "8. De 2 en 2 Ligadas", "short": "8. (2)(2)(2)", "formula": "(2)(2)(2) (2)(2)(2)", "slug": "08_Articulacion_08_De_2_en_2_Ligadas", "fname": "08_Reichert_R5_Articulacion_08_De_2_en_2_Ligadas.abc"}, {"id": 9, "meter": "6/8", "name": "9. Sincopadas de a 2", "short": "9. ·(2)(2)·", "formula": "·(2)(2)· ·(2)(2)· desplazadas", "slug": "09_Articulacion_09_Sincopadas", "fname": "09_Reichert_R5_Articulacion_09_Sincopadas.abc"}, {"id": 10, "meter": "6/8", "name": "10. Todas Picadas (Staccato)", "short": "10. ·×12", "formula": "12 notas en staccato por compás", "slug": "10_Articulacion_10_Todas_Picadas", "fname": "10_Reichert_R5_Articulacion_10_Todas_Picadas.abc"}];
+    const EX_SECTIONS = [{"id": 0, "short": "1. Do M", "titleEs": "1. Do Mayor (C Major)", "titleEn": "1. C Major", "keySig": "C", "isMinor": false, "startMeasure": 1, "endMeasure": 8, "bars": [["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["d", "f", "g", "b", "f", "g", "d", "f", "g", "G", "f", "g"], ["B", "f", "g", "d'", "f", "g", "B", "f", "g", "G", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["c", "e", "g", "e'", "e", "g", "B", "e", "^g", "d'", "e", "g"], ["A", "e", "a", "c'", "e", "a", "F", "d", "_a", "d'", "d", "a"], ["G", "e", "g", "c'", "e", "g", "G", "f", "g", "b", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c"]], "midis": [72, 76, 79, 84, 76, 79, 72, 76, 79, 67, 76, 79, 74, 77, 79, 83, 77, 79, 74, 77, 79, 67, 77, 79, 71, 77, 79, 86, 77, 79, 71, 77, 79, 67, 77, 79, 72, 76, 79, 84, 76, 79, 72, 76, 79, 67, 76, 79, 72, 76, 79, 88, 76, 79, 71, 76, 80, 86, 76, 80, 69, 76, 81, 84, 76, 81, 65, 74, 80, 86, 74, 80, 67, 76, 79, 84, 76, 79, 67, 77, 79, 83, 77, 79, 72, 76, 79, 84, 76, 79, 72]}, {"id": 1, "short": "2. La m", "titleEs": "2. La menor (Relatif Mineur)", "titleEn": "2. A minor", "keySig": "Am", "isMinor": true, "startMeasure": 9, "endMeasure": 16, "bars": [["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["B", "d", "e", "^g", "d", "e", "B", "d", "e", "E", "d", "e"], ["^G", "d", "e", "b", "d", "e", "G", "d", "e", "E", "d", "e"], ["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["A", "c", "e", "c'", "c", "e", "G", "^c", "e", "_b", "c", "e"], ["F", "d", "f", "a", "d", "f", "D", "d", "f", "=b", "d", "f"], ["E", "=c", "e", "a", "c", "e", "E", "d", "e", "^g", "d", "e"], ["A", "c", "e", "a", "c", "e", "A"]], "midis": [69, 72, 76, 81, 72, 76, 69, 72, 76, 64, 72, 76, 71, 74, 76, 80, 74, 76, 71, 74, 76, 64, 74, 76, 68, 74, 76, 83, 74, 76, 68, 74, 76, 64, 74, 76, 69, 72, 76, 81, 72, 76, 69, 72, 76, 64, 72, 76, 69, 72, 76, 84, 72, 76, 67, 73, 76, 82, 73, 76, 65, 74, 77, 81, 74, 77, 62, 74, 77, 83, 74, 77, 64, 72, 76, 81, 72, 76, 64, 74, 76, 80, 74, 76, 69, 72, 76, 81, 72, 76, 69]}, {"id": 2, "short": "3. Fa M", "titleEs": "3. Fa Mayor (F Major)", "titleEn": "3. F Major", "keySig": "F", "isMinor": false, "startMeasure": 17, "endMeasure": 24, "bars": [["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["g", "b", "c'", "e'", "b", "c'", "g", "b", "c'", "c", "b", "c'"], ["e", "b", "c'", "g'", "b", "c'", "e", "b", "c'", "c", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["f", "a", "c'", "a'", "a", "c'", "e", "a", "^c'", "g'", "a", "c'"], ["d", "a", "d'", "f'", "a", "d'", "B", "g", "_d'", "g'", "g", "d'"], ["c", "a", "c'", "f'", "a", "c'", "c", "b", "c'", "e'", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f"]], "midis": [77, 81, 84, 89, 81, 84, 77, 81, 84, 72, 81, 84, 79, 82, 84, 88, 82, 84, 79, 82, 84, 72, 82, 84, 76, 82, 84, 91, 82, 84, 76, 82, 84, 72, 82, 84, 77, 81, 84, 89, 81, 84, 77, 81, 84, 72, 81, 84, 77, 81, 84, 93, 81, 84, 76, 81, 85, 91, 81, 85, 74, 81, 86, 89, 81, 86, 70, 79, 85, 91, 79, 85, 72, 81, 84, 89, 81, 84, 72, 82, 84, 88, 82, 84, 77, 81, 84, 89, 81, 84, 77]}, {"id": 3, "short": "4. Re m", "titleEs": "4. Re menor (Mineur)", "titleEn": "4. D minor", "keySig": "Dm", "isMinor": true, "startMeasure": 25, "endMeasure": 32, "bars": [["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["e", "g", "a", "^c'", "g", "a", "e", "g", "a", "A", "g", "a"], ["^c", "g", "a", "e'", "g", "a", "c", "g", "a", "A", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["d", "f", "a", "f'", "f", "a", "c", "^f", "a", "_e'", "f", "a"], ["B", "g", "b", "d'", "g", "b", "G", "g", "b", "=e'", "g", "b"], ["A", "=f", "a", "d'", "f", "a", "A", "g", "a", "^c'", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d"]], "midis": [74, 77, 81, 86, 77, 81, 74, 77, 81, 69, 77, 81, 76, 79, 81, 85, 79, 81, 76, 79, 81, 69, 79, 81, 73, 79, 81, 88, 79, 81, 73, 79, 81, 69, 79, 81, 74, 77, 81, 86, 77, 81, 74, 77, 81, 69, 77, 81, 74, 77, 81, 89, 77, 81, 72, 78, 81, 87, 78, 81, 70, 79, 82, 86, 79, 82, 67, 79, 82, 88, 79, 82, 69, 77, 81, 86, 77, 81, 69, 79, 81, 85, 79, 81, 74, 77, 81, 86, 77, 81, 74]}, {"id": 4, "short": "5. Si♭ M", "titleEs": "5. Si♭ Mayor (B♭ Major)", "titleEn": "5. B♭ Major", "keySig": "Bb", "isMinor": false, "startMeasure": 33, "endMeasure": 40, "bars": [["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["c", "e", "f", "a", "e", "f", "c", "e", "f", "F", "e", "f"], ["A", "e", "f", "c'", "e", "f", "A", "e", "f", "F", "e", "f"], ["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["B", "d", "f", "d'", "d", "f", "A", "d", "^f", "c'", "d", "f"], ["G", "d", "g", "b", "d", "g", "E", "c", "_g", "c'", "c", "g"], ["F", "d", "f", "b", "d", "f", "F", "e", "f", "a", "e", "f"], ["B", "d", "f", "b", "d", "f", "B"]], "midis": [70, 74, 77, 82, 74, 77, 70, 74, 77, 65, 74, 77, 72, 75, 77, 81, 75, 77, 72, 75, 77, 65, 75, 77, 69, 75, 77, 84, 75, 77, 69, 75, 77, 65, 75, 77, 70, 74, 77, 82, 74, 77, 70, 74, 77, 65, 74, 77, 70, 74, 77, 86, 74, 77, 69, 74, 78, 84, 74, 78, 67, 74, 79, 82, 74, 79, 63, 72, 78, 84, 72, 78, 65, 74, 77, 82, 74, 77, 65, 75, 77, 81, 75, 77, 70, 74, 77, 82, 74, 77, 70]}, {"id": 5, "short": "6. Sol m", "titleEs": "6. Sol menor (Mineur)", "titleEn": "6. G minor", "keySig": "Gm", "isMinor": true, "startMeasure": 41, "endMeasure": 48, "bars": [["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["A", "c", "d", "^f", "c", "d", "A", "c", "d", "D", "c", "d"], ["^F", "c", "d", "a", "c", "d", "F", "c", "d", "D", "c", "d"], ["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["G", "B", "d", "b", "B", "d", "F", "=B", "d", "_a", "B", "d"], ["E", "c", "e", "g", "c", "e", "C", "c", "e", "=a", "c", "e"], ["D", "_B", "d", "g", "B", "d", "D", "c", "d", "^f", "c", "d"], ["G", "B", "d", "g", "B", "d", "G"]], "midis": [67, 70, 74, 79, 70, 74, 67, 70, 74, 62, 70, 74, 69, 72, 74, 78, 72, 74, 69, 72, 74, 62, 72, 74, 66, 72, 74, 81, 72, 74, 66, 72, 74, 62, 72, 74, 67, 70, 74, 79, 70, 74, 67, 70, 74, 62, 70, 74, 67, 70, 74, 82, 70, 74, 65, 71, 74, 80, 71, 74, 63, 72, 75, 79, 72, 75, 60, 72, 75, 81, 72, 75, 62, 70, 74, 79, 70, 74, 62, 72, 74, 78, 72, 74, 67, 70, 74, 79, 70, 74, 67]}, {"id": 6, "short": "7. Mi♭ M", "titleEs": "7. Mi♭ Mayor (E♭ Major)", "titleEn": "7. E♭ Major", "keySig": "Eb", "isMinor": false, "startMeasure": 49, "endMeasure": 56, "bars": [["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["f", "a", "b", "d'", "a", "b", "f", "a", "b", "B", "a", "b"], ["d", "a", "b", "f'", "a", "b", "d", "a", "b", "B", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["e", "g", "b", "g'", "g", "b", "d", "g", "=b", "f'", "g", "b"], ["c", "g", "c'", "e'", "g", "c'", "A", "f", "_c'", "f'", "f", "c'"], ["B", "g", "b", "e'", "g", "b", "B", "a", "b", "d'", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e"]], "midis": [75, 79, 82, 87, 79, 82, 75, 79, 82, 70, 79, 82, 77, 80, 82, 86, 80, 82, 77, 80, 82, 70, 80, 82, 74, 80, 82, 89, 80, 82, 74, 80, 82, 70, 80, 82, 75, 79, 82, 87, 79, 82, 75, 79, 82, 70, 79, 82, 75, 79, 82, 91, 79, 82, 74, 79, 83, 89, 79, 83, 72, 79, 84, 87, 79, 84, 68, 77, 83, 89, 77, 83, 70, 79, 82, 87, 79, 82, 70, 80, 82, 86, 80, 82, 75, 79, 82, 87, 79, 82, 75]}, {"id": 7, "short": "8. Do m", "titleEs": "8. Do menor (Mineur)", "titleEn": "8. C minor", "keySig": "Cm", "isMinor": true, "startMeasure": 57, "endMeasure": 64, "bars": [["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["d", "f", "g", "=b", "f", "g", "d", "f", "g", "G", "f", "g"], ["=B", "f", "g", "d'", "f", "g", "B", "f", "g", "G", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["c", "e", "g", "e'", "e", "g", "B", "=e", "g", "_d'", "e", "g"], ["A", "f", "a", "c'", "f", "a", "F", "f", "a", "=d'", "f", "a"], ["G", "_e", "g", "c'", "e", "g", "G", "f", "g", "=b", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c"]], "midis": [72, 75, 79, 84, 75, 79, 72, 75, 79, 67, 75, 79, 74, 77, 79, 83, 77, 79, 74, 77, 79, 67, 77, 79, 71, 77, 79, 86, 77, 79, 71, 77, 79, 67, 77, 79, 72, 75, 79, 84, 75, 79, 72, 75, 79, 67, 75, 79, 72, 75, 79, 87, 75, 79, 70, 76, 79, 85, 76, 79, 68, 77, 80, 84, 77, 80, 65, 77, 80, 86, 77, 80, 67, 75, 79, 84, 75, 79, 67, 77, 79, 83, 77, 79, 72, 75, 79, 84, 75, 79, 72]}, {"id": 8, "short": "9. La♭ M", "titleEs": "9. La♭ Mayor (A♭ Major)", "titleEn": "9. A♭ Major", "keySig": "Ab", "isMinor": false, "startMeasure": 65, "endMeasure": 72, "bars": [["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["B", "d", "e", "g", "d", "e", "B", "d", "e", "E", "d", "e"], ["G", "d", "e", "b", "d", "e", "G", "d", "e", "E", "d", "e"], ["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["A", "c", "e", "c'", "c", "e", "G", "c", "=e", "b", "c", "e"], ["F", "c", "f", "a", "c", "f", "D", "B", "_f", "b", "B", "f"], ["E", "c", "e", "a", "c", "e", "E", "d", "e", "g", "d", "e"], ["A", "c", "e", "a", "c", "e", "A"]], "midis": [68, 72, 75, 80, 72, 75, 68, 72, 75, 63, 72, 75, 70, 73, 75, 79, 73, 75, 70, 73, 75, 63, 73, 75, 67, 73, 75, 82, 73, 75, 67, 73, 75, 63, 73, 75, 68, 72, 75, 80, 72, 75, 68, 72, 75, 63, 72, 75, 68, 72, 75, 84, 72, 75, 67, 72, 76, 82, 72, 76, 65, 72, 77, 80, 72, 77, 61, 70, 76, 82, 70, 76, 63, 72, 75, 80, 72, 75, 63, 73, 75, 79, 73, 75, 68, 72, 75, 80, 72, 75, 68]}, {"id": 9, "short": "10. Fa m", "titleEs": "10. Fa menor (Mineur)", "titleEn": "10. F minor", "keySig": "Fm", "isMinor": true, "startMeasure": 73, "endMeasure": 80, "bars": [["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["g", "b", "c'", "=e'", "b", "c'", "g", "b", "c'", "c", "b", "c'"], ["=e", "b", "c'", "g'", "b", "c'", "e", "b", "c'", "c", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["f", "a", "c'", "a'", "a", "c'", "e", "=a", "c'", "_g'", "a", "c'"], ["d", "b", "d'", "f'", "b", "d'", "B", "b", "d'", "=g'", "b", "d'"], ["c", "_a", "c'", "f'", "a", "c'", "c", "b", "c'", "=e'", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f"]], "midis": [77, 80, 84, 89, 80, 84, 77, 80, 84, 72, 80, 84, 79, 82, 84, 88, 82, 84, 79, 82, 84, 72, 82, 84, 76, 82, 84, 91, 82, 84, 76, 82, 84, 72, 82, 84, 77, 80, 84, 89, 80, 84, 77, 80, 84, 72, 80, 84, 77, 80, 84, 92, 80, 84, 75, 81, 84, 90, 81, 84, 73, 82, 85, 89, 82, 85, 70, 82, 85, 91, 82, 85, 72, 80, 84, 89, 80, 84, 72, 82, 84, 88, 82, 84, 77, 80, 84, 89, 80, 84, 77]}, {"id": 10, "short": "11. Re♭ M", "titleEs": "11. Re♭ Mayor (D♭ Major)", "titleEn": "11. D♭ Major", "keySig": "Db", "isMinor": false, "startMeasure": 81, "endMeasure": 88, "bars": [["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["e", "g", "a", "c'", "g", "a", "e", "g", "a", "A", "g", "a"], ["c", "g", "a", "e'", "g", "a", "c", "g", "a", "A", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["d", "f", "a", "f'", "f", "a", "c", "f", "=a", "e'", "f", "a"], ["B", "f", "b", "d'", "f", "b", "G", "e", "__b", "e'", "e", "b"], ["A", "f", "a", "d'", "f", "a", "A", "g", "a", "c'", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d"]], "midis": [73, 77, 80, 85, 77, 80, 73, 77, 80, 68, 77, 80, 75, 78, 80, 84, 78, 80, 75, 78, 80, 68, 78, 80, 72, 78, 80, 87, 78, 80, 72, 78, 80, 68, 78, 80, 73, 77, 80, 85, 77, 80, 73, 77, 80, 68, 77, 80, 73, 77, 80, 89, 77, 80, 72, 77, 81, 87, 77, 81, 70, 77, 82, 85, 77, 82, 66, 75, 81, 87, 75, 81, 68, 77, 80, 85, 77, 80, 68, 78, 80, 84, 78, 80, 73, 77, 80, 85, 77, 80, 73]}, {"id": 11, "short": "12. Si♭ m", "titleEs": "12. Si♭ menor (Mineur)", "titleEn": "12. B♭ minor", "keySig": "Bbm", "isMinor": true, "startMeasure": 89, "endMeasure": 96, "bars": [["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["c", "e", "f", "=a", "e", "f", "c", "e", "f", "F", "e", "f"], ["=A", "e", "f", "c'", "e", "f", "A", "e", "f", "F", "e", "f"], ["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["B", "d", "f", "d'", "d", "f", "A", "=d", "f", "_c'", "d", "f"], ["G", "e", "g", "b", "e", "g", "E", "e", "g", "=c'", "e", "g"], ["F", "_d", "f", "b", "d", "f", "F", "e", "f", "=a", "e", "f"], ["B", "d", "f", "b", "d", "f", "B"]], "midis": [70, 73, 77, 82, 73, 77, 70, 73, 77, 65, 73, 77, 72, 75, 77, 81, 75, 77, 72, 75, 77, 65, 75, 77, 69, 75, 77, 84, 75, 77, 69, 75, 77, 65, 75, 77, 70, 73, 77, 82, 73, 77, 70, 73, 77, 65, 73, 77, 70, 73, 77, 85, 73, 77, 68, 74, 77, 83, 74, 77, 66, 75, 78, 82, 75, 78, 63, 75, 78, 84, 75, 78, 65, 73, 77, 82, 73, 77, 65, 75, 77, 81, 75, 77, 70, 73, 77, 82, 73, 77, 70]}, {"id": 12, "short": "13. Sol♭ M", "titleEs": "13. Sol♭ Mayor (G♭ Major)", "titleEn": "13. G♭ Major", "keySig": "Gb", "isMinor": false, "startMeasure": 97, "endMeasure": 104, "bars": [["g", "b", "d'", "g'", "b", "d'", "g", "b", "d'", "d", "b", "d'"], ["a", "c'", "d'", "f'", "c'", "d'", "a", "c'", "d'", "d", "c'", "d'"], ["f", "c'", "d'", "a'", "c'", "d'", "f", "c'", "d'", "d", "c'", "d'"], ["g", "b", "d'", "g'", "b", "d'", "g", "b", "d'", "d", "b", "d'"], ["g", "b", "d'", "b'", "b", "d'", "f", "b", "=d'", "a'", "b", "d'"], ["e", "b", "e'", "g'", "b", "e'", "c", "a", "__e'", "a'", "a", "e'"], ["d", "b", "d'", "g'", "b", "d'", "d", "c'", "d'", "f'", "c'", "d'"], ["g", "b", "d'", "g'", "b", "d'", "g"]], "midis": [78, 82, 85, 90, 82, 85, 78, 82, 85, 73, 82, 85, 80, 83, 85, 89, 83, 85, 80, 83, 85, 73, 83, 85, 77, 83, 85, 92, 83, 85, 77, 83, 85, 73, 83, 85, 78, 82, 85, 90, 82, 85, 78, 82, 85, 73, 82, 85, 78, 82, 85, 94, 82, 85, 77, 82, 86, 92, 82, 86, 75, 82, 87, 90, 82, 87, 71, 80, 86, 92, 80, 86, 73, 82, 85, 90, 82, 85, 73, 83, 85, 89, 83, 85, 78, 82, 85, 90, 82, 85, 78]}, {"id": 13, "short": "14. Mi♭ m", "titleEs": "14. Mi♭ menor (Mineur)", "titleEn": "14. E♭ minor", "keySig": "Ebm", "isMinor": true, "startMeasure": 105, "endMeasure": 112, "bars": [["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["f", "a", "b", "=d'", "a", "b", "f", "a", "b", "B", "a", "b"], ["=d", "a", "b", "f'", "a", "b", "d", "a", "b", "B", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["e", "g", "b", "g'", "g", "b", "d", "=g", "b", "_f'", "g", "b"], ["c", "a", "c'", "e'", "a", "c'", "A", "a", "c'", "=f'", "a", "c'"], ["B", "_g", "b", "e'", "g", "b", "B", "a", "b", "=d'", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e"]], "midis": [75, 78, 82, 87, 78, 82, 75, 78, 82, 70, 78, 82, 77, 80, 82, 86, 80, 82, 77, 80, 82, 70, 80, 82, 74, 80, 82, 89, 80, 82, 74, 80, 82, 70, 80, 82, 75, 78, 82, 87, 78, 82, 75, 78, 82, 70, 78, 82, 75, 78, 82, 90, 78, 82, 73, 79, 82, 88, 79, 82, 71, 80, 83, 87, 80, 83, 68, 80, 83, 89, 80, 83, 70, 78, 82, 87, 78, 82, 70, 80, 82, 86, 80, 82, 75, 78, 82, 87, 78, 82, 75]}, {"id": 14, "short": "15. Si M", "titleEs": "15. Si Mayor (B Major)", "titleEn": "15. B Major", "keySig": "B", "isMinor": false, "startMeasure": 113, "endMeasure": 120, "bars": [["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["c", "e", "f", "a", "e", "f", "c", "e", "f", "F", "e", "f"], ["A", "e", "f", "c'", "e", "f", "A", "e", "f", "F", "e", "f"], ["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["B", "d", "f", "d'", "d", "f", "A", "d", "^^f", "c'", "d", "f"], ["G", "d", "g", "b", "d", "g", "E", "c", "=g", "c'", "c", "g"], ["F", "d", "f", "b", "d", "f", "F", "e", "f", "a", "e", "f"], ["B", "d", "f", "b", "d", "f", "B"]], "midis": [71, 75, 78, 83, 75, 78, 71, 75, 78, 66, 75, 78, 73, 76, 78, 82, 76, 78, 73, 76, 78, 66, 76, 78, 70, 76, 78, 85, 76, 78, 70, 76, 78, 66, 76, 78, 71, 75, 78, 83, 75, 78, 71, 75, 78, 66, 75, 78, 71, 75, 78, 87, 75, 78, 70, 75, 79, 85, 75, 79, 68, 75, 80, 83, 75, 80, 64, 73, 79, 85, 73, 79, 66, 75, 78, 83, 75, 78, 66, 76, 78, 82, 76, 78, 71, 75, 78, 83, 75, 78, 71]}, {"id": 15, "short": "16. Sol♯ m", "titleEs": "16. Sol♯ menor (Mineur)", "titleEn": "16. G♯ minor", "keySig": "G#m", "isMinor": true, "startMeasure": 121, "endMeasure": 128, "bars": [["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["A", "c", "d", "^^f", "c", "d", "A", "c", "d", "D", "c", "d"], ["^^F", "c", "d", "a", "c", "d", "F", "c", "d", "D", "c", "d"], ["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["G", "B", "d", "b", "B", "d", "F", "^B", "d", "=a", "B", "d"], ["E", "c", "e", "g", "c", "e", "C", "c", "e", "^a", "c", "e"], ["D", "=B", "d", "g", "B", "d", "D", "c", "d", "^^f", "c", "d"], ["G", "B", "d", "g", "B", "d", "G"]], "midis": [68, 71, 75, 80, 71, 75, 68, 71, 75, 63, 71, 75, 70, 73, 75, 79, 73, 75, 70, 73, 75, 63, 73, 75, 67, 73, 75, 82, 73, 75, 67, 73, 75, 63, 73, 75, 68, 71, 75, 80, 71, 75, 68, 71, 75, 63, 71, 75, 68, 71, 75, 83, 71, 75, 66, 72, 75, 81, 72, 75, 64, 73, 76, 80, 73, 76, 61, 73, 76, 82, 73, 76, 63, 71, 75, 80, 71, 75, 63, 73, 75, 79, 73, 75, 68, 71, 75, 80, 71, 75, 68]}, {"id": 16, "short": "17. Mi M", "titleEs": "17. Mi Mayor (E Major)", "titleEn": "17. E Major", "keySig": "E", "isMinor": false, "startMeasure": 129, "endMeasure": 136, "bars": [["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["f", "a", "b", "d'", "a", "b", "f", "a", "b", "B", "a", "b"], ["d", "a", "b", "f'", "a", "b", "d", "a", "b", "B", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["e", "g", "b", "g'", "g", "b", "d", "g", "^b", "f'", "g", "b"], ["c", "g", "c'", "e'", "g", "c'", "A", "f", "=c'", "f'", "f", "c'"], ["B", "g", "b", "e'", "g", "b", "B", "a", "b", "d'", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e"]], "midis": [76, 80, 83, 88, 80, 83, 76, 80, 83, 71, 80, 83, 78, 81, 83, 87, 81, 83, 78, 81, 83, 71, 81, 83, 75, 81, 83, 90, 81, 83, 75, 81, 83, 71, 81, 83, 76, 80, 83, 88, 80, 83, 76, 80, 83, 71, 80, 83, 76, 80, 83, 92, 80, 83, 75, 80, 84, 90, 80, 84, 73, 80, 85, 88, 80, 85, 69, 78, 84, 90, 78, 84, 71, 80, 83, 88, 80, 83, 71, 81, 83, 87, 81, 83, 76, 80, 83, 88, 80, 83, 76]}, {"id": 17, "short": "18. Do♯ m", "titleEs": "18. Do♯ menor (Mineur)", "titleEn": "18. C♯ minor", "keySig": "C#m", "isMinor": true, "startMeasure": 137, "endMeasure": 144, "bars": [["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["d", "f", "g", "^b", "f", "g", "d", "f", "g", "G", "f", "g"], ["^B", "f", "g", "d'", "f", "g", "B", "f", "g", "G", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["c", "e", "g", "e'", "e", "g", "B", "^e", "g", "=d'", "e", "g"], ["A", "f", "a", "c'", "f", "a", "F", "f", "a", "^d'", "f", "a"], ["G", "=e", "g", "c'", "e", "g", "G", "f", "g", "^b", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c"]], "midis": [73, 76, 80, 85, 76, 80, 73, 76, 80, 68, 76, 80, 75, 78, 80, 84, 78, 80, 75, 78, 80, 68, 78, 80, 72, 78, 80, 87, 78, 80, 72, 78, 80, 68, 78, 80, 73, 76, 80, 85, 76, 80, 73, 76, 80, 68, 76, 80, 73, 76, 80, 88, 76, 80, 71, 77, 80, 86, 77, 80, 69, 78, 81, 85, 78, 81, 66, 78, 81, 87, 78, 81, 68, 76, 80, 85, 76, 80, 68, 78, 80, 84, 78, 80, 73, 76, 80, 85, 76, 80, 73]}, {"id": 18, "short": "19. La M", "titleEs": "19. La Mayor (A Major)", "titleEn": "19. A Major", "keySig": "A", "isMinor": false, "startMeasure": 145, "endMeasure": 152, "bars": [["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["B", "d", "e", "g", "d", "e", "B", "d", "e", "E", "d", "e"], ["G", "d", "e", "b", "d", "e", "G", "d", "e", "E", "d", "e"], ["A", "c", "e", "a", "c", "e", "A", "c", "e", "E", "c", "e"], ["A", "c", "e", "c'", "c", "e", "G", "c", "^e", "b", "c", "e"], ["F", "c", "f", "a", "c", "f", "D", "B", "=f", "b", "B", "f"], ["E", "c", "e", "a", "c", "e", "E", "d", "e", "g", "d", "e"], ["A", "c", "e", "a", "c", "e", "A"]], "midis": [69, 73, 76, 81, 73, 76, 69, 73, 76, 64, 73, 76, 71, 74, 76, 80, 74, 76, 71, 74, 76, 64, 74, 76, 68, 74, 76, 83, 74, 76, 68, 74, 76, 64, 74, 76, 69, 73, 76, 81, 73, 76, 69, 73, 76, 64, 73, 76, 69, 73, 76, 85, 73, 76, 68, 73, 77, 83, 73, 77, 66, 73, 78, 81, 73, 78, 62, 71, 77, 83, 71, 77, 64, 73, 76, 81, 73, 76, 64, 74, 76, 80, 74, 76, 69, 73, 76, 81, 73, 76, 69]}, {"id": 19, "short": "20. Fa♯ m", "titleEs": "20. Fa♯ menor (Mineur)", "titleEn": "20. F♯ minor", "keySig": "F#m", "isMinor": true, "startMeasure": 153, "endMeasure": 160, "bars": [["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["g", "b", "c'", "^e'", "b", "c'", "g", "b", "c'", "c", "b", "c'"], ["^e", "b", "c'", "g'", "b", "c'", "e", "b", "c'", "c", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f", "a", "c'", "c", "a", "c'"], ["f", "a", "c'", "a'", "a", "c'", "e", "^a", "c'", "=g'", "a", "c'"], ["d", "b", "d'", "f'", "b", "d'", "B", "b", "d'", "^g'", "b", "d'"], ["c", "=a", "c'", "f'", "a", "c'", "c", "b", "c'", "^e'", "b", "c'"], ["f", "a", "c'", "f'", "a", "c'", "f"]], "midis": [78, 81, 85, 90, 81, 85, 78, 81, 85, 73, 81, 85, 80, 83, 85, 89, 83, 85, 80, 83, 85, 73, 83, 85, 77, 83, 85, 92, 83, 85, 77, 83, 85, 73, 83, 85, 78, 81, 85, 90, 81, 85, 78, 81, 85, 73, 81, 85, 78, 81, 85, 93, 81, 85, 76, 82, 85, 91, 82, 85, 74, 83, 86, 90, 83, 86, 71, 83, 86, 92, 83, 86, 73, 81, 85, 90, 81, 85, 73, 83, 85, 89, 83, 85, 78, 81, 85, 90, 81, 85, 78]}, {"id": 20, "short": "21. Re M", "titleEs": "21. Re Mayor (D Major)", "titleEn": "21. D Major", "keySig": "D", "isMinor": false, "startMeasure": 161, "endMeasure": 168, "bars": [["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["e", "g", "a", "c'", "g", "a", "e", "g", "a", "A", "g", "a"], ["c", "g", "a", "e'", "g", "a", "c", "g", "a", "A", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d", "f", "a", "A", "f", "a"], ["d", "f", "a", "f'", "f", "a", "c", "f", "^a", "e'", "f", "a"], ["B", "f", "b", "d'", "f", "b", "G", "e", "_b", "e'", "e", "b"], ["A", "f", "a", "d'", "f", "a", "A", "g", "a", "c'", "g", "a"], ["d", "f", "a", "d'", "f", "a", "d"]], "midis": [74, 78, 81, 86, 78, 81, 74, 78, 81, 69, 78, 81, 76, 79, 81, 85, 79, 81, 76, 79, 81, 69, 79, 81, 73, 79, 81, 88, 79, 81, 73, 79, 81, 69, 79, 81, 74, 78, 81, 86, 78, 81, 74, 78, 81, 69, 78, 81, 74, 78, 81, 90, 78, 81, 73, 78, 82, 88, 78, 82, 71, 78, 83, 86, 78, 83, 67, 76, 82, 88, 76, 82, 69, 78, 81, 86, 78, 81, 69, 79, 81, 85, 79, 81, 74, 78, 81, 86, 78, 81, 74]}, {"id": 21, "short": "22. Si m", "titleEs": "22. Si menor (Mineur)", "titleEn": "22. B minor", "keySig": "Bm", "isMinor": true, "startMeasure": 169, "endMeasure": 176, "bars": [["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["c", "e", "f", "^a", "e", "f", "c", "e", "f", "F", "e", "f"], ["^A", "e", "f", "c'", "e", "f", "A", "e", "f", "F", "e", "f"], ["B", "d", "f", "b", "d", "f", "B", "d", "f", "F", "d", "f"], ["B", "d", "f", "d'", "d", "f", "A", "^d", "f", "=c'", "d", "f"], ["G", "e", "g", "b", "e", "g", "E", "e", "g", "^c'", "e", "g"], ["F", "=d", "f", "b", "d", "f", "F", "e", "f", "^a", "e", "f"], ["B", "d", "f", "b", "d", "f", "B"]], "midis": [71, 74, 78, 83, 74, 78, 71, 74, 78, 66, 74, 78, 73, 76, 78, 82, 76, 78, 73, 76, 78, 66, 76, 78, 70, 76, 78, 85, 76, 78, 70, 76, 78, 66, 76, 78, 71, 74, 78, 83, 74, 78, 71, 74, 78, 66, 74, 78, 71, 74, 78, 86, 74, 78, 69, 75, 78, 84, 75, 78, 67, 76, 79, 83, 76, 79, 64, 76, 79, 85, 76, 79, 66, 74, 78, 83, 74, 78, 66, 76, 78, 82, 76, 78, 71, 74, 78, 83, 74, 78, 71]}, {"id": 22, "short": "23. Sol M", "titleEs": "23. Sol Mayor (G Major)", "titleEn": "23. G Major", "keySig": "G", "isMinor": false, "startMeasure": 177, "endMeasure": 184, "bars": [["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["A", "c", "d", "f", "c", "d", "A", "c", "d", "D", "c", "d"], ["F", "c", "d", "a", "c", "d", "F", "c", "d", "D", "c", "d"], ["G", "B", "d", "g", "B", "d", "G", "B", "d", "D", "B", "d"], ["G", "B", "d", "b", "B", "d", "F", "B", "^d", "a", "B", "d"], ["E", "B", "e", "g", "B", "e", "C", "A", "_e", "a", "A", "e"], ["D", "B", "d", "g", "B", "d", "D", "c", "d", "f", "c", "d"], ["G", "B", "d", "g", "B", "d", "G"]], "midis": [67, 71, 74, 79, 71, 74, 67, 71, 74, 62, 71, 74, 69, 72, 74, 78, 72, 74, 69, 72, 74, 62, 72, 74, 66, 72, 74, 81, 72, 74, 66, 72, 74, 62, 72, 74, 67, 71, 74, 79, 71, 74, 67, 71, 74, 62, 71, 74, 67, 71, 74, 83, 71, 74, 66, 71, 75, 81, 71, 75, 64, 71, 76, 79, 71, 76, 60, 69, 75, 81, 69, 75, 62, 71, 74, 79, 71, 74, 62, 72, 74, 78, 72, 74, 67, 71, 74, 79, 71, 74, 67]}, {"id": 23, "short": "24. Mi m", "titleEs": "24. Mi menor (Mineur)", "titleEn": "24. E minor", "keySig": "Em", "isMinor": true, "startMeasure": 185, "endMeasure": 192, "bars": [["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["f", "a", "b", "^d'", "a", "b", "f", "a", "b", "B", "a", "b"], ["^d", "a", "b", "f'", "a", "b", "d", "a", "b", "B", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e", "g", "b", "B", "g", "b"], ["e", "g", "b", "g'", "g", "b", "d", "^g", "b", "=f'", "g", "b"], ["c", "a", "c'", "e'", "a", "c'", "A", "a", "c'", "^f'", "a", "c'"], ["B", "=g", "b", "e'", "g", "b", "B", "a", "b", "^d'", "a", "b"], ["e", "g", "b", "e'", "g", "b", "e"]], "midis": [76, 79, 83, 88, 79, 83, 76, 79, 83, 71, 79, 83, 78, 81, 83, 87, 81, 83, 78, 81, 83, 71, 81, 83, 75, 81, 83, 90, 81, 83, 75, 81, 83, 71, 81, 83, 76, 79, 83, 88, 79, 83, 76, 79, 83, 71, 79, 83, 76, 79, 83, 91, 79, 83, 74, 80, 83, 89, 80, 83, 72, 81, 84, 88, 81, 84, 69, 81, 84, 90, 81, 84, 71, 79, 83, 88, 79, 83, 71, 81, 83, 87, 81, 83, 76, 79, 83, 88, 79, 83, 76]}, {"id": 24, "short": "25. D.S.", "titleEs": "25. Do Mayor (D.S. al Fine)", "titleEn": "25. C Major (Fine)", "keySig": "C", "isMinor": false, "startMeasure": 193, "endMeasure": 200, "bars": [["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["d", "f", "g", "b", "f", "g", "d", "f", "g", "G", "f", "g"], ["B", "f", "g", "d'", "f", "g", "B", "f", "g", "G", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c", "e", "g", "G", "e", "g"], ["c", "e", "g", "e'", "e", "g", "B", "e", "^g", "d'", "e", "g"], ["A", "e", "a", "c'", "e", "a", "F", "d", "_a", "d'", "d", "a"], ["G", "e", "g", "c'", "e", "g", "G", "f", "g", "b", "f", "g"], ["c", "e", "g", "c'", "e", "g", "c"]], "midis": [72, 76, 79, 84, 76, 79, 72, 76, 79, 67, 76, 79, 74, 77, 79, 83, 77, 79, 74, 77, 79, 67, 77, 79, 71, 77, 79, 86, 77, 79, 71, 77, 79, 67, 77, 79, 72, 76, 79, 84, 76, 79, 72, 76, 79, 67, 76, 79, 72, 76, 79, 88, 76, 79, 71, 76, 80, 86, 76, 80, 69, 76, 81, 84, 76, 81, 65, 74, 80, 86, 74, 80, 67, 76, 79, 84, 76, 79, 67, 77, 79, 83, 77, 79, 72, 76, 79, 84, 76, 79, 72]}];
+    const PAGES_META = [{"num": 10, "title": "7 EXERCICES JOURNALIERS POUR LA FLÛTE · Op. 5 — Nº 5", "subtitle": "de 144 à 184 = ♪ · Tonalidades 1–6 (Do Mayor a Sol menor · Compases 1–48)", "secStart": 0, "secEnd": 5}, {"num": 11, "title": "REICHERT Op. 5 — Nº 5 (Pág. 11)", "subtitle": "Tonalidades 7–12 (Mi♭ Mayor a Si♭ menor · Compases 49–96)", "secStart": 6, "secEnd": 11}, {"num": 12, "title": "REICHERT Op. 5 — Nº 5 (Pág. 12)", "subtitle": "Tonalidades 13–18 (Sol♭ Mayor a Do♯ menor · Compases 97–144)", "secStart": 12, "secEnd": 17}, {"num": 13, "title": "REICHERT Op. 5 — Nº 5 (Pág. 13)", "subtitle": "Tonalidades 19–24 (La Mayor a Mi menor + D.S. al Fine · Compases 145–200)", "secStart": 18, "secEnd": 24}];
+
+    const ART_STRIP_12_ROW1 = [
+      "X:901", "M:6/8", "L:1/16", "K:C", "V:1 clef=treble stem=down",
+      '"^1" (cccccc cccccc) || "^2" (cccccc) (cccccc) || "^3" (cccc).c.c (cccc).c.c || "^4" .c.c(cccc) .c.c(cccc) || "^5" (cc).c.c.c.c (cc).c.c.c.c ||'
+    ].join("\n");
+    const ART_STRIP_12_ROW2 = [
+      "X:902", "M:2/4", "L:1/16", "K:C", "V:1 clef=treble stem=down",
+      '"^6" (ccc) (ccc) (ccc) (ccc) || "^7" (ccc) .c.c.c (ccc) .c.c.c || [M:6/8] "^8" (cc)(cc)(cc) (cc)(cc)(cc) || "^9" .c(cc)(cc).c .c(cc)(cc).c || "^10" .c.c.c.c.c.c .c.c.c.c.c.c ||'
+    ].join("\n");
+    const ART_STRIP_8_ROW1 = [
+      "X:903", "M:2/4", "L:1/16", "K:C", "V:1 clef=treble",
+      '"^1" (CDEFGABc) || "^2" (CDEF)(GABc) || "^3" .C(DEF) .G(ABc) || "^4" (CD).E.F (GA).B.c || "^5" .C.D(EF) .G.A(Bc) || "^6" .C(DE).F .G(AB).c || "^7" (CD)(EF)(GA)(Bc) || "^8" .C(DE)(FG)(AB).c ||'
+    ].join("\n");
+
+    let currentArtId = 0;
+    let currentSecIdx = -1;
+    let currentTempo = 152;
+    let isPlaying = false;
+    let audioCtx = null;
+    let playTimeouts = [];
+
+    function format12Notes(n, artId) {
+      switch (artId) {
+        case 0:
+        case 1:  return `(${n.slice(0,6).join("")} ${n.slice(6,12).join("")})`;
+        case 2:  return `(${n.slice(0,6).join("")}) (${n.slice(6,12).join("")})`;
+        case 3:  return `(${n[0]}${n[1]}${n[2]}${n[3]}).${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}${n[9]}).${n[10]}.${n[11]}`;
+        case 4:  return `.${n[0]}.${n[1]}(${n[2]}${n[3]}${n[4]}${n[5]}) .${n[6]}.${n[7]}(${n[8]}${n[9]}${n[10]}${n[11]})`;
+        case 5:  return `(${n[0]}${n[1]}).${n[2]}.${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}).${n[8]}.${n[9]}.${n[10]}.${n[11]}`;
+        case 6:  return `(${n[0]}${n[1]}${n[2]})(${n[3]}${n[4]}${n[5]}) (${n[6]}${n[7]}${n[8]})(${n[9]}${n[10]}${n[11]})`;
+        case 7:  return `(${n[0]}${n[1]}${n[2]}).${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}).${n[9]}.${n[10]}.${n[11]}`;
+        case 8:  return `(${n[0]}${n[1]})(${n[2]}${n[3]})(${n[4]}${n[5]}) (${n[6]}${n[7]})(${n[8]}${n[9]})(${n[10]}${n[11]})`;
+        case 9:  return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]}).${n[5]} .${n[6]}(${n[7]}${n[8]})(${n[9]}${n[10]}).${n[11]}`;
+        case 10: return n.slice(0,6).map(x => "." + x).join("") + " " + n.slice(6,12).map(x => "." + x).join("");
+        default: return n.slice(0,6).join("") + " " + n.slice(6,12).join("");
+      }
+    }
+
+    function format12Triplets(n, artId, showNum) {
+      const p = showNum ? "(3" : "";
+      switch (artId) {
+        case 0:  return `${p}${n[0]}${n[1]}${n[2]} ${p}${n[3]}${n[4]}${n[5]} ${p}${n[6]}${n[7]}${n[8]} ${p}${n[9]}${n[10]}${n[11]}`;
+        case 1:  return `${p}(${n[0]}${n[1]}${n[2]} ${p}${n[3]}${n[4]}${n[5]} ${p}${n[6]}${n[7]}${n[8]} ${p}${n[9]}${n[10]}${n[11]})`;
+        case 2:  return `${p}(${n[0]}${n[1]}${n[2]} ${p}${n[3]}${n[4]}${n[5]}) ${p}(${n[6]}${n[7]}${n[8]} ${p}${n[9]}${n[10]}${n[11]})`;
+        case 3:  return `${p}(${n[0]}${n[1]}${n[2]} ${p}${n[3]}).${n[4]}.${n[5]} ${p}(${n[6]}${n[7]}${n[8]} ${p}${n[9]}).${n[10]}.${n[11]}`;
+        case 4:  return `${p}.${n[0]}.${n[1]}(${n[2]} ${p}${n[3]}${n[4]}${n[5]}) ${p}.${n[6]}.${n[7]}(${n[8]} ${p}${n[9]}${n[10]}${n[11]})`;
+        case 5:  return `${p}(${n[0]}${n[1]}).${n[2]} ${p}.${n[3]}.${n[4]}.${n[5]} ${p}(${n[6]}${n[7]}).${n[8]} ${p}.${n[9]}.${n[10]}.${n[11]}`;
+        case 6:  return `${p}(${n[0]}${n[1]}${n[2]}) ${p}(${n[3]}${n[4]}${n[5]}) ${p}(${n[6]}${n[7]}${n[8]}) ${p}(${n[9]}${n[10]}${n[11]})`;
+        case 7:  return `${p}(${n[0]}${n[1]}${n[2]}) ${p}.${n[3]}.${n[4]}.${n[5]} ${p}(${n[6]}${n[7]}${n[8]}) ${p}.${n[9]}.${n[10]}.${n[11]}`;
+        case 8:  return `${p}(${n[0]}${n[1]})(${n[2]} ${p}${n[3]})(${n[4]}${n[5]}) ${p}(${n[6]}${n[7]})(${n[8]} ${p}${n[9]})(${n[10]}${n[11]})`;
+        case 9:  return `${p}.${n[0]}(${n[1]}${n[2]}) ${p}(${n[3]}${n[4]}).${n[5]} ${p}.${n[6]}(${n[7]}${n[8]}) ${p}(${n[9]}${n[10]}).${n[11]}`;
+        case 10: return `${p}.${n[0]}.${n[1]}.${n[2]} ${p}.${n[3]}.${n[4]}.${n[5]} ${p}.${n[6]}.${n[7]}.${n[8]} ${p}.${n[9]}.${n[10]}.${n[11]}`;
+        default: return `${p}${n[0]}${n[1]}${n[2]} ${p}${n[3]}${n[4]}${n[5]} ${p}${n[6]}${n[7]}${n[8]} ${p}${n[9]}${n[10]}${n[11]}`;
+      }
+    }
+
+    function format8Notes(n, artId) {
+      switch (artId) {
+        case 0:
+        case 1: return `(${n.slice(0,4).join("")} ${n.slice(4,8).join("")})`;
+        case 2: return `(${n.slice(0,4).join("")}) (${n.slice(4,8).join("")})`;
+        case 3: return `.${n[0]}(${n[1]}${n[2]}${n[3]}) .${n[4]}(${n[5]}${n[6]}${n[7]})`;
+        case 4: return `(${n[0]}${n[1]}).${n[2]}.${n[3]} (${n[4]}${n[5]}).${n[6]}.${n[7]}`;
+        case 5: return `.${n[0]}.${n[1]}(${n[2]}${n[3]}) .${n[4]}.${n[5]}(${n[6]}${n[7]})`;
+        case 6: return `.${n[0]}(${n[1]}${n[2]}).${n[3]} .${n[4]}(${n[5]}${n[6]}).${n[7]}`;
+        case 7: return `(${n[0]}${n[1]})(${n[2]}${n[3]}) (${n[4]}${n[5]})(${n[6]}${n[7]})`;
+        case 8: return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]})(${n[5]}${n[6]}).${n[7]}`;
+        default: return n.slice(0,4).join("") + " " + n.slice(4,8).join("");
+      }
+    }
+
+    function format4Notes(n, artId) {
+      switch (artId) {
+        case 0:
+        case 1:
+        case 2: return `(${n.join("")})`;
+        case 3: return `.${n[0]}(${n[1]}${n[2]}${n[3]})`;
+        case 4: return `(${n[0]}${n[1]}).${n[2]}.${n[3]}`;
+        case 5: return `.${n[0]}.${n[1]}(${n[2]}${n[3]})`;
+        case 6:
+        case 8: return `.${n[0]}(${n[1]}${n[2]}).${n[3]}`;
+        case 7: return `(${n[0]}${n[1]})(${n[2]}${n[3]})`;
+        default: return n.join("");
+      }
+    }
+
+    function buildSectionAbcBody(secIdx, artId, forSystemPart = -1) {
+      const sec = EX_SECTIONS[secIdx];
+      const b = sec.bars;
+      const segno = secIdx === 0 ? "!segno!" : "";
+      const endBar = (secIdx === 0 || secIdx === 23 || secIdx === 24) ? "|]" : "||";
+      const fineStr = (secIdx === 0 || secIdx === 24) ? "!fine!" : (secIdx === 23 ? "!D.S.!" : "");
+
+      if (EX_CODE === "R1") {
+        const n4 = b[3];
+        let m1, m2, m3, m4;
+        if (artId === 0 || artId === 1) {
+          m1 = `${segno}(${b[0].slice(0,6).join("")} ${b[0].slice(6,12).join("")}`;
+          m2 = `${b[1].slice(0,6).join("")} ${b[1].slice(6,12).join("")}`;
+          m3 = `${b[2].slice(0,6).join("")} ${b[2].slice(6,12).join("")}`;
+          m4 = `${n4.slice(0,6).join("")} !wedge!${n4[6]}2) ${fineStr}z2 z2 ${endBar}`;
+        } else {
+          m1 = segno + format12Notes(b[0], artId);
+          m2 = format12Notes(b[1], artId);
+          m3 = format12Notes(b[2], artId);
+          const g6 = format12Notes(n4.slice(0,6).concat(n4.slice(0,6)), artId).split(" ")[0];
+          m4 = `${g6} !wedge!${n4[6]}2 ${fineStr}z2 z2 ${endBar}`;
+        }
+        return `${m1} | ${m2} | ${m3} | ${m4}`;
+      } else if (EX_CODE === "R2") {
+        const ott = sec.is8va ? '"^8va..."' : "";
+        const pk = b[0];
+        let pkStr, midStrs, m8Str;
+        if (artId === 0 || artId === 1) {
+          pkStr = `${segno}${ott}(${pk.join("")}`;
+          midStrs = b.slice(1,8).map(m => `${m.slice(0,4).join("")} ${m.slice(4,8).join("")}`);
+          m8Str = `!wedge!${b[8][0]}2) ${fineStr}z2 ${endBar}`;
+        } else {
+          pkStr = `${segno}${ott}` + format4Notes(pk, artId);
+          midStrs = b.slice(1,8).map(m => format8Notes(m, artId));
+          m8Str = `!wedge!${b[8][0]}2 ${fineStr}z2 ${endBar}`;
+        }
+        if (forSystemPart === 2) {
+          return `${pkStr} | ${midStrs.slice(0,4).join(" | ")} |\n${midStrs.slice(4,7).join(" | ")} | ${m8Str}`;
+        }
+        return `${pkStr} | ${midStrs.join(" | ")} | ${m8Str}`;
+      } else if (EX_CODE === "R4") {
+        const ott = sec.is8va ? '"^8va..."' : "";
+        const m4 = b[3];
+        let b1, b2, b3, b4;
+        if (artId === 0 || artId === 1) {
+          b1 = `${segno}${ott}(${b[0].slice(0,4).join("")} ${b[0].slice(4,8).join("")} ${b[0].slice(8,12).join("")} ${b[0].slice(12,16).join("")}`;
+          b2 = `${b[1].slice(0,4).join("")} ${b[1].slice(4,8).join("")} ${b[1].slice(8,12).join("")} ${b[1].slice(12,16).join("")}`;
+          b3 = `${b[2].slice(0,4).join("")} ${b[2].slice(4,8).join("")} ${b[2].slice(8,12).join("")} ${b[2].slice(12,16).join("")}`;
+          b4 = `${m4.slice(0,4).join("")} ${m4.slice(4,8).join("")} ${m4.slice(8,12).join("")} !wedge!${m4[12]}2) ${fineStr}z2 ${endBar}`;
+        } else {
+          b1 = `${segno}${ott}` + format8Notes(b[0].slice(0,8), artId) + " " + format8Notes(b[0].slice(8,16), artId);
+          b2 = format8Notes(b[1].slice(0,8), artId) + " " + format8Notes(b[1].slice(8,16), artId);
+          b3 = format8Notes(b[2].slice(0,8), artId) + " " + format8Notes(b[2].slice(8,16), artId);
+          b4 = format8Notes(m4.slice(0,8), artId) + " " + format4Notes(m4.slice(8,12), artId) + ` !wedge!${m4[12]}2 ${fineStr}z2 ${endBar}`;
+        }
+        if (forSystemPart === 2) {
+          return `${b1} | ${b2} |\n${b3} | ${b4}`;
+        }
+        return `${b1} | ${b2} | ${b3} | ${b4}`;
+      } else {
+        // R5 (8 bars per section: part 0 = bars 0..3, part 1 = bars 4..7)
+        const m8 = b[7];
+        let bStrs, m8Str;
+        if (artId === 0) {
+          bStrs = b.slice(0,7).map((bar, idx) => format12Triplets(bar, 0, secIdx === 0 && idx < 4));
+          bStrs[0] = `${segno}(` + bStrs[0];
+          m8Str = `${m8[0]}${m8[1]}${m8[2]} ${m8[3]}${m8[4]}${m8[5]} !wedge!${m8[6]}2) ${fineStr}z2 ${endBar}`;
+        } else {
+          bStrs = b.slice(0,7).map(bar => format12Triplets(bar, artId, false));
+          bStrs[0] = segno + bStrs[0];
+          if (artId === 6) {
+            m8Str = `(${m8[0]}${m8[1]}${m8[2]}) (${m8[3]}${m8[4]}${m8[5]}) !wedge!${m8[6]}2 ${fineStr}z2 ${endBar}`;
+          } else if (artId === 7) {
+            m8Str = `(${m8[0]}${m8[1]}${m8[2]}) .${m8[3]}.${m8[4]}.${m8[5]} !wedge!${m8[6]}2 ${fineStr}z2 ${endBar}`;
+          } else if (artId === 10) {
+            m8Str = `.${m8[0]}.${m8[1]}.${m8[2]} .${m8[3]}.${m8[4]}.${m8[5]} !wedge!${m8[6]}2 ${fineStr}z2 ${endBar}`;
+          } else {
+            m8Str = `(${m8[0]}${m8[1]}${m8[2]} ${m8[3]}${m8[4]}${m8[5]}) !wedge!${m8[6]}2 ${fineStr}z2 ${endBar}`;
+          }
+        }
+        if (forSystemPart === 0) {
+          return bStrs.slice(0,4).join(" | ") + " |";
+        } else if (forSystemPart === 1) {
+          return bStrs.slice(4,7).join(" | ") + ` | ${m8Str}`;
+        }
+        return bStrs.slice(0,4).join(" | ") + " |\n" + bStrs.slice(4,7).join(" | ") + ` | ${m8Str}`;
+      }
+    }
+
+    function getActiveMeter(artId, includeMeter) {
+      if (!includeMeter) return "none";
+      if (EX_CODE === "R1") return EX_ARTS[artId].meter;
+      if (EX_CODE === "R4") return "C";
+      return "2/4";
+    }
+
+    function initLayout() {
+      const artRow = document.getElementById("art-buttons-row");
+      EX_ARTS.forEach(art => {
+        const btn = document.createElement("button");
+        btn.className = "pill-btn" + (art.id === currentArtId ? " active" : "");
+        btn.id = `art-btn-${art.id}`;
+        btn.textContent = art.short;
+        btn.title = `${art.name} — ${art.formula}`;
+        btn.onclick = () => selectArticulation(art.id);
+        artRow.appendChild(btn);
+      });
+
+      const secRow = document.getElementById("sec-buttons-row");
+      const allBtn = document.createElement("button");
+      allBtn.className = "pill-btn active-sec";
+      allBtn.id = "sec-btn-all";
+      allBtn.textContent = "Todas (24 + D.S.)";
+      allBtn.onclick = () => selectSection(-1);
+      secRow.appendChild(allBtn);
+
+      EX_SECTIONS.forEach(sec => {
+        const btn = document.createElement("button");
+        btn.className = "pill-btn";
+        btn.id = `sec-btn-${sec.id}`;
+        btn.textContent = sec.short;
+        btn.title = sec.titleEs;
+        btn.onclick = () => selectSection(sec.id);
+        secRow.appendChild(btn);
+      });
+
+      PAGES_META.forEach(pm => {
+        const container = document.getElementById(`systems-page-${pm.num}`);
+        container.innerHTML = "";
+        for (let s = pm.secStart; s <= pm.secEnd; s++) {
+          const sec = EX_SECTIONS[s];
+          if (EX_CODE === "R5") {
+            for (let half = 0; half < 2; half++) {
+              const sysId = s * 2 + half;
+              const mStart = sec.startMeasure + half * 4;
+              const mEnd = mStart + 3;
+              const row = document.createElement("div");
+              row.className = "system-row";
+              row.id = `sys-row-${sysId}`;
+              row.onclick = () => selectSection(s);
+              row.innerHTML = `
+                <div class="sys-label">
+                  c.${mStart}–${mEnd}
+                  <span class="sec-tag">${half === 0 ? sec.short : "↳ cont."}</span>
+                </div>
+                <div class="system-staff" id="sys-staff-${sysId}"></div>
+              `;
+              container.appendChild(row);
+            }
+          } else {
+            const row = document.createElement("div");
+            row.className = "system-row";
+            row.id = `sys-row-${s}`;
+            row.onclick = () => selectSection(s);
+            row.innerHTML = `
+              <div class="sys-label">
+                c.${sec.startMeasure}–${sec.endMeasure}
+                <span class="sec-tag">${sec.short}</span>
+              </div>
+              <div class="system-staff" id="sys-staff-${s}"></div>
+            `;
+            container.appendChild(row);
+          }
+        }
+      });
+    }
+
+    function renderStaffLine(elemId, abc, virtualWidth, padY = 0) {
+      const el = document.getElementById(elemId);
+      if (!el) return;
+      ABCJS.renderAbc(elemId, abc, {
+        staffwidth: virtualWidth,
+        paddingtop: padY,
+        paddingbottom: padY,
+        paddingleft: 2,
+        paddingright: 4
+      });
+      const svg = el.querySelector("svg");
+      if (svg) {
+        const w = parseFloat(svg.getAttribute("width")) || (virtualWidth + 10);
+        const h = parseFloat(svg.getAttribute("height")) || 85;
+        svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+        svg.style.width = "100%";
+        svg.style.height = "auto";
+        svg.style.display = "block";
+      }
+    }
+
+    function buildFullAbcText(artId) {
+      const art = EX_ARTS[artId];
+      const lines = [
+        `X:${artId + 1}`,
+        `T:Reichert Op. 5, ${EX_CODE} (${art.name})`,
+        "C:Mathieu-André Reichert (Ed. B. Schott's Söhne, Plate 20623)",
+        `M:${getActiveMeter(artId, true)}`,
+        "L:1/16",
+        `K:C`,
+        "V:1 clef=treble"
+      ];
+      for (let s = 0; s < 25; s++) {
+        const sec = EX_SECTIONS[s];
+        lines.push(`% --- ${sec.titleEs} ---`);
+        lines.push(`[K:${sec.keySig}] ` + buildSectionAbcBody(s, artId, -1));
+      }
+      return lines.join("\n");
+    }
+
+    function renderAll() {
+      if (EX_CODE === "R1" || EX_CODE === "R5") {
+        renderStaffLine("art-strip-1", ART_STRIP_12_ROW1, 2050, 1);
+        renderStaffLine("art-strip-2", ART_STRIP_12_ROW2, 2050, 1);
+      } else {
+        renderStaffLine("art-strip-1", ART_STRIP_8_ROW1, 2050, 1);
+      }
+
+      if (EX_CODE === "R5") {
+        for (let s = 0; s < 25; s++) {
+          const sec = EX_SECTIONS[s];
+          for (let half = 0; half < 2; half++) {
+            const sysId = s * 2 + half;
+            const meterStr = (half === 0) ? getActiveMeter(currentArtId, true) : "none";
+            const abc = [
+              `X:${sysId + 1}`,
+              "%%stretchlast 1",
+              `M:${meterStr}`,
+              "L:1/16",
+              `K:${sec.keySig}`,
+              "V:1 clef=treble",
+              buildSectionAbcBody(s, currentArtId, half)
+            ].join("\n");
+            renderStaffLine(`sys-staff-${sysId}`, abc, 1950, 0);
+          }
+        }
+      } else {
+        const vWidth = (EX_CODE === "R2") ? 2280 : (EX_CODE === "R4" ? 2080 : 1880);
+        for (let s = 0; s < 25; s++) {
+          const sec = EX_SECTIONS[s];
+          const meterStr = getActiveMeter(currentArtId, s === 0);
+          const abc = [
+            `X:${s + 1}`,
+            "%%stretchlast 1",
+            `M:${meterStr}`,
+            "L:1/16",
+            `K:${sec.keySig}`,
+            "V:1 clef=treble",
+            buildSectionAbcBody(s, currentArtId, -1)
+          ].join("\n");
+          renderStaffLine(`sys-staff-${s}`, abc, vWidth, 0);
+        }
+      }
+
+      const focusCard = document.getElementById("focus-card");
+      if (currentSecIdx >= 0) {
+        const sec = EX_SECTIONS[currentSecIdx];
+        const art = EX_ARTS[currentArtId];
+        focusCard.classList.add("visible");
+        document.getElementById("focus-title").textContent = `🎯 Tonalidad Activa: ${sec.titleEs} — ${art.name}`;
+        const minM = Math.min(...sec.midis);
+        const maxM = Math.max(...sec.midis);
+        document.getElementById("focus-badge").textContent = `Compases ${sec.startMeasure}–${sec.endMeasure} · ${sec.midis.length} notas (MIDI ${minM}–${maxM})`;
+        const focusAbc = [
+          "X:500",
+          "%%stretchlast 1",
+          `M:${getActiveMeter(currentArtId, true)}`,
+          "L:1/16",
+          `K:${sec.keySig}`,
+          "V:1 clef=treble",
+          buildSectionAbcBody(currentSecIdx, currentArtId, (EX_CODE === "R2" || EX_CODE === "R4") ? 2 : -1)
+        ].join("\n");
+        renderStaffLine("focus-staff", focusAbc, 1650, 2);
+      } else {
+        focusCard.classList.remove("visible");
+      }
+
+      document.getElementById("abc-source-box").value = buildFullAbcText(currentArtId);
+      const dlLink = document.getElementById("download-abc-link");
+      if (dlLink) dlLink.href = "downloads/abc/" + EX_ARTS[currentArtId].fname;
+    }
+
+    function selectArticulation(artId) {
+      currentArtId = artId;
+      EX_ARTS.forEach(a => {
+        const el = document.getElementById(`art-btn-${a.id}`);
+        if (el) el.classList.toggle("active", a.id === artId);
+      });
+      if (isPlaying) {
+        stopPlayback();
+        startPlayback();
+      }
+      renderAll();
+    }
+
+    function highlightActiveSection(secIdx) {
+      if (EX_CODE === "R5") {
+        for (let sysId = 0; sysId < 50; sysId++) {
+          const r = document.getElementById(`sys-row-${sysId}`);
+          if (r) r.classList.toggle("active-system", Math.floor(sysId / 2) === secIdx);
+        }
+      } else {
+        for (let s = 0; s < 25; s++) {
+          const r = document.getElementById(`sys-row-${s}`);
+          if (r) r.classList.toggle("active-system", s === secIdx);
+        }
+      }
+    }
+
+    function selectSection(secIdx) {
+      currentSecIdx = secIdx;
+      const allBtn = document.getElementById("sec-btn-all");
+      if (allBtn) allBtn.classList.toggle("active-sec", secIdx === -1);
+      EX_SECTIONS.forEach(sec => {
+        const btn = document.getElementById(`sec-btn-${sec.id}`);
+        if (btn) btn.classList.toggle("active-sec", sec.id === secIdx);
+      });
+      highlightActiveSection(secIdx);
+      const badge = document.getElementById("measure-badge");
+      if (secIdx >= 0) {
+        const sec = EX_SECTIONS[secIdx];
+        badge.textContent = `Tonalidad: ${sec.short} (c. ${sec.startMeasure}–${sec.endMeasure})`;
+      } else {
+        badge.textContent = `Tonalidades: 1–24 + D.S.`;
+      }
+      if (isPlaying) {
+        stopPlayback();
+        startPlayback();
+      }
+      renderAll();
+    }
+
+    function updateTempo(val) {
+      currentTempo = parseInt(val, 10) || 152;
+      document.getElementById("tempo-label").textContent = `${currentTempo} BPM`;
+    }
+
+    function midiToFreq(midi) {
+      return 440 * Math.pow(2, (midi - 69) / 12);
+    }
+
+    function playPianoNote(midi, startTime, durationSec, isStaccato) {
+      if (!audioCtx) return;
+      const freq = midiToFreq(midi);
+      const effDur = isStaccato ? Math.min(durationSec * 0.42, 0.09) : durationSec * 0.94;
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc1.type = "triangle";
+      osc2.type = "sine";
+      osc1.frequency.setValueAtTime(freq, startTime);
+      osc2.frequency.setValueAtTime(freq * 2, startTime);
+      const g2 = audioCtx.createGain();
+      g2.gain.setValueAtTime(0.18, startTime);
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.linearRampToValueAtTime(0.28, startTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0008, startTime + effDur);
+      osc1.connect(gain);
+      osc2.connect(g2);
+      g2.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc1.start(startTime);
+      osc2.start(startTime);
+      osc1.stop(startTime + effDur + 0.02);
+      osc2.stop(startTime + effDur + 0.02);
+    }
+
+    function isNoteStaccato(artId, pos, totalNotes) {
+      if (pos === totalNotes - 1) return true; // Final eighth note has wedge!
+      if (EX_CODE === "R1" || EX_CODE === "R5") {
+        const pos6 = pos % 6;
+        switch (artId) {
+          case 3:  return pos6 === 4 || pos6 === 5;
+          case 4:  return pos6 === 0 || pos6 === 1;
+          case 5:  return pos6 >= 2;
+          case 7:  return pos6 >= 3;
+          case 9:  return pos6 === 0 || pos6 === 5;
+          case 10: return true;
+          default: return false;
+        }
+      } else {
+        const pos4 = pos % 4;
+        switch (artId) {
+          case 3:  return pos4 === 0;
+          case 4:  return pos4 === 2 || pos4 === 3;
+          case 5:  return pos4 === 0 || pos4 === 1;
+          case 6:  return pos4 === 0 || pos4 === 3;
+          case 8:  return (pos % 8 === 0) || (pos % 8 === 7);
+          default: return false;
+        }
+      }
+    }
+
+    function getSixteenthDurationSec() {
+      if (EX_CODE === "R1") return (60 / currentTempo) / 6;   // dotted quarter = currentTempo
+      if (EX_CODE === "R5") return (60 / currentTempo) / 3;   // eighth note = currentTempo (3 triplet sixteenths per eighth)
+      return (60 / currentTempo) / 4;                         // quarter note = currentTempo
+    }
+
+    function startPlayback() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      isPlaying = true;
+      const btn = document.getElementById("play-btn");
+      btn.classList.add("playing");
+      document.getElementById("play-icon").textContent = "⏹";
+      document.getElementById("play-label").textContent = "Detener";
+
+      const noteDur = getSixteenthDurationSec();
+      const secsToPlay = currentSecIdx >= 0 ? [EX_SECTIONS[currentSecIdx]] : EX_SECTIONS;
+      let cursor = audioCtx.currentTime + 0.06;
+
+      secsToPlay.forEach(sec => {
+        const N = sec.midis.length;
+        for (let i = 0; i < N; i++) {
+          const isLast = (i === N - 1);
+          const dur = isLast ? noteDur * 2 : noteDur;
+          const stacc = isNoteStaccato(currentArtId, i, N);
+          playPianoNote(sec.midis[i], cursor, dur, stacc);
+
+          if (i === 0) {
+            const delayMs = Math.max(0, (cursor - audioCtx.currentTime) * 1000);
+            const tid = setTimeout(() => {
+              if (!isPlaying) return;
+              document.getElementById("measure-badge").textContent = `${sec.short} (c. ${sec.startMeasure}–${sec.endMeasure})`;
+              highlightActiveSection(sec.id);
+            }, delayMs);
+            playTimeouts.push(tid);
+          }
+          cursor += isLast ? noteDur * 4 : noteDur;
+        }
+      });
+
+      const totalMs = Math.max(0, (cursor - audioCtx.currentTime) * 1000);
+      playTimeouts.push(setTimeout(() => stopPlayback(), totalMs));
+    }
+
+    function stopPlayback() {
+      isPlaying = false;
+      playTimeouts.forEach(t => clearTimeout(t));
+      playTimeouts = [];
+      if (audioCtx) {
+        try { audioCtx.close(); } catch (e) {}
+        audioCtx = null;
+      }
+      const btn = document.getElementById("play-btn");
+      if (btn) btn.classList.remove("playing");
+      document.getElementById("play-icon").textContent = "▶";
+      document.getElementById("play-label").textContent = "Escuchar Piano";
+    }
+
+    function togglePlay() {
+      if (isPlaying) stopPlayback();
+      else startPlayback();
+    }
+
+    function copyCurrentAbc() {
+      const txt = document.getElementById("abc-source-box").value;
+      navigator.clipboard.writeText(txt).then(() => {
+        const lbl = document.getElementById("copy-label");
+        lbl.textContent = "¡Copiado!";
+        setTimeout(() => { lbl.textContent = "Copiar ABC"; }, 1800);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initLayout();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

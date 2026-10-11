@@ -245,5 +245,71 @@ final class FluteModesTests: XCTestCase {
         XCTAssertEqual(store.ej4CompletedCount, 8)
         XCTAssertTrue(store.isEJ4FullyCompleted)
     }
+
+    func testReichertR1ToR5AllSectionsAndArticulationsGenerateValidAbc() {
+        XCTAssertEqual(ExerciseGenerator.r1SectionMidiNotes.count, 25, "R1 must have 25 MIDI note arrays")
+        XCTAssertEqual(ExerciseGenerator.r2SectionMidiNotes.count, 25, "R2 must have 25 MIDI note arrays")
+        XCTAssertEqual(ExerciseGenerator.r4SectionMidiNotes.count, 25, "R4 must have 25 MIDI note arrays")
+        XCTAssertEqual(ExerciseGenerator.r5SectionMidiNotes.count, 25, "R5 must have 25 MIDI note arrays")
+
+        for sec in EJ4Section.all {
+            let r1Notes = ExerciseGenerator.r1SectionMidiNotes[sec.id]
+            XCTAssertEqual(r1Notes.count, 43, "R1 section \(sec.id) must have 43 notes")
+            for art in EJ5Articulation.allCases {
+                let r1Abc = ExerciseGenerator.generateR1ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 92)
+                XCTAssertTrue(r1Abc.contains("% R1_SCHOTT_ART:\(art.rawValue):SEC:\(sec.id)"))
+            }
+
+            let r2Notes = ExerciseGenerator.r2SectionMidiNotes[sec.id]
+            XCTAssertEqual(r2Notes.count, 61, "R2 section \(sec.id) must have 61 notes")
+            for art in EJ4Articulation.allCases {
+                let r2Abc = ExerciseGenerator.generateR2ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 128)
+                XCTAssertTrue(r2Abc.contains("% R2_SCHOTT_ART:\(art.rawValue):SEC:\(sec.id)"))
+            }
+
+            let r4Notes = ExerciseGenerator.r4SectionMidiNotes[sec.id]
+            XCTAssertEqual(r4Notes.count, 61, "R4 section \(sec.id) must have 61 notes")
+            for art in EJ4Articulation.allCases {
+                let r4Abc = ExerciseGenerator.generateR4ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 120)
+                XCTAssertTrue(r4Abc.contains("% R4_SCHOTT_ART:\(art.rawValue):SEC:\(sec.id)"))
+            }
+
+            let r5Notes = ExerciseGenerator.r5SectionMidiNotes[sec.id]
+            XCTAssertEqual(r5Notes.count, 91, "R5 section \(sec.id) must have 91 notes")
+            for art in EJ5Articulation.allCases {
+                let r5Abc = ExerciseGenerator.generateR5ABC(sectionIndex: sec.id, articulation: art, tempoBPM: 80)
+                XCTAssertTrue(r5Abc.contains("% R5_SCHOTT_ART:\(art.rawValue):SEC:\(sec.id)"))
+            }
+        }
+    }
+
+    func testReichertR1ToR5PracticeStoreTracking() {
+        let store = PracticeStore()
+        store.resetAll()
+
+        XCTAssertEqual(store.r1CompletedCount, 0)
+        XCTAssertEqual(store.r2CompletedCount, 0)
+        XCTAssertEqual(store.r4CompletedCount, 0)
+        XCTAssertEqual(store.r5CompletedCount, 0)
+
+        for art in EJ5Articulation.practiceCases {
+            store.markR1Completed(art)
+            store.markR5Completed(art)
+        }
+        for art in EJ4Articulation.practiceCases {
+            store.markR2Completed(art)
+            store.markR4Completed(art)
+        }
+
+        XCTAssertEqual(store.r1CompletedCount, 10)
+        XCTAssertEqual(store.r2CompletedCount, 8)
+        XCTAssertEqual(store.r4CompletedCount, 8)
+        XCTAssertEqual(store.r5CompletedCount, 10)
+        XCTAssertTrue(store.isR1FullyCompleted)
+        XCTAssertTrue(store.isR2FullyCompleted)
+        XCTAssertTrue(store.isR4FullyCompleted)
+        XCTAssertTrue(store.isR5FullyCompleted)
+    }
 }
+
 

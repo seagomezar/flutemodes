@@ -54,36 +54,32 @@ class ScoreAudioPlayer {
         }
     }
 
-    fun toggleEJ4(articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
+    fun toggleEJ4(exercise: ExerciseType = ExerciseType.EJ4, articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
         if (isPlaying) {
             stop()
         } else {
-            playEJ4(articulation, section, tempoBPM)
+            playEJ4(exercise, articulation, section, tempoBPM)
+        }
+    }
+
+    fun toggleEJ5Type(exercise: ExerciseType, articulation: EJ5Articulation, sectionIndex: Int, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ5Type(exercise, articulation, sectionIndex, tempoBPM)
         }
     }
 
     fun toggleEJ5(articulation: EJ5Articulation, section: EJ5Section, tempoBPM: Int) {
-        if (isPlaying) {
-            stop()
-        } else {
-            playEJ5(articulation, section, tempoBPM)
-        }
+        toggleEJ5Type(ExerciseType.EJ5, articulation, section.id, tempoBPM)
     }
 
     fun toggleEJ10(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
-        if (isPlaying) {
-            stop()
-        } else {
-            playEJ10(articulation, section, tempoBPM)
-        }
+        toggleEJ5Type(ExerciseType.EJ10, articulation, section.id, tempoBPM)
     }
 
     fun toggleEJ11(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
-        if (isPlaying) {
-            stop()
-        } else {
-            playEJ11(articulation, section, tempoBPM)
-        }
+        toggleEJ5Type(ExerciseType.EJ11, articulation, section.id, tempoBPM)
     }
 
     fun stop() {
@@ -133,44 +129,36 @@ class ScoreAudioPlayer {
         }
     }
 
-    fun playEJ4(articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
+    fun playEJ4(exercise: ExerciseType = ExerciseType.EJ4, articulation: EJ4Articulation, section: EJ4Section, tempoBPM: Int) {
         stop()
         isPlaying = true
 
         playbackJob = scope.launch {
-            val buffer = generateEJ4ScoreBuffer(articulation, section, tempoBPM)
+            val buffer = generateEJ4ScoreBuffer(exercise, articulation, section, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
+
+    fun playEJ5Type(exercise: ExerciseType, articulation: EJ5Articulation, sectionIndex: Int, tempoBPM: Int) {
+        stop()
+        isPlaying = true
+
+        playbackJob = scope.launch {
+            val buffer = generateEJ5TypeScoreBuffer(exercise, articulation, sectionIndex, tempoBPM)
             playPcmBuffer(buffer)
         }
     }
 
     fun playEJ5(articulation: EJ5Articulation, section: EJ5Section, tempoBPM: Int) {
-        stop()
-        isPlaying = true
-
-        playbackJob = scope.launch {
-            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ5, articulation, section.id, tempoBPM)
-            playPcmBuffer(buffer)
-        }
+        playEJ5Type(ExerciseType.EJ5, articulation, section.id, tempoBPM)
     }
 
     fun playEJ10(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
-        stop()
-        isPlaying = true
-
-        playbackJob = scope.launch {
-            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ10, articulation, section.id, tempoBPM)
-            playPcmBuffer(buffer)
-        }
+        playEJ5Type(ExerciseType.EJ10, articulation, section.id, tempoBPM)
     }
 
     fun playEJ11(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
-        stop()
-        isPlaying = true
-
-        playbackJob = scope.launch {
-            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ11, articulation, section.id, tempoBPM)
-            playPcmBuffer(buffer)
-        }
+        playEJ5Type(ExerciseType.EJ11, articulation, section.id, tempoBPM)
     }
 
     private suspend fun CoroutineScope.playPcmBuffer(buffer: ShortArray) {
@@ -335,13 +323,15 @@ class ScoreAudioPlayer {
             ExerciseType.EJ5 -> ExerciseGenerator.ej5SectionMidiNotes
             ExerciseType.EJ10 -> ExerciseGenerator.ej10SectionMidiNotes
             ExerciseType.EJ11 -> ExerciseGenerator.ej11SectionMidiNotes
+            ExerciseType.R1 -> ExerciseGenerator.r1SectionMidiNotes
+            ExerciseType.R5 -> ExerciseGenerator.r5SectionMidiNotes
             else -> ExerciseGenerator.ej5SectionMidiNotes
         }
         val secIdx = sectionIndex.coerceIn(0, allSections.size - 1)
         val midiNotes = allSections[secIdx]
         val notes = mutableListOf<NoteDef>()
         for ((idx, m) in midiNotes.withIndex()) {
-            val isLongFinal = (idx == midiNotes.size - 1) && (exercise == ExerciseType.EJ5 || secIdx == 11)
+            val isLongFinal = (idx == midiNotes.size - 1) && (exercise == ExerciseType.EJ5 || (!exercise.isReichertExercise && secIdx == 11) || (exercise.isReichertExercise && secIdx == 24))
             notes.add(
                 NoteDef(
                     freq = midiToFrequency(m.toDouble()),
@@ -354,6 +344,7 @@ class ScoreAudioPlayer {
     }
 
     internal fun generateEJ4ScoreBuffer(
+        exercise: ExerciseType = ExerciseType.EJ4,
         articulation: EJ4Articulation,
         section: EJ4Section,
         tempoBPM: Int
@@ -376,8 +367,13 @@ class ScoreAudioPlayer {
             }
         }
 
-        val secIdx = section.id.coerceIn(0, ExerciseGenerator.ej4SectionMidiNotes.size - 1)
-        val midiNotes = ExerciseGenerator.ej4SectionMidiNotes[secIdx]
+        val allSections = when (exercise) {
+            ExerciseType.R2 -> ExerciseGenerator.r2SectionMidiNotes
+            ExerciseType.R4 -> ExerciseGenerator.r4SectionMidiNotes
+            else -> ExerciseGenerator.ej4SectionMidiNotes
+        }
+        val secIdx = section.id.coerceIn(0, allSections.size - 1)
+        val midiNotes = allSections[secIdx]
         val isCoda = (section == EJ4Section.C_CODA)
 
         val notes = mutableListOf<NoteDef>()

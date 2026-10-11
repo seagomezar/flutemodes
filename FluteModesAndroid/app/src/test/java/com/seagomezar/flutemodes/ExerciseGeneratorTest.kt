@@ -207,6 +207,32 @@ class ExerciseGeneratorTest {
             }
         }
     }
+
+    @Test
+    fun testReichertR1R2R4R5AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        assertEquals(25, ExerciseGenerator.r1SectionMidiNotes.size)
+        assertEquals(25, ExerciseGenerator.r2SectionMidiNotes.size)
+        assertEquals(25, ExerciseGenerator.r4SectionMidiNotes.size)
+        assertEquals(25, ExerciseGenerator.r5SectionMidiNotes.size)
+
+        for (sec in EJ4Section.entries) {
+            assertTrue("R1 section ${sec.name} must have MIDI notes", ExerciseGenerator.r1SectionMidiNotes[sec.id].isNotEmpty())
+            assertTrue("R2 section ${sec.name} must have MIDI notes", ExerciseGenerator.r2SectionMidiNotes[sec.id].isNotEmpty())
+            assertTrue("R4 section ${sec.name} must have MIDI notes", ExerciseGenerator.r4SectionMidiNotes[sec.id].isNotEmpty())
+            assertTrue("R5 section ${sec.name} must have MIDI notes", ExerciseGenerator.r5SectionMidiNotes[sec.id].isNotEmpty())
+
+            for (art in EJ5Articulation.entries) {
+                val r1Abc = ExerciseGenerator.generateR1ABC(articulation = art, section = sec, tempoBPM = 92)
+                assertTrue(r1Abc.contains("% R1_SCHOTT_ART:${art.id}:SEC:${sec.id}"))
+                val r5Abc = ExerciseGenerator.generateR5ABC(articulation = art, section = sec, tempoBPM = 160)
+                assertTrue(r5Abc.contains("% R5_SCHOTT_ART:${art.id}:SEC:${sec.id}"))
+            }
+            for (art in EJ4Articulation.entries) {
+                val r2Abc = ExerciseGenerator.generateR2ABC(articulation = art, section = sec, tempoBPM = 132)
+                assertTrue(r2Abc.contains("% R2_SCHOTT_ART:${art.id}:SEC:${sec.id}"))
+                val r4Abc = ExerciseGenerator.generateR4ABC(articulation = art, section = sec, tempoBPM = 126)
+                assertTrue(r4Abc.contains("% R4_SCHOTT_ART:${art.id}:SEC:${sec.id}"))
+            }
+        }
+    }
 }
-
-

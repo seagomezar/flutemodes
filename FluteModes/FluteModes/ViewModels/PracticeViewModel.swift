@@ -12,12 +12,20 @@ public class PracticeViewModel: ObservableObject {
     @Published public var currentEJ2Articulation: EJ1Articulation
     @Published public var currentEJ4Articulation: EJ4Articulation
     @Published public var currentEJ4Section: Int
+    @Published public var currentR2Articulation: EJ4Articulation
+    @Published public var currentR2Section: Int
+    @Published public var currentR4Articulation: EJ4Articulation
+    @Published public var currentR4Section: Int
     @Published public var currentEJ5Articulation: EJ5Articulation
     @Published public var currentEJ5Section: Int
     @Published public var currentEJ10Articulation: EJ5Articulation
     @Published public var currentEJ10Section: Int
     @Published public var currentEJ11Articulation: EJ5Articulation
     @Published public var currentEJ11Section: Int
+    @Published public var currentR1Articulation: EJ5Articulation
+    @Published public var currentR1Section: Int
+    @Published public var currentR5Articulation: EJ5Articulation
+    @Published public var currentR5Section: Int
 
     @Published public var currentTonic: Tonic
     @Published public var currentMode: ModeType
@@ -55,12 +63,20 @@ public class PracticeViewModel: ObservableObject {
         self.currentEJ2Articulation = store.lastEJ2Articulation
         self.currentEJ4Articulation = store.lastEJ4Articulation
         self.currentEJ4Section = store.lastEJ4Section
+        self.currentR2Articulation = store.lastR2Articulation
+        self.currentR2Section = store.lastR2Section
+        self.currentR4Articulation = store.lastR4Articulation
+        self.currentR4Section = store.lastR4Section
         self.currentEJ5Articulation = store.lastEJ5Articulation
         self.currentEJ5Section = store.lastEJ5Section
         self.currentEJ10Articulation = store.lastEJ10Articulation
         self.currentEJ10Section = store.lastEJ10Section
         self.currentEJ11Articulation = store.lastEJ11Articulation
         self.currentEJ11Section = store.lastEJ11Section
+        self.currentR1Articulation = store.lastR1Articulation
+        self.currentR1Section = store.lastR1Section
+        self.currentR5Articulation = store.lastR5Articulation
+        self.currentR5Section = store.lastR5Section
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
@@ -102,11 +118,29 @@ public class PracticeViewModel: ObservableObject {
         currentExercise == .ej2 ? currentEJ2Articulation : currentEJ1Articulation
     }
 
+    public var currentEJ4TypeArticulation: EJ4Articulation {
+        switch currentExercise {
+        case .r2: return currentR2Articulation
+        case .r4: return currentR4Articulation
+        default:  return currentEJ4Articulation
+        }
+    }
+
+    public var currentEJ4TypeSectionIndex: Int {
+        switch currentExercise {
+        case .r2: return currentR2Section
+        case .r4: return currentR4Section
+        default:  return currentEJ4Section
+        }
+    }
+
     public var currentEJ5TypeArticulation: EJ5Articulation {
         switch currentExercise {
         case .ej5:  return currentEJ5Articulation
         case .ej10: return currentEJ10Articulation
         case .ej11: return currentEJ11Articulation
+        case .r1:   return currentR1Articulation
+        case .r5:   return currentR5Articulation
         default:    return currentEJ5Articulation
         }
     }
@@ -116,6 +150,8 @@ public class PracticeViewModel: ObservableObject {
         case .ej5:  return currentEJ5Section
         case .ej10: return currentEJ10Section
         case .ej11: return currentEJ11Section
+        case .r1:   return currentR1Section
+        case .r5:   return currentR5Section
         default:    return 0
         }
     }
@@ -166,6 +202,18 @@ public class PracticeViewModel: ObservableObject {
                 articulation: currentEJ4Articulation,
                 tempoBPM: metronome.tempoBPM
             )
+        case .r2:
+            self.currentAbcScore = ExerciseGenerator.generateR2ABC(
+                sectionIndex: currentR2Section,
+                articulation: currentR2Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .r4:
+            self.currentAbcScore = ExerciseGenerator.generateR4ABC(
+                sectionIndex: currentR4Section,
+                articulation: currentR4Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
         case .ej5:
             self.currentAbcScore = ExerciseGenerator.generateEJ5ABC(
                 sectionIndex: currentEJ5Section,
@@ -182,6 +230,18 @@ public class PracticeViewModel: ObservableObject {
             self.currentAbcScore = ExerciseGenerator.generateEJ11ABC(
                 sectionIndex: currentEJ11Section,
                 articulation: currentEJ11Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .r1:
+            self.currentAbcScore = ExerciseGenerator.generateR1ABC(
+                sectionIndex: currentR1Section,
+                articulation: currentR1Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .r5:
+            self.currentAbcScore = ExerciseGenerator.generateR5ABC(
+                sectionIndex: currentR5Section,
+                articulation: currentR5Articulation,
                 tempoBPM: metronome.tempoBPM
             )
         case .modos:
@@ -206,28 +266,18 @@ public class PracticeViewModel: ObservableObject {
                 articulation: currentEJ2Articulation,
                 tempoBPM: metronome.tempoBPM
             )
-        case .ej4:
+        case .ej4, .r2, .r4:
             scorePlayer.toggleEJ4(
-                sectionIndex: currentEJ4Section,
-                articulation: currentEJ4Articulation,
+                exercise: currentExercise,
+                sectionIndex: currentEJ4TypeSectionIndex,
+                articulation: currentEJ4TypeArticulation,
                 tempoBPM: metronome.tempoBPM
             )
-        case .ej5:
-            scorePlayer.toggleEJ5(
-                sectionIndex: currentEJ5Section,
-                articulation: currentEJ5Articulation,
-                tempoBPM: metronome.tempoBPM
-            )
-        case .ej10:
-            scorePlayer.toggleEJ10(
-                sectionIndex: currentEJ10Section,
-                articulation: currentEJ10Articulation,
-                tempoBPM: metronome.tempoBPM
-            )
-        case .ej11:
-            scorePlayer.toggleEJ11(
-                sectionIndex: currentEJ11Section,
-                articulation: currentEJ11Articulation,
+        case .ej5, .ej10, .ej11, .r1, .r5:
+            scorePlayer.toggleEJ5Type(
+                exercise: currentExercise,
+                sectionIndex: currentEJ5TypeSectionIndex,
+                articulation: currentEJ5TypeArticulation,
                 tempoBPM: metronome.tempoBPM
             )
         case .modos:
@@ -345,73 +395,91 @@ public class PracticeViewModel: ObservableObject {
         updateScore()
     }
 
-    // MARK: - E.J. 4 Urtext (25 Sections x 8 Articulations)
-    public func selectEJ4Section(_ secIdx: Int) {
+    // MARK: - 8-Articulation 25-Key Exercises (E.J. 4, R. 2, R. 4)
+    public func selectEJ4Section(_ secIdx: Int, for exercise: ExerciseType? = nil) {
         scorePlayer.stop()
+        let targetEx = exercise ?? (currentExercise.isEJ4Exercise ? currentExercise : .ej4)
         let clamped = max(0, min(EJ4Section.all.count - 1, secIdx))
-        self.currentExercise = .ej4
-        self.currentEJ4Section = clamped
-        store.lastExerciseType = .ej4
-        store.lastEJ4Section = clamped
+        self.currentExercise = targetEx
+        store.lastExerciseType = targetEx
+        switch targetEx {
+        case .r2:
+            self.currentR2Section = clamped
+            store.lastR2Section = clamped
+        case .r4:
+            self.currentR4Section = clamped
+            store.lastR4Section = clamped
+        default:
+            self.currentEJ4Section = clamped
+            store.lastEJ4Section = clamped
+        }
         store.saveProgress()
         updateScore()
     }
 
     public func advanceToNextEJ4Section() {
         scorePlayer.stop()
-        let nextSec = (currentEJ4Section + 1) % EJ4Section.all.count
+        let nextSec = (currentEJ4TypeSectionIndex + 1) % EJ4Section.all.count
         selectEJ4Section(nextSec)
     }
 
-    public func selectEJ4Articulation(_ articulation: EJ4Articulation, markPreviousCompleted: Bool = true) {
+    public func selectEJ4Articulation(_ articulation: EJ4Articulation, for exercise: ExerciseType? = nil, markPreviousCompleted: Bool = true) {
         scorePlayer.stop()
-        if markPreviousCompleted && articulation != currentEJ4Articulation && currentEJ4Articulation.rawValue >= 1 {
-            store.markEJ4Completed(currentEJ4Articulation)
+        let targetEx = exercise ?? (currentExercise.isEJ4Exercise ? currentExercise : .ej4)
+        let prevArt: EJ4Articulation
+        switch targetEx {
+        case .r2: prevArt = currentR2Articulation
+        case .r4: prevArt = currentR4Articulation
+        default:  prevArt = currentEJ4Articulation
         }
-        self.currentExercise = .ej4
-        self.currentEJ4Articulation = articulation
-        store.lastExerciseType = .ej4
-        store.lastEJ4Articulation = articulation
+        if markPreviousCompleted && articulation != prevArt && prevArt.rawValue >= 1 {
+            store.markEJ4Completed(prevArt, for: targetEx)
+        }
+        self.currentExercise = targetEx
+        store.lastExerciseType = targetEx
+        switch targetEx {
+        case .r2:
+            self.currentR2Articulation = articulation
+            store.lastR2Articulation = articulation
+        case .r4:
+            self.currentR4Articulation = articulation
+            store.lastR4Articulation = articulation
+        default:
+            self.currentEJ4Articulation = articulation
+            store.lastEJ4Articulation = articulation
+        }
         store.saveProgress()
         updateScore()
     }
 
     public func advanceToNextEJ4Articulation() {
         scorePlayer.stop()
-        if currentEJ4Articulation.rawValue >= 1 {
-            store.markEJ4Completed(currentEJ4Articulation)
+        let curArt = currentEJ4TypeArticulation
+        if curArt.rawValue >= 1 {
+            store.markEJ4Completed(curArt, for: currentExercise)
         }
         let practiceArts = EJ4Articulation.practiceCases
-        if let idx = practiceArts.firstIndex(of: currentEJ4Articulation) {
+        if let idx = practiceArts.firstIndex(of: curArt) {
             if idx + 1 < practiceArts.count {
-                self.currentEJ4Articulation = practiceArts[idx + 1]
-                store.lastEJ4Articulation = self.currentEJ4Articulation
-                store.saveProgress()
-                updateScore()
+                selectEJ4Articulation(practiceArts[idx + 1], markPreviousCompleted: false)
             } else {
                 self.showEJ4CompletionDialog = true
             }
         } else {
-            self.currentEJ4Articulation = .allSlurred8
-            store.lastEJ4Articulation = .allSlurred8
-            store.saveProgress()
-            updateScore()
+            selectEJ4Articulation(.allSlurred8, markPreviousCompleted: false)
         }
     }
 
     public func restartEJ4Round() {
-        scorePlayer.stop()
-        self.currentEJ4Articulation = .allSlurred8
-        store.lastEJ4Articulation = .allSlurred8
-        store.saveProgress()
-        updateScore()
+        selectEJ4Articulation(.allSlurred8, markPreviousCompleted: false)
     }
 
-    // MARK: - E.J. 5, E.J. 10, E.J. 11 Urtext (12 Sections x 10 Articulations)
+    // MARK: - 10-Articulation Sectioned Exercises (E.J. 5, E.J. 10, E.J. 11, R. 1, R. 5)
     public func selectEJ5TypeSection(_ secIdx: Int, for exercise: ExerciseType? = nil) {
         scorePlayer.stop()
         let targetEx = exercise ?? currentExercise
-        let clamped = max(0, min(11, secIdx))
+        let maxSec = targetEx.sectionCount - 1
+        let clamped = max(0, min(maxSec, secIdx))
         self.currentExercise = targetEx
         store.lastExerciseType = targetEx
         switch targetEx {
@@ -424,6 +492,12 @@ public class PracticeViewModel: ObservableObject {
         case .ej11:
             self.currentEJ11Section = clamped
             store.lastEJ11Section = clamped
+        case .r1:
+            self.currentR1Section = clamped
+            store.lastR1Section = clamped
+        case .r5:
+            self.currentR5Section = clamped
+            store.lastR5Section = clamped
         default:
             break
         }
@@ -433,7 +507,7 @@ public class PracticeViewModel: ObservableObject {
 
     public func advanceToNextEJ5TypeSection() {
         scorePlayer.stop()
-        let nextSec = (currentEJ5TypeSectionIndex + 1) % 12
+        let nextSec = (currentEJ5TypeSectionIndex + 1) % currentExercise.sectionCount
         selectEJ5TypeSection(nextSec)
     }
 
@@ -445,6 +519,8 @@ public class PracticeViewModel: ObservableObject {
         case .ej5:  prevArt = currentEJ5Articulation
         case .ej10: prevArt = currentEJ10Articulation
         case .ej11: prevArt = currentEJ11Articulation
+        case .r1:   prevArt = currentR1Articulation
+        case .r5:   prevArt = currentR5Articulation
         default:    prevArt = currentEJ5Articulation
         }
         if markPreviousCompleted && articulation != prevArt && prevArt.rawValue >= 1 {
@@ -462,6 +538,12 @@ public class PracticeViewModel: ObservableObject {
         case .ej11:
             self.currentEJ11Articulation = articulation
             store.lastEJ11Articulation = articulation
+        case .r1:
+            self.currentR1Articulation = articulation
+            store.lastR1Articulation = articulation
+        case .r5:
+            self.currentR5Articulation = articulation
+            store.lastR5Articulation = articulation
         default:
             break
         }

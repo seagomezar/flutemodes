@@ -282,6 +282,71 @@ class LocalizationManager(context: Context) {
         ),
         "ej11_start_practice" to Pair("Practicar E. J. 11 (Urtext)", "Practice E. J. 11 (Urtext)"),
 
+        // Reichert 7 Exercices Journaliers Op. 5 (B. Schott's Söhne 20623)
+        "r1_title" to Pair(
+            "R. 1 · Mathieu-André Reichert (Op. 5 Nº 1, págs. 2–3)",
+            "R. 1 · Mathieu-André Reichert (Op. 5 No. 1, pp. 2–3)"
+        ),
+        "r1_sub_desc" to Pair(
+            "7 Exercices Journaliers pour la Flûte · 24 Tonalidades + D.S. al Fine (100 compases · 6/8 & 2/4 · 10 articulaciones)",
+            "7 Exercices Journaliers pour la Flûte · 24 Keys + D.S. al Fine (100 measures · 6/8 & 2/4 · 10 articulations)"
+        ),
+        "r1_header_info" to Pair(
+            "24 Tonalidades (4 compases por tonalidad + D.S. al Fine) · 100 Compases · 10 Articulaciones",
+            "24 Keys (4 measures per key + D.S. al Fine) · 100 Measures · 10 Articulations"
+        ),
+        "r1_select_section" to Pair("25 Secciones Tonales (100 Compases · R. 1)", "25 Tonal Sections (100 Measures · R. 1)"),
+        "r1_select_art" to Pair("Las 10 Articulaciones de Práctica (R. 1)", "The 10 Practice Articulations (R. 1)"),
+        "r1_start_practice" to Pair("Practicar R. 1 (Reichert Op. 5)", "Practice R. 1 (Reichert Op. 5)"),
+
+        "r2_title" to Pair(
+            "R. 2 · Mathieu-André Reichert (Op. 5 Nº 2, págs. 4–5)",
+            "R. 2 · Mathieu-André Reichert (Op. 5 No. 2, pp. 4–5)"
+        ),
+        "r2_sub_desc" to Pair(
+            "7 Exercices Journaliers pour la Flûte · 24 Tonalidades + D.S. al Fine (200 compases · 2/4 · 8 articulaciones)",
+            "7 Exercices Journaliers pour la Flûte · 24 Keys + D.S. al Fine (200 measures · 2/4 · 8 articulations)"
+        ),
+        "r2_header_info" to Pair(
+            "24 Tonalidades con Anacrusa (8 compases por tonalidad + D.S. al Fine) · 200 Compases · 8 Articulaciones",
+            "24 Keys with Pickup (8 measures per key + D.S. al Fine) · 200 Measures · 8 Articulations"
+        ),
+        "r2_select_section" to Pair("25 Secciones Tonales (200 Compases · R. 2)", "25 Tonal Sections (200 Measures · R. 2)"),
+        "r2_select_art" to Pair("Las 8 Articulaciones de Práctica (R. 2)", "The 8 Practice Articulations (R. 2)"),
+        "r2_start_practice" to Pair("Practicar R. 2 (Reichert Op. 5)", "Practice R. 2 (Reichert Op. 5)"),
+
+        "r4_title" to Pair(
+            "R. 4 · Mathieu-André Reichert (Op. 5 Nº 4, págs. 8–9)",
+            "R. 4 · Mathieu-André Reichert (Op. 5 No. 4, pp. 8–9)"
+        ),
+        "r4_sub_desc" to Pair(
+            "7 Exercices Journaliers pour la Flûte · 24 Tonalidades + D.S. al Fine (100 compases · 4/4 · 8 articulaciones)",
+            "7 Exercices Journaliers pour la Flûte · 24 Keys + D.S. al Fine (100 measures · 4/4 · 8 articulations)"
+        ),
+        "r4_header_info" to Pair(
+            "24 Tonalidades en 4/4 (4 compases por tonalidad + D.S. al Fine) · 100 Compases · 8 Articulaciones",
+            "24 Keys in 4/4 (4 measures per key + D.S. al Fine) · 100 Measures · 8 Articulations"
+        ),
+        "r4_select_section" to Pair("25 Secciones Tonales (100 Compases · R. 4)", "25 Tonal Sections (100 Measures · R. 4)"),
+        "r4_select_art" to Pair("Las 8 Articulaciones de Práctica (R. 4)", "The 8 Practice Articulations (R. 4)"),
+        "r4_start_practice" to Pair("Practicar R. 4 (Reichert Op. 5)", "Practice R. 4 (Reichert Op. 5)"),
+
+        "r5_title" to Pair(
+            "R. 5 · Mathieu-André Reichert (Op. 5 Nº 5, págs. 10–13)",
+            "R. 5 · Mathieu-André Reichert (Op. 5 No. 5, pp. 10–13)"
+        ),
+        "r5_sub_desc" to Pair(
+            "7 Exercices Journaliers pour la Flûte · 24 Tonalidades + D.S. al Fine (200 compases · Tresillos en 2/4 · 10 articulaciones)",
+            "7 Exercices Journaliers pour la Flûte · 24 Keys + D.S. al Fine (200 measures · 2/4 Triplets · 10 articulations)"
+        ),
+        "r5_header_info" to Pair(
+            "24 Tonalidades en Tresillos (8 compases por tonalidad + D.S. al Fine) · 200 Compases · 10 Articulaciones",
+            "24 Keys in Triplets (8 measures per key + D.S. al Fine) · 200 Measures · 10 Articulations"
+        ),
+        "r5_select_section" to Pair("25 Secciones Tonales (200 Compases · R. 5)", "25 Tonal Sections (200 Measures · R. 5)"),
+        "r5_select_art" to Pair("Las 10 Articulaciones de Práctica (R. 5)", "The 10 Practice Articulations (R. 5)"),
+        "r5_start_practice" to Pair("Practicar R. 5 (Reichert Op. 5)", "Practice R. 5 (Reichert Op. 5)"),
+
         "ej1_art_0_title" to Pair("0. Edición Original Leduc (4 ligadas + 4 picadas)", "0. Original Leduc Edition (4 slurred + 4 staccato)"),
         "ej1_art_1_title" to Pair("1. Ocho notas ligadas", "1. Eight notes slurred"),
         "ej1_art_2_title" to Pair("2. Cuatro y cuatro ligadas", "2. Four & four slurred"),

@@ -270,6 +270,110 @@ public class LocalizationManager: ObservableObject {
             "Practice E. J. 11 (Urtext)"
         ],
 
+        // Reichert Op. 5, Nº 1 (R1)
+        "r1_title": [
+            "Reichert Op. 5 Nº 1 · 7 Exercices Journaliers (B. Schott 20623, págs. 2–3)",
+            "Reichert Op. 5 No. 1 · 7 Daily Exercises (B. Schott 20623, pp. 2–3)"
+        ],
+        "r1_sub_desc": [
+            "24 Tonalidades Mayores y Menores en 6/8 + D.S. al Fine (100 compases · 10 articulaciones)",
+            "24 Major & Minor Keys in 6/8 + D.S. al Fine (100 measures · 10 articulations)"
+        ],
+        "r1_header_info": [
+            "24 Tonalidades en 6/8 (♩. = 80–100 · menor melódica asc. y natural desc.) · 100 Compases · 10 Articulaciones",
+            "24 Keys in 6/8 (♩. = 80–100 · melodic minor asc. & natural desc.) · 100 Measures · 10 Articulations"
+        ],
+        "r1_select_section": [
+            "25 Secciones Tonales (100 Compases · 6/8)",
+            "25 Tonal Sections (100 Measures · 6/8)"
+        ],
+        "r1_select_art": [
+            "10 Articulaciones (Reichert Nº 1)",
+            "10 Articulations (Reichert No. 1)"
+        ],
+        "r1_start_practice": [
+            "Practicar Reichert Nº 1 (Urtext)",
+            "Practice Reichert No. 1 (Urtext)"
+        ],
+
+        // Reichert Op. 5, Nº 2 (R2)
+        "r2_title": [
+            "Reichert Op. 5 Nº 2 · 7 Exercices Journaliers (B. Schott 20623, págs. 4–5)",
+            "Reichert Op. 5 No. 2 · 7 Daily Exercises (B. Schott 20623, pp. 4–5)"
+        ],
+        "r2_sub_desc": [
+            "Arpegios modulantes en 24 Tonalidades (2/4 · anacrusa + 200 compases · 8 articulaciones)",
+            "Modulating Arpeggios across 24 Keys (2/4 · pickup + 200 measures · 8 articulations)"
+        ],
+        "r2_header_info": [
+            "24 Tonalidades en 2/4 (♩ = 120–152 · 8va en Do M, Re m, Do m, Re♭ M y Do♯ m) · 200 Compases · 8 Articulaciones",
+            "24 Keys in 2/4 (♩ = 120–152 · 8va in C, Dm, Cm, D♭ & C♯m) · 200 Measures · 8 Articulations"
+        ],
+        "r2_select_section": [
+            "25 Secciones Tonales (200 Compases · 2/4)",
+            "25 Tonal Sections (200 Measures · 2/4)"
+        ],
+        "r2_select_art": [
+            "8 Articulaciones (Reichert Nº 2)",
+            "8 Articulations (Reichert No. 2)"
+        ],
+        "r2_start_practice": [
+            "Practicar Reichert Nº 2 (Urtext)",
+            "Practice Reichert No. 2 (Urtext)"
+        ],
+
+        // Reichert Op. 5, Nº 4 (R4)
+        "r4_title": [
+            "Reichert Op. 5 Nº 4 · 7 Exercices Journaliers (B. Schott 20623, págs. 8–9)",
+            "Reichert Op. 5 No. 4 · 7 Daily Exercises (B. Schott 20623, pp. 8–9)"
+        ],
+        "r4_sub_desc": [
+            "Mecanismo diatónico y saltos en 24 Tonalidades (4/4 · 100 compases · 8 articulaciones)",
+            "Diatonic mechanism & leaps across 24 Keys (4/4 · 100 measures · 8 articulations)"
+        ],
+        "r4_header_info": [
+            "24 Tonalidades en C / 4/4 (♩ = 116–144 · menor armónica con 6ª natural y 7ª sensible) · 100 Compases · 8 Articulaciones",
+            "24 Keys in C / 4/4 (♩ = 116–144 · harmonic minor with natural 6th & leading 7th) · 100 Measures · 8 Articulations"
+        ],
+        "r4_select_section": [
+            "25 Secciones Tonales (100 Compases · 4/4)",
+            "25 Tonal Sections (100 Measures · 4/4)"
+        ],
+        "r4_select_art": [
+            "8 Articulaciones (Reichert Nº 4)",
+            "8 Articulations (Reichert No. 4)"
+        ],
+        "r4_start_practice": [
+            "Practicar Reichert Nº 4 (Urtext)",
+            "Practice Reichert No. 4 (Urtext)"
+        ],
+
+        // Reichert Op. 5, Nº 5 (R5)
+        "r5_title": [
+            "Reichert Op. 5 Nº 5 · 7 Exercices Journaliers (B. Schott 20623, págs. 10–13)",
+            "Reichert Op. 5 No. 5 · 7 Daily Exercises (B. Schott 20623, pp. 10–13)"
+        ],
+        "r5_sub_desc": [
+            "Tresillos de semicorchea y bordaduras cromáticas en 24 Tonalidades (2/4 · 200 compases · 10 articulaciones)",
+            "Sixteenth-note triplets & chromatic neighbors across 24 Keys (2/4 · 200 measures · 10 articulations)"
+        ],
+        "r5_header_info": [
+            "24 Tonalidades en 2/4 Tresillos (♪ = 144–184 · 8va en Do M, Re m, Do m y Re♭ M) · 200 Compases · 10 Articulaciones",
+            "24 Keys in 2/4 Triplets (♪ = 144–184 · 8va in C, Dm, Cm & D♭) · 200 Measures · 10 Articulations"
+        ],
+        "r5_select_section": [
+            "25 Secciones Tonales (200 Compases · Tresillos)",
+            "25 Tonal Sections (200 Measures · Triplets)"
+        ],
+        "r5_select_art": [
+            "10 Articulaciones (Reichert Nº 5)",
+            "10 Articulations (Reichert No. 5)"
+        ],
+        "r5_start_practice": [
+            "Practicar Reichert Nº 5 (Urtext)",
+            "Practice Reichert No. 5 (Urtext)"
+        ],
+
         // E.J. 1 Articulations (0..10)
         "ej1_art_0_title": ["Original (A. L. 16.588)", "Original (A. L. 16.588)"],
         "ej1_art_1_title": ["1. A 8 ligadas (Toda ligada)", "1. All 8 slurred"],
