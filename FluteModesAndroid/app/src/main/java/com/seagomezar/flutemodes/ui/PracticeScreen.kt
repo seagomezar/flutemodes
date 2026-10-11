@@ -35,6 +35,12 @@ fun PracticeScreen(
     initialEJ2Articulation: EJ1Articulation = EJ1Articulation.ORIGINAL,
     initialEJ4Articulation: EJ4Articulation = EJ4Articulation.ORIGINAL,
     initialEJ4Section: EJ4Section = EJ4Section.C_MAJOR,
+    initialEJ5Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+    initialEJ5Section: EJ5Section = EJ5Section.C_CHROM,
+    initialEJ10Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+    initialEJ10Section: EJ10Section = EJ10Section.C_ARP,
+    initialEJ11Articulation: EJ5Articulation = EJ5Articulation.ORIGINAL,
+    initialEJ11Section: EJ10Section = EJ10Section.C_ARP,
     initialTonic: Tonic,
     initialMode: ModeType,
     store: PracticeStore,
@@ -49,6 +55,12 @@ fun PracticeScreen(
     var currentEJ2Articulation by remember { mutableStateOf(initialEJ2Articulation) }
     var currentEJ4Articulation by remember { mutableStateOf(initialEJ4Articulation) }
     var currentEJ4Section by remember { mutableStateOf(initialEJ4Section) }
+    var currentEJ5Articulation by remember { mutableStateOf(initialEJ5Articulation) }
+    var currentEJ5Section by remember { mutableStateOf(initialEJ5Section) }
+    var currentEJ10Articulation by remember { mutableStateOf(initialEJ10Articulation) }
+    var currentEJ10Section by remember { mutableStateOf(initialEJ10Section) }
+    var currentEJ11Articulation by remember { mutableStateOf(initialEJ11Articulation) }
+    var currentEJ11Section by remember { mutableStateOf(initialEJ11Section) }
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
@@ -56,6 +68,9 @@ fun PracticeScreen(
     var showEJ1CompletionDialog by remember { mutableStateOf(false) }
     var showEJ2CompletionDialog by remember { mutableStateOf(false) }
     var showEJ4CompletionDialog by remember { mutableStateOf(false) }
+    var showEJ5CompletionDialog by remember { mutableStateOf(false) }
+    var showEJ10CompletionDialog by remember { mutableStateOf(false) }
+    var showEJ11CompletionDialog by remember { mutableStateOf(false) }
 
     val currentAbcScore = remember(
         currentExercise,
@@ -63,6 +78,12 @@ fun PracticeScreen(
         currentEJ2Articulation,
         currentEJ4Articulation,
         currentEJ4Section,
+        currentEJ5Articulation,
+        currentEJ5Section,
+        currentEJ10Articulation,
+        currentEJ10Section,
+        currentEJ11Articulation,
+        currentEJ11Section,
         currentTonic,
         currentMode,
         currentArticulation,
@@ -83,6 +104,21 @@ fun PracticeScreen(
             ExerciseType.EJ4 -> ExerciseGenerator.generateEJ4ABC(
                 articulation = currentEJ4Articulation,
                 section = currentEJ4Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.EJ5 -> ExerciseGenerator.generateEJ5ABC(
+                articulation = currentEJ5Articulation,
+                section = currentEJ5Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.EJ10 -> ExerciseGenerator.generateEJ10ABC(
+                articulation = currentEJ10Articulation,
+                section = currentEJ10Section,
+                tempoBPM = metronome.tempoBPM
+            )
+            ExerciseType.EJ11 -> ExerciseGenerator.generateEJ11ABC(
+                articulation = currentEJ11Articulation,
+                section = currentEJ11Section,
                 tempoBPM = metronome.tempoBPM
             )
             ExerciseType.MODOS -> ExerciseGenerator.generateABC(
@@ -112,6 +148,9 @@ fun PracticeScreen(
 
     val ej4DoneCount = store.ej4CompletedCount
     val isEJ4FullyDone = store.isEJ4FullyCompleted
+
+    val ej5TypeDoneCount = store.ej5TypeCompletedCount(currentExercise)
+    val isEJ5TypeFullyDone = store.isEJ5TypeFullyCompleted(currentExercise)
 
     if (showEJ1CompletionDialog) {
         AlertDialog(
@@ -267,19 +306,181 @@ fun PracticeScreen(
                     Button(
                         onClick = {
                             scorePlayer.stop()
-                            currentExercise = ExerciseType.MODOS
-                            store.lastExerciseType = ExerciseType.MODOS
+                            currentExercise = ExerciseType.EJ5
+                            store.lastExerciseType = ExerciseType.EJ5
                             store.saveLastSelection()
                             showEJ4CompletionDialog = false
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
                     ) {
-                        Text(loc.t("ej4_go_to_modos"))
+                        Text(loc.t("ej5_title"))
                     }
 
                     TextButton(
                         onClick = { showEJ4CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
+    if (showEJ5CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ5CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej5_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej5_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ5Type(ExerciseType.EJ5)
+                            currentEJ5Articulation = EJ5Articulation.ALL_SLURRED
+                            showEJ5CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej5_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.EJ10
+                            store.lastExerciseType = ExerciseType.EJ10
+                            store.saveLastSelection()
+                            showEJ5CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej5_go_to_ej10"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ5CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
+    if (showEJ10CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ10CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej10_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej10_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ5Type(ExerciseType.EJ10)
+                            currentEJ10Articulation = EJ5Articulation.ALL_SLURRED
+                            showEJ10CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej10_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.EJ11
+                            store.lastExerciseType = ExerciseType.EJ11
+                            store.saveLastSelection()
+                            showEJ10CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej10_go_to_ej11"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ10CompletionDialog = false },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("stay_mode"))
+                    }
+                }
+            }
+        )
+    }
+
+    if (showEJ11CompletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showEJ11CompletionDialog = false },
+            title = {
+                Text(
+                    text = loc.t("ej11_milestone_title"),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = loc.t("ej11_milestone_msg"))
+            },
+            confirmButton = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            store.resetEJ5Type(ExerciseType.EJ11)
+                            currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
+                            showEJ11CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(loc.t("ej11_restart_round"))
+                    }
+
+                    Button(
+                        onClick = {
+                            scorePlayer.stop()
+                            currentExercise = ExerciseType.MODOS
+                            store.lastExerciseType = ExerciseType.MODOS
+                            store.saveLastSelection()
+                            showEJ11CompletionDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    ) {
+                        Text(loc.t("ej11_go_to_modos"))
+                    }
+
+                    TextButton(
+                        onClick = { showEJ11CompletionDialog = false },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(loc.t("stay_mode"))
@@ -371,15 +572,21 @@ fun PracticeScreen(
                     }
 
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier.weight(1f).padding(start = 8.dp),
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
+                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | E.J. 5 | E.J. 10 | E.J. 11 | 84 Modos)
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = MaterialTheme.colorScheme.surfaceVariant
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            modifier = Modifier.weight(1f, fill = false)
                         ) {
-                            Row(modifier = Modifier.padding(2.dp)) {
+                            Row(
+                                modifier = Modifier
+                                    .horizontalScroll(rememberScrollState())
+                                    .padding(2.dp)
+                            ) {
                                 ExerciseType.entries.forEach { ex ->
                                     val isSel = currentExercise == ex
                                     Surface(
@@ -396,6 +603,7 @@ fun PracticeScreen(
                                             text = ex.pillLabel,
                                             fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
+                                            maxLines = 1,
                                             color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
                                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp)
                                         )
@@ -582,6 +790,136 @@ fun PracticeScreen(
                                         color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                     )
+                                }
+                            }
+                        }
+                    }
+                } else if (currentExercise.isEJ5TypeExercise) {
+                    val curArt = when (currentExercise) {
+                        ExerciseType.EJ5 -> currentEJ5Articulation
+                        ExerciseType.EJ10 -> currentEJ10Articulation
+                        ExerciseType.EJ11 -> currentEJ11Articulation
+                        else -> currentEJ5Articulation
+                    }
+                    val secTitle = when (currentExercise) {
+                        ExerciseType.EJ5 -> "E.J. 5 · ${currentEJ5Section.title(loc)}"
+                        ExerciseType.EJ10 -> "E.J. 10 · ${currentEJ10Section.title(loc)}"
+                        ExerciseType.EJ11 -> "E.J. 11 · ${currentEJ11Section.title(loc)}"
+                        else -> ""
+                    }
+                    val measRange = when (currentExercise) {
+                        ExerciseType.EJ5 -> currentEJ5Section.measureRange
+                        ExerciseType.EJ10 -> currentEJ10Section.measureRange
+                        ExerciseType.EJ11 -> currentEJ11Section.measureRange
+                        else -> ""
+                    }
+
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = secTitle,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Text(
+                                    text = "${curArt.title(loc, currentExercise)} · $measRange",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isEJ5TypeFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                            ) {
+                                Text(
+                                    text = "$ej5TypeDoneCount/10 ${loc.t("arts_count")}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isEJ5TypeFullyDone) Color(0xFF10B981) else MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
+
+                        if (currentExercise == ExerciseType.EJ5) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                EJ5Section.entries.forEach { sec ->
+                                    val isSel = sec == currentEJ5Section
+                                    Surface(
+                                        onClick = {
+                                            scorePlayer.stop()
+                                            currentEJ5Section = sec
+                                            store.lastEJ5Section = sec
+                                            store.saveLastSelection()
+                                        },
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        Text(
+                                            text = "${sec.shortBadge} (${sec.measureRange})",
+                                            fontSize = 11.sp,
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        } else {
+                            val curSec = if (currentExercise == ExerciseType.EJ11) currentEJ11Section else currentEJ10Section
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                EJ10Section.entries.forEach { sec ->
+                                    val isSel = sec == curSec
+                                    val mRange = sec.measureRange
+                                    Surface(
+                                        onClick = {
+                                            scorePlayer.stop()
+                                            if (currentExercise == ExerciseType.EJ11) {
+                                                currentEJ11Section = sec
+                                                store.lastEJ11Section = sec
+                                            } else {
+                                                currentEJ10Section = sec
+                                                store.lastEJ10Section = sec
+                                            }
+                                            store.saveLastSelection()
+                                        },
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        Text(
+                                            text = "${sec.shortBadge} ($mRange)",
+                                            fontSize = 11.sp,
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -862,6 +1200,122 @@ fun PracticeScreen(
                         }
                     }
                 }
+            } else if (currentExercise.isEJ5TypeExercise) {
+                val curArt = when (currentExercise) {
+                    ExerciseType.EJ5 -> currentEJ5Articulation
+                    ExerciseType.EJ10 -> currentEJ10Articulation
+                    ExerciseType.EJ11 -> currentEJ11Articulation
+                    else -> currentEJ5Articulation
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 16.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = loc.t("articulations_title"),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        if (isEJ5TypeFullyDone) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = Color(0xFF10B981),
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = if (isEJ5TypeFullyDone) Color(0xFF10B981).copy(alpha = 0.2f) else if (ej5TypeDoneCount > 0) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = "$ej5TypeDoneCount/10 ${loc.t("arts_count")}",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isEJ5TypeFullyDone) Color(0xFF10B981) else if (ej5TypeDoneCount > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+
+                // E.J. 5 / E.J. 10 / E.J. 11 Articulation Bar Chips (0..10)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    EJ5Articulation.entries.forEach { art ->
+                        val isSelected = art == curArt
+                        val isCompleted = store.isEJ5TypeCompleted(art, currentExercise)
+
+                        Surface(
+                            onClick = {
+                                scorePlayer.stop()
+                                if (isSelected) {
+                                    if (art != EJ5Articulation.ORIGINAL) {
+                                        store.toggleEJ5TypeCompleted(art, currentExercise)
+                                    }
+                                } else {
+                                    if (curArt != EJ5Articulation.ORIGINAL) {
+                                        store.markEJ5TypeCompleted(curArt, currentExercise)
+                                    }
+                                    when (currentExercise) {
+                                        ExerciseType.EJ5 -> {
+                                            currentEJ5Articulation = art
+                                            store.lastEJ5Articulation = art
+                                        }
+                                        ExerciseType.EJ10 -> {
+                                            currentEJ10Articulation = art
+                                            store.lastEJ10Articulation = art
+                                        }
+                                        ExerciseType.EJ11 -> {
+                                            currentEJ11Articulation = art
+                                            store.lastEJ11Articulation = art
+                                        }
+                                        else -> {}
+                                    }
+                                    store.saveLastSelection()
+                                }
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            tonalElevation = if (isSelected) 3.dp else 0.dp
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                if (isCompleted) {
+                                    Icon(
+                                        Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(13.dp),
+                                        tint = if (isSelected) MaterialTheme.colorScheme.onPrimary else Color(0xFF10B981)
+                                    )
+                                }
+                                Text(
+                                    text = art.shortTitle(loc, currentExercise),
+                                    fontSize = 12.sp,
+                                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
             } else {
                 Row(
                     modifier = Modifier
@@ -1053,6 +1507,21 @@ fun PracticeScreen(
                                     ExerciseType.EJ4 -> scorePlayer.toggleEJ4(
                                         articulation = currentEJ4Articulation,
                                         section = currentEJ4Section,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.EJ5 -> scorePlayer.toggleEJ5(
+                                        articulation = currentEJ5Articulation,
+                                        section = currentEJ5Section,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.EJ10 -> scorePlayer.toggleEJ10(
+                                        articulation = currentEJ10Articulation,
+                                        section = currentEJ10Section,
+                                        tempoBPM = metronome.tempoBPM
+                                    )
+                                    ExerciseType.EJ11 -> scorePlayer.toggleEJ11(
+                                        articulation = currentEJ11Articulation,
+                                        section = currentEJ11Section,
                                         tempoBPM = metronome.tempoBPM
                                     )
                                     ExerciseType.MODOS -> scorePlayer.toggle(
@@ -1315,6 +1784,221 @@ fun PracticeScreen(
                                         ) {
                                             Text(
                                                 text = "$ej4DoneCount/8",
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = FontFamily.Monospace,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                        Icon(
+                                            Icons.Default.ArrowForward,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else if (currentExercise.isEJ5TypeExercise) {
+                        val curArt = when (currentExercise) {
+                            ExerciseType.EJ5 -> currentEJ5Articulation
+                            ExerciseType.EJ10 -> currentEJ10Articulation
+                            ExerciseType.EJ11 -> currentEJ11Articulation
+                            else -> currentEJ5Articulation
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    scorePlayer.stop()
+                                    if (currentExercise == ExerciseType.EJ5) {
+                                        val allSecs = EJ5Section.entries
+                                        val idx = allSecs.indexOf(currentEJ5Section)
+                                        if (idx >= 0) {
+                                            val nextSec = allSecs[(idx + 1) % allSecs.size]
+                                            currentEJ5Section = nextSec
+                                            store.lastEJ5Section = nextSec
+                                            store.saveLastSelection()
+                                        }
+                                    } else {
+                                        val allSecs = EJ10Section.entries
+                                        val curSec = if (currentExercise == ExerciseType.EJ11) currentEJ11Section else currentEJ10Section
+                                        val idx = allSecs.indexOf(curSec)
+                                        if (idx >= 0) {
+                                            val nextSec = allSecs[(idx + 1) % allSecs.size]
+                                            if (currentExercise == ExerciseType.EJ11) {
+                                                currentEJ11Section = nextSec
+                                                store.lastEJ11Section = nextSec
+                                            } else {
+                                                currentEJ10Section = nextSec
+                                                store.lastEJ10Section = nextSec
+                                            }
+                                            store.saveLastSelection()
+                                        }
+                                    }
+                                },
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier.height(48.dp),
+                                contentPadding = PaddingValues(horizontal = 10.dp)
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                ) {
+                                    Text(
+                                        text = when (currentExercise) {
+                                            ExerciseType.EJ5 -> loc.t("ej5_next_section")
+                                            ExerciseType.EJ10 -> loc.t("ej10_next_section")
+                                            ExerciseType.EJ11 -> loc.t("ej11_next_section")
+                                            else -> ""
+                                        },
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(percent = 50),
+                                        color = MaterialTheme.colorScheme.surfaceVariant
+                                    ) {
+                                        val secCountLabel = when (currentExercise) {
+                                            ExerciseType.EJ5 -> "${currentEJ5Section.id + 1}/12"
+                                            ExerciseType.EJ10 -> "${currentEJ10Section.id + 1}/12"
+                                            ExerciseType.EJ11 -> "${currentEJ11Section.id + 1}/12"
+                                            else -> ""
+                                        }
+                                        Text(
+                                            text = secCountLabel,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = FontFamily.Monospace,
+                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                            }
+
+                            if (isEJ5TypeFullyDone) {
+                                Button(
+                                    onClick = {
+                                        when (currentExercise) {
+                                            ExerciseType.EJ5 -> showEJ5CompletionDialog = true
+                                            ExerciseType.EJ10 -> showEJ10CompletionDialog = true
+                                            ExerciseType.EJ11 -> showEJ11CompletionDialog = true
+                                            else -> {}
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                                    ) {
+                                        Icon(
+                                            Icons.Default.CheckCircle,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                        val doneLabel = when (currentExercise) {
+                                            ExerciseType.EJ5 -> loc.t("ej5_ten_arts_completed")
+                                            ExerciseType.EJ10 -> loc.t("ej10_ten_arts_completed")
+                                            ExerciseType.EJ11 -> loc.t("ej11_ten_arts_completed")
+                                            else -> ""
+                                        }
+                                        Text(
+                                            text = "✓ $doneLabel",
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                }
+                            } else {
+                                Button(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        if (curArt == EJ5Articulation.ORIGINAL) {
+                                            when (currentExercise) {
+                                                ExerciseType.EJ5 -> {
+                                                    currentEJ5Articulation = EJ5Articulation.ALL_SLURRED
+                                                    store.lastEJ5Articulation = currentEJ5Articulation
+                                                }
+                                                ExerciseType.EJ10 -> {
+                                                    currentEJ10Articulation = EJ5Articulation.ALL_SLURRED
+                                                    store.lastEJ10Articulation = currentEJ10Articulation
+                                                }
+                                                ExerciseType.EJ11 -> {
+                                                    currentEJ11Articulation = EJ5Articulation.ALL_SLURRED
+                                                    store.lastEJ11Articulation = currentEJ11Articulation
+                                                }
+                                                else -> {}
+                                            }
+                                            store.saveLastSelection()
+                                        } else {
+                                            store.markEJ5TypeCompleted(curArt, currentExercise)
+                                            if (store.isEJ5TypeFullyCompleted(currentExercise)) {
+                                                when (currentExercise) {
+                                                    ExerciseType.EJ5 -> showEJ5CompletionDialog = true
+                                                    ExerciseType.EJ10 -> showEJ10CompletionDialog = true
+                                                    ExerciseType.EJ11 -> showEJ11CompletionDialog = true
+                                                    else -> {}
+                                                }
+                                            } else {
+                                                val allPractice = EJ5Articulation.practiceCases
+                                                val idx = allPractice.indexOf(curArt)
+                                                if (idx >= 0) {
+                                                    val nextArt = allPractice[(idx + 1) % allPractice.size]
+                                                    when (currentExercise) {
+                                                        ExerciseType.EJ5 -> {
+                                                            currentEJ5Articulation = nextArt
+                                                            store.lastEJ5Articulation = nextArt
+                                                        }
+                                                        ExerciseType.EJ10 -> {
+                                                            currentEJ10Articulation = nextArt
+                                                            store.lastEJ10Articulation = nextArt
+                                                        }
+                                                        ExerciseType.EJ11 -> {
+                                                            currentEJ11Articulation = nextArt
+                                                            store.lastEJ11Articulation = nextArt
+                                                        }
+                                                        else -> {}
+                                                    }
+                                                    store.saveLastSelection()
+                                                }
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(48.dp),
+                                    shape = RoundedCornerShape(16.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    contentPadding = PaddingValues(horizontal = 10.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text(
+                                            text = loc.t("next_art"),
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            maxLines = 1
+                                        )
+                                        Surface(
+                                            shape = RoundedCornerShape(percent = 50),
+                                            color = Color.White.copy(alpha = 0.2f)
+                                        ) {
+                                            Text(
+                                                text = "$ej5TypeDoneCount/10",
                                                 fontSize = 10.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 fontFamily = FontFamily.Monospace,

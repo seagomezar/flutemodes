@@ -1,0 +1,22 @@
+X:10
+T:E. J. 5 — Gammes Chromatiques (9. Sincopadas de a 2)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" .C(^CD)(^DE)(F ^F)(G^G)(A_B).=B | .c(^cd)(^de)(f ^f)(g^g)(a_b).=b | .c'(b_b)(a_a)(g ^f)(=fe)(_ed)._d | .c(B_B)(A_A)(G ^F)(=FE)(_ED)._D | C4 z4 |]
+[K:Db] "B" .D(=DE)(=EF)(G =G)(A=A)(B_c).=c | .d(=de)(=ef)(g =g)(a=a)(b_c').=c' | .d'(c'_c')(b__b)(a =g)(_gf)(_fe).__e | .d(c_c)(B__B)(A =G)(_GF)(_FE).__E | D4 z4 |]
+[K:D] "C" .D(^DE)(^EF)(G ^G)(A^A)(B=c).^c | .d(^de)(^ef)(g ^g)(a^a)(b=c').^c' | .d'(c'=c')(b_b)(a ^g)(=gf)(=fe)._e | .d(c=c)(B_B)(A ^G)(=GF)(=FE)._E | D4 z4 |]
+[K:Eb] "D" .E(=EF)(^FG)(A =A)(B=B)(c_d).=d | .e(=ef)(^fg)(a =a)(b=b)(c'_d').=d' | .e'(d'_d')(c'_c')(b =a)(_ag)(_gf)._f | .e(d_d)(c_c)(B =A)(_AG)(_GF)._F | E4 z4 |]
+[K:E] "E" .E(^EF)(^^FG)(A ^A)(B^B)(c=d).^d | .e(^ef)(^^fg)(a ^a)(b^b)(c'=d').^d' | .e'(d'=d')(c'=c')(b ^a)(=ag)(=gf).=f | .e(d=d)(c=c)(B ^A)(=AG)(=GF).=F | E4 z4 |]
+[K:F] "F" .F(^FG)(^GA)(B =B)(c^c)(d_e).=e | .f(^fg)(^ga)(b =b)(c'^c')(d'_e').=e' | .f'(e'_e')(d'_d')(c' =b)(_ba)(_ag)._g | .f(e_e)(d_d)(c =B)(_BA)(_AG)._G | F4 z4 |]
+[K:Gb] "G" .G(=GA)(=AB)(c =c)(d=d)(e_f).=f | .g(=ga)(=ab)(c' =c')(d'=d')(e'_f').=f' | .g'(f'_f')(e'__e')(d' =c')(_c'b)(__ba).__a | .g(f_f)(e__e)(d =c)(_cB)(__BA).__A | G4 z4 |]
+[K:G] "H" .G(^GA)(^AB)(c ^c)(d^d)(e=f).^f | .g(^ga)(^ab)(c' ^c')(d'^d')(e'=f').^f' | .g'(f'=f')(e'_e')(d' ^c')(=c'b)(_ba)._a | .g(f=f)(e_e)(d ^c)(=cB)(_BA)._A | G4 z4 |]
+[K:Ab] "I" .A(=AB)(=Bc)(d =d)(e=e)(f_g).=g | .a(=ab)(=bc')(d' =d')(e'=e')(f'_g').=g' | .a'(g'_g')(f'_f')(e' =d')(_d'c')(_c'b).__b | .a(g_g)(f_f)(e =d)(_dc)(_cB).__B | A4 z4 |]
+[K:A] "J" .A(^AB)(^Bc)(d ^d)(e^e)(f=g).^g | .a(^ab)(^bc')(d' ^d')(e'^e')(f'=g').^g' | .a'(g'=g')(f'=f')(e' ^d')(=d'c')(=c'b)._b | .a(g=g)(f=f)(e ^d)(=dc)(=cB)._B | A4 z4 |]
+[K:Bb] "K" .B(=Bc)(^cd)(e =e)(f^f)(g_a).=a | .b(=bc')(^c'd')(e' =e')(f'^f')(g'_a').=a' | .b'(a'_a')(g'_g')(f' =e')(_e'd')(_d'c')._c' | .b(a_a)(g_g)(f =e)(_ed)(_dc)._c | B4 z4 |]
+[K:B] "L" .B(^Bc)(^^cd)(e ^e)(f^^f)(g=a).^a | .b(^bc')(^^c'd')(e' ^e')(f'^^f')(g'=a').^a' | .b'(a'=a')(g'=g')(f' ^e')(=e'd')(=d'c').=c' | .b(a=a)(g=g)(f ^e)(=ed)(=dc).=c | B4 z4 |]

@@ -4,6 +4,9 @@ enum class ExerciseType(val id: String) {
     EJ1("ej1"),
     EJ2("ej2"),
     EJ4("ej4"),
+    EJ5("ej5"),
+    EJ10("ej10"),
+    EJ11("ej11"),
     MODOS("modos");
 
     val isChromaticExercise: Boolean
@@ -12,14 +15,23 @@ enum class ExerciseType(val id: String) {
     val isEJ4Exercise: Boolean
         get() = this == EJ4
 
+    val isEJ5TypeExercise: Boolean
+        get() = this == EJ5 || this == EJ10 || this == EJ11
+
+    val isSectionedLeducExercise: Boolean
+        get() = this == EJ4 || this == EJ5 || this == EJ10 || this == EJ11
+
     val isLeducExercise: Boolean
-        get() = this == EJ1 || this == EJ2 || this == EJ4
+        get() = this != MODOS
 
     val pillLabel: String
         get() = when (this) {
             EJ1 -> "E.J. 1"
             EJ2 -> "E.J. 2"
             EJ4 -> "E.J. 4"
+            EJ5 -> "E.J. 5"
+            EJ10 -> "E.J. 10"
+            EJ11 -> "E.J. 11"
             MODOS -> "84 Modos"
         }
 
@@ -29,6 +41,9 @@ enum class ExerciseType(val id: String) {
             EJ1 -> if (isEn) "E.J. 1 · Major (10 Arts.)" else "E.J. 1 · Mayor (10 Arts.)"
             EJ2 -> if (isEn) "E.J. 2 · Minor (10 Arts.)" else "E.J. 2 · Menor (10 Arts.)"
             EJ4 -> if (isEn) "E.J. 4 · 24 Keys (8 Arts.)" else "E.J. 4 · 24 Ton. (8 Arts.)"
+            EJ5 -> if (isEn) "E.J. 5 · Chromatic (10 Arts.)" else "E.J. 5 · Cromáticas (10 Arts.)"
+            EJ10 -> if (isEn) "E.J. 10 · Arpeggios (10 Arts.)" else "E.J. 10 · Arpegios (10 Arts.)"
+            EJ11 -> if (isEn) "E.J. 11 · Broken Arp. (10 Arts.)" else "E.J. 11 · Arp. Quebrados (10 Arts.)"
             MODOS -> if (isEn) "84 Parallel Modes" else "84 Modos Paralelos"
         }
     }
@@ -39,6 +54,9 @@ enum class ExerciseType(val id: String) {
             EJ1 -> "E.J. 1"
             EJ2 -> "E.J. 2"
             EJ4 -> "E.J. 4"
+            EJ5 -> "E.J. 5"
+            EJ10 -> "E.J. 10"
+            EJ11 -> "E.J. 11"
             MODOS -> if (isEn) "84 Modes" else "84 Modos"
         }
     }
@@ -94,6 +112,97 @@ enum class EJ4Articulation(
     }
 }
 
+enum class EJ5Articulation(val id: Int) {
+    ORIGINAL(0),
+    ALL_SLURRED(1),
+    SLURRED_6_BY_6(2),
+    SLUR_4_STACC_2(3),
+    STACC_2_SLUR_4(4),
+    SLUR_2_STACC_4(5),
+    SLURRED_3_BY_3(6),
+    SLUR_3_STACC_3(7),
+    SLUR_PAIRS_2_BY_2(8),
+    SLUR_SYNCOPATED(9),
+    ALL_STACCATO(10);
+
+    fun title(loc: LocalizationManager, exercise: ExerciseType = ExerciseType.EJ5): String {
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+        val is98 = (exercise == ExerciseType.EJ11)
+        return when (this) {
+            ORIGINAL -> if (isEn) "0. Original (As written — A. L. 16.588)" else "0. Original (Como está escrito — A. L. 16.588)"
+            ALL_SLURRED -> if (is98) {
+                if (isEn) "1. 18 slurred (full measure)" else "1. 18 ligadas (compás completo)"
+            } else {
+                if (isEn) "1. 12 slurred (full measure)" else "1. 12 ligadas (compás completo)"
+            }
+            SLURRED_6_BY_6 -> if (is98) {
+                if (isEn) "2. 6+6+6 slurred (by beats)" else "2. 6+6+6 ligadas (por tiempos)"
+            } else {
+                if (isEn) "2. 6 and 6 slurred (by beats)" else "2. 6 y 6 ligadas (por tiempos)"
+            }
+            SLUR_4_STACC_2 -> if (isEn) "3. 4 slurred and 2 staccato" else "3. 4 ligadas y 2 picadas"
+            STACC_2_SLUR_4 -> if (isEn) "4. 2 staccato and 4 slurred" else "4. 2 picadas y 4 ligadas"
+            SLUR_2_STACC_4 -> if (isEn) "5. 2 slurred and 4 staccato" else "5. 2 ligadas y 4 picadas"
+            SLURRED_3_BY_3 -> if (is98) {
+                if (isEn) "6. Slurred in 3s (3/4)" else "6. De 3 en 3 ligadas (3/4)"
+            } else {
+                if (isEn) "6. Slurred in 3s (2/4)" else "6. De 3 en 3 ligadas (2/4)"
+            }
+            SLUR_3_STACC_3 -> if (is98) {
+                if (isEn) "7. 3 slurred, 3 staccato (3/4)" else "7. 3 ligadas y 3 picadas (3/4)"
+            } else {
+                if (isEn) "7. 3 slurred, 3 staccato (2/4)" else "7. 3 ligadas y 3 picadas (2/4)"
+            }
+            SLUR_PAIRS_2_BY_2 -> if (isEn) "8. Slurred in pairs" else "8. De 2 en 2 ligadas"
+            SLUR_SYNCOPATED -> if (isEn) "9. Syncopated pairs" else "9. De 2 en 2 sincopadas"
+            ALL_STACCATO -> if (isEn) "10. All staccato" else "10. Todas picadas (Staccato)"
+        }
+    }
+
+    fun shortTitle(loc: LocalizationManager, exercise: ExerciseType = ExerciseType.EJ5): String {
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+        val is98 = (exercise == ExerciseType.EJ11)
+        return when (this) {
+            ORIGINAL -> "Orig."
+            ALL_SLURRED -> if (is98) (if (isEn) "1: 18 Slur" else "1: 18 Lig.") else (if (isEn) "1: 12 Slur" else "1: 12 Lig.")
+            SLURRED_6_BY_6 -> if (is98) "2: 6+6+6" else "2: 6+6"
+            SLUR_4_STACC_2 -> "3: 4L+2P"
+            STACC_2_SLUR_4 -> "4: 2P+4L"
+            SLUR_2_STACC_4 -> "5: 2L+4P"
+            SLURRED_3_BY_3 -> if (isEn) "6: 3 by 3" else "6: 3 en 3"
+            SLUR_3_STACC_3 -> "7: 3L+3P"
+            SLUR_PAIRS_2_BY_2 -> if (isEn) "8: 2 by 2" else "8: 2 en 2"
+            SLUR_SYNCOPATED -> if (isEn) "9: Sync." else "9: Sinc."
+            ALL_STACCATO -> "10: Stacc."
+        }
+    }
+
+    fun formulaBadge(exercise: ExerciseType = ExerciseType.EJ5): String {
+        val is98 = (exercise == ExerciseType.EJ11)
+        return when (this) {
+            ORIGINAL -> if (is98) "9/8 · 3/4" else "6/8 · 2/4"
+            ALL_SLURRED -> if (is98) "(18)" else "(12)"
+            SLURRED_6_BY_6 -> if (is98) "(6)+(6)+(6)" else "(6)+(6)"
+            SLUR_4_STACC_2 -> "(4)·· (4)··"
+            STACC_2_SLUR_4 -> "··(4) ··(4)"
+            SLUR_2_STACC_4 -> "(2)····"
+            SLURRED_3_BY_3 -> if (is98) "(3)×6 [3/4]" else "(3)(3)(3)(3)"
+            SLUR_3_STACC_3 -> "(3)···"
+            SLUR_PAIRS_2_BY_2 -> "(2)(2)(2)"
+            SLUR_SYNCOPATED -> "·(2)(2)·"
+            ALL_STACCATO -> "······"
+        }
+    }
+
+    val formulaBadge: String
+        get() = formulaBadge(ExerciseType.EJ5)
+
+    companion object {
+        val practiceCases: List<EJ5Articulation>
+            get() = entries.filter { it != ORIGINAL }
+    }
+}
+
 enum class EJ4Section(
     val id: Int,
     val shortBadge: String,
@@ -127,6 +236,54 @@ enum class EJ4Section(
     G_MAJOR(22,  "23. Sol M",  "23. Sol Mayor (G Major)",         "23. G Major",                   "c. 177–184", "G"),
     E_MINOR(23,  "24. Mi m",   "24. Mi menor (Mineur)",           "24. E minor (Relative Minor)",  "c. 185–192", "G"),
     C_CODA(24,   "25. Coda",   "25. Do Mayor (Coda Final)",       "25. C Major (Final Coda)",      "c. 193–194", "C");
+
+    fun title(loc: LocalizationManager): String =
+        if (loc.currentLanguage == AppLanguage.ENGLISH) titleEn else titleEs
+}
+
+enum class EJ5Section(
+    val id: Int,
+    val shortBadge: String,
+    val titleEs: String,
+    val titleEn: String,
+    val measureRange: String
+) {
+    C_CHROM(0,   "A. Do",   "A. Escala cromática desde Do (C4–C6)",     "A. Chromatic scale from C (C4–C6)",     "c. 1–5"),
+    DB_CHROM(1,  "B. Re♭",  "B. Escala cromática desde Re♭ (D♭4–D♭6)",  "B. Chromatic scale from D♭ (D♭4–D♭6)",  "c. 6–10"),
+    D_CHROM(2,   "C. Re",   "C. Escala cromática desde Re (D4–D6)",     "C. Chromatic scale from D (D4–D6)",     "c. 11–15"),
+    EB_CHROM(3,  "D. Mi♭",  "D. Escala cromática desde Mi♭ (E♭4–E♭6)",  "D. Chromatic scale from E♭ (E♭4–E♭6)",  "c. 16–20"),
+    E_CHROM(4,   "E. Mi",   "E. Escala cromática desde Mi (E4–E6)",     "E. Chromatic scale from E (E4–E6)",     "c. 21–25"),
+    F_CHROM(5,   "F. Fa",   "F. Escala cromática desde Fa (F4–F6)",     "F. Chromatic scale from F (F4–F6)",     "c. 26–30"),
+    GB_CHROM(6,  "G. Sol♭", "G. Escala cromática desde Sol♭ (G♭4–G♭6)", "G. Chromatic scale from G♭ (G♭4–G♭6)",  "c. 31–35"),
+    G_CHROM(7,   "H. Sol",  "H. Escala cromática desde Sol (G4–G6)",    "H. Chromatic scale from G (G4–G6)",     "c. 36–40"),
+    AB_CHROM(8,  "I. La♭",  "I. Escala cromática desde La♭ (A♭4–A♭6)",  "I. Chromatic scale from A♭ (A♭4–A♭6)",  "c. 41–45"),
+    A_CHROM(9,   "J. La",   "J. Escala cromática desde La (A4–A6)",     "J. Chromatic scale from A (A4–A6)",     "c. 46–50"),
+    BB_CHROM(10, "K. Si♭",  "K. Escala cromática desde Si♭ (B♭4–B♭6)",  "K. Chromatic scale from B♭ (B♭4–B♭6)",  "c. 51–55"),
+    B_CHROM(11,  "L. Si",   "L. Escala cromática desde Si (B4–B6)",     "L. Chromatic scale from B (B4–B6)",     "c. 56–60");
+
+    fun title(loc: LocalizationManager): String =
+        if (loc.currentLanguage == AppLanguage.ENGLISH) titleEn else titleEs
+}
+
+enum class EJ10Section(
+    val id: Int,
+    val shortBadge: String,
+    val titleEs: String,
+    val titleEn: String,
+    val measureRange: String
+) {
+    C_ARP(0,   "1. Do",       "1. Serie sobre Do (C)",               "1. Series on C",               "c. 1–10"),
+    CS_ARP(1,  "2. Do♯/Re♭",  "2. Serie sobre Do♯ / Re♭ (C♯ / D♭)",  "2. Series on C♯ / D♭",         "c. 11–20"),
+    D_ARP(2,   "3. Re",       "3. Serie sobre Re (D)",               "3. Series on D",               "c. 21–30"),
+    DS_ARP(3,  "4. Re♯/Mi♭",  "4. Serie sobre Re♯ / Mi♭ (D♯ / E♭)",  "4. Series on D♯ / E♭",         "c. 31–40"),
+    E_ARP(4,   "5. Mi",       "5. Serie sobre Mi (E)",               "5. Series on E",               "c. 41–50"),
+    F_ARP(5,   "6. Fa",       "6. Serie sobre Fa (F)",               "6. Series on F",               "c. 51–60"),
+    FS_ARP(6,  "7. Fa♯/Sol♭", "7. Serie sobre Fa♯ / Sol♭ (F♯ / G♭)", "7. Series on F♯ / G♭",         "c. 61–70"),
+    G_ARP(7,   "8. Sol",      "8. Serie sobre Sol (G)",              "8. Series on G",               "c. 71–80"),
+    GS_ARP(8,  "9. Sol♯/La♭", "9. Serie sobre Sol♯ / La♭ (G♯ / A♭)", "9. Series on G♯ / A♭",         "c. 81–90"),
+    A_ARP(9,   "10. La",      "10. Serie sobre La (A)",              "10. Series on A",              "c. 91–100"),
+    AS_ARP(10, "11. La♯/Si♭", "11. Serie sobre La♯ / Si♭ (A♯ / B♭)", "11. Series on A♯ / B♭",        "c. 101–110"),
+    B_ARP(11,  "12. Si",      "12. Serie sobre Si + Coda (B)",       "12. Series on B + Coda",       "c. 111–121");
 
     fun title(loc: LocalizationManager): String =
         if (loc.currentLanguage == AppLanguage.ENGLISH) titleEn else titleEs

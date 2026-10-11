@@ -14,6 +14,9 @@ public class PracticeStore: ObservableObject {
     private let ej1StorageKey = "FluteModes_EJ1_CompletedArticulations_v1"
     private let ej2StorageKey = "FluteModes_EJ2_CompletedArticulations_v1"
     private let ej4StorageKey = "FluteModes_EJ4_CompletedArticulations_v1"
+    private let ej5StorageKey = "FluteModes_EJ5_CompletedArticulations_v1"
+    private let ej10StorageKey = "FluteModes_EJ10_CompletedArticulations_v1"
+    private let ej11StorageKey = "FluteModes_EJ11_CompletedArticulations_v1"
     private let lastSessionKey = "FluteModes_LastSession_v1"
 
     // Map: "Tonic_Mode" -> Set of completed articulation IDs (1...8)
@@ -28,11 +31,22 @@ public class PracticeStore: ObservableObject {
     // E.J. 4 completed articulation IDs (1...8)
     @Published public var ej4CompletedSet: Set<Int> = []
 
+    // E.J. 5, E.J. 10, E.J. 11 completed articulation IDs (1...10)
+    @Published public var ej5CompletedSet: Set<Int> = []
+    @Published public var ej10CompletedSet: Set<Int> = []
+    @Published public var ej11CompletedSet: Set<Int> = []
+
     @Published public var lastExerciseType: ExerciseType = .ej1
     @Published public var lastEJ1Articulation: EJ1Articulation = .allSlurred8
     @Published public var lastEJ2Articulation: EJ1Articulation = .allSlurred8
     @Published public var lastEJ4Articulation: EJ4Articulation = .allSlurred8
     @Published public var lastEJ4Section: Int = 0
+    @Published public var lastEJ5Articulation: EJ5Articulation = .allSlurred
+    @Published public var lastEJ5Section: Int = 0
+    @Published public var lastEJ10Articulation: EJ5Articulation = .allSlurred
+    @Published public var lastEJ10Section: Int = 0
+    @Published public var lastEJ11Articulation: EJ5Articulation = .allSlurred
+    @Published public var lastEJ11Section: Int = 0
     @Published public var lastTonic: Tonic?
     @Published public var lastMode: ModeType?
     @Published public var lastArticulation: ArticulationPattern?
@@ -149,6 +163,84 @@ public class PracticeStore: ObservableObject {
             unmarkEJ4Completed(articulation)
         } else {
             markEJ4Completed(articulation)
+        }
+    }
+
+    // MARK: - E.J. 5, E.J. 10, E.J. 11 Progress (10 Official Articulations each)
+    public var ej5CompletedCount: Int {
+        ej5CompletedSet.filter { (1...10).contains($0) }.count
+    }
+    public var isEJ5FullyCompleted: Bool { ej5CompletedCount == 10 }
+
+    public var ej10CompletedCount: Int {
+        ej10CompletedSet.filter { (1...10).contains($0) }.count
+    }
+    public var isEJ10FullyCompleted: Bool { ej10CompletedCount == 10 }
+
+    public var ej11CompletedCount: Int {
+        ej11CompletedSet.filter { (1...10).contains($0) }.count
+    }
+    public var isEJ11FullyCompleted: Bool { ej11CompletedCount == 10 }
+
+    public func isEJ5TypeCompleted(_ articulation: EJ5Articulation, for exercise: ExerciseType) -> Bool {
+        guard articulation.rawValue >= 1 else { return false }
+        switch exercise {
+        case .ej5:  return ej5CompletedSet.contains(articulation.rawValue)
+        case .ej10: return ej10CompletedSet.contains(articulation.rawValue)
+        case .ej11: return ej11CompletedSet.contains(articulation.rawValue)
+        default:    return false
+        }
+    }
+
+    public func ej5TypeCompletedCount(for exercise: ExerciseType) -> Int {
+        switch exercise {
+        case .ej5:  return ej5CompletedCount
+        case .ej10: return ej10CompletedCount
+        case .ej11: return ej11CompletedCount
+        default:    return 0
+        }
+    }
+
+    public func isEJ5TypeFullyCompleted(for exercise: ExerciseType) -> Bool {
+        ej5TypeCompletedCount(for: exercise) == 10
+    }
+
+    public func markEJ5TypeCompleted(_ articulation: EJ5Articulation, for exercise: ExerciseType) {
+        if articulation.rawValue >= 1 {
+            switch exercise {
+            case .ej5:
+                ej5CompletedSet.insert(articulation.rawValue)
+                lastEJ5Articulation = articulation
+            case .ej10:
+                ej10CompletedSet.insert(articulation.rawValue)
+                lastEJ10Articulation = articulation
+            case .ej11:
+                ej11CompletedSet.insert(articulation.rawValue)
+                lastEJ11Articulation = articulation
+            default:
+                break
+            }
+        }
+        lastExerciseType = exercise
+        saveProgress()
+    }
+
+    public func unmarkEJ5TypeCompleted(_ articulation: EJ5Articulation, for exercise: ExerciseType) {
+        switch exercise {
+        case .ej5:  ej5CompletedSet.remove(articulation.rawValue)
+        case .ej10: ej10CompletedSet.remove(articulation.rawValue)
+        case .ej11: ej11CompletedSet.remove(articulation.rawValue)
+        default:    break
+        }
+        saveProgress()
+    }
+
+    public func toggleEJ5TypeCompleted(_ articulation: EJ5Articulation, for exercise: ExerciseType) {
+        guard articulation.rawValue >= 1 else { return }
+        if isEJ5TypeCompleted(articulation, for: exercise) {
+            unmarkEJ5TypeCompleted(articulation, for: exercise)
+        } else {
+            markEJ5TypeCompleted(articulation, for: exercise)
         }
     }
 
@@ -284,6 +376,9 @@ public class PracticeStore: ObservableObject {
         ej1CompletedSet.removeAll()
         ej2CompletedSet.removeAll()
         ej4CompletedSet.removeAll()
+        ej5CompletedSet.removeAll()
+        ej10CompletedSet.removeAll()
+        ej11CompletedSet.removeAll()
         lastTonic = nil
         lastMode = nil
         lastArticulation = nil
@@ -291,10 +386,19 @@ public class PracticeStore: ObservableObject {
         lastEJ2Articulation = .allSlurred8
         lastEJ4Articulation = .allSlurred8
         lastEJ4Section = 0
+        lastEJ5Articulation = .allSlurred
+        lastEJ5Section = 0
+        lastEJ10Articulation = .allSlurred
+        lastEJ10Section = 0
+        lastEJ11Articulation = .allSlurred
+        lastEJ11Section = 0
         UserDefaults.standard.removeObject(forKey: storageKey)
         UserDefaults.standard.removeObject(forKey: ej1StorageKey)
         UserDefaults.standard.removeObject(forKey: ej2StorageKey)
         UserDefaults.standard.removeObject(forKey: ej4StorageKey)
+        UserDefaults.standard.removeObject(forKey: ej5StorageKey)
+        UserDefaults.standard.removeObject(forKey: ej10StorageKey)
+        UserDefaults.standard.removeObject(forKey: ej11StorageKey)
         UserDefaults.standard.removeObject(forKey: lastSessionKey)
     }
 
@@ -316,12 +420,30 @@ public class PracticeStore: ObservableObject {
             UserDefaults.standard.set(ej4Data, forKey: ej4StorageKey)
         }
 
+        if let ej5Data = try? JSONEncoder().encode(Array(ej5CompletedSet)) {
+            UserDefaults.standard.set(ej5Data, forKey: ej5StorageKey)
+        }
+
+        if let ej10Data = try? JSONEncoder().encode(Array(ej10CompletedSet)) {
+            UserDefaults.standard.set(ej10Data, forKey: ej10StorageKey)
+        }
+
+        if let ej11Data = try? JSONEncoder().encode(Array(ej11CompletedSet)) {
+            UserDefaults.standard.set(ej11Data, forKey: ej11StorageKey)
+        }
+
         var sessionData: [String: String] = [
             "exerciseType": lastExerciseType.rawValue,
             "ej1Articulation": String(lastEJ1Articulation.rawValue),
             "ej2Articulation": String(lastEJ2Articulation.rawValue),
             "ej4Articulation": String(lastEJ4Articulation.rawValue),
-            "ej4Section": String(lastEJ4Section)
+            "ej4Section": String(lastEJ4Section),
+            "ej5Articulation": String(lastEJ5Articulation.rawValue),
+            "ej5Section": String(lastEJ5Section),
+            "ej10Articulation": String(lastEJ10Articulation.rawValue),
+            "ej10Section": String(lastEJ10Section),
+            "ej11Articulation": String(lastEJ11Articulation.rawValue),
+            "ej11Section": String(lastEJ11Section)
         ]
         if let t = lastTonic, let m = lastMode, let a = lastArticulation {
             sessionData["tonic"] = t.rawValue
@@ -352,6 +474,21 @@ public class PracticeStore: ObservableObject {
             self.ej4CompletedSet = Set(decodedEJ4)
         }
 
+        if let ej5Data = UserDefaults.standard.data(forKey: ej5StorageKey),
+           let decodedEJ5 = try? JSONDecoder().decode([Int].self, from: ej5Data) {
+            self.ej5CompletedSet = Set(decodedEJ5)
+        }
+
+        if let ej10Data = UserDefaults.standard.data(forKey: ej10StorageKey),
+           let decodedEJ10 = try? JSONDecoder().decode([Int].self, from: ej10Data) {
+            self.ej10CompletedSet = Set(decodedEJ10)
+        }
+
+        if let ej11Data = UserDefaults.standard.data(forKey: ej11StorageKey),
+           let decodedEJ11 = try? JSONDecoder().decode([Int].self, from: ej11Data) {
+            self.ej11CompletedSet = Set(decodedEJ11)
+        }
+
         if let sessionData = UserDefaults.standard.dictionary(forKey: lastSessionKey) as? [String: String] {
             if let exStr = sessionData["exerciseType"], let ex = ExerciseType(rawValue: exStr) {
                 self.lastExerciseType = ex
@@ -367,6 +504,24 @@ public class PracticeStore: ObservableObject {
             }
             if let ej4SecStr = sessionData["ej4Section"], let ej4Sec = Int(ej4SecStr) {
                 self.lastEJ4Section = max(0, min(24, ej4Sec))
+            }
+            if let ej5ArtStr = sessionData["ej5Articulation"], let ej5Int = Int(ej5ArtStr), let ej5Art = EJ5Articulation(rawValue: ej5Int) {
+                self.lastEJ5Articulation = ej5Art
+            }
+            if let ej5SecStr = sessionData["ej5Section"], let ej5Sec = Int(ej5SecStr) {
+                self.lastEJ5Section = max(0, min(11, ej5Sec))
+            }
+            if let ej10ArtStr = sessionData["ej10Articulation"], let ej10Int = Int(ej10ArtStr), let ej10Art = EJ5Articulation(rawValue: ej10Int) {
+                self.lastEJ10Articulation = ej10Art
+            }
+            if let ej10SecStr = sessionData["ej10Section"], let ej10Sec = Int(ej10SecStr) {
+                self.lastEJ10Section = max(0, min(11, ej10Sec))
+            }
+            if let ej11ArtStr = sessionData["ej11Articulation"], let ej11Int = Int(ej11ArtStr), let ej11Art = EJ5Articulation(rawValue: ej11Int) {
+                self.lastEJ11Articulation = ej11Art
+            }
+            if let ej11SecStr = sessionData["ej11Section"], let ej11Sec = Int(ej11SecStr) {
+                self.lastEJ11Section = max(0, min(11, ej11Sec))
             }
             if let tStr = sessionData["tonic"], let t = Tonic(rawValue: tStr) {
                 self.lastTonic = t

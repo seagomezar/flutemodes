@@ -38,6 +38,30 @@ public class ScoreAudioPlayer: ObservableObject {
         }
     }
 
+    public func toggleEJ5(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        if isPlaying {
+            stop()
+        } else {
+            playEJ5(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+        }
+    }
+
+    public func toggleEJ10(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        if isPlaying {
+            stop()
+        } else {
+            playEJ10(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+        }
+    }
+
+    public func toggleEJ11(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        if isPlaying {
+            stop()
+        } else {
+            playEJ11(sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+        }
+    }
+
     public func stop() {
         AppAudioEngine.shared.pianoPlayer.stop()
         isPlaying = false
@@ -134,6 +158,42 @@ public class ScoreAudioPlayer: ObservableObject {
         player.play()
     }
 
+    public func playEJ5(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        playEJ5Type(exercise: .ej5, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+    }
+
+    public func playEJ10(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        playEJ5Type(exercise: .ej10, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+    }
+
+    public func playEJ11(sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        playEJ5Type(exercise: .ej11, sectionIndex: sectionIndex, articulation: articulation, tempoBPM: tempoBPM)
+    }
+
+    private func playEJ5Type(exercise: ExerciseType, sectionIndex: Int, articulation: EJ5Articulation, tempoBPM: Int) {
+        stop()
+
+        AppAudioEngine.shared.ensureEngineRunning()
+        let player = AppAudioEngine.shared.pianoPlayer
+        let format = AppAudioEngine.shared.standardFormat
+
+        guard let buffer = generateEJ5TypeScoreBuffer(
+            exercise: exercise,
+            sectionIndex: sectionIndex,
+            articulation: articulation,
+            tempoBPM: tempoBPM,
+            format: format
+        ) else { return }
+
+        isPlaying = true
+        player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
+            DispatchQueue.main.async {
+                self?.isPlaying = false
+            }
+        }
+        player.play()
+    }
+
     // MARK: - Acoustic Grand Piano Synthesis Buffer Generation
     public static func midiToFrequency(_ midi: Double) -> Double {
         return 440.0 * pow(2.0, (midi - 69.0) / 12.0)
@@ -143,6 +203,58 @@ public class ScoreAudioPlayer: ObservableObject {
         let freq: Double
         let duration: Double
         let isStaccato: Bool
+    }
+
+    public func generateEJ5TypeScoreBuffer(
+        exercise: ExerciseType,
+        sectionIndex: Int,
+        articulation: EJ5Articulation,
+        tempoBPM: Int,
+        format: AVAudioFormat
+    ) -> AVAudioPCMBuffer? {
+        let sampleRate = format.sampleRate
+        let allSections: [[Int]]
+        switch exercise {
+        case .ej5:  allSections = ExerciseGenerator.ej5SectionMidiNotes
+        case .ej10: allSections = ExerciseGenerator.ej10SectionMidiNotes
+        case .ej11: allSections = ExerciseGenerator.ej11SectionMidiNotes
+        default:    allSections = ExerciseGenerator.ej5SectionMidiNotes
+        }
+        let clampedSec = max(0, min(allSections.count - 1, sectionIndex))
+        let midiNotes = allSections[clampedSec]
+        let sixteenthDuration = (60.0 / Double(tempoBPM)) / 4.0
+
+        func isStaccatoAt(_ subIndex: Int) -> Bool {
+            let i = subIndex % 6
+            switch articulation {
+            case .original, .allSlurred, .slurredSixBySix, .slurredThreeByThree, .pairsSlurred:
+                return false
+            case .slur4Stacc2:
+                return (i == 4 || i == 5)
+            case .stacc2Slur4:
+                return (i == 0 || i == 1)
+            case .slur2Stacc4:
+                return (i >= 2)
+            case .slur3Stacc3:
+                return (i >= 3)
+            case .syncopatedPairs:
+                return (i == 0 || i == 5)
+            case .allStaccato:
+                return true
+            }
+        }
+
+        var notes: [NoteDef] = []
+        for (idx, m) in midiNotes.enumerated() {
+            let isLongFinal = (idx == midiNotes.count - 1) && (exercise == .ej5 || clampedSec == 11)
+            notes.append(NoteDef(
+                freq: Self.midiToFrequency(Double(m)),
+                duration: isLongFinal ? (sixteenthDuration * 6.0) : sixteenthDuration,
+                isStaccato: isLongFinal ? false : isStaccatoAt(idx)
+            ))
+        }
+
+        return synthesizePianoNotes(notes, sampleRate: sampleRate, format: format)
     }
 
     public func generateEJ4ScoreBuffer(

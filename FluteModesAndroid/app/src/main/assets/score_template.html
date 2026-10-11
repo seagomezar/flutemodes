@@ -578,7 +578,369 @@
     }
 // === END EJ4 LEDUC ===
 
+// === BEGIN EJ5_10_11 LEDUC ===
+    const EJ5_SCALES_DATA = [{"id": 0, "letter": "A", "titleEs": "A · Do (Ut)", "titleEn": "A · C Chromatic", "shortEs": "A · Do", "keySig": "C", "rootMidi": 60, "m1": ["C", "^C", "D", "^D", "E", "F", "^F", "G", "^G", "A", "_B", "=B"], "m2": ["c", "^c", "d", "^d", "e", "f", "^f", "g", "^g", "a", "_b", "=b"], "m3": ["c'", "b", "_b", "a", "_a", "g", "^f", "=f", "e", "_e", "d", "_d"], "m4": ["c", "B", "_B", "A", "_A", "G", "^F", "=F", "E", "_E", "D", "_D"], "m5": "C", "m5Stem": "up", "midis": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60]}, {"id": 1, "letter": "B", "titleEs": "B · Re♭ (Ré♭)", "titleEn": "B · D♭ Chromatic", "shortEs": "B · Re♭", "keySig": "Db", "rootMidi": 61, "m1": ["D", "=D", "E", "=E", "F", "G", "=G", "A", "=A", "B", "_c", "=c"], "m2": ["d", "=d", "e", "=e", "f", "g", "=g", "a", "=a", "b", "_c'", "=c'"], "m3": ["d'", "c'", "_c'", "b", "__b", "a", "=g", "_g", "f", "_f", "e", "__e"], "m4": ["d", "c", "_c", "B", "__B", "A", "=G", "_G", "F", "_F", "E", "__E"], "m5": "D", "m5Stem": "up", "midis": [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61]}, {"id": 2, "letter": "C", "titleEs": "C · Re (Ré)", "titleEn": "C · D Chromatic", "shortEs": "C · Re", "keySig": "D", "rootMidi": 62, "m1": ["D", "^D", "E", "^E", "F", "G", "^G", "A", "^A", "B", "=c", "^c"], "m2": ["d", "^d", "e", "^e", "f", "g", "^g", "a", "^a", "b", "=c'", "^c'"], "m3": ["d'", "c'", "=c'", "b", "_b", "a", "^g", "=g", "f", "=f", "e", "_e"], "m4": ["d", "c", "=c", "B", "_B", "A", "^G", "=G", "F", "=F", "E", "_E"], "m5": "D", "m5Stem": "up", "midis": [62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62]}, {"id": 3, "letter": "D", "titleEs": "D · Mi♭ (Mi♭)", "titleEn": "D · E♭ Chromatic", "shortEs": "D · Mi♭", "keySig": "Eb", "rootMidi": 63, "m1": ["E", "=E", "F", "^F", "G", "A", "=A", "B", "=B", "c", "_d", "=d"], "m2": ["e", "=e", "f", "^f", "g", "a", "=a", "b", "=b", "c'", "_d'", "=d'"], "m3": ["e'", "d'", "_d'", "c'", "_c'", "b", "=a", "_a", "g", "_g", "f", "_f"], "m4": ["e", "d", "_d", "c", "_c", "B", "=A", "_A", "G", "_G", "F", "_F"], "m5": "E", "m5Stem": "up", "midis": [63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63]}, {"id": 4, "letter": "E", "titleEs": "E · Mi (Mi)", "titleEn": "E · E Chromatic", "shortEs": "E · Mi", "keySig": "E", "rootMidi": 64, "m1": ["E", "^E", "F", "^^F", "G", "A", "^A", "B", "^B", "c", "=d", "^d"], "m2": ["e", "^e", "f", "^^f", "g", "a", "^a", "b", "^b", "c'", "=d'", "^d'"], "m3": ["e'", "d'", "=d'", "c'", "=c'", "b", "^a", "=a", "g", "=g", "f", "=f"], "m4": ["e", "d", "=d", "c", "=c", "B", "^A", "=A", "G", "=G", "F", "=F"], "m5": "E", "m5Stem": "up", "midis": [64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64]}, {"id": 5, "letter": "F", "titleEs": "F · Fa (Fa)", "titleEn": "F · F Chromatic", "shortEs": "F · Fa", "keySig": "F", "rootMidi": 65, "m1": ["F", "^F", "G", "^G", "A", "B", "=B", "c", "^c", "d", "_e", "=e"], "m2": ["f", "^f", "g", "^g", "a", "b", "=b", "c'", "^c'", "d'", "_e'", "=e'"], "m3": ["f'", "e'", "_e'", "d'", "_d'", "c'", "=b", "_b", "a", "_a", "g", "_g"], "m4": ["f", "e", "_e", "d", "_d", "c", "=B", "_B", "A", "_A", "G", "_G"], "m5": "F", "m5Stem": "up", "midis": [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65]}, {"id": 6, "letter": "G", "titleEs": "G · Sol♭ (Sol♭)", "titleEn": "G · G♭ Chromatic", "shortEs": "G · Sol♭", "keySig": "Gb", "rootMidi": 66, "m1": ["G", "=G", "A", "=A", "B", "c", "=c", "d", "=d", "e", "_f", "=f"], "m2": ["g", "=g", "a", "=a", "b", "c'", "=c'", "d'", "=d'", "e'", "_f'", "=f'"], "m3": ["g'", "f'", "_f'", "e'", "__e'", "d'", "=c'", "_c'", "b", "__b", "a", "__a"], "m4": ["g", "f", "_f", "e", "__e", "d", "=c", "_c", "B", "__B", "A", "__A"], "m5": "G", "m5Stem": "up", "midis": [66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66]}, {"id": 7, "letter": "H", "titleEs": "H · Sol (Sol)", "titleEn": "H · G Chromatic", "shortEs": "H · Sol", "keySig": "G", "rootMidi": 67, "m1": ["G", "^G", "A", "^A", "B", "c", "^c", "d", "^d", "e", "=f", "^f"], "m2": ["g", "^g", "a", "^a", "b", "c'", "^c'", "d'", "^d'", "e'", "=f'", "^f'"], "m3": ["g'", "f'", "=f'", "e'", "_e'", "d'", "^c'", "=c'", "b", "_b", "a", "_a"], "m4": ["g", "f", "=f", "e", "_e", "d", "^c", "=c", "B", "_B", "A", "_A"], "m5": "G", "m5Stem": "up", "midis": [67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67]}, {"id": 8, "letter": "I", "titleEs": "I · La♭ (La♭)", "titleEn": "I · A♭ Chromatic", "shortEs": "I · La♭", "keySig": "Ab", "rootMidi": 68, "m1": ["A", "=A", "B", "=B", "c", "d", "=d", "e", "=e", "f", "_g", "=g"], "m2": ["a", "=a", "b", "=b", "c'", "d'", "=d'", "e'", "=e'", "f'", "_g'", "=g'"], "m3": ["a'", "g'", "_g'", "f'", "_f'", "e'", "=d'", "_d'", "c'", "_c'", "b", "__b"], "m4": ["a", "g", "_g", "f", "_f", "e", "=d", "_d", "c", "_c", "B", "__B"], "m5": "A", "m5Stem": "up", "midis": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68]}, {"id": 9, "letter": "J", "titleEs": "J · La (La)", "titleEn": "J · A Chromatic", "shortEs": "J · La", "keySig": "A", "rootMidi": 69, "m1": ["A", "^A", "B", "^B", "c", "d", "^d", "e", "^e", "f", "=g", "^g"], "m2": ["a", "^a", "b", "^b", "c'", "d'", "^d'", "e'", "^e'", "f'", "=g'", "^g'"], "m3": ["a'", "g'", "=g'", "f'", "=f'", "e'", "^d'", "=d'", "c'", "=c'", "b", "_b"], "m4": ["a", "g", "=g", "f", "=f", "e", "^d", "=d", "c", "=c", "B", "_B"], "m5": "A", "m5Stem": "up", "midis": [69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69]}, {"id": 10, "letter": "K", "titleEs": "K · Si♭ (Si♭)", "titleEn": "K · B♭ Chromatic", "shortEs": "K · Si♭", "keySig": "Bb", "rootMidi": 70, "m1": ["B", "=B", "c", "^c", "d", "e", "=e", "f", "^f", "g", "_a", "=a"], "m2": ["b", "=b", "c'", "^c'", "d'", "e'", "=e'", "f'", "^f'", "g'", "_a'", "=a'"], "m3": ["b'", "a'", "_a'", "g'", "_g'", "f'", "=e'", "_e'", "d'", "_d'", "c'", "_c'"], "m4": ["b", "a", "_a", "g", "_g", "f", "=e", "_e", "d", "_d", "c", "_c"], "m5": "B", "m5Stem": "up", "midis": [70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70]}, {"id": 11, "letter": "L", "titleEs": "L · Si (Si)", "titleEn": "L · B Chromatic", "shortEs": "L · Si", "keySig": "B", "rootMidi": 71, "m1": ["B", "^B", "c", "^^c", "d", "e", "^e", "f", "^^f", "g", "=a", "^a"], "m2": ["b", "^b", "c'", "^^c'", "d'", "e'", "^e'", "f'", "^^f'", "g'", "=a'", "^a'"], "m3": ["b'", "a'", "=a'", "g'", "=g'", "f'", "^e'", "=e'", "d'", "=d'", "c'", "=c'"], "m4": ["b", "a", "=a", "g", "=g", "f", "^e", "=e", "d", "=d", "c", "=c"], "m5": "B", "m5Stem": "down", "midis": [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71]}];
+    const EJ5_ARTS_DATA = [{"id": 0, "meter": "6/8", "name": "Edición Original (Leduc)", "short": "0. Orig.", "formula": "6 + 6 notas por compás (6/8 · 2/4)", "fname": "00_Taffanel_EJ5_Original_AL16588.abc"}, {"id": 1, "meter": "6/8", "name": "1. 12 Ligadas (Compás completo)", "short": "1. (12)", "formula": "(12) · Compás entero ligado en 6/8", "fname": "01_Taffanel_EJ5_Articulacion_01_12_Ligadas.abc"}, {"id": 2, "meter": "6/8", "name": "2. 6 y 6 Ligadas", "short": "2. (6)(6)", "formula": "(6) + (6) · Seisillos ligados en 6/8", "fname": "02_Taffanel_EJ5_Articulacion_02_6_y_6_Ligadas.abc"}, {"id": 3, "meter": "6/8", "name": "3. 4 Ligadas y 2 Picadas", "short": "3. (4)··", "formula": "(4)·· (4)·· en 6/8", "fname": "03_Taffanel_EJ5_Articulacion_03_4_Ligadas_2_Picadas.abc"}, {"id": 4, "meter": "6/8", "name": "4. 2 Picadas y 4 Ligadas", "short": "4. ··(4)", "formula": "··(4) ··(4) en 6/8", "fname": "04_Taffanel_EJ5_Articulacion_04_2_Picadas_4_Ligadas.abc"}, {"id": 5, "meter": "6/8", "name": "5. 2 Ligadas y 4 Picadas", "short": "5. (2)····", "formula": "(2)···· (2)···· en 6/8", "fname": "05_Taffanel_EJ5_Articulacion_05_2_Ligadas_4_Picadas.abc"}, {"id": 6, "meter": "2/4", "name": "6. De 3 en 3 Ligadas (2/4)", "short": "6. (3)(3)(3)(3)", "formula": "(3)(3)(3)(3) · 4 grupos de 3 en 2/4", "fname": "06_Taffanel_EJ5_Articulacion_06_De_3_en_3_Ligadas.abc"}, {"id": 7, "meter": "2/4", "name": "7. 3 Ligadas y 3 Picadas (2/4)", "short": "7. (3)···(3)···", "formula": "(3)··· (3)··· · 4 grupos de 3 en 2/4", "fname": "07_Taffanel_EJ5_Articulacion_07_3_Ligadas_3_Picadas.abc"}, {"id": 8, "meter": "6/8", "name": "8. De 2 en 2 Ligadas", "short": "8. (2)(2)(2)", "formula": "(2)(2)(2) (2)(2)(2) en 6/8", "fname": "08_Taffanel_EJ5_Articulacion_08_De_2_en_2_Ligadas.abc"}, {"id": 9, "meter": "6/8", "name": "9. Sincopadas de a 2", "short": "9. ·(2)(2)(2)·", "formula": "·(2)(2)(2)(2)(2)· desplazadas en 6/8", "fname": "09_Taffanel_EJ5_Articulacion_09_Sincopadas.abc"}, {"id": 10, "meter": "6/8", "name": "10. Todas Picadas (Staccato)", "short": "10. ············", "formula": "12 notas en staccato por compás en 6/8", "fname": "10_Taffanel_EJ5_Articulacion_10_Todas_Picadas.abc"}];
+    const EJ10_MEASURES_DATA = [{"m": 1, "s": 0, "sh": "Do", "n": ["C", "_E", "_A", "c", "_e", "_a", "c'", "a", "e", "c", "A", "E"], "end": false}, {"m": 2, "s": 0, "sh": "Do", "n": ["C", "_E", "=A", "c", "_e", "=a", "c'", "a", "e", "c", "A", "E"], "end": false}, {"m": 3, "s": 0, "sh": "Do", "n": ["C", "_E", "_G", "c", "_e", "_g", "c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 4, "s": 0, "sh": "Do", "n": ["C", "=E", "^G", "c", "=e", "^g", "c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 5, "s": 0, "sh": "Do", "n": ["C", "E", "=G", "c", "e", "=g", "c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 6, "s": 0, "sh": "Do", "n": ["C", "F", "A", "c", "f", "a", "c'", "a", "f", "c", "A", "F"], "end": false}, {"m": 7, "s": 0, "sh": "Do", "n": ["C", "_E", "G", "c", "_e", "g", "c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 8, "s": 0, "sh": "Do", "n": ["C", "^F", "A", "c", "^f", "a", "c'", "a", "f", "c", "A", "F"], "end": false}, {"m": 9, "s": 0, "sh": "Do", "n": ["C", "=F", "_A", "c", "=f", "_a", "c'", "a", "f", "c", "A", "F"], "end": false}, {"m": 10, "s": 0, "sh": "Do", "n": ["C", "E", "=A", "c", "e", "=a", "c'", "a", "e", "c", "A", "E"], "end": true}, {"m": 11, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "E", "G", "^c", "e", "g", "^c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 12, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "E", "^G", "^c", "e", "^g", "^c'", "g", "e", "c", "G", "E"], "end": false}, {"m": 13, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "E", "A", "^c", "e", "a", "^c'", "a", "e", "c", "A", "E"], "end": false}, {"m": 14, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "F", "_B", "_d", "f", "_b", "_d'", "b", "f", "d", "B", "F"], "end": false}, {"m": 15, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_G", "_B", "_d", "_g", "_b", "_d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 16, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_F", "_B", "_d", "_f", "_b", "_d'", "b", "f", "d", "B", "F"], "end": false}, {"m": 17, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "=F", "=A", "_d", "=f", "=a", "_d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 18, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "=G", "_B", "_d", "=g", "_b", "_d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 19, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_G", "__B", "_d", "_g", "__b", "_d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 20, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "F", "_A", "_d", "f", "_a", "_d'", "a", "f", "d", "A", "F"], "end": true}, {"m": 21, "s": 2, "sh": "Re", "n": ["=D", "=F", "_B", "=d", "=f", "_b", "=d'", "b", "f", "d", "B", "F"], "end": false}, {"m": 22, "s": 2, "sh": "Re", "n": ["D", "F", "=B", "d", "f", "=b", "d'", "b", "f", "d", "B", "F"], "end": false}, {"m": 23, "s": 2, "sh": "Re", "n": ["D", "G", "_B", "d", "g", "_b", "d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 24, "s": 2, "sh": "Re", "n": ["D", "^F", "^A", "d", "^f", "^a", "d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 25, "s": 2, "sh": "Re", "n": ["D", "^F", "=A", "d", "^f", "=a", "d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 26, "s": 2, "sh": "Re", "n": ["D", "G", "B", "d", "g", "b", "d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 27, "s": 2, "sh": "Re", "n": ["D", "=F", "A", "d", "=f", "a", "d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 28, "s": 2, "sh": "Re", "n": ["D", "^G", "B", "d", "^g", "b", "d'", "b", "g", "d", "B", "G"], "end": false}, {"m": 29, "s": 2, "sh": "Re", "n": ["D", "=F", "_A", "d", "=f", "_a", "d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 30, "s": 2, "sh": "Re", "n": ["D", "^F", "B", "d", "^f", "b", "d'", "b", "f", "d", "B", "F"], "end": true}, {"m": 31, "s": 3, "sh": "Re♯/Mi♭", "n": ["^D", "^F", "A", "^d", "^f", "a", "^d'", "a", "f", "d", "A", "F"], "end": false}, {"m": 32, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_G", "_B", "_e", "_g", "_b", "_e'", "b", "g", "e", "B", "G"], "end": false}, {"m": 33, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_G", "_c", "_e", "_g", "_c'", "_e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 34, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "=G", "_B", "_e", "=g", "_b", "_e'", "b", "g", "e", "B", "G"], "end": false}, {"m": 35, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "G", "=c", "_e", "g", "=c'", "_e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 36, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_A", "c", "_e", "_a", "c'", "_e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 37, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_G", "c", "_e", "_g", "c'", "_e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 38, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "=A", "c", "_e", "=a", "c'", "_e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 39, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_A", "_c", "_e", "_a", "_c'", "_e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 40, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "=G", "=B", "_e", "=g", "=b", "_e'", "b", "g", "e", "B", "G"], "end": true}, {"m": 41, "s": 4, "sh": "Mi", "n": ["=E", "G", "_B", "=e", "g", "_b", "=e'", "b", "g", "e", "B", "G"], "end": false}, {"m": 42, "s": 4, "sh": "Mi", "n": ["E", "G", "=B", "e", "g", "=b", "e'", "b", "g", "e", "B", "G"], "end": false}, {"m": 43, "s": 4, "sh": "Mi", "n": ["E", "G", "c", "e", "g", "c'", "e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 44, "s": 4, "sh": "Mi", "n": ["E", "^G", "^B", "e", "^g", "^b", "e'", "b", "g", "e", "B", "G"], "end": false}, {"m": 45, "s": 4, "sh": "Mi", "n": ["E", "^G", "^c", "e", "^g", "^c'", "e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 46, "s": 4, "sh": "Mi", "n": ["E", "A", "^c", "e", "a", "^c'", "e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 47, "s": 4, "sh": "Mi", "n": ["E", "=G", "^c", "e", "=g", "^c'", "e'", "c'", "g", "e", "c", "G"], "end": false}, {"m": 48, "s": 4, "sh": "Mi", "n": ["E", "^A", "^c", "e", "^a", "^c'", "e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 49, "s": 4, "sh": "Mi", "n": ["E", "=A", "=c", "e", "=a", "=c'", "e'", "c'", "a", "e", "c", "A"], "end": false}, {"m": 50, "s": 4, "sh": "Mi", "n": ["E", "^G", "B", "e", "^g", "b", "e'", "b", "g", "e", "B", "G"], "end": true}, {"m": 51, "s": 5, "sh": "Fa", "n": ["F", "_A", "_d", "f", "_a", "_d'", "f'", "d'", "a", "f", "d", "A"], "end": false}, {"m": 52, "s": 5, "sh": "Fa", "n": ["F", "_A", "=d", "f", "_a", "=d'", "f'", "d'", "a", "f", "d", "A"], "end": false}, {"m": 53, "s": 5, "sh": "Fa", "n": ["F", "_A", "_c", "f", "_a", "_c'", "f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 54, "s": 5, "sh": "Fa", "n": ["F", "=A", "^c", "f", "=a", "^c'", "f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 55, "s": 5, "sh": "Fa", "n": ["F", "A", "=c", "f", "a", "=c'", "f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 56, "s": 5, "sh": "Fa", "n": ["F", "_B", "d", "f", "_b", "d'", "f'", "d'", "b", "f", "d", "B"], "end": false}, {"m": 57, "s": 5, "sh": "Fa", "n": ["F", "_A", "c", "f", "_a", "c'", "f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 58, "s": 5, "sh": "Fa", "n": ["F", "=B", "d", "f", "=b", "d'", "f'", "d'", "b", "f", "d", "B"], "end": false}, {"m": 59, "s": 5, "sh": "Fa", "n": ["F", "_B", "_d", "f", "_b", "_d'", "f'", "d'", "b", "f", "d", "B"], "end": false}, {"m": 60, "s": 5, "sh": "Fa", "n": ["F", "=A", "=d", "f", "=a", "=d'", "f'", "d'", "a", "f", "d", "A"], "end": true}, {"m": 61, "s": 6, "sh": "Fa♯", "n": ["^F", "A", "^c", "^f", "a", "^c'", "^f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 62, "s": 6, "sh": "Fa♯", "n": ["^F", "^A", "^c", "^f", "^a", "^c'", "^f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 63, "s": 6, "sh": "Fa♯", "n": ["^F", "=A", "d", "^f", "=a", "d'", "^f'", "d'", "a", "f", "d", "A"], "end": false}, {"m": 64, "s": 6, "sh": "Fa♯", "n": ["^F", "^A", "^^c", "^f", "^a", "^^c'", "^f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 65, "s": 6, "sh": "Fa♯", "n": ["^F", "^A", "^d", "^f", "^a", "^d'", "^f'", "d'", "a", "f", "d", "A"], "end": false}, {"m": 66, "s": 6, "sh": "Fa♯", "n": ["^F", "B", "^d", "^f", "b", "^d'", "^f'", "d'", "b", "f", "d", "B"], "end": false}, {"m": 67, "s": 6, "sh": "Fa♯", "n": ["^F", "=A", "^d", "^f", "=a", "^d'", "^f'", "d'", "a", "f", "d", "A"], "end": false}, {"m": 68, "s": 6, "sh": "Fa♯", "n": ["^F", "B", "=d", "^f", "b", "=d'", "^f'", "d'", "b", "f", "d", "B"], "end": false}, {"m": 69, "s": 6, "sh": "Fa♯", "n": ["^F", "A", "=c", "^f", "a", "=c'", "^f'", "c'", "a", "f", "c", "A"], "end": false}, {"m": 70, "s": 6, "sh": "Fa♯", "n": ["^F", "^B", "^d", "^f", "^b", "^d'", "^f'", "d'", "b", "f", "d", "B"], "end": true}, {"m": 71, "s": 7, "sh": "Sol", "n": ["=G", "_B", "_e", "=g", "_b", "_e'", "=g'", "e'", "b", "g", "e", "B"], "end": false}, {"m": 72, "s": 7, "sh": "Sol", "n": ["G", "_B", "=e", "g", "_b", "=e'", "g'", "e'", "b", "g", "e", "B"], "end": false}, {"m": 73, "s": 7, "sh": "Sol", "n": ["G", "_B", "_d", "g", "_b", "_d'", "g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 74, "s": 7, "sh": "Sol", "n": ["G", "=B", "^d", "g", "=b", "^d'", "g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 75, "s": 7, "sh": "Sol", "n": ["G", "B", "=d", "g", "b", "=d'", "g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 76, "s": 7, "sh": "Sol", "n": ["G", "c", "e", "g", "c'", "e'", "g'", "e'", "c'", "g", "e", "c"], "end": false}, {"m": 77, "s": 7, "sh": "Sol", "n": ["G", "_B", "d", "g", "_b", "d'", "g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 78, "s": 7, "sh": "Sol", "n": ["G", "^c", "e", "g", "^c'", "e'", "g'", "e'", "c'", "g", "e", "c"], "end": false}, {"m": 79, "s": 7, "sh": "Sol", "n": ["G", "=c", "_e", "g", "=c'", "_e'", "g'", "e'", "c'", "g", "e", "c"], "end": false}, {"m": 80, "s": 7, "sh": "Sol", "n": ["G", "=B", "=e", "g", "=b", "=e'", "g'", "e'", "b", "g", "e", "B"], "end": true}, {"m": 81, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "B", "d", "^g", "b", "d'", "^g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 82, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "^B", "^d", "^g", "^b", "^d'", "^g'", "d'", "b", "g", "d", "B"], "end": false}, {"m": 83, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "=B", "e", "^g", "=b", "e'", "^g'", "e'", "b", "g", "e", "B"], "end": false}, {"m": 84, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "c", "f", "_a", "c'", "f'", "_a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 85, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_d", "f", "_a", "_d'", "f'", "_a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 86, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_c", "f", "_a", "_c'", "f'", "_a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 87, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_d", "_f", "_a", "_d'", "_f'", "_a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 88, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "=d", "=f", "_a", "=d'", "=f'", "_a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 89, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_c", "_e", "_a", "_c'", "_e'", "_a'", "e'", "c'", "a", "e", "c"], "end": false}, {"m": 90, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "=c", "=e", "_a", "=c'", "=e'", "_a'", "e'", "c'", "a", "e", "c"], "end": true}, {"m": 91, "s": 9, "sh": "La", "n": ["=A", "c", "_e", "=a", "c'", "_e'", "=a'", "e'", "c'", "a", "e", "c"], "end": false}, {"m": 92, "s": 9, "sh": "La", "n": ["A", "c", "=e", "a", "c'", "=e'", "a'", "e'", "c'", "a", "e", "c"], "end": false}, {"m": 93, "s": 9, "sh": "La", "n": ["A", "c", "f", "a", "c'", "f'", "a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 94, "s": 9, "sh": "La", "n": ["A", "^c", "^e", "a", "^c'", "^e'", "a'", "e'", "c'", "a", "e", "c"], "end": false}, {"m": 95, "s": 9, "sh": "La", "n": ["A", "^c", "^f", "a", "^c'", "^f'", "a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 96, "s": 9, "sh": "La", "n": ["A", "d", "^f", "a", "d'", "^f'", "a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 97, "s": 9, "sh": "La", "n": ["A", "=c", "^f", "a", "=c'", "^f'", "a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 98, "s": 9, "sh": "La", "n": ["A", "^d", "^f", "a", "^d'", "^f'", "a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 99, "s": 9, "sh": "La", "n": ["A", "=d", "=f", "a", "=d'", "=f'", "a'", "f'", "d'", "a", "f", "d"], "end": false}, {"m": 100, "s": 9, "sh": "La", "n": ["A", "^c", "e", "a", "^c'", "e'", "a'", "e'", "c'", "a", "e", "c"], "end": true}, {"m": 101, "s": 10, "sh": "La♯/Si♭", "n": ["^A", "^c", "^f", "^a", "^c'", "^f'", "^a'", "f'", "c'", "a", "f", "c"], "end": false}, {"m": 102, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_d", "g", "_b", "_d'", "g'", "_b'", "g'", "d'", "b", "g", "d"], "end": false}, {"m": 103, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_d", "_f", "_b", "_d'", "_f'", "_b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 104, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "=d", "^f", "_b", "=d'", "^f'", "_b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 105, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "d", "=f", "_b", "d'", "=f'", "_b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 106, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_e", "g", "_b", "_e'", "g'", "_b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 107, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_d", "f", "_b", "_d'", "f'", "_b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 108, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "e", "g", "_b", "e'", "g'", "_b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 109, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_e", "_g", "_b", "_e'", "_g'", "_b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 110, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "=d", "=g", "_b", "=d'", "=g'", "_b'", "g'", "d'", "b", "g", "d"], "end": true}, {"m": 111, "s": 11, "sh": "Si", "n": ["=B", "d", "=f", "=b", "d'", "=f'", "=b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 112, "s": 11, "sh": "Si", "n": ["B", "d", "^f", "b", "d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 113, "s": 11, "sh": "Si", "n": ["B", "d", "g", "b", "d'", "g'", "b'", "g'", "d'", "b", "g", "d"], "end": false}, {"m": 114, "s": 11, "sh": "Si", "n": ["B", "^d", "^f", "b", "^d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "end": false}, {"m": 115, "s": 11, "sh": "Si", "n": ["B", "^d", "^g", "b", "^d'", "^g'", "b'", "g'", "d'", "b", "g", "d"], "end": false}, {"m": 116, "s": 11, "sh": "Si", "n": ["B", "e", "^g", "b", "e'", "^g'", "b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 117, "s": 11, "sh": "Si", "n": ["B", "=d", "^g", "b", "=d'", "^g'", "b'", "g'", "d'", "b", "g", "d"], "end": false}, {"m": 118, "s": 11, "sh": "Si", "n": ["B", "^e", "^g", "b", "^e'", "^g'", "b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 119, "s": 11, "sh": "Si", "n": ["B", "=e", "=g", "b", "=e'", "=g'", "b'", "g'", "e'", "b", "g", "e"], "end": false}, {"m": 120, "s": 11, "sh": "Si", "n": ["B", "^d", "^f", "b", "^d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "end": false}];
+    const EJ10_SECTIONS_DATA = [{"id": 0, "short": "Do", "titleEs": "1 · Bajo en Do (Ut)", "titleEn": "1 · Bass on C", "pillLabel": "1 · Do", "bassMidi": 60, "startMeasure": 1, "endMeasure": 10}, {"id": 1, "short": "Do♯/Re♭", "titleEs": "2 · Bajo en Do♯ / Re♭", "titleEn": "2 · Bass on C♯ / D♭", "pillLabel": "2 · Do♯/Re♭", "bassMidi": 61, "startMeasure": 11, "endMeasure": 20}, {"id": 2, "short": "Re", "titleEs": "3 · Bajo en Re (Ré)", "titleEn": "3 · Bass on D", "pillLabel": "3 · Re", "bassMidi": 62, "startMeasure": 21, "endMeasure": 30}, {"id": 3, "short": "Re♯/Mi♭", "titleEs": "4 · Bajo en Re♯ / Mi♭", "titleEn": "4 · Bass on D♯ / E♭", "pillLabel": "4 · Re♯/Mi♭", "bassMidi": 63, "startMeasure": 31, "endMeasure": 40}, {"id": 4, "short": "Mi", "titleEs": "5 · Bajo en Mi", "titleEn": "5 · Bass on E", "pillLabel": "5 · Mi", "bassMidi": 64, "startMeasure": 41, "endMeasure": 50}, {"id": 5, "short": "Fa", "titleEs": "6 · Bajo en Fa", "titleEn": "6 · Bass on F", "pillLabel": "6 · Fa", "bassMidi": 65, "startMeasure": 51, "endMeasure": 60}, {"id": 6, "short": "Fa♯", "titleEs": "7 · Bajo en Fa♯", "titleEn": "7 · Bass on F♯", "pillLabel": "7 · Fa♯", "bassMidi": 66, "startMeasure": 61, "endMeasure": 70}, {"id": 7, "short": "Sol", "titleEs": "8 · Bajo en Sol", "titleEn": "8 · Bass on G", "pillLabel": "8 · Sol", "bassMidi": 67, "startMeasure": 71, "endMeasure": 80}, {"id": 8, "short": "Sol♯/La♭", "titleEs": "9 · Bajo en Sol♯ / La♭", "titleEn": "9 · Bass on G♯ / A♭", "pillLabel": "9 · Sol♯/La♭", "bassMidi": 68, "startMeasure": 81, "endMeasure": 90}, {"id": 9, "short": "La", "titleEs": "10 · Bajo en La", "titleEn": "10 · Bass on A", "pillLabel": "10 · La", "bassMidi": 69, "startMeasure": 91, "endMeasure": 100}, {"id": 10, "short": "La♯/Si♭", "titleEs": "11 · Bajo en La♯ / Si♭", "titleEn": "11 · Bass on A♯ / B♭", "pillLabel": "11 · La♯/Si♭", "bassMidi": 70, "startMeasure": 101, "endMeasure": 110}, {"id": 11, "short": "Si", "titleEs": "12 · Bajo en Si", "titleEn": "12 · Bass on B", "pillLabel": "12 · Si", "bassMidi": 71, "startMeasure": 111, "endMeasure": 120}];
+    const EJ10_ARTS_DATA = [{"id": 0, "meter": "6/8", "name": "Edición Original (Leduc)", "short": "0. Orig.", "formula": "6 + 6 notas por compás (6/8 · 2/4)", "fname": "00_Taffanel_EJ10_Original_AL16588.abc"}, {"id": 1, "meter": "6/8", "name": "1. 12 Ligadas (Compás completo)", "short": "1. (12)", "formula": "(12) · Compás entero ligado en 6/8", "fname": "01_Taffanel_EJ10_Articulacion_01_12_Ligadas.abc"}, {"id": 2, "meter": "6/8", "name": "2. 6 y 6 Ligadas", "short": "2. (6)(6)", "formula": "(6) + (6) · Seisillos ligados en 6/8", "fname": "02_Taffanel_EJ10_Articulacion_02_6_y_6_Ligadas.abc"}, {"id": 3, "meter": "6/8", "name": "3. 4 Ligadas y 2 Picadas", "short": "3. (4)··", "formula": "(4)·· (4)·· en 6/8", "fname": "03_Taffanel_EJ10_Articulacion_03_4_Ligadas_2_Picadas.abc"}, {"id": 4, "meter": "6/8", "name": "4. 2 Picadas y 4 Ligadas", "short": "4. ··(4)", "formula": "··(4) ··(4) en 6/8", "fname": "04_Taffanel_EJ10_Articulacion_04_2_Picadas_4_Ligadas.abc"}, {"id": 5, "meter": "6/8", "name": "5. 2 Ligadas y 4 Picadas", "short": "5. (2)····", "formula": "(2)···· (2)···· en 6/8", "fname": "05_Taffanel_EJ10_Articulacion_05_2_Ligadas_4_Picadas.abc"}, {"id": 6, "meter": "2/4", "name": "6. De 3 en 3 Ligadas (2/4)", "short": "6. (3)(3)(3)(3)", "formula": "(3)(3)(3)(3) · 4 grupos de 3 en 2/4", "fname": "06_Taffanel_EJ10_Articulacion_06_De_3_en_3_Ligadas.abc"}, {"id": 7, "meter": "2/4", "name": "7. 3 Ligadas y 3 Picadas (2/4)", "short": "7. (3)···(3)···", "formula": "(3)··· (3)··· · 4 grupos de 3 en 2/4", "fname": "07_Taffanel_EJ10_Articulacion_07_3_Ligadas_3_Picadas.abc"}, {"id": 8, "meter": "6/8", "name": "8. De 2 en 2 Ligadas", "short": "8. (2)(2)(2)", "formula": "(2)(2)(2) (2)(2)(2) en 6/8", "fname": "08_Taffanel_EJ10_Articulacion_08_De_2_en_2_Ligadas.abc"}, {"id": 9, "meter": "6/8", "name": "9. Sincopadas de a 2", "short": "9. ·(2)(2)(2)·", "formula": "·(2)(2)(2)(2)(2)· desplazadas en 6/8", "fname": "09_Taffanel_EJ10_Articulacion_09_Sincopadas.abc"}, {"id": 10, "meter": "6/8", "name": "10. Todas Picadas (Staccato)", "short": "10. ············", "formula": "12 notas en staccato por compás en 6/8", "fname": "10_Taffanel_EJ10_Articulacion_10_Todas_Picadas.abc"}];
+    const EJ11_MEASURES_DATA = [{"m": 1, "s": 0, "sh": "Do", "n": ["C", "_A", "_E", "c", "A", "_e", "c", "_a", "e", "c'", "e", "a", "c", "e", "A", "c", "E", "A"], "end": false}, {"m": 2, "s": 0, "sh": "Do", "n": ["C", "=A", "_E", "c", "A", "_e", "c", "=a", "e", "c'", "e", "a", "c", "e", "A", "c", "E", "A"], "end": false}, {"m": 3, "s": 0, "sh": "Do", "n": ["C", "_G", "_E", "c", "G", "_e", "c", "_g", "e", "c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 4, "s": 0, "sh": "Do", "n": ["C", "^G", "=E", "c", "G", "=e", "c", "^g", "e", "c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 5, "s": 0, "sh": "Do", "n": ["C", "=G", "E", "c", "G", "e", "c", "=g", "e", "c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 6, "s": 0, "sh": "Do", "n": ["C", "A", "F", "c", "A", "f", "c", "a", "f", "c'", "f", "a", "c", "f", "A", "c", "F", "A"], "end": false}, {"m": 7, "s": 0, "sh": "Do", "n": ["C", "G", "_E", "c", "G", "_e", "c", "g", "e", "c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 8, "s": 0, "sh": "Do", "n": ["C", "A", "^F", "c", "A", "^f", "c", "a", "f", "c'", "f", "a", "c", "f", "A", "c", "F", "A"], "end": false}, {"m": 9, "s": 0, "sh": "Do", "n": ["C", "_A", "=F", "c", "A", "=f", "c", "_a", "f", "c'", "f", "a", "c", "f", "A", "c", "F", "A"], "end": false}, {"m": 10, "s": 0, "sh": "Do", "n": ["C", "=A", "E", "c", "A", "e", "c", "=a", "e", "c'", "e", "a", "c", "e", "A", "c", "E", "A"], "end": true}, {"m": 11, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "G", "E", "^c", "G", "e", "c", "g", "e", "^c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 12, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "^G", "E", "^c", "G", "e", "c", "^g", "e", "^c'", "e", "g", "c", "e", "G", "c", "E", "G"], "end": false}, {"m": 13, "s": 1, "sh": "Do♯/Re♭", "n": ["^C", "A", "E", "^c", "A", "e", "c", "a", "e", "^c'", "e", "a", "c", "e", "A", "c", "E", "A"], "end": false}, {"m": 14, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_B", "F", "_d", "B", "f", "d", "_b", "f", "_d'", "f", "b", "d", "f", "B", "d", "F", "B"], "end": false}, {"m": 15, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_B", "_G", "_d", "B", "_g", "d", "_b", "g", "_d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 16, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_B", "_F", "_d", "B", "_f", "d", "_b", "f", "_d'", "f", "b", "d", "f", "B", "d", "F", "B"], "end": false}, {"m": 17, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "=A", "=F", "_d", "A", "=f", "d", "=a", "f", "_d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 18, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_B", "=G", "_d", "B", "=g", "d", "_b", "g", "_d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 19, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "__B", "_G", "_d", "B", "_g", "d", "__b", "g", "_d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 20, "s": 1, "sh": "Do♯/Re♭", "n": ["_D", "_A", "F", "_d", "A", "f", "d", "_a", "f", "_d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": true}, {"m": 21, "s": 2, "sh": "Re", "n": ["=D", "_B", "=F", "=d", "B", "=f", "d", "_b", "f", "=d'", "f", "b", "d", "f", "B", "d", "F", "B"], "end": false}, {"m": 22, "s": 2, "sh": "Re", "n": ["D", "=B", "F", "d", "B", "f", "d", "=b", "f", "d'", "f", "b", "d", "f", "B", "d", "F", "B"], "end": false}, {"m": 23, "s": 2, "sh": "Re", "n": ["D", "_B", "G", "d", "B", "g", "d", "_b", "g", "d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 24, "s": 2, "sh": "Re", "n": ["D", "^A", "^F", "d", "A", "^f", "d", "^a", "f", "d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 25, "s": 2, "sh": "Re", "n": ["D", "=A", "^F", "d", "A", "^f", "d", "=a", "f", "d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 26, "s": 2, "sh": "Re", "n": ["D", "B", "G", "d", "B", "g", "d", "b", "g", "d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 27, "s": 2, "sh": "Re", "n": ["D", "A", "=F", "d", "A", "=f", "d", "a", "f", "d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 28, "s": 2, "sh": "Re", "n": ["D", "B", "^G", "d", "B", "^g", "d", "b", "g", "d'", "g", "b", "d", "g", "B", "d", "G", "B"], "end": false}, {"m": 29, "s": 2, "sh": "Re", "n": ["D", "_A", "=F", "d", "A", "=f", "d", "_a", "f", "d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 30, "s": 2, "sh": "Re", "n": ["D", "B", "^F", "d", "B", "^f", "d", "b", "f", "d'", "f", "b", "d", "f", "B", "d", "F", "B"], "end": true}, {"m": 31, "s": 3, "sh": "Re♯/Mi♭", "n": ["^D", "A", "^F", "^d", "A", "^f", "d", "a", "f", "^d'", "f", "a", "d", "f", "A", "d", "F", "A"], "end": false}, {"m": 32, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_B", "_G", "_e", "B", "_g", "e", "_b", "g", "_e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": false}, {"m": 33, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_c", "_G", "_e", "c", "_g", "e", "_c'", "g", "_e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 34, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_B", "=G", "_e", "B", "=g", "e", "_b", "g", "_e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": false}, {"m": 35, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "=c", "G", "_e", "c", "g", "e", "=c'", "g", "_e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 36, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "c", "_A", "_e", "c", "_a", "e", "c'", "a", "_e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 37, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "c", "_G", "_e", "c", "_g", "e", "c'", "g", "_e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 38, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "c", "=A", "_e", "c", "=a", "e", "c'", "a", "_e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 39, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "_c", "_A", "_e", "c", "_a", "e", "_c'", "a", "_e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 40, "s": 3, "sh": "Re♯/Mi♭", "n": ["_E", "=B", "=G", "_e", "B", "=g", "e", "=b", "g", "_e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": true}, {"m": 41, "s": 4, "sh": "Mi", "n": ["=E", "_B", "G", "=e", "B", "g", "e", "_b", "g", "=e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": false}, {"m": 42, "s": 4, "sh": "Mi", "n": ["E", "=B", "G", "e", "B", "g", "e", "=b", "g", "e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": false}, {"m": 43, "s": 4, "sh": "Mi", "n": ["E", "c", "G", "e", "c", "g", "e", "c'", "g", "e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 44, "s": 4, "sh": "Mi", "n": ["E", "^B", "^G", "e", "B", "^g", "e", "^b", "g", "e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": false}, {"m": 45, "s": 4, "sh": "Mi", "n": ["E", "^c", "^G", "e", "c", "^g", "e", "^c'", "g", "e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 46, "s": 4, "sh": "Mi", "n": ["E", "^c", "A", "e", "c", "a", "e", "^c'", "a", "e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 47, "s": 4, "sh": "Mi", "n": ["E", "^c", "=G", "e", "c", "=g", "e", "^c'", "g", "e'", "g", "c'", "e", "g", "c", "e", "G", "c"], "end": false}, {"m": 48, "s": 4, "sh": "Mi", "n": ["E", "^c", "^A", "e", "c", "^a", "e", "^c'", "a", "e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 49, "s": 4, "sh": "Mi", "n": ["E", "=c", "=A", "e", "c", "=a", "e", "=c'", "a", "e'", "a", "c'", "e", "a", "c", "e", "A", "c"], "end": false}, {"m": 50, "s": 4, "sh": "Mi", "n": ["E", "B", "^G", "e", "B", "^g", "e", "b", "g", "e'", "g", "b", "e", "g", "B", "e", "G", "B"], "end": true}, {"m": 51, "s": 5, "sh": "Fa", "n": ["F", "_d", "_A", "f", "d", "_a", "f", "_d'", "a", "f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": false}, {"m": 52, "s": 5, "sh": "Fa", "n": ["F", "=d", "_A", "f", "d", "_a", "f", "=d'", "a", "f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": false}, {"m": 53, "s": 5, "sh": "Fa", "n": ["F", "_c", "_A", "f", "c", "_a", "f", "_c'", "a", "f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 54, "s": 5, "sh": "Fa", "n": ["F", "^c", "=A", "f", "c", "=a", "f", "^c'", "a", "f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 55, "s": 5, "sh": "Fa", "n": ["F", "=c", "A", "f", "c", "a", "f", "=c'", "a", "f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 56, "s": 5, "sh": "Fa", "n": ["F", "d", "_B", "f", "d", "_b", "f", "d'", "b", "f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": false}, {"m": 57, "s": 5, "sh": "Fa", "n": ["F", "c", "_A", "f", "c", "_a", "f", "c'", "a", "f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 58, "s": 5, "sh": "Fa", "n": ["F", "d", "=B", "f", "d", "=b", "f", "d'", "b", "f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": false}, {"m": 59, "s": 5, "sh": "Fa", "n": ["F", "_d", "_B", "f", "d", "_b", "f", "_d'", "b", "f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": false}, {"m": 60, "s": 5, "sh": "Fa", "n": ["F", "=d", "=A", "f", "d", "=a", "f", "=d'", "a", "f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": true}, {"m": 61, "s": 6, "sh": "Fa♯", "n": ["^F", "^c", "A", "^f", "c", "a", "f", "^c'", "a", "^f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 62, "s": 6, "sh": "Fa♯", "n": ["^F", "^c", "^A", "^f", "c", "^a", "f", "^c'", "a", "^f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 63, "s": 6, "sh": "Fa♯", "n": ["^F", "d", "=A", "^f", "d", "=a", "f", "d'", "a", "^f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": false}, {"m": 64, "s": 6, "sh": "Fa♯", "n": ["^F", "^^c", "^A", "^f", "c", "^a", "f", "^^c'", "a", "^f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 65, "s": 6, "sh": "Fa♯", "n": ["^F", "^d", "^A", "^f", "d", "^a", "f", "^d'", "a", "^f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": false}, {"m": 66, "s": 6, "sh": "Fa♯", "n": ["^F", "^d", "B", "^f", "d", "b", "f", "^d'", "b", "^f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": false}, {"m": 67, "s": 6, "sh": "Fa♯", "n": ["^F", "^d", "=A", "^f", "d", "=a", "f", "^d'", "a", "^f'", "a", "d'", "f", "a", "d", "f", "A", "d"], "end": false}, {"m": 68, "s": 6, "sh": "Fa♯", "n": ["^F", "=d", "B", "^f", "d", "b", "f", "=d'", "b", "^f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": false}, {"m": 69, "s": 6, "sh": "Fa♯", "n": ["^F", "=c", "A", "^f", "c", "a", "f", "=c'", "a", "^f'", "a", "c'", "f", "a", "c", "f", "A", "c"], "end": false}, {"m": 70, "s": 6, "sh": "Fa♯", "n": ["^F", "^d", "^B", "^f", "d", "^b", "f", "^d'", "b", "^f'", "b", "d'", "f", "b", "d", "f", "B", "d"], "end": true}, {"m": 71, "s": 7, "sh": "Sol", "n": ["=G", "_e", "_B", "=g", "e", "_b", "g", "_e'", "b", "=g'", "b", "e'", "g", "b", "e", "g", "B", "e"], "end": false}, {"m": 72, "s": 7, "sh": "Sol", "n": ["G", "=e", "_B", "g", "e", "_b", "g", "=e'", "b", "g'", "b", "e'", "g", "b", "e", "g", "B", "e"], "end": false}, {"m": 73, "s": 7, "sh": "Sol", "n": ["G", "_d", "_B", "g", "d", "_b", "g", "_d'", "b", "g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 74, "s": 7, "sh": "Sol", "n": ["G", "^d", "=B", "g", "d", "=b", "g", "^d'", "b", "g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 75, "s": 7, "sh": "Sol", "n": ["G", "=d", "B", "g", "d", "b", "g", "=d'", "b", "g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 76, "s": 7, "sh": "Sol", "n": ["G", "e", "c", "g", "e", "c'", "g", "e'", "c'", "g'", "c'", "e'", "g", "c'", "e", "g", "c", "e"], "end": false}, {"m": 77, "s": 7, "sh": "Sol", "n": ["G", "d", "_B", "g", "d", "_b", "g", "d'", "b", "g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 78, "s": 7, "sh": "Sol", "n": ["G", "e", "^c", "g", "e", "^c'", "g", "e'", "c'", "g'", "c'", "e'", "g", "c'", "e", "g", "c", "e"], "end": false}, {"m": 79, "s": 7, "sh": "Sol", "n": ["G", "_e", "=c", "g", "e", "=c'", "g", "_e'", "c'", "g'", "c'", "e'", "g", "c'", "e", "g", "c", "e"], "end": false}, {"m": 80, "s": 7, "sh": "Sol", "n": ["G", "=e", "=B", "g", "e", "=b", "g", "=e'", "b", "g'", "b", "e'", "g", "b", "e", "g", "B", "e"], "end": true}, {"m": 81, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "d", "B", "^g", "d", "b", "g", "d'", "b", "^g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 82, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "^d", "^B", "^g", "d", "^b", "g", "^d'", "b", "^g'", "b", "d'", "g", "b", "d", "g", "B", "d"], "end": false}, {"m": 83, "s": 8, "sh": "Sol♯/La♭", "n": ["^G", "e", "=B", "^g", "e", "=b", "g", "e'", "b", "^g'", "b", "e'", "g", "b", "e", "g", "B", "e"], "end": false}, {"m": 84, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "f", "c", "_a", "f", "c'", "a", "f'", "c'", "_a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 85, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "f", "_d", "_a", "f", "_d'", "a", "f'", "d'", "_a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 86, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "f", "_c", "_a", "f", "_c'", "a", "f'", "c'", "_a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 87, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_f", "_d", "_a", "f", "_d'", "a", "_f'", "d'", "_a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 88, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "=f", "=d", "_a", "f", "=d'", "a", "=f'", "d'", "_a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 89, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "_e", "_c", "_a", "e", "_c'", "a", "_e'", "c'", "_a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": false}, {"m": 90, "s": 8, "sh": "Sol♯/La♭", "n": ["_A", "=e", "=c", "_a", "e", "=c'", "a", "=e'", "c'", "_a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": true}, {"m": 91, "s": 9, "sh": "La", "n": ["=A", "_e", "c", "=a", "e", "c'", "a", "_e'", "c'", "=a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": false}, {"m": 92, "s": 9, "sh": "La", "n": ["A", "=e", "c", "a", "e", "c'", "a", "=e'", "c'", "a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": false}, {"m": 93, "s": 9, "sh": "La", "n": ["A", "f", "c", "a", "f", "c'", "a", "f'", "c'", "a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 94, "s": 9, "sh": "La", "n": ["A", "^e", "^c", "a", "e", "^c'", "a", "^e'", "c'", "a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": false}, {"m": 95, "s": 9, "sh": "La", "n": ["A", "^f", "^c", "a", "f", "^c'", "a", "^f'", "c'", "a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 96, "s": 9, "sh": "La", "n": ["A", "^f", "d", "a", "f", "d'", "a", "^f'", "d'", "a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 97, "s": 9, "sh": "La", "n": ["A", "^f", "=c", "a", "f", "=c'", "a", "^f'", "c'", "a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 98, "s": 9, "sh": "La", "n": ["A", "^f", "^d", "a", "f", "^d'", "a", "^f'", "d'", "a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 99, "s": 9, "sh": "La", "n": ["A", "=f", "=d", "a", "f", "=d'", "a", "=f'", "d'", "a'", "d'", "f'", "a", "d'", "f", "a", "d", "f"], "end": false}, {"m": 100, "s": 9, "sh": "La", "n": ["A", "e", "^c", "a", "e", "^c'", "a", "e'", "c'", "a'", "c'", "e'", "a", "c'", "e", "a", "c", "e"], "end": true}, {"m": 101, "s": 10, "sh": "La♯/Si♭", "n": ["^A", "^f", "^c", "^a", "f", "^c'", "a", "^f'", "c'", "^a'", "c'", "f'", "a", "c'", "f", "a", "c", "f"], "end": false}, {"m": 102, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "g", "_d", "_b", "g", "_d'", "b", "g'", "d'", "_b'", "d'", "g'", "b", "d'", "g", "b", "d", "g"], "end": false}, {"m": 103, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_f", "_d", "_b", "f", "_d'", "b", "_f'", "d'", "_b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 104, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "^f", "=d", "_b", "f", "=d'", "b", "^f'", "d'", "_b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 105, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "=f", "d", "_b", "f", "d'", "b", "=f'", "d'", "_b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 106, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "g", "_e", "_b", "g", "_e'", "b", "g'", "e'", "_b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 107, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "f", "_d", "_b", "f", "_d'", "b", "f'", "d'", "_b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 108, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "g", "e", "_b", "g", "e'", "b", "g'", "e'", "_b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 109, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "_g", "_e", "_b", "g", "_e'", "b", "_g'", "e'", "_b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 110, "s": 10, "sh": "La♯/Si♭", "n": ["_B", "=g", "=d", "_b", "g", "=d'", "b", "=g'", "d'", "_b'", "d'", "g'", "b", "d'", "g", "b", "d", "g"], "end": true}, {"m": 111, "s": 11, "sh": "Si", "n": ["=B", "=f", "d", "=b", "f", "d'", "b", "=f'", "d'", "=b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 112, "s": 11, "sh": "Si", "n": ["B", "^f", "d", "b", "f", "d'", "b", "^f'", "d'", "b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 113, "s": 11, "sh": "Si", "n": ["B", "g", "d", "b", "g", "d'", "b", "g'", "d'", "b'", "d'", "g'", "b", "d'", "g", "b", "d", "g"], "end": false}, {"m": 114, "s": 11, "sh": "Si", "n": ["B", "^f", "^d", "b", "f", "^d'", "b", "^f'", "d'", "b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}, {"m": 115, "s": 11, "sh": "Si", "n": ["B", "^g", "^d", "b", "g", "^d'", "b", "^g'", "d'", "b'", "d'", "g'", "b", "d'", "g", "b", "d", "g"], "end": false}, {"m": 116, "s": 11, "sh": "Si", "n": ["B", "^g", "e", "b", "g", "e'", "b", "^g'", "e'", "b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 117, "s": 11, "sh": "Si", "n": ["B", "^g", "=d", "b", "g", "=d'", "b", "^g'", "d'", "b'", "d'", "g'", "b", "d'", "g", "b", "d", "g"], "end": false}, {"m": 118, "s": 11, "sh": "Si", "n": ["B", "^g", "^e", "b", "g", "^e'", "b", "^g'", "e'", "b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 119, "s": 11, "sh": "Si", "n": ["B", "=g", "=e", "b", "g", "=e'", "b", "=g'", "e'", "b'", "e'", "g'", "b", "e'", "g", "b", "e", "g"], "end": false}, {"m": 120, "s": 11, "sh": "Si", "n": ["B", "^f", "^d", "b", "f", "^d'", "b", "^f'", "d'", "b'", "d'", "f'", "b", "d'", "f", "b", "d", "f"], "end": false}];
+    const EJ11_SECTIONS_DATA = [{"id": 0, "short": "Do", "titleEs": "1 · Bajo en Do (Ut)", "titleEn": "1 · Bass on C", "pillLabel": "1 · Do", "bassMidi": 60, "startMeasure": 1, "endMeasure": 10}, {"id": 1, "short": "Do♯/Re♭", "titleEs": "2 · Bajo en Do♯ / Re♭", "titleEn": "2 · Bass on C♯ / D♭", "pillLabel": "2 · Do♯/Re♭", "bassMidi": 61, "startMeasure": 11, "endMeasure": 20}, {"id": 2, "short": "Re", "titleEs": "3 · Bajo en Re (Ré)", "titleEn": "3 · Bass on D", "pillLabel": "3 · Re", "bassMidi": 62, "startMeasure": 21, "endMeasure": 30}, {"id": 3, "short": "Re♯/Mi♭", "titleEs": "4 · Bajo en Re♯ / Mi♭", "titleEn": "4 · Bass on D♯ / E♭", "pillLabel": "4 · Re♯/Mi♭", "bassMidi": 63, "startMeasure": 31, "endMeasure": 40}, {"id": 4, "short": "Mi", "titleEs": "5 · Bajo en Mi", "titleEn": "5 · Bass on E", "pillLabel": "5 · Mi", "bassMidi": 64, "startMeasure": 41, "endMeasure": 50}, {"id": 5, "short": "Fa", "titleEs": "6 · Bajo en Fa", "titleEn": "6 · Bass on F", "pillLabel": "6 · Fa", "bassMidi": 65, "startMeasure": 51, "endMeasure": 60}, {"id": 6, "short": "Fa♯", "titleEs": "7 · Bajo en Fa♯", "titleEn": "7 · Bass on F♯", "pillLabel": "7 · Fa♯", "bassMidi": 66, "startMeasure": 61, "endMeasure": 70}, {"id": 7, "short": "Sol", "titleEs": "8 · Bajo en Sol", "titleEn": "8 · Bass on G", "pillLabel": "8 · Sol", "bassMidi": 67, "startMeasure": 71, "endMeasure": 80}, {"id": 8, "short": "Sol♯/La♭", "titleEs": "9 · Bajo en Sol♯ / La♭", "titleEn": "9 · Bass on G♯ / A♭", "pillLabel": "9 · Sol♯/La♭", "bassMidi": 68, "startMeasure": 81, "endMeasure": 90}, {"id": 9, "short": "La", "titleEs": "10 · Bajo en La", "titleEn": "10 · Bass on A", "pillLabel": "10 · La", "bassMidi": 69, "startMeasure": 91, "endMeasure": 100}, {"id": 10, "short": "La♯/Si♭", "titleEs": "11 · Bajo en La♯ / Si♭", "titleEn": "11 · Bass on A♯ / B♭", "pillLabel": "11 · La♯/Si♭", "bassMidi": 70, "startMeasure": 101, "endMeasure": 110}, {"id": 11, "short": "Si", "titleEs": "12 · Bajo en Si", "titleEn": "12 · Bass on B", "pillLabel": "12 · Si", "bassMidi": 71, "startMeasure": 111, "endMeasure": 120}];
+    const EJ11_ARTS_DATA = [{"id": 0, "meter": "9/8", "name": "Edición Original (Leduc)", "short": "0. Orig.", "formula": "6 + 6 + 6 notas por compás (9/8 · 3/4)", "fname": "00_Taffanel_EJ11_Original_AL16588.abc"}, {"id": 1, "meter": "9/8", "name": "1. 18 Ligadas (Compás completo)", "short": "1. (18)", "formula": "(18) · Compás entero ligado en 9/8", "fname": "01_Taffanel_EJ11_Articulacion_01_18_Ligadas.abc"}, {"id": 2, "meter": "9/8", "name": "2. 6 + 6 + 6 Ligadas", "short": "2. (6)(6)(6)", "formula": "(6) + (6) + (6) · Seisillos ligados en 9/8", "fname": "02_Taffanel_EJ11_Articulacion_02_6_6_6_Ligadas.abc"}, {"id": 3, "meter": "9/8", "name": "3. 4 Ligadas y 2 Picadas", "short": "3. (4)··", "formula": "(4)·· (4)·· (4)·· en 9/8", "fname": "03_Taffanel_EJ11_Articulacion_03_4_Ligadas_2_Picadas.abc"}, {"id": 4, "meter": "9/8", "name": "4. 2 Picadas y 4 Ligadas", "short": "4. ··(4)", "formula": "··(4) ··(4) ··(4) en 9/8", "fname": "04_Taffanel_EJ11_Articulacion_04_2_Picadas_4_Ligadas.abc"}, {"id": 5, "meter": "9/8", "name": "5. 2 Ligadas y 4 Picadas", "short": "5. (2)····", "formula": "(2)···· (2)···· (2)···· en 9/8", "fname": "05_Taffanel_EJ11_Articulacion_05_2_Ligadas_4_Picadas.abc"}, {"id": 6, "meter": "3/4", "name": "6. De 3 en 3 Ligadas (3/4)", "short": "6. (3)×6 (3/4)", "formula": "(3)(3)(3)(3)(3)(3) · 6 grupos de 3 en 3/4", "fname": "06_Taffanel_EJ11_Articulacion_06_De_3_en_3_Ligadas.abc"}, {"id": 7, "meter": "3/4", "name": "7. 3 Ligadas y 3 Picadas (3/4)", "short": "7. (3)··· (3/4)", "formula": "(3)··· (3)··· (3)··· en 3/4", "fname": "07_Taffanel_EJ11_Articulacion_07_3_Ligadas_3_Picadas.abc"}, {"id": 8, "meter": "9/8", "name": "8. De 2 en 2 Ligadas", "short": "8. (2)×9", "formula": "(2)(2)(2) (2)(2)(2) (2)(2)(2) en 9/8", "fname": "08_Taffanel_EJ11_Articulacion_08_De_2_en_2_Ligadas.abc"}, {"id": 9, "meter": "9/8", "name": "9. Sincopadas de a 2", "short": "9. ·(2)×8·", "formula": "·(2)(2)(2)(2)(2)(2)(2)(2)· en 9/8", "fname": "09_Taffanel_EJ11_Articulacion_09_Sincopadas.abc"}, {"id": 10, "meter": "9/8", "name": "10. Todas Picadas (Staccato)", "short": "10. ·×18", "formula": "18 notas en staccato por compás en 9/8", "fname": "10_Taffanel_EJ11_Articulacion_10_Todas_Picadas.abc"}];
+
+    const EJ5_10_ART_ROW1_ABC = [
+      "X:101",
+      "M:6/8",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^1" (cccccc cccccc) || "^2" (cccccc) (cccccc) || "^3" (cccc).c.c (cccc).c.c || "^4" .c.c(cccc) .c.c(cccc) || "^5" (cc).c.c.c.c (cc).c.c.c.c ||'
+    ].join("\n");
+
+    const EJ5_10_ART_ROW2_ABC = [
+      "X:102",
+      "M:2/4",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^6" (ccc) (ccc) (ccc) (ccc) || "^7" (ccc) .c.c.c (ccc) .c.c.c || [M:6/8] "^8" (cc)(cc)(cc) (cc)(cc)(cc) || "^9" .c(cc)(cc)(c c)(cc)(cc).c || "^10" .c.c.c.c.c.c .c.c.c.c.c.c ||'
+    ].join("\n");
+
+    const EJ11_ART_ROW1_ABC = [
+      "X:101",
+      "M:9/8",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^1" (cccccc cccccc cccccc) || "^2" (cccccc) (cccccc) (cccccc) || "^3" (cccc).c.c (cccc).c.c (cccc).c.c || "^4" .c.c(cccc) .c.c(cccc) .c.c(cccc) || "^5" (cc).c.c.c.c (cc).c.c.c.c (cc).c.c.c.c ||'
+    ].join("\n");
+
+    const EJ11_ART_ROW2_ABC = [
+      "X:102",
+      "M:3/4",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^6" (ccc)(ccc) (ccc)(ccc) (ccc)(ccc) || "^7" (ccc).c.c.c (ccc).c.c.c (ccc).c.c.c || [M:9/8] "^8" (cc)(cc)(cc) (cc)(cc)(cc) (cc)(cc)(cc) || "^9" .c(cc)(cc)(c c)(cc)(cc)(c c)(cc)(cc).c || "^10" .c.c.c.c.c.c .c.c.c.c.c.c .c.c.c.c.c.c ||'
+    ].join("\n");
+
+    function formatEj5_10Measure12(n, artId) {
+      switch (artId) {
+        case 0:  return n.slice(0,6).join("") + " " + n.slice(6,12).join("");
+        case 1:  return "(" + n.slice(0,6).join("") + " " + n.slice(6,12).join("") + ")";
+        case 2:  return "(" + n.slice(0,6).join("") + ") (" + n.slice(6,12).join("") + ")";
+        case 3:  return `(${n[0]}${n[1]}${n[2]}${n[3]}).${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}${n[9]}).${n[10]}.${n[11]}`;
+        case 4:  return `.${n[0]}.${n[1]}(${n[2]}${n[3]}${n[4]}${n[5]}) .${n[6]}.${n[7]}(${n[8]}${n[9]}${n[10]}${n[11]})`;
+        case 5:  return `(${n[0]}${n[1]}).${n[2]}.${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}).${n[8]}.${n[9]}.${n[10]}.${n[11]}`;
+        case 6:  return `(${n[0]}${n[1]}${n[2]}) (${n[3]}${n[4]}${n[5]}) (${n[6]}${n[7]}${n[8]}) (${n[9]}${n[10]}${n[11]})`;
+        case 7:  return `(${n[0]}${n[1]}${n[2]}) .${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}) .${n[9]}.${n[10]}.${n[11]}`;
+        case 8:  return `(${n[0]}${n[1]})(${n[2]}${n[3]})(${n[4]}${n[5]}) (${n[6]}${n[7]})(${n[8]}${n[9]})(${n[10]}${n[11]})`;
+        case 9:  return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]})(${n[5]} ${n[6]})(${n[7]}${n[8]})(${n[9]}${n[10]}).${n[11]}`;
+        case 10: return n.slice(0,6).map(x => "." + x).join("") + " " + n.slice(6,12).map(x => "." + x).join("");
+        default: return n.slice(0,6).join("") + " " + n.slice(6,12).join("");
+      }
+    }
+
+    function formatEj11Measure18(n, artId) {
+      switch (artId) {
+        case 0:  return n.slice(0,6).join("") + " " + n.slice(6,12).join("") + " " + n.slice(12,18).join("");
+        case 1:  return "(" + n.slice(0,6).join("") + " " + n.slice(6,12).join("") + " " + n.slice(12,18).join("") + ")";
+        case 2:  return "(" + n.slice(0,6).join("") + ") (" + n.slice(6,12).join("") + ") (" + n.slice(12,18).join("") + ")";
+        case 3:  return `(${n[0]}${n[1]}${n[2]}${n[3]}).${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}${n[9]}).${n[10]}.${n[11]} (${n[12]}${n[13]}${n[14]}${n[15]}).${n[16]}.${n[17]}`;
+        case 4:  return `.${n[0]}.${n[1]}(${n[2]}${n[3]}${n[4]}${n[5]}) .${n[6]}.${n[7]}(${n[8]}${n[9]}${n[10]}${n[11]}) .${n[12]}.${n[13]}(${n[14]}${n[15]}${n[16]}${n[17]})`;
+        case 5:  return `(${n[0]}${n[1]}).${n[2]}.${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}).${n[8]}.${n[9]}.${n[10]}.${n[11]} (${n[12]}${n[13]}).${n[14]}.${n[15]}.${n[16]}.${n[17]}`;
+        case 6:  return `(${n[0]}${n[1]}${n[2]})(${n[3]}${n[4]}${n[5]}) (${n[6]}${n[7]}${n[8]})(${n[9]}${n[10]}${n[11]}) (${n[12]}${n[13]}${n[14]})(${n[15]}${n[16]}${n[17]})`;
+        case 7:  return `(${n[0]}${n[1]}${n[2]}).${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}).${n[9]}.${n[10]}.${n[11]} (${n[12]}${n[13]}${n[14]}).${n[15]}.${n[16]}.${n[17]}`;
+        case 8:  return `(${n[0]}${n[1]})(${n[2]}${n[3]})(${n[4]}${n[5]}) (${n[6]}${n[7]})(${n[8]}${n[9]})(${n[10]}${n[11]}) (${n[12]}${n[13]})(${n[14]}${n[15]})(${n[16]}${n[17]})`;
+        case 9:  return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]})(${n[5]} ${n[6]})(${n[7]}${n[8]})(${n[9]}${n[10]})(${n[11]} ${n[12]})(${n[13]}${n[14]})(${n[15]}${n[16]}).${n[17]}`;
+        case 10: return n.slice(0,6).map(x => "." + x).join("") + " " + n.slice(6,12).map(x => "." + x).join("") + " " + n.slice(12,18).map(x => "." + x).join("");
+        default: return n.slice(0,6).join("") + " " + n.slice(6,12).join("") + " " + n.slice(12,18).join("");
+      }
+    }
+
+    function buildEj5SingleScaleAbc(scaleIdx, artId, includeTimeSig) {
+      const sc = EJ5_SCALES_DATA[scaleIdx] || EJ5_SCALES_DATA[0];
+      const art = EJ5_ARTS_DATA[artId] || EJ5_ARTS_DATA[0];
+      const meterStr = includeTimeSig ? art.meter : "none";
+      const b1 = formatEj5_10Measure12(sc.m1, artId);
+      const b2 = formatEj5_10Measure12(sc.m2, artId);
+      const b3 = formatEj5_10Measure12(sc.m3, artId);
+      const b4 = formatEj5_10Measure12(sc.m4, artId);
+      const b5 = `${sc.m5}4 z4 |`;
+      return [
+        `X:${scaleIdx + 1}`,
+        "%%stretchlast 1",
+        `M:${meterStr}`,
+        "L:1/16",
+        `K:${sc.keySig}`,
+        "V:1 clef=treble stem=down",
+        `"${sc.letter}" ${b1} | ${b2} | ${b3} | ${b4} | ${b5}]`
+      ].join("\n");
+    }
+
+    function renderEj5Leduc(artId, secIdx) {
+      const paper = document.getElementById("paper");
+      const art = EJ5_ARTS_DATA[artId] || EJ5_ARTS_DATA[0];
+      const sc = EJ5_SCALES_DATA[secIdx] || EJ5_SCALES_DATA[0];
+
+      let html = `
+        <div class="ej1-leduc-wrapper">
+          <div class="ej1-top-header">
+            <div class="ej1-title">E. J. 5 — <em>GAMMES CHROMATIQUES</em></div>
+            <div class="ej1-active-badge">${art.name} (${art.meter})</div>
+          </div>
+          <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
+          <div id="ej5-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
+          <div id="ej5-art-row-2" class="ej1-art-row"></div>
+
+          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
+              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
+                🎯 Escala Activa: ${sc.titleEs}
+              </span>
+              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
+                Compases ${secIdx * 5 + 1}–${secIdx * 5 + 5} de 60 (2 Octavas Cromáticas)
+              </span>
+            </div>
+            <div id="ej5-focus-score" class="ej1-staff-row"></div>
+          </div>
+
+          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
+            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Pág. 115 · 12 Escalas A–L)
+          </div>
+      `;
+      for (let i = 0; i < EJ5_SCALES_DATA.length; i++) {
+        const highlight = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
+        html += `<div id="ej5-scale-row-${i}" class="ej1-staff-row" style="${highlight}"></div>`;
+      }
+      html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
+      paper.innerHTML = html;
+
+      ABCJS.renderAbc("ej5-art-row-1", EJ5_10_ART_ROW1_ABC, { staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej5-art-row-2", EJ5_10_ART_ROW2_ABC, { staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej5-focus-score", buildEj5SingleScaleAbc(secIdx, artId, true), { staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" });
+
+      for (let i = 0; i < EJ5_SCALES_DATA.length; i++) {
+        ABCJS.renderAbc(`ej5-scale-row-${i}`, buildEj5SingleScaleAbc(i, artId, i === 0), { staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      }
+    }
+
+    function buildEj10SectionFocusAbc(secIdx, artId) {
+      const art = EJ10_ARTS_DATA[artId] || EJ10_ARTS_DATA[0];
+      const startM = secIdx * 10;
+      const slice = EJ10_MEASURES_DATA.slice(startM, startM + 10);
+      const row1 = slice.slice(0, 5).map(m => `"[c.${m.m}]" ` + formatEj5_10Measure12(m.n, artId) + " |").join(" ");
+      const row2 = slice.slice(5, 10).map((m, i) => `"[c.${m.m}]" ` + formatEj5_10Measure12(m.n, artId) + (i === 4 ? " ||" : " |")).join(" ");
+      const extraFinal = (secIdx === 11) ? " B4 z4 |]" : "";
+      return [
+        "X:200",
+        "%%stretchlast 1",
+        `M:${art.meter}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble",
+        row1,
+        row2 + extraFinal
+      ].join("\n");
+    }
+
+    function buildEj10SystemAbc(sysIdx, artId) {
+      const art = EJ10_ARTS_DATA[artId] || EJ10_ARTS_DATA[0];
+      const meterStr = sysIdx === 0 ? art.meter : "none";
+      const startM = sysIdx * 4;
+      const slice = EJ10_MEASURES_DATA.slice(startM, startM + 4);
+      const bars = slice.map(mObj => {
+        const bTxt = formatEj5_10Measure12(mObj.n, artId);
+        const barline = mObj.end ? "||" : "|";
+        return `${bTxt} ${barline}`;
+      });
+      if (sysIdx === 29) bars.push("B4 z4 |]");
+      return [
+        `X:${sysIdx + 1}`,
+        "%%stretchlast 1",
+        `M:${meterStr}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble",
+        bars.join(" ")
+      ].join("\n");
+    }
+
+    function renderEj10Leduc(artId, secIdx) {
+      const paper = document.getElementById("paper");
+      const art = EJ10_ARTS_DATA[artId] || EJ10_ARTS_DATA[0];
+      const sec = EJ10_SECTIONS_DATA[secIdx] || EJ10_SECTIONS_DATA[0];
+      const endM = (secIdx === 11) ? 121 : sec.endMeasure;
+
+      let html = `
+        <div class="ej1-leduc-wrapper">
+          <div class="ej1-top-header">
+            <div class="ej1-title">E. J. 10 — <em>ARPÈGES (EXERCICES SUR LES ACCORDS)</em></div>
+            <div class="ej1-active-badge">${art.name} (${art.meter})</div>
+          </div>
+          <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
+          <div id="ej10-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
+          <div id="ej10-art-row-2" class="ej1-art-row"></div>
+
+          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
+              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
+                🎯 Sección Activa: ${sec.titleEs} (10 Tríadas y Séptimas)
+              </span>
+              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
+                Compases ${sec.startMeasure}–${endM} de 121
+              </span>
+            </div>
+            <div id="ej10-focus-score" class="ej1-staff-row"></div>
+          </div>
+
+          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
+            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Págs. 120–121 · 121 Compases)
+          </div>
+          <div style="font-size:11px; font-weight:bold; color:#334155; margin:4px 4px 2px 4px;">Pág. 120 (Sistemas 1–14 · c. 1–56)</div>
+      `;
+      for (let s = 0; s < 30; s++) {
+        if (s === 14) {
+          html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 121 (Sistemas 15–30 · c. 57–121)</div>`;
+        }
+        html += `<div id="ej10-sys-${s}" class="ej1-staff-row"></div>`;
+      }
+      html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
+      paper.innerHTML = html;
+
+      ABCJS.renderAbc("ej10-art-row-1", EJ5_10_ART_ROW1_ABC, { staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej10-art-row-2", EJ5_10_ART_ROW2_ABC, { staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej10-focus-score", buildEj10SectionFocusAbc(secIdx, artId), { staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" });
+
+      for (let s = 0; s < 30; s++) {
+        ABCJS.renderAbc(`ej10-sys-${s}`, buildEj10SystemAbc(s, artId), { staffwidth: s === 29 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      }
+    }
+
+    function buildEj11SectionFocusAbc(secIdx, artId) {
+      const art = EJ11_ARTS_DATA[artId] || EJ11_ARTS_DATA[0];
+      const startM = secIdx * 10;
+      const slice = EJ11_MEASURES_DATA.slice(startM, startM + 10);
+      const lines = [
+        "X:300",
+        "%%stretchlast 1",
+        `M:${art.meter}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble"
+      ];
+      for (let i = 0; i < 10; i += 2) {
+        const m1 = slice[i];
+        const m2 = slice[i + 1];
+        const b1 = `"[c.${m1.m}]" ` + formatEj11Measure18(m1.n, artId) + " |";
+        const isLast = (i === 8);
+        const extraFinal = (isLast && secIdx === 11) ? " B4 z4 z10 |]" : "";
+        const b2 = `"[c.${m2.m}]" ` + formatEj11Measure18(m2.n, artId) + (isLast ? " ||" : " |") + extraFinal;
+        lines.push(b1 + " " + b2);
+      }
+      return lines.join("\n");
+    }
+
+    function buildEj11SystemAbc(sysIdx, artId) {
+      const art = EJ11_ARTS_DATA[artId] || EJ11_ARTS_DATA[0];
+      const meterStr = sysIdx === 0 ? art.meter : "none";
+      const startM = sysIdx * 2;
+      const slice = EJ11_MEASURES_DATA.slice(startM, startM + 2);
+      const bars = slice.map(mObj => {
+        const bTxt = formatEj11Measure18(mObj.n, artId);
+        const barline = mObj.end ? "||" : "|";
+        return `${bTxt} ${barline}`;
+      });
+      if (sysIdx === 59) bars.push("B4 z4 z10 |]");
+      return [
+        `X:${sysIdx + 1}`,
+        "%%stretchlast 1",
+        `M:${meterStr}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble",
+        bars.join(" ")
+      ].join("\n");
+    }
+
+    function renderEj11Leduc(artId, secIdx) {
+      const paper = document.getElementById("paper");
+      const art = EJ11_ARTS_DATA[artId] || EJ11_ARTS_DATA[0];
+      const sec = EJ11_SECTIONS_DATA[secIdx] || EJ11_SECTIONS_DATA[0];
+      const endM = (secIdx === 11) ? 121 : sec.endMeasure;
+
+      let html = `
+        <div class="ej1-leduc-wrapper">
+          <div class="ej1-top-header">
+            <div class="ej1-title">E. J. 11 — <em>ARPÈGES BRISÉS</em></div>
+            <div class="ej1-active-badge">${art.name} (${art.meter})</div>
+          </div>
+          <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
+          <div id="ej11-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
+          <div id="ej11-art-row-2" class="ej1-art-row"></div>
+
+          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
+              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
+                🎯 Sección Activa: ${sec.titleEs} (10 Arpegios Quebrados en 9/8 · 3/4)
+              </span>
+              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
+                Compases ${sec.startMeasure}–${endM} de 121
+              </span>
+            </div>
+            <div id="ej11-focus-score" class="ej1-staff-row"></div>
+          </div>
+
+          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
+            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Págs. 122–125 · 121 Compases)
+          </div>
+          <div style="font-size:11px; font-weight:bold; color:#334155; margin:4px 4px 2px 4px;">Pág. 122 (Sistemas 1–14 · c. 1–28)</div>
+      `;
+      for (let s = 0; s < 60; s++) {
+        if (s === 14) {
+          html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 123 (Sistemas 15–30 · c. 29–60)</div>`;
+        } else if (s === 30) {
+          html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 124 (Sistemas 31–45 · c. 61–90)</div>`;
+        } else if (s === 45) {
+          html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 125 (Sistemas 46–60 · c. 91–121)</div>`;
+        }
+        html += `<div id="ej11-sys-${s}" class="ej1-staff-row"></div>`;
+      }
+      html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
+      paper.innerHTML = html;
+
+      ABCJS.renderAbc("ej11-art-row-1", EJ11_ART_ROW1_ABC, { staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej11-art-row-2", EJ11_ART_ROW2_ABC, { staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      ABCJS.renderAbc("ej11-focus-score", buildEj11SectionFocusAbc(secIdx, artId), { staffwidth: 940, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" });
+
+      for (let s = 0; s < 60; s++) {
+        ABCJS.renderAbc(`ej11-sys-${s}`, buildEj11SystemAbc(s, artId), { staffwidth: s === 59 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" });
+      }
+    }
+// === END EJ5_10_11 LEDUC ===
+
     function renderScore(abcString) {
+      const ej5Match = abcString && abcString.match(/%\s*EJ5_LEDUC_ART:(\d+):SEC:(\d+)/);
+      if (ej5Match) {
+        const artId = parseInt(ej5Match[1], 10) || 0;
+        const secIdx = parseInt(ej5Match[2], 10) || 0;
+        renderEj5Leduc(artId, secIdx);
+        return;
+      }
+      const ej10Match = abcString && abcString.match(/%\s*EJ10_LEDUC_ART:(\d+):SEC:(\d+)/);
+      if (ej10Match) {
+        const artId = parseInt(ej10Match[1], 10) || 0;
+        const secIdx = parseInt(ej10Match[2], 10) || 0;
+        renderEj10Leduc(artId, secIdx);
+        return;
+      }
+      const ej11Match = abcString && abcString.match(/%\s*EJ11_LEDUC_ART:(\d+):SEC:(\d+)/);
+      if (ej11Match) {
+        const artId = parseInt(ej11Match[1], 10) || 0;
+        const secIdx = parseInt(ej11Match[2], 10) || 0;
+        renderEj11Leduc(artId, secIdx);
+        return;
+      }
       const ej4Match = abcString && abcString.match(/%\s*EJ4_LEDUC_ART:(\d+):SEC:(\d+)/);
       if (ej4Match) {
         const artId = parseInt(ej4Match[1], 10) || 0;

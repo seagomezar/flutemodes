@@ -1,0 +1,22 @@
+X:11
+T:E. J. 5 — Gammes Chromatiques (10. Todas Picadas (Staccato))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" .C.^C.D.^D.E.F .^F.G.^G.A._B.=B | .c.^c.d.^d.e.f .^f.g.^g.a._b.=b | .c'.b._b.a._a.g .^f.=f.e._e.d._d | .c.B._B.A._A.G .^F.=F.E._E.D._D | C4 z4 |]
+[K:Db] "B" .D.=D.E.=E.F.G .=G.A.=A.B._c.=c | .d.=d.e.=e.f.g .=g.a.=a.b._c'.=c' | .d'.c'._c'.b.__b.a .=g._g.f._f.e.__e | .d.c._c.B.__B.A .=G._G.F._F.E.__E | D4 z4 |]
+[K:D] "C" .D.^D.E.^E.F.G .^G.A.^A.B.=c.^c | .d.^d.e.^e.f.g .^g.a.^a.b.=c'.^c' | .d'.c'.=c'.b._b.a .^g.=g.f.=f.e._e | .d.c.=c.B._B.A .^G.=G.F.=F.E._E | D4 z4 |]
+[K:Eb] "D" .E.=E.F.^F.G.A .=A.B.=B.c._d.=d | .e.=e.f.^f.g.a .=a.b.=b.c'._d'.=d' | .e'.d'._d'.c'._c'.b .=a._a.g._g.f._f | .e.d._d.c._c.B .=A._A.G._G.F._F | E4 z4 |]
+[K:E] "E" .E.^E.F.^^F.G.A .^A.B.^B.c.=d.^d | .e.^e.f.^^f.g.a .^a.b.^b.c'.=d'.^d' | .e'.d'.=d'.c'.=c'.b .^a.=a.g.=g.f.=f | .e.d.=d.c.=c.B .^A.=A.G.=G.F.=F | E4 z4 |]
+[K:F] "F" .F.^F.G.^G.A.B .=B.c.^c.d._e.=e | .f.^f.g.^g.a.b .=b.c'.^c'.d'._e'.=e' | .f'.e'._e'.d'._d'.c' .=b._b.a._a.g._g | .f.e._e.d._d.c .=B._B.A._A.G._G | F4 z4 |]
+[K:Gb] "G" .G.=G.A.=A.B.c .=c.d.=d.e._f.=f | .g.=g.a.=a.b.c' .=c'.d'.=d'.e'._f'.=f' | .g'.f'._f'.e'.__e'.d' .=c'._c'.b.__b.a.__a | .g.f._f.e.__e.d .=c._c.B.__B.A.__A | G4 z4 |]
+[K:G] "H" .G.^G.A.^A.B.c .^c.d.^d.e.=f.^f | .g.^g.a.^a.b.c' .^c'.d'.^d'.e'.=f'.^f' | .g'.f'.=f'.e'._e'.d' .^c'.=c'.b._b.a._a | .g.f.=f.e._e.d .^c.=c.B._B.A._A | G4 z4 |]
+[K:Ab] "I" .A.=A.B.=B.c.d .=d.e.=e.f._g.=g | .a.=a.b.=b.c'.d' .=d'.e'.=e'.f'._g'.=g' | .a'.g'._g'.f'._f'.e' .=d'._d'.c'._c'.b.__b | .a.g._g.f._f.e .=d._d.c._c.B.__B | A4 z4 |]
+[K:A] "J" .A.^A.B.^B.c.d .^d.e.^e.f.=g.^g | .a.^a.b.^b.c'.d' .^d'.e'.^e'.f'.=g'.^g' | .a'.g'.=g'.f'.=f'.e' .^d'.=d'.c'.=c'.b._b | .a.g.=g.f.=f.e .^d.=d.c.=c.B._B | A4 z4 |]
+[K:Bb] "K" .B.=B.c.^c.d.e .=e.f.^f.g._a.=a | .b.=b.c'.^c'.d'.e' .=e'.f'.^f'.g'._a'.=a' | .b'.a'._a'.g'._g'.f' .=e'._e'.d'._d'.c'._c' | .b.a._a.g._g.f .=e._e.d._d.c._c | B4 z4 |]
+[K:B] "L" .B.^B.c.^^c.d.e .^e.f.^^f.g.=a.^a | .b.^b.c'.^^c'.d'.e' .^e'.f'.^^f'.g'.=a'.^a' | .b'.a'.=a'.g'.=g'.f' .^e'.=e'.d'.=d'.c'.=c' | .b.a.=a.g.=g.f .^e.=e.d.=d.c.=c | B4 z4 |]

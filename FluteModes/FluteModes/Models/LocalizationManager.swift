@@ -192,6 +192,84 @@ public class LocalizationManager: ObservableObject {
             "🎵 Switch to 84 Parallel Modes (León Giraldo)"
         ],
 
+        // E.J. 5 Urtext General
+        "ej5_title": [
+            "E. J. 5 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pág. 115)",
+            "E. J. 5 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, p. 115)"
+        ],
+        "ej5_sub_desc": [
+            "Escalas Cromáticas (Gammes Chromatiques) · 12 Escalas A–L (60 compases · 6/8 & 2/4 · 10 articulaciones oficiales)",
+            "Chromatic Scales (Gammes Chromatiques) · 12 Scales A–L (60 measures · 6/8 & 2/4 · 10 official articulations)"
+        ],
+        "ej5_header_info": [
+            "12 Escalas Cromáticas (Do a Si · 2 Octavas + Reprise à l'octave) · 60 Compases · 10 Articulaciones",
+            "12 Chromatic Scales (C to B · 2 Octaves + Reprise à l'octave) · 60 Measures · 10 Articulations"
+        ],
+        "ej5_select_section": [
+            "12 Escalas Cromáticas (A–L · 60 Compases)",
+            "12 Chromatic Scales (A–L · 60 Measures)"
+        ],
+        "ej5_select_art": [
+            "10 Articulaciones Oficiales (E. J. 5)",
+            "10 Official Articulations (E. J. 5)"
+        ],
+        "ej5_start_practice": [
+            "Practicar E. J. 5 (Urtext)",
+            "Practice E. J. 5 (Urtext)"
+        ],
+
+        // E.J. 10 Urtext General
+        "ej10_title": [
+            "E. J. 10 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 120–121)",
+            "E. J. 10 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 120–121)"
+        ],
+        "ej10_sub_desc": [
+            "Arpegios Progresivos de 2 Octavas (Arpèges) · 12 Series Cromáticas (121 compases · 6/8 & 2/4 · 10 articulaciones)",
+            "2-Octave Progressive Arpeggios (Arpèges) · 12 Chromatic Series (121 measures · 6/8 & 2/4 · 10 articulations)"
+        ],
+        "ej10_header_info": [
+            "12 Series Cromáticas (Do a Si · 10 acordes por grado + Coda) · 121 Compases · 10 Articulaciones",
+            "12 Chromatic Series (C to B · 10 chords per degree + Coda) · 121 Measures · 10 Articulations"
+        ],
+        "ej10_select_section": [
+            "12 Series de Arpegios (121 Compases)",
+            "12 Arpeggio Series (121 Measures)"
+        ],
+        "ej10_select_art": [
+            "10 Articulaciones Oficiales (E. J. 10)",
+            "10 Official Articulations (E. J. 10)"
+        ],
+        "ej10_start_practice": [
+            "Practicar E. J. 10 (Urtext)",
+            "Practice E. J. 10 (Urtext)"
+        ],
+
+        // E.J. 11 Urtext General
+        "ej11_title": [
+            "E. J. 11 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 122–125)",
+            "E. J. 11 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 122–125)"
+        ],
+        "ej11_sub_desc": [
+            "Arpegios Quebrados (Arpèges Brisés) · 12 Series Cromáticas (121 compases · 9/8 & 3/4 · 10 articulaciones)",
+            "Broken Arpeggios (Arpèges Brisés) · 12 Chromatic Series (121 measures · 9/8 & 3/4 · 10 articulations)"
+        ],
+        "ej11_header_info": [
+            "12 Series Cromáticas en 9/8 y 3/4 (18 semicorcheas por compás + Coda) · 121 Compases · 10 Articulaciones",
+            "12 Chromatic Series in 9/8 & 3/4 (18 sixteenths per measure + Coda) · 121 Measures · 10 Articulations"
+        ],
+        "ej11_select_section": [
+            "12 Series de Arpegios Quebrados (121 Compases)",
+            "12 Broken Arpeggio Series (121 Measures)"
+        ],
+        "ej11_select_art": [
+            "10 Articulaciones Oficiales (E. J. 11)",
+            "10 Official Articulations (E. J. 11)"
+        ],
+        "ej11_start_practice": [
+            "Practicar E. J. 11 (Urtext)",
+            "Practice E. J. 11 (Urtext)"
+        ],
+
         // E.J. 1 Articulations (0..10)
         "ej1_art_0_title": ["Original (A. L. 16.588)", "Original (A. L. 16.588)"],
         "ej1_art_1_title": ["1. A 8 ligadas (Toda ligada)", "1. All 8 slurred"],

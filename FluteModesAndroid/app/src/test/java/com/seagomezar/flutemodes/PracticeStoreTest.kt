@@ -208,5 +208,29 @@ class PracticeStoreTest {
         assertEquals(8, store.ej4CompletedCount)
         assertTrue(store.isEJ4FullyCompleted)
     }
+
+    @Test
+    fun testEJ5EJ10AndEJ11CompletionTracking() {
+        store.resetAll()
+        assertEquals(0, store.ej5TypeCompletedCount(ExerciseType.EJ5))
+        assertEquals(0, store.ej5TypeCompletedCount(ExerciseType.EJ10))
+        assertEquals(0, store.ej5TypeCompletedCount(ExerciseType.EJ11))
+        assertFalse(store.isEJ5TypeFullyCompleted(ExerciseType.EJ5))
+        assertFalse(store.isEJ5TypeFullyCompleted(ExerciseType.EJ10))
+        assertFalse(store.isEJ5TypeFullyCompleted(ExerciseType.EJ11))
+
+        for (art in EJ5Articulation.practiceCases) {
+            store.markEJ5TypeCompleted(art, ExerciseType.EJ5)
+            store.markEJ5TypeCompleted(art, ExerciseType.EJ10)
+            store.markEJ5TypeCompleted(art, ExerciseType.EJ11)
+        }
+
+        assertEquals(10, store.ej5TypeCompletedCount(ExerciseType.EJ5))
+        assertEquals(10, store.ej5TypeCompletedCount(ExerciseType.EJ10))
+        assertEquals(10, store.ej5TypeCompletedCount(ExerciseType.EJ11))
+        assertTrue(store.isEJ5TypeFullyCompleted(ExerciseType.EJ5))
+        assertTrue(store.isEJ5TypeFullyCompleted(ExerciseType.EJ10))
+        assertTrue(store.isEJ5TypeFullyCompleted(ExerciseType.EJ11))
+    }
 }
 

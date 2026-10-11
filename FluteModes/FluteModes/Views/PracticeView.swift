@@ -137,6 +137,21 @@ public struct PracticeView: View {
         } message: {
             Text(loc.t("ej4_milestone_msg"))
         }
+        .confirmationDialog(
+            "¡\(viewModel.currentExercise.pillLabel) Completado (10/10 Articulaciones)!",
+            isPresented: $viewModel.showEJ5TypeCompletionDialog,
+            titleVisibility: .visible
+        ) {
+            Button("🔁 Volver a Articulación 1") {
+                viewModel.restartEJ5TypeRound()
+            }
+            Button("🎵 Siguiente Sección (\( (viewModel.currentEJ5TypeSectionIndex + 1) % 12 + 1 )/12)") {
+                viewModel.advanceToNextEJ5TypeSection()
+            }
+            Button(loc.t("stay_mode"), role: .cancel) {}
+        } message: {
+            Text("Has completado las 10 articulaciones oficiales de \(viewModel.currentExercise.pillLabel) de Taffanel & Gaubert.")
+        }
     }
 
     // MARK: - Mobile Top Navigation Bar
@@ -154,28 +169,28 @@ public struct PracticeView: View {
                 .foregroundColor(.primary)
             }
 
-            Spacer(minLength: 4)
-
-            // Exercise quick switcher (E.J. 1 | E.J. 2 | E.J. 4 | 84 Modos)
-            HStack(spacing: 2) {
-                ForEach(ExerciseType.allCases) { ex in
-                    let isSel = viewModel.currentExercise == ex
-                    Button {
-                        viewModel.selectExercise(ex)
-                    } label: {
-                        Text(ex.pillLabel)
-                            .font(.system(size: 11, weight: .bold))
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 5)
-                            .background(isSel ? Color.primary : Color.clear)
-                            .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
-                            .cornerRadius(8)
+            // Exercise quick switcher (Horizontal Scroll for 7 exercises)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 2) {
+                    ForEach(ExerciseType.allCases) { ex in
+                        let isSel = viewModel.currentExercise == ex
+                        Button {
+                            viewModel.selectExercise(ex)
+                        } label: {
+                            Text(ex.pillLabel)
+                                .font(.system(size: 11, weight: .bold))
+                                .padding(.horizontal, 7)
+                                .padding(.vertical, 5)
+                                .background(isSel ? Color.primary : Color.clear)
+                                .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(8)
+                        }
                     }
                 }
+                .padding(2)
+                .background(Color(uiColor: .tertiarySystemFill))
+                .cornerRadius(10)
             }
-            .padding(2)
-            .background(Color(uiColor: .tertiarySystemFill))
-            .cornerRadius(10)
 
             if viewModel.currentExercise == .modos {
                 Button {
@@ -312,6 +327,65 @@ public struct PracticeView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
             .background(Color(uiColor: .systemBackground))
+        } else if viewModel.currentExercise.isEJ5TypeExercise {
+            let ex = viewModel.currentExercise
+            let completed = viewModel.store.ej5TypeCompletedCount(for: ex)
+            let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
+            let currentArt = viewModel.currentEJ5TypeArticulation
+            let curSecIdx = viewModel.currentEJ5TypeSectionIndex
+            let fullName = ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName
+            let mRange = ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange
+
+            VStack(spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("\(ex.pillLabel) · \(fullName)")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+
+                        Text("\(currentArt.title(for: ex)) · \(mRange)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
+
+                    Spacer()
+
+                    Text("\(completed)/10 \(loc.t("arts_count"))")
+                        .font(.caption2.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                        .foregroundColor(isAllDone ? Color.green : Color.blue)
+                        .cornerRadius(8)
+                }
+
+                // Horizontal Section Selector Bar (12 Sections)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 6) {
+                        ForEach(0..<12, id: \.self) { idx in
+                            let isSel = curSecIdx == idx
+                            let shortName = ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName
+                            let rangeStr = ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange
+                            Button {
+                                viewModel.selectEJ5TypeSection(idx)
+                            } label: {
+                                Text("\(shortName) (\(rangeStr))")
+                                    .font(.system(size: 11, weight: isSel ? .bold : .medium))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(isSel ? Color.blue : Color(uiColor: .tertiarySystemFill))
+                                    .foregroundColor(isSel ? .white : .primary)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(Color(uiColor: .systemBackground))
         } else {
             VStack(spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
@@ -374,25 +448,27 @@ public struct PracticeView: View {
             }
 
             // Exercise Switcher Pill
-            HStack(spacing: 2) {
-                ForEach(ExerciseType.allCases) { ex in
-                    let isSel = viewModel.currentExercise == ex
-                    Button {
-                        viewModel.selectExercise(ex)
-                    } label: {
-                        Text(ex.pillLabel)
-                            .font(.caption.bold())
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(isSel ? Color.primary : Color.clear)
-                            .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
-                            .cornerRadius(8)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 2) {
+                    ForEach(ExerciseType.allCases) { ex in
+                        let isSel = viewModel.currentExercise == ex
+                        Button {
+                            viewModel.selectExercise(ex)
+                        } label: {
+                            Text(ex.pillLabel)
+                                .font(.caption.bold())
+                                .padding(.horizontal, 9)
+                                .padding(.vertical, 5)
+                                .background(isSel ? Color.primary : Color.clear)
+                                .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(8)
+                        }
                     }
                 }
+                .padding(2)
+                .background(Color(uiColor: .tertiarySystemFill))
+                .cornerRadius(10)
             }
-            .padding(2)
-            .background(Color(uiColor: .tertiarySystemFill))
-            .cornerRadius(10)
 
             Spacer()
 
@@ -457,6 +533,43 @@ public struct PracticeView: View {
                     }
 
                     Text("\(currentArt.title) | \(curSec.measureRange) de 194")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            } else if viewModel.currentExercise.isEJ5TypeExercise {
+                let ex = viewModel.currentExercise
+                let completed = viewModel.store.ej5TypeCompletedCount(for: ex)
+                let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
+                let currentArt = viewModel.currentEJ5TypeArticulation
+                let curSecIdx = viewModel.currentEJ5TypeSectionIndex
+                let fullName = ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName
+                let mRange = ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange
+                let totalMeas = ex == .ej5 ? "60" : "121"
+
+                VStack(spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text("\(ex.pillLabel) · \(fullName)")
+                            .font(.system(size: 17, weight: .bold))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+
+                        Text("A. L. 16.588")
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .cornerRadius(6)
+
+                        Text("\(completed)/10 \(loc.t("arts_count"))")
+                            .font(.caption2.bold().monospacedDigit())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(isAllDone ? Color.green.opacity(0.18) : Color.blue.opacity(0.12))
+                            .foregroundColor(isAllDone ? Color.green : Color.blue)
+                            .cornerRadius(6)
+                    }
+
+                    Text("\(currentArt.title(for: ex)) | \(mRange) de \(totalMeas)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -711,6 +824,111 @@ public struct PracticeView: View {
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
+        } else if viewModel.currentExercise.isEJ5TypeExercise {
+            let ex = viewModel.currentExercise
+            let completedCount = viewModel.store.ej5TypeCompletedCount(for: ex)
+            let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
+            let curSecIdx = viewModel.currentEJ5TypeSectionIndex
+            let selectArtKey = ex == .ej5 ? "ej5_select_art" : (ex == .ej10 ? "ej10_select_art" : "ej11_select_art")
+
+            VStack(spacing: 6) {
+                if !isCompact {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(0..<12, id: \.self) { idx in
+                                let isSel = curSecIdx == idx
+                                let shortName = ex == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName
+                                let mRange = ex == .ej5 ? EJ5Section.all[idx].measureRange : EJ10Section.all[idx].measureRange
+                                Button {
+                                    viewModel.selectEJ5TypeSection(idx)
+                                } label: {
+                                    Text("\(shortName) (\(mRange))")
+                                        .font(.system(size: 11.5, weight: isSel ? .bold : .medium))
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 5)
+                                        .background(isSel ? Color.blue : Color(uiColor: .secondarySystemGroupedBackground))
+                                        .foregroundColor(isSel ? .white : .primary)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
+                    }
+                }
+
+                HStack {
+                    HStack(spacing: 6) {
+                        Text(loc.t(selectArtKey))
+                            .font(.caption.bold())
+                            .foregroundColor(.primary)
+
+                        if isAllDone {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                        }
+                    }
+
+                    Spacer()
+
+                    Text("\(completedCount)/10 " + loc.t("arts_count"))
+                        .font(.caption.bold().monospacedDigit())
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                        .cornerRadius(8)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(EJ5Articulation.allCases) { art in
+                            let isCurrent = viewModel.currentEJ5TypeArticulation == art
+                            let isDone = viewModel.store.isEJ5TypeCompleted(art, for: ex)
+
+                            Button {
+                                if isCurrent {
+                                    if art != .original {
+                                        viewModel.store.toggleEJ5TypeCompleted(art, for: ex)
+                                    }
+                                } else {
+                                    viewModel.selectEJ5TypeArticulation(art, markPreviousCompleted: true)
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    if art == .original {
+                                        Image(systemName: "book.pages.fill")
+                                            .font(.system(size: 12, weight: .bold))
+                                            .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .indigo)
+                                    } else {
+                                        Image(systemName: isDone ? "checkmark.circle.fill" : (isCurrent ? "circle" : "circle.dashed"))
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundColor(isDone ? .green : (isCurrent ? Color(uiColor: .systemBackground) : .secondary))
+                                    }
+
+                                    Text(art.shortTitle(for: ex))
+                                        .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(isDone ? Color.green.opacity(0.4) : (isCurrent ? Color.clear : Color(uiColor: .separator)), lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 6)
+                }
+            }
+            .background(Color(uiColor: .systemGroupedBackground))
         } else {
             let completedCount = viewModel.completedArticulationsInCurrentMode
             let isModeFull = completedCount == 8
@@ -945,6 +1163,70 @@ public struct PracticeView: View {
                             Text(loc.t("next_art"))
                                 .font(.subheadline.bold())
                             Text("\(completedCount)/8 \(loc.t("arts_count"))")
+                                .font(.caption.bold().monospacedDigit())
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                .clipShape(Capsule())
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.primary)
+                        .foregroundColor(Color(uiColor: .systemBackground))
+                        .cornerRadius(20)
+                    }
+                }
+            } else if viewModel.currentExercise.isEJ5TypeExercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
+                let completedCount = viewModel.store.ej5TypeCompletedCount(for: ex)
+
+                Button {
+                    viewModel.advanceToNextEJ5TypeSection()
+                } label: {
+                    HStack(spacing: 6) {
+                        Text(ex == .ej5 ? "Sig. Escala" : "Sig. Serie")
+                            .font(.subheadline.bold())
+                        Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/12")
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Color(uiColor: .tertiarySystemFill))
+                            .clipShape(Capsule())
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(Color(uiColor: .secondarySystemFill))
+                    .foregroundColor(.primary)
+                    .cornerRadius(20)
+                }
+
+                if isAllDone {
+                    Button {
+                        viewModel.showEJ5TypeCompletionDialog = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 16))
+                            Text("✓ \(loc.t("ej1_ten_arts_completed"))")
+                                .font(.subheadline.bold())
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
+                        .shadow(color: Color.green.opacity(0.35), radius: 6, x: 0, y: 3)
+                    }
+                } else {
+                    Button {
+                        viewModel.advanceToNextEJ5TypeArticulation()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text(loc.t("next_art"))
+                                .font(.subheadline.bold())
+                            Text("\(completedCount)/10 \(loc.t("arts_count"))")
                                 .font(.caption.bold().monospacedDigit())
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
@@ -1236,6 +1518,79 @@ public struct PracticeView: View {
                                     .font(.system(size: 13, weight: .bold))
                                     .lineLimit(1)
                                 Text("\(completedCount)/8")
+                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color(uiColor: .systemBackground).opacity(0.2))
+                                    .clipShape(Capsule())
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 11, weight: .bold))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.primary)
+                            .foregroundColor(Color(uiColor: .systemBackground))
+                            .cornerRadius(16)
+                        }
+                    }
+                }
+            } else if viewModel.currentExercise.isEJ5TypeExercise {
+                let ex = viewModel.currentExercise
+                let isAllDone = viewModel.store.isEJ5TypeFullyCompleted(for: ex)
+                let completedCount = viewModel.store.ej5TypeCompletedCount(for: ex)
+
+                HStack(spacing: 8) {
+                    Button {
+                        viewModel.advanceToNextEJ5TypeSection()
+                    } label: {
+                        HStack(spacing: 5) {
+                            Text(ex == .ej5 ? "Sig. Esc." : "Sig. Serie")
+                                .font(.system(size: 13, weight: .semibold))
+                                .lineLimit(1)
+                            Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/12")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 2)
+                                .background(Color(uiColor: .tertiarySystemFill))
+                                .clipShape(Capsule())
+                        }
+                        .padding(.horizontal, 10)
+                        .frame(height: 48)
+                        .background(Color(uiColor: .secondarySystemFill))
+                        .foregroundColor(.primary)
+                        .cornerRadius(16)
+                    }
+
+                    if isAllDone {
+                        Button {
+                            viewModel.showEJ5TypeCompletionDialog = true
+                        } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text("✓ \(loc.t("ej1_ten_arts_completed"))")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.85)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .padding(.horizontal, 10)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.green.opacity(0.3), radius: 4, x: 0, y: 2)
+                        }
+                    } else {
+                        Button {
+                            viewModel.advanceToNextEJ5TypeArticulation()
+                        } label: {
+                            HStack(spacing: 6) {
+                                Text(loc.t("next_art"))
+                                    .font(.system(size: 13, weight: .bold))
+                                    .lineLimit(1)
+                                Text("\(completedCount)/10")
                                     .font(.system(size: 11, weight: .bold, design: .monospaced))
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 2)

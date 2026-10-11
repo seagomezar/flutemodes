@@ -7,10 +7,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.seagomezar.flutemodes.model.ArticulationPattern
+import com.seagomezar.flutemodes.model.EJ10Section
 import com.seagomezar.flutemodes.model.EJ1Articulation
 import com.seagomezar.flutemodes.model.EJ4Articulation
 import com.seagomezar.flutemodes.model.EJ4Section
+import com.seagomezar.flutemodes.model.EJ5Articulation
+import com.seagomezar.flutemodes.model.EJ5Section
 import com.seagomezar.flutemodes.model.ExerciseGenerator
+import com.seagomezar.flutemodes.model.ExerciseType
 import com.seagomezar.flutemodes.model.ModeType
 import com.seagomezar.flutemodes.model.Tonic
 import kotlinx.coroutines.*
@@ -55,6 +59,30 @@ class ScoreAudioPlayer {
             stop()
         } else {
             playEJ4(articulation, section, tempoBPM)
+        }
+    }
+
+    fun toggleEJ5(articulation: EJ5Articulation, section: EJ5Section, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ5(articulation, section, tempoBPM)
+        }
+    }
+
+    fun toggleEJ10(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ10(articulation, section, tempoBPM)
+        }
+    }
+
+    fun toggleEJ11(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
+        if (isPlaying) {
+            stop()
+        } else {
+            playEJ11(articulation, section, tempoBPM)
         }
     }
 
@@ -111,6 +139,36 @@ class ScoreAudioPlayer {
 
         playbackJob = scope.launch {
             val buffer = generateEJ4ScoreBuffer(articulation, section, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
+
+    fun playEJ5(articulation: EJ5Articulation, section: EJ5Section, tempoBPM: Int) {
+        stop()
+        isPlaying = true
+
+        playbackJob = scope.launch {
+            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ5, articulation, section.id, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
+
+    fun playEJ10(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
+        stop()
+        isPlaying = true
+
+        playbackJob = scope.launch {
+            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ10, articulation, section.id, tempoBPM)
+            playPcmBuffer(buffer)
+        }
+    }
+
+    fun playEJ11(articulation: EJ5Articulation, section: EJ10Section, tempoBPM: Int) {
+        stop()
+        isPlaying = true
+
+        playbackJob = scope.launch {
+            val buffer = generateEJ5TypeScoreBuffer(ExerciseType.EJ11, articulation, section.id, tempoBPM)
             playPcmBuffer(buffer)
         }
     }
@@ -245,6 +303,54 @@ class ScoreAudioPlayer {
         tempoBPM: Int
     ): ShortArray {
         return generateChromaticPentachordBuffer(isMinor = true, articulation = articulation, tempoBPM = tempoBPM)
+    }
+
+    internal fun generateEJ5TypeScoreBuffer(
+        exercise: ExerciseType,
+        articulation: EJ5Articulation,
+        sectionIndex: Int,
+        tempoBPM: Int
+    ): ShortArray {
+        val sixteenthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+        val finalDuration = sixteenthDuration * 6.0
+
+        fun isStaccatoAt(subIndex: Int): Boolean {
+            val i = subIndex % 6
+            return when (articulation) {
+                EJ5Articulation.ORIGINAL,
+                EJ5Articulation.ALL_SLURRED,
+                EJ5Articulation.SLURRED_6_BY_6,
+                EJ5Articulation.SLURRED_3_BY_3,
+                EJ5Articulation.SLUR_PAIRS_2_BY_2 -> false
+                EJ5Articulation.SLUR_4_STACC_2 -> (i == 4 || i == 5)
+                EJ5Articulation.STACC_2_SLUR_4 -> (i == 0 || i == 1)
+                EJ5Articulation.SLUR_2_STACC_4 -> (i >= 2)
+                EJ5Articulation.SLUR_3_STACC_3 -> (i >= 3)
+                EJ5Articulation.SLUR_SYNCOPATED -> (i == 0 || i == 5)
+                EJ5Articulation.ALL_STACCATO -> true
+            }
+        }
+
+        val allSections = when (exercise) {
+            ExerciseType.EJ5 -> ExerciseGenerator.ej5SectionMidiNotes
+            ExerciseType.EJ10 -> ExerciseGenerator.ej10SectionMidiNotes
+            ExerciseType.EJ11 -> ExerciseGenerator.ej11SectionMidiNotes
+            else -> ExerciseGenerator.ej5SectionMidiNotes
+        }
+        val secIdx = sectionIndex.coerceIn(0, allSections.size - 1)
+        val midiNotes = allSections[secIdx]
+        val notes = mutableListOf<NoteDef>()
+        for ((idx, m) in midiNotes.withIndex()) {
+            val isLongFinal = (idx == midiNotes.size - 1) && (exercise == ExerciseType.EJ5 || secIdx == 11)
+            notes.add(
+                NoteDef(
+                    freq = midiToFrequency(m.toDouble()),
+                    duration = if (isLongFinal) finalDuration else sixteenthDuration,
+                    isStaccato = if (isLongFinal) false else isStaccatoAt(idx)
+                )
+            )
+        }
+        return renderNotesToPcm(notes)
     }
 
     internal fun generateEJ4ScoreBuffer(

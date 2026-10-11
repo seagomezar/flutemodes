@@ -24,11 +24,25 @@ class PracticeStore(context: Context) {
     var ej4CompletedSet by mutableStateOf<Set<Int>>(emptySet())
         private set
 
+    // Completed E.J. 5, E.J. 10, E.J. 11 articulation IDs (1..10)
+    var ej5CompletedSet by mutableStateOf<Set<Int>>(emptySet())
+        private set
+    var ej10CompletedSet by mutableStateOf<Set<Int>>(emptySet())
+        private set
+    var ej11CompletedSet by mutableStateOf<Set<Int>>(emptySet())
+        private set
+
     var lastExerciseType by mutableStateOf(ExerciseType.EJ1)
     var lastEJ1Articulation by mutableStateOf(EJ1Articulation.ORIGINAL)
     var lastEJ2Articulation by mutableStateOf(EJ1Articulation.ORIGINAL)
     var lastEJ4Articulation by mutableStateOf(EJ4Articulation.ORIGINAL)
     var lastEJ4Section by mutableStateOf(EJ4Section.C_MAJOR)
+    var lastEJ5Articulation by mutableStateOf(EJ5Articulation.ORIGINAL)
+    var lastEJ5Section by mutableStateOf(EJ5Section.C_CHROM)
+    var lastEJ10Articulation by mutableStateOf(EJ5Articulation.ORIGINAL)
+    var lastEJ10Section by mutableStateOf(EJ10Section.C_ARP)
+    var lastEJ11Articulation by mutableStateOf(EJ5Articulation.ORIGINAL)
+    var lastEJ11Section by mutableStateOf(EJ10Section.C_ARP)
 
     var lastTonic by mutableStateOf<Tonic?>(null)
     var lastMode by mutableStateOf<ModeType?>(null)
@@ -166,6 +180,87 @@ class PracticeStore(context: Context) {
         saveProgress()
     }
 
+    // --- E.J. 5, E.J. 10, E.J. 11 Progress ---
+    val ej5CompletedCount: Int get() = ej5CompletedSet.size
+    val isEJ5FullyCompleted: Boolean get() = ej5CompletedSet.size == 10
+
+    val ej10CompletedCount: Int get() = ej10CompletedSet.size
+    val isEJ10FullyCompleted: Boolean get() = ej10CompletedSet.size == 10
+
+    val ej11CompletedCount: Int get() = ej11CompletedSet.size
+    val isEJ11FullyCompleted: Boolean get() = ej11CompletedSet.size == 10
+
+    fun isEJ5TypeCompleted(articulation: EJ5Articulation, exercise: ExerciseType): Boolean {
+        if (articulation == EJ5Articulation.ORIGINAL) return false
+        return when (exercise) {
+            ExerciseType.EJ5 -> ej5CompletedSet.contains(articulation.id)
+            ExerciseType.EJ10 -> ej10CompletedSet.contains(articulation.id)
+            ExerciseType.EJ11 -> ej11CompletedSet.contains(articulation.id)
+            else -> false
+        }
+    }
+
+    fun ej5TypeCompletedCount(exercise: ExerciseType): Int = when (exercise) {
+        ExerciseType.EJ5 -> ej5CompletedCount
+        ExerciseType.EJ10 -> ej10CompletedCount
+        ExerciseType.EJ11 -> ej11CompletedCount
+        else -> 0
+    }
+
+    fun isEJ5TypeFullyCompleted(exercise: ExerciseType): Boolean =
+        ej5TypeCompletedCount(exercise) == 10
+
+    fun markEJ5TypeCompleted(articulation: EJ5Articulation, exercise: ExerciseType) {
+        if (articulation != EJ5Articulation.ORIGINAL) {
+            when (exercise) {
+                ExerciseType.EJ5 -> {
+                    ej5CompletedSet = ej5CompletedSet + articulation.id
+                    lastEJ5Articulation = articulation
+                }
+                ExerciseType.EJ10 -> {
+                    ej10CompletedSet = ej10CompletedSet + articulation.id
+                    lastEJ10Articulation = articulation
+                }
+                ExerciseType.EJ11 -> {
+                    ej11CompletedSet = ej11CompletedSet + articulation.id
+                    lastEJ11Articulation = articulation
+                }
+                else -> {}
+            }
+        }
+        lastExerciseType = exercise
+        saveProgress()
+    }
+
+    fun unmarkEJ5TypeCompleted(articulation: EJ5Articulation, exercise: ExerciseType) {
+        when (exercise) {
+            ExerciseType.EJ5 -> ej5CompletedSet = ej5CompletedSet - articulation.id
+            ExerciseType.EJ10 -> ej10CompletedSet = ej10CompletedSet - articulation.id
+            ExerciseType.EJ11 -> ej11CompletedSet = ej11CompletedSet - articulation.id
+            else -> {}
+        }
+        saveProgress()
+    }
+
+    fun toggleEJ5TypeCompleted(articulation: EJ5Articulation, exercise: ExerciseType) {
+        if (articulation == EJ5Articulation.ORIGINAL) return
+        if (isEJ5TypeCompleted(articulation, exercise)) {
+            unmarkEJ5TypeCompleted(articulation, exercise)
+        } else {
+            markEJ5TypeCompleted(articulation, exercise)
+        }
+    }
+
+    fun resetEJ5Type(exercise: ExerciseType) {
+        when (exercise) {
+            ExerciseType.EJ5 -> ej5CompletedSet = emptySet()
+            ExerciseType.EJ10 -> ej10CompletedSet = emptySet()
+            ExerciseType.EJ11 -> ej11CompletedSet = emptySet()
+            else -> {}
+        }
+        saveProgress()
+    }
+
     // --- Unified Chromatic Helpers ---
     fun isChromaticCompleted(articulation: EJ1Articulation, exercise: ExerciseType): Boolean {
         return if (exercise == ExerciseType.EJ2) isEJ2Completed(articulation) else isEJ1Completed(articulation)
@@ -283,6 +378,9 @@ class PracticeStore(context: Context) {
         ej1CompletedSet = emptySet()
         ej2CompletedSet = emptySet()
         ej4CompletedSet = emptySet()
+        ej5CompletedSet = emptySet()
+        ej10CompletedSet = emptySet()
+        ej11CompletedSet = emptySet()
         lastTonic = null
         lastMode = null
         lastArticulation = null
@@ -301,11 +399,20 @@ class PracticeStore(context: Context) {
         editor.putString("ej1_completed", ej1CompletedSet.joinToString(","))
         editor.putString("ej2_completed", ej2CompletedSet.joinToString(","))
         editor.putString("ej4_completed", ej4CompletedSet.joinToString(","))
+        editor.putString("ej5_completed", ej5CompletedSet.joinToString(","))
+        editor.putString("ej10_completed", ej10CompletedSet.joinToString(","))
+        editor.putString("ej11_completed", ej11CompletedSet.joinToString(","))
         editor.putString("last_exercise_type", lastExerciseType.name)
         editor.putString("last_ej1_articulation", lastEJ1Articulation.name)
         editor.putString("last_ej2_articulation", lastEJ2Articulation.name)
         editor.putString("last_ej4_articulation", lastEJ4Articulation.name)
         editor.putString("last_ej4_section", lastEJ4Section.name)
+        editor.putString("last_ej5_articulation", lastEJ5Articulation.name)
+        editor.putString("last_ej5_section", lastEJ5Section.name)
+        editor.putString("last_ej10_articulation", lastEJ10Articulation.name)
+        editor.putString("last_ej10_section", lastEJ10Section.name)
+        editor.putString("last_ej11_articulation", lastEJ11Articulation.name)
+        editor.putString("last_ej11_section", lastEJ11Section.name)
         lastTonic?.let { editor.putString("last_tonic", it.name) }
         lastMode?.let { editor.putString("last_mode", it.name) }
         lastArticulation?.let { editor.putString("last_articulation", it.name) }
@@ -344,6 +451,27 @@ class PracticeStore(context: Context) {
                 .filter { it in 1..8 }
                 .toSet()
         }
+        val ej5Str = prefs.getString("ej5_completed", null)
+        if (!ej5Str.isNullOrBlank()) {
+            ej5CompletedSet = ej5Str.split(",")
+                .mapNotNull { it.trim().toIntOrNull() }
+                .filter { it in 1..10 }
+                .toSet()
+        }
+        val ej10Str = prefs.getString("ej10_completed", null)
+        if (!ej10Str.isNullOrBlank()) {
+            ej10CompletedSet = ej10Str.split(",")
+                .mapNotNull { it.trim().toIntOrNull() }
+                .filter { it in 1..10 }
+                .toSet()
+        }
+        val ej11Str = prefs.getString("ej11_completed", null)
+        if (!ej11Str.isNullOrBlank()) {
+            ej11CompletedSet = ej11Str.split(",")
+                .mapNotNull { it.trim().toIntOrNull() }
+                .filter { it in 1..10 }
+                .toSet()
+        }
         val exStr = prefs.getString("last_exercise_type", null)
         if (exStr != null) {
             lastExerciseType = runCatching { ExerciseType.valueOf(exStr) }.getOrDefault(ExerciseType.EJ1)
@@ -363,6 +491,30 @@ class PracticeStore(context: Context) {
         val ej4SecStr = prefs.getString("last_ej4_section", null)
         if (ej4SecStr != null) {
             lastEJ4Section = runCatching { EJ4Section.valueOf(ej4SecStr) }.getOrDefault(EJ4Section.C_MAJOR)
+        }
+        val ej5ArtStr = prefs.getString("last_ej5_articulation", null)
+        if (ej5ArtStr != null) {
+            lastEJ5Articulation = runCatching { EJ5Articulation.valueOf(ej5ArtStr) }.getOrDefault(EJ5Articulation.ORIGINAL)
+        }
+        val ej5SecStr = prefs.getString("last_ej5_section", null)
+        if (ej5SecStr != null) {
+            lastEJ5Section = runCatching { EJ5Section.valueOf(ej5SecStr) }.getOrDefault(EJ5Section.C_CHROM)
+        }
+        val ej10ArtStr = prefs.getString("last_ej10_articulation", null)
+        if (ej10ArtStr != null) {
+            lastEJ10Articulation = runCatching { EJ5Articulation.valueOf(ej10ArtStr) }.getOrDefault(EJ5Articulation.ORIGINAL)
+        }
+        val ej10SecStr = prefs.getString("last_ej10_section", null)
+        if (ej10SecStr != null) {
+            lastEJ10Section = runCatching { EJ10Section.valueOf(ej10SecStr) }.getOrDefault(EJ10Section.C_ARP)
+        }
+        val ej11ArtStr = prefs.getString("last_ej11_articulation", null)
+        if (ej11ArtStr != null) {
+            lastEJ11Articulation = runCatching { EJ5Articulation.valueOf(ej11ArtStr) }.getOrDefault(EJ5Articulation.ORIGINAL)
+        }
+        val ej11SecStr = prefs.getString("last_ej11_section", null)
+        if (ej11SecStr != null) {
+            lastEJ11Section = runCatching { EJ10Section.valueOf(ej11SecStr) }.getOrDefault(EJ10Section.C_ARP)
         }
         val tStr = prefs.getString("last_tonic", null)
         val mStr = prefs.getString("last_mode", null)

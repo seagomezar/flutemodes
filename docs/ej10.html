@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taffanel & Gaubert — E. J. 10 (Arpèges · Urtext A. L. 16.588, págs. 120–121)</title>
+  <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-dark: #1e293b;
+      --border-dark: rgba(255,255,255,0.12);
+      --paper: #fdfaf3;
+      --paper-border: #d6cfc2;
+      --ink: #111827;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --gold: #f59e0b;
+      --emerald: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      padding-bottom: 48px;
+    }
+
+    /* BARRA DE CONTROL SUPERIOR */
+    .top-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dark);
+      padding: 12px 20px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .toolbar-row {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.2px;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .controls-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .play-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
+      transition: all 0.15s ease;
+    }
+    .play-btn:hover { transform: translateY(-1px); }
+    .play-btn.playing {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 3px 12px rgba(239, 68, 68, 0.4);
+    }
+    .tempo-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-dark);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .tempo-box input[type="range"] {
+      width: 80px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .tool-btn {
+      background: rgba(255,255,255,0.08);
+      color: #e2e8f0;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s;
+    }
+    .tool-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+    /* TIRAS DE SELECCIÓN (ARTICULACIONES Y SECCIONES CROMÁTICAS) */
+    .selector-strip {
+      max-width: 1360px;
+      margin: 8px auto 0 auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .strip-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+    .strip-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+      margin-right: 4px;
+      min-width: 125px;
+    }
+    .pill-btn {
+      background: rgba(255,255,255,0.06);
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .pill-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+    .pill-btn.active {
+      background: var(--gold);
+      color: #0f172a;
+      border-color: var(--gold);
+      font-weight: 800;
+    }
+    .pill-btn.active-sec {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #60a5fa;
+      font-weight: 700;
+    }
+
+    /* CONTENEDOR DE LAS 2 PÁGINAS URTEXT (120 y 121) */
+    .pages-wrapper {
+      max-width: 1360px;
+      margin: 22px auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .leduc-page {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--paper-border);
+      border-radius: 6px;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.45);
+      padding: 24px 28px 18px 28px;
+      position: relative;
+    }
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1.5px solid #1f2937;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+    .ej-main-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+    .ej-page-num {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .ej-instruction {
+      text-align: center;
+      font-style: italic;
+      font-size: 13px;
+      color: #1f2937;
+      margin-bottom: 5px;
+    }
+
+    /* RECUADRO DE LAS 10 ARTICULACIONES OFICIALES */
+    .art-strip-box {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid #d6cfc2;
+      border-radius: 4px;
+      padding: 3px 6px 1px 6px;
+      margin-bottom: 8px;
+    }
+    .art-strip-box svg {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+    }
+
+    /* TARJETA DE ENFOQUE DE SECCIÓN SELECCIONADA */
+    .focus-card {
+      display: none;
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.16);
+    }
+    .focus-card.visible {
+      display: block;
+    }
+    .focus-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .focus-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #92400e;
+    }
+    .focus-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #b45309;
+      padding: 3px 9px;
+      border-radius: 99px;
+      border: 1px solid #fcd34d;
+    }
+    .chord-pills-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .chord-pill {
+      background: #fff;
+      border: 1px solid #fde68a;
+      border-radius: 5px;
+      padding: 4px 6px;
+      font-size: 11px;
+      color: #451a03;
+    }
+    .chord-pill strong {
+      color: #b45309;
+    }
+
+    /* SISTEMAS DE ARPEGIOS (14 en pág. 120 y 16 en pág. 121) */
+    .systems-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+    }
+    .system-row {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      margin: -3px 0;
+      padding: 0 2px;
+      border-radius: 4px;
+      transition: background 0.12s;
+    }
+    .system-row:hover {
+      background: rgba(37, 99, 235, 0.05);
+    }
+    .system-row.active-system {
+      background: rgba(37, 99, 235, 0.11);
+      outline: 1.5px solid rgba(37, 99, 235, 0.45);
+    }
+    .sys-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #6b7280;
+      text-align: center;
+      user-select: none;
+      line-height: 1.15;
+    }
+    .sys-label .sec-tag {
+      display: block;
+      font-size: 9.5px;
+      color: #1d4ed8;
+      font-weight: 800;
+    }
+    .system-staff {
+      width: 100%;
+      overflow: hidden;
+    }
+    .system-staff svg {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+    }
+    .urtext-note {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #d6cfc2;
+      font-size: 11.5px;
+      color: #3f3f46;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .plate-footer {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #3f3f46;
+      margin-top: 4px;
+      letter-spacing: 0.8px;
+    }
+
+    /* PANEL DE CÓDIGO ABC */
+    .abc-code-section {
+      max-width: 1360px;
+      margin: 0 auto 60px auto;
+      padding: 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .abc-details {
+      background: #1e293b;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .abc-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--gold);
+    }
+    .abc-textarea {
+      width: 100%;
+      min-height: 280px;
+      margin-top: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 3mm;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .top-toolbar, .abc-code-section, .focus-card { display: none !important; }
+      .pages-wrapper { margin: 0; padding: 0; max-width: 100%; gap: 0; }
+      .leduc-page {
+        box-shadow: none;
+        border: none;
+        padding: 1mm 2mm;
+        zoom: 0.56;
+      }
+      .page-break-after {
+        page-break-after: always;
+        break-after: page;
+      }
+      .system-row { margin: -6px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR INTERACTIVA -->
+  <div class="top-toolbar">
+    <div class="toolbar-row">
+      <div>
+        <div class="brand-title">
+          <span>🎼 Taffanel & Gaubert — E. J. 10 (Arpèges · Urtext A. L. 16.588)</span>
+        </div>
+        <div class="brand-sub" id="status-subtitle">
+          Páginas 120–121 · 12 Secciones Cromáticas × 10 Tríadas = 120 Compases + Compás Final (1,441 notas) · 10 Articulaciones
+        </div>
+      </div>
+
+      <div class="controls-wrap">
+        <button id="play-btn" class="play-btn" onclick="togglePlay()">
+          <span id="play-icon">▶</span>
+          <span id="play-label">Escuchar Piano</span>
+        </button>
+
+        <div class="tempo-box">
+          <span>♩ =</span>
+          <input type="range" id="tempo-slider" min="48" max="132" value="80" oninput="updateTempo(this.value)">
+          <strong id="tempo-label">80 BPM</strong>
+        </div>
+
+        <span id="measure-badge" class="tool-btn" style="cursor:default;">Compás: 1 / 121 (Do)</span>
+
+        <button class="tool-btn" onclick="copyCurrentAbc()">
+          <span>📋</span>
+          <span id="copy-label">Copiar ABC</span>
+        </button>
+        <a id="download-abc-link" href="downloads/abc/00_Taffanel_EJ10_Original_AL16588.abc" download class="tool-btn">
+          <span>📥</span>
+          <span>Descargar .ABC</span>
+        </a>
+        <button class="tool-btn" onclick="window.print()">
+          <span>🖨️</span>
+          <span>Imprimir / PDF</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="selector-strip">
+      <div class="strip-row" id="art-buttons-row">
+        <span class="strip-label">Articulación (1–10):</span>
+      </div>
+      <div class="strip-row" id="sec-buttons-row">
+        <span class="strip-label">Sección Bajo (1–12):</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁGINAS 120 Y 121 URTEXT -->
+  <div class="pages-wrapper">
+
+    <!-- PÁGINA 120 (Sistemas 1 a 14 · Compases 1 a 56) -->
+    <div class="leduc-page page-break-after" id="page-120">
+      <div class="page-header">
+        <div class="ej-main-title">E. J. 10 — <em>ARPÈGES (EXERCICES SUR LES ACCORDS)</em></div>
+        <div class="ej-page-num">120</div>
+      </div>
+      <div class="ej-instruction">
+        A travailler successivement avec chacune des articulations suivantes:
+      </div>
+
+      <!-- 10 ARTICULACIONES OFICIALES -->
+      <div class="art-strip-box">
+        <div id="ej10-art-strip-1"></div>
+        <div id="ej10-art-strip-2" style="margin-top:-6px;"></div>
+      </div>
+
+      <!-- TARJETA DE ENFOQUE DE SECCIÓN CROMÁTICA SELECCIONADA -->
+      <div id="focus-card" class="focus-card">
+        <div class="focus-header">
+          <div class="focus-title" id="focus-title">🎯 Sección Activa: 1 · Bajo en Do (Ut)</div>
+          <div class="focus-badge" id="focus-badge">Compases 1–10 · 10 Tríadas (Mayor, Menor, Dism., Aum. e Inversiones)</div>
+        </div>
+        <div id="focus-chords-grid" class="chord-pills-grid"></div>
+        <div id="ej10-focus-staff"></div>
+      </div>
+
+      <!-- 14 SISTEMAS DE LA PÁGINA 120 (Compases 1–56) -->
+      <div class="systems-list" id="systems-page-120"></div>
+
+      <div class="plate-footer">A. L. 16.588</div>
+    </div>
+
+    <!-- PÁGINA 121 (Sistemas 15 a 30 · Compases 57 a 121) -->
+    <div class="leduc-page" id="page-121">
+      <div class="page-header">
+        <div class="ej-main-title">E. J. 10 — <em>ARPÈGES (Suite)</em></div>
+        <div class="ej-page-num">121</div>
+      </div>
+
+      <!-- 16 SISTEMAS DE LA PÁGINA 121 (Compases 57–121) -->
+      <div class="systems-list" id="systems-page-121"></div>
+
+      <div class="urtext-note">
+        <span><strong>Estructura armónica:</strong> 12 pedales cromáticos (Do a Si) × 10 disposiciones triádicas de 2 octavas = 120 compases + conclusión en Si4.</span>
+        <span><strong>Nota Urtext (c. 114):</strong> Reproducido fielmente según plancha A. L. 16.588 (<code>Si–Re♯–Fa♯</code>).</span>
+      </div>
+      <div class="plate-footer">A. L. 16.588</div>
+    </div>
+
+  </div>
+
+  <!-- INSPECTOR DE CÓDIGO ABC -->
+  <div class="abc-code-section">
+    <details class="abc-details" open>
+      <summary>📄 Ver Código Fuente ABC Completo (E. J. 10 · 121 Compases · Articulación Activa)</summary>
+      <textarea id="abc-source-box" class="abc-textarea" readonly></textarea>
+    </details>
+  </div>
+
+  <script>
+    const EJ10_MEASURES = [{"measureNum": 1, "systemIdx": 0, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "_E", "_A"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["C", "_E", "_A", "c", "_e", "_a", "c'", "a", "e", "c", "A", "E"], "midis12": [60, 63, 68, 72, 75, 80, 84, 80, 75, 72, 68, 63], "isSectionEnd": false}, {"measureNum": 2, "systemIdx": 0, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "_E", "=A"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["C", "_E", "=A", "c", "_e", "=a", "c'", "a", "e", "c", "A", "E"], "midis12": [60, 63, 69, 72, 75, 81, 84, 81, 75, 72, 69, 63], "isSectionEnd": false}, {"measureNum": 3, "systemIdx": 0, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "_E", "_G"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["C", "_E", "_G", "c", "_e", "_g", "c'", "g", "e", "c", "G", "E"], "midis12": [60, 63, 66, 72, 75, 78, 84, 78, 75, 72, 66, 63], "isSectionEnd": false}, {"measureNum": 4, "systemIdx": 0, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "=E", "^G"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["C", "=E", "^G", "c", "=e", "^g", "c'", "g", "e", "c", "G", "E"], "midis12": [60, 64, 68, 72, 76, 80, 84, 80, 76, 72, 68, 64], "isSectionEnd": false}, {"measureNum": 5, "systemIdx": 1, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "E", "=G"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["C", "E", "=G", "c", "e", "=g", "c'", "g", "e", "c", "G", "E"], "midis12": [60, 64, 67, 72, 76, 79, 84, 79, 76, 72, 67, 64], "isSectionEnd": false}, {"measureNum": 6, "systemIdx": 1, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "F", "A"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["C", "F", "A", "c", "f", "a", "c'", "a", "f", "c", "A", "F"], "midis12": [60, 65, 69, 72, 77, 81, 84, 81, 77, 72, 69, 65], "isSectionEnd": false}, {"measureNum": 7, "systemIdx": 1, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "_E", "G"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["C", "_E", "G", "c", "_e", "g", "c'", "g", "e", "c", "G", "E"], "midis12": [60, 63, 67, 72, 75, 79, 84, 79, 75, 72, 67, 63], "isSectionEnd": false}, {"measureNum": 8, "systemIdx": 1, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "^F", "A"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["C", "^F", "A", "c", "^f", "a", "c'", "a", "f", "c", "A", "F"], "midis12": [60, 66, 69, 72, 78, 81, 84, 81, 78, 72, 69, 66], "isSectionEnd": false}, {"measureNum": 9, "systemIdx": 2, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "=F", "_A"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["C", "=F", "_A", "c", "=f", "_a", "c'", "a", "f", "c", "A", "F"], "midis12": [60, 65, 68, 72, 77, 80, 84, 80, 77, 72, 68, 65], "isSectionEnd": false}, {"measureNum": 10, "systemIdx": 2, "sectionIdx": 0, "sectionShort": "Do", "triad": ["C", "E", "=A"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["C", "E", "=A", "c", "e", "=a", "c'", "a", "e", "c", "A", "E"], "midis12": [60, 64, 69, 72, 76, 81, 84, 81, 76, 72, 69, 64], "isSectionEnd": true}, {"measureNum": 11, "systemIdx": 2, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["^C", "E", "G"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["^C", "E", "G", "^c", "e", "g", "^c'", "g", "e", "c", "G", "E"], "midis12": [61, 64, 67, 73, 76, 79, 85, 79, 76, 73, 67, 64], "isSectionEnd": false}, {"measureNum": 12, "systemIdx": 2, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["^C", "E", "^G"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["^C", "E", "^G", "^c", "e", "^g", "^c'", "g", "e", "c", "G", "E"], "midis12": [61, 64, 68, 73, 76, 80, 85, 80, 76, 73, 68, 64], "isSectionEnd": false}, {"measureNum": 13, "systemIdx": 3, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["^C", "E", "A"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["^C", "E", "A", "^c", "e", "a", "^c'", "a", "e", "c", "A", "E"], "midis12": [61, 64, 69, 73, 76, 81, 85, 81, 76, 73, 69, 64], "isSectionEnd": false}, {"measureNum": 14, "systemIdx": 3, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "F", "_B"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["_D", "F", "_B", "_d", "f", "_b", "_d'", "b", "f", "d", "B", "F"], "midis12": [61, 65, 70, 73, 77, 82, 85, 82, 77, 73, 70, 65], "isSectionEnd": false}, {"measureNum": 15, "systemIdx": 3, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "_G", "_B"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["_D", "_G", "_B", "_d", "_g", "_b", "_d'", "b", "g", "d", "B", "G"], "midis12": [61, 66, 70, 73, 78, 82, 85, 82, 78, 73, 70, 66], "isSectionEnd": false}, {"measureNum": 16, "systemIdx": 3, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "_F", "_B"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["_D", "_F", "_B", "_d", "_f", "_b", "_d'", "b", "f", "d", "B", "F"], "midis12": [61, 64, 70, 73, 76, 82, 85, 82, 76, 73, 70, 64], "isSectionEnd": false}, {"measureNum": 17, "systemIdx": 4, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "=F", "=A"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["_D", "=F", "=A", "_d", "=f", "=a", "_d'", "a", "f", "d", "A", "F"], "midis12": [61, 65, 69, 73, 77, 81, 85, 81, 77, 73, 69, 65], "isSectionEnd": false}, {"measureNum": 18, "systemIdx": 4, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "=G", "_B"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["_D", "=G", "_B", "_d", "=g", "_b", "_d'", "b", "g", "d", "B", "G"], "midis12": [61, 67, 70, 73, 79, 82, 85, 82, 79, 73, 70, 67], "isSectionEnd": false}, {"measureNum": 19, "systemIdx": 4, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "_G", "__B"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["_D", "_G", "__B", "_d", "_g", "__b", "_d'", "b", "g", "d", "B", "G"], "midis12": [61, 66, 69, 73, 78, 81, 85, 81, 78, 73, 69, 66], "isSectionEnd": false}, {"measureNum": 20, "systemIdx": 4, "sectionIdx": 1, "sectionShort": "Do♯/Re♭", "triad": ["_D", "F", "_A"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["_D", "F", "_A", "_d", "f", "_a", "_d'", "a", "f", "d", "A", "F"], "midis12": [61, 65, 68, 73, 77, 80, 85, 80, 77, 73, 68, 65], "isSectionEnd": true}, {"measureNum": 21, "systemIdx": 5, "sectionIdx": 2, "sectionShort": "Re", "triad": ["=D", "=F", "_B"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["=D", "=F", "_B", "=d", "=f", "_b", "=d'", "b", "f", "d", "B", "F"], "midis12": [62, 65, 70, 74, 77, 82, 86, 82, 77, 74, 70, 65], "isSectionEnd": false}, {"measureNum": 22, "systemIdx": 5, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "F", "=B"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["D", "F", "=B", "d", "f", "=b", "d'", "b", "f", "d", "B", "F"], "midis12": [62, 65, 71, 74, 77, 83, 86, 83, 77, 74, 71, 65], "isSectionEnd": false}, {"measureNum": 23, "systemIdx": 5, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "G", "_B"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["D", "G", "_B", "d", "g", "_b", "d'", "b", "g", "d", "B", "G"], "midis12": [62, 67, 70, 74, 79, 82, 86, 82, 79, 74, 70, 67], "isSectionEnd": false}, {"measureNum": 24, "systemIdx": 5, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "^F", "^A"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["D", "^F", "^A", "d", "^f", "^a", "d'", "a", "f", "d", "A", "F"], "midis12": [62, 66, 70, 74, 78, 82, 86, 82, 78, 74, 70, 66], "isSectionEnd": false}, {"measureNum": 25, "systemIdx": 6, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "^F", "=A"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["D", "^F", "=A", "d", "^f", "=a", "d'", "a", "f", "d", "A", "F"], "midis12": [62, 66, 69, 74, 78, 81, 86, 81, 78, 74, 69, 66], "isSectionEnd": false}, {"measureNum": 26, "systemIdx": 6, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "G", "B"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["D", "G", "B", "d", "g", "b", "d'", "b", "g", "d", "B", "G"], "midis12": [62, 67, 71, 74, 79, 83, 86, 83, 79, 74, 71, 67], "isSectionEnd": false}, {"measureNum": 27, "systemIdx": 6, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "=F", "A"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["D", "=F", "A", "d", "=f", "a", "d'", "a", "f", "d", "A", "F"], "midis12": [62, 65, 69, 74, 77, 81, 86, 81, 77, 74, 69, 65], "isSectionEnd": false}, {"measureNum": 28, "systemIdx": 6, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "^G", "B"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["D", "^G", "B", "d", "^g", "b", "d'", "b", "g", "d", "B", "G"], "midis12": [62, 68, 71, 74, 80, 83, 86, 83, 80, 74, 71, 68], "isSectionEnd": false}, {"measureNum": 29, "systemIdx": 7, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "=F", "_A"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["D", "=F", "_A", "d", "=f", "_a", "d'", "a", "f", "d", "A", "F"], "midis12": [62, 65, 68, 74, 77, 80, 86, 80, 77, 74, 68, 65], "isSectionEnd": false}, {"measureNum": 30, "systemIdx": 7, "sectionIdx": 2, "sectionShort": "Re", "triad": ["D", "^F", "B"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["D", "^F", "B", "d", "^f", "b", "d'", "b", "f", "d", "B", "F"], "midis12": [62, 66, 71, 74, 78, 83, 86, 83, 78, 74, 71, 66], "isSectionEnd": true}, {"measureNum": 31, "systemIdx": 7, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["^D", "^F", "A"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["^D", "^F", "A", "^d", "^f", "a", "^d'", "a", "f", "d", "A", "F"], "midis12": [63, 66, 69, 75, 78, 81, 87, 81, 78, 75, 69, 66], "isSectionEnd": false}, {"measureNum": 32, "systemIdx": 7, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "_G", "_B"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["_E", "_G", "_B", "_e", "_g", "_b", "_e'", "b", "g", "e", "B", "G"], "midis12": [63, 66, 70, 75, 78, 82, 87, 82, 78, 75, 70, 66], "isSectionEnd": false}, {"measureNum": 33, "systemIdx": 8, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "_G", "_c"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["_E", "_G", "_c", "_e", "_g", "_c'", "_e'", "c'", "g", "e", "c", "G"], "midis12": [63, 66, 71, 75, 78, 83, 87, 83, 78, 75, 71, 66], "isSectionEnd": false}, {"measureNum": 34, "systemIdx": 8, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "=G", "_B"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["_E", "=G", "_B", "_e", "=g", "_b", "_e'", "b", "g", "e", "B", "G"], "midis12": [63, 67, 70, 75, 79, 82, 87, 82, 79, 75, 70, 67], "isSectionEnd": false}, {"measureNum": 35, "systemIdx": 8, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "G", "=c"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["_E", "G", "=c", "_e", "g", "=c'", "_e'", "c'", "g", "e", "c", "G"], "midis12": [63, 67, 72, 75, 79, 84, 87, 84, 79, 75, 72, 67], "isSectionEnd": false}, {"measureNum": 36, "systemIdx": 8, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "_A", "c"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["_E", "_A", "c", "_e", "_a", "c'", "_e'", "c'", "a", "e", "c", "A"], "midis12": [63, 68, 72, 75, 80, 84, 87, 84, 80, 75, 72, 68], "isSectionEnd": false}, {"measureNum": 37, "systemIdx": 9, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "_G", "c"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["_E", "_G", "c", "_e", "_g", "c'", "_e'", "c'", "g", "e", "c", "G"], "midis12": [63, 66, 72, 75, 78, 84, 87, 84, 78, 75, 72, 66], "isSectionEnd": false}, {"measureNum": 38, "systemIdx": 9, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "=A", "c"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["_E", "=A", "c", "_e", "=a", "c'", "_e'", "c'", "a", "e", "c", "A"], "midis12": [63, 69, 72, 75, 81, 84, 87, 84, 81, 75, 72, 69], "isSectionEnd": false}, {"measureNum": 39, "systemIdx": 9, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "_A", "_c"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["_E", "_A", "_c", "_e", "_a", "_c'", "_e'", "c'", "a", "e", "c", "A"], "midis12": [63, 68, 71, 75, 80, 83, 87, 83, 80, 75, 71, 68], "isSectionEnd": false}, {"measureNum": 40, "systemIdx": 9, "sectionIdx": 3, "sectionShort": "Re♯/Mi♭", "triad": ["_E", "=G", "=B"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["_E", "=G", "=B", "_e", "=g", "=b", "_e'", "b", "g", "e", "B", "G"], "midis12": [63, 67, 71, 75, 79, 83, 87, 83, 79, 75, 71, 67], "isSectionEnd": true}, {"measureNum": 41, "systemIdx": 10, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["=E", "G", "_B"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["=E", "G", "_B", "=e", "g", "_b", "=e'", "b", "g", "e", "B", "G"], "midis12": [64, 67, 70, 76, 79, 82, 88, 82, 79, 76, 70, 67], "isSectionEnd": false}, {"measureNum": 42, "systemIdx": 10, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "G", "=B"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["E", "G", "=B", "e", "g", "=b", "e'", "b", "g", "e", "B", "G"], "midis12": [64, 67, 71, 76, 79, 83, 88, 83, 79, 76, 71, 67], "isSectionEnd": false}, {"measureNum": 43, "systemIdx": 10, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "G", "c"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["E", "G", "c", "e", "g", "c'", "e'", "c'", "g", "e", "c", "G"], "midis12": [64, 67, 72, 76, 79, 84, 88, 84, 79, 76, 72, 67], "isSectionEnd": false}, {"measureNum": 44, "systemIdx": 10, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "^G", "^B"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["E", "^G", "^B", "e", "^g", "^b", "e'", "b", "g", "e", "B", "G"], "midis12": [64, 68, 72, 76, 80, 84, 88, 84, 80, 76, 72, 68], "isSectionEnd": false}, {"measureNum": 45, "systemIdx": 11, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "^G", "^c"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["E", "^G", "^c", "e", "^g", "^c'", "e'", "c'", "g", "e", "c", "G"], "midis12": [64, 68, 73, 76, 80, 85, 88, 85, 80, 76, 73, 68], "isSectionEnd": false}, {"measureNum": 46, "systemIdx": 11, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "A", "^c"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["E", "A", "^c", "e", "a", "^c'", "e'", "c'", "a", "e", "c", "A"], "midis12": [64, 69, 73, 76, 81, 85, 88, 85, 81, 76, 73, 69], "isSectionEnd": false}, {"measureNum": 47, "systemIdx": 11, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "=G", "^c"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["E", "=G", "^c", "e", "=g", "^c'", "e'", "c'", "g", "e", "c", "G"], "midis12": [64, 67, 73, 76, 79, 85, 88, 85, 79, 76, 73, 67], "isSectionEnd": false}, {"measureNum": 48, "systemIdx": 11, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "^A", "^c"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["E", "^A", "^c", "e", "^a", "^c'", "e'", "c'", "a", "e", "c", "A"], "midis12": [64, 70, 73, 76, 82, 85, 88, 85, 82, 76, 73, 70], "isSectionEnd": false}, {"measureNum": 49, "systemIdx": 12, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "=A", "=c"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["E", "=A", "=c", "e", "=a", "=c'", "e'", "c'", "a", "e", "c", "A"], "midis12": [64, 69, 72, 76, 81, 84, 88, 84, 81, 76, 72, 69], "isSectionEnd": false}, {"measureNum": 50, "systemIdx": 12, "sectionIdx": 4, "sectionShort": "Mi", "triad": ["E", "^G", "B"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["E", "^G", "B", "e", "^g", "b", "e'", "b", "g", "e", "B", "G"], "midis12": [64, 68, 71, 76, 80, 83, 88, 83, 80, 76, 71, 68], "isSectionEnd": true}, {"measureNum": 51, "systemIdx": 12, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_A", "_d"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["F", "_A", "_d", "f", "_a", "_d'", "f'", "d'", "a", "f", "d", "A"], "midis12": [65, 68, 73, 77, 80, 85, 89, 85, 80, 77, 73, 68], "isSectionEnd": false}, {"measureNum": 52, "systemIdx": 12, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_A", "=d"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["F", "_A", "=d", "f", "_a", "=d'", "f'", "d'", "a", "f", "d", "A"], "midis12": [65, 68, 74, 77, 80, 86, 89, 86, 80, 77, 74, 68], "isSectionEnd": false}, {"measureNum": 53, "systemIdx": 13, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_A", "_c"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["F", "_A", "_c", "f", "_a", "_c'", "f'", "c'", "a", "f", "c", "A"], "midis12": [65, 68, 71, 77, 80, 83, 89, 83, 80, 77, 71, 68], "isSectionEnd": false}, {"measureNum": 54, "systemIdx": 13, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "=A", "^c"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["F", "=A", "^c", "f", "=a", "^c'", "f'", "c'", "a", "f", "c", "A"], "midis12": [65, 69, 73, 77, 81, 85, 89, 85, 81, 77, 73, 69], "isSectionEnd": false}, {"measureNum": 55, "systemIdx": 13, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "A", "=c"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["F", "A", "=c", "f", "a", "=c'", "f'", "c'", "a", "f", "c", "A"], "midis12": [65, 69, 72, 77, 81, 84, 89, 84, 81, 77, 72, 69], "isSectionEnd": false}, {"measureNum": 56, "systemIdx": 13, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_B", "d"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["F", "_B", "d", "f", "_b", "d'", "f'", "d'", "b", "f", "d", "B"], "midis12": [65, 70, 74, 77, 82, 86, 89, 86, 82, 77, 74, 70], "isSectionEnd": false}, {"measureNum": 57, "systemIdx": 14, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_A", "c"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["F", "_A", "c", "f", "_a", "c'", "f'", "c'", "a", "f", "c", "A"], "midis12": [65, 68, 72, 77, 80, 84, 89, 84, 80, 77, 72, 68], "isSectionEnd": false}, {"measureNum": 58, "systemIdx": 14, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "=B", "d"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["F", "=B", "d", "f", "=b", "d'", "f'", "d'", "b", "f", "d", "B"], "midis12": [65, 71, 74, 77, 83, 86, 89, 86, 83, 77, 74, 71], "isSectionEnd": false}, {"measureNum": 59, "systemIdx": 14, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "_B", "_d"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["F", "_B", "_d", "f", "_b", "_d'", "f'", "d'", "b", "f", "d", "B"], "midis12": [65, 70, 73, 77, 82, 85, 89, 85, 82, 77, 73, 70], "isSectionEnd": false}, {"measureNum": 60, "systemIdx": 14, "sectionIdx": 5, "sectionShort": "Fa", "triad": ["F", "=A", "=d"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["F", "=A", "=d", "f", "=a", "=d'", "f'", "d'", "a", "f", "d", "A"], "midis12": [65, 69, 74, 77, 81, 86, 89, 86, 81, 77, 74, 69], "isSectionEnd": true}, {"measureNum": 61, "systemIdx": 15, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "A", "^c"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["^F", "A", "^c", "^f", "a", "^c'", "^f'", "c'", "a", "f", "c", "A"], "midis12": [66, 69, 73, 78, 81, 85, 90, 85, 81, 78, 73, 69], "isSectionEnd": false}, {"measureNum": 62, "systemIdx": 15, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "^A", "^c"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["^F", "^A", "^c", "^f", "^a", "^c'", "^f'", "c'", "a", "f", "c", "A"], "midis12": [66, 70, 73, 78, 82, 85, 90, 85, 82, 78, 73, 70], "isSectionEnd": false}, {"measureNum": 63, "systemIdx": 15, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "=A", "d"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["^F", "=A", "d", "^f", "=a", "d'", "^f'", "d'", "a", "f", "d", "A"], "midis12": [66, 69, 74, 78, 81, 86, 90, 86, 81, 78, 74, 69], "isSectionEnd": false}, {"measureNum": 64, "systemIdx": 15, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "^A", "^^c"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["^F", "^A", "^^c", "^f", "^a", "^^c'", "^f'", "c'", "a", "f", "c", "A"], "midis12": [66, 70, 74, 78, 82, 86, 90, 86, 82, 78, 74, 70], "isSectionEnd": false}, {"measureNum": 65, "systemIdx": 16, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "^A", "^d"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["^F", "^A", "^d", "^f", "^a", "^d'", "^f'", "d'", "a", "f", "d", "A"], "midis12": [66, 70, 75, 78, 82, 87, 90, 87, 82, 78, 75, 70], "isSectionEnd": false}, {"measureNum": 66, "systemIdx": 16, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "B", "^d"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["^F", "B", "^d", "^f", "b", "^d'", "^f'", "d'", "b", "f", "d", "B"], "midis12": [66, 71, 75, 78, 83, 87, 90, 87, 83, 78, 75, 71], "isSectionEnd": false}, {"measureNum": 67, "systemIdx": 16, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "=A", "^d"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["^F", "=A", "^d", "^f", "=a", "^d'", "^f'", "d'", "a", "f", "d", "A"], "midis12": [66, 69, 75, 78, 81, 87, 90, 87, 81, 78, 75, 69], "isSectionEnd": false}, {"measureNum": 68, "systemIdx": 16, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "B", "=d"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["^F", "B", "=d", "^f", "b", "=d'", "^f'", "d'", "b", "f", "d", "B"], "midis12": [66, 71, 74, 78, 83, 86, 90, 86, 83, 78, 74, 71], "isSectionEnd": false}, {"measureNum": 69, "systemIdx": 17, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "A", "=c"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["^F", "A", "=c", "^f", "a", "=c'", "^f'", "c'", "a", "f", "c", "A"], "midis12": [66, 69, 72, 78, 81, 84, 90, 84, 81, 78, 72, 69], "isSectionEnd": false}, {"measureNum": 70, "systemIdx": 17, "sectionIdx": 6, "sectionShort": "Fa♯", "triad": ["^F", "^B", "^d"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["^F", "^B", "^d", "^f", "^b", "^d'", "^f'", "d'", "b", "f", "d", "B"], "midis12": [66, 72, 75, 78, 84, 87, 90, 87, 84, 78, 75, 72], "isSectionEnd": true}, {"measureNum": 71, "systemIdx": 17, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["=G", "_B", "_e"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["=G", "_B", "_e", "=g", "_b", "_e'", "=g'", "e'", "b", "g", "e", "B"], "midis12": [67, 70, 75, 79, 82, 87, 91, 87, 82, 79, 75, 70], "isSectionEnd": false}, {"measureNum": 72, "systemIdx": 17, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "_B", "=e"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["G", "_B", "=e", "g", "_b", "=e'", "g'", "e'", "b", "g", "e", "B"], "midis12": [67, 70, 76, 79, 82, 88, 91, 88, 82, 79, 76, 70], "isSectionEnd": false}, {"measureNum": 73, "systemIdx": 18, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "_B", "_d"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["G", "_B", "_d", "g", "_b", "_d'", "g'", "d'", "b", "g", "d", "B"], "midis12": [67, 70, 73, 79, 82, 85, 91, 85, 82, 79, 73, 70], "isSectionEnd": false}, {"measureNum": 74, "systemIdx": 18, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "=B", "^d"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["G", "=B", "^d", "g", "=b", "^d'", "g'", "d'", "b", "g", "d", "B"], "midis12": [67, 71, 75, 79, 83, 87, 91, 87, 83, 79, 75, 71], "isSectionEnd": false}, {"measureNum": 75, "systemIdx": 18, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "B", "=d"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["G", "B", "=d", "g", "b", "=d'", "g'", "d'", "b", "g", "d", "B"], "midis12": [67, 71, 74, 79, 83, 86, 91, 86, 83, 79, 74, 71], "isSectionEnd": false}, {"measureNum": 76, "systemIdx": 18, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "c", "e"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["G", "c", "e", "g", "c'", "e'", "g'", "e'", "c'", "g", "e", "c"], "midis12": [67, 72, 76, 79, 84, 88, 91, 88, 84, 79, 76, 72], "isSectionEnd": false}, {"measureNum": 77, "systemIdx": 19, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "_B", "d"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["G", "_B", "d", "g", "_b", "d'", "g'", "d'", "b", "g", "d", "B"], "midis12": [67, 70, 74, 79, 82, 86, 91, 86, 82, 79, 74, 70], "isSectionEnd": false}, {"measureNum": 78, "systemIdx": 19, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "^c", "e"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["G", "^c", "e", "g", "^c'", "e'", "g'", "e'", "c'", "g", "e", "c"], "midis12": [67, 73, 76, 79, 85, 88, 91, 88, 85, 79, 76, 73], "isSectionEnd": false}, {"measureNum": 79, "systemIdx": 19, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "=c", "_e"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["G", "=c", "_e", "g", "=c'", "_e'", "g'", "e'", "c'", "g", "e", "c"], "midis12": [67, 72, 75, 79, 84, 87, 91, 87, 84, 79, 75, 72], "isSectionEnd": false}, {"measureNum": 80, "systemIdx": 19, "sectionIdx": 7, "sectionShort": "Sol", "triad": ["G", "=B", "=e"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["G", "=B", "=e", "g", "=b", "=e'", "g'", "e'", "b", "g", "e", "B"], "midis12": [67, 71, 76, 79, 83, 88, 91, 88, 83, 79, 76, 71], "isSectionEnd": true}, {"measureNum": 81, "systemIdx": 20, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["^G", "B", "d"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["^G", "B", "d", "^g", "b", "d'", "^g'", "d'", "b", "g", "d", "B"], "midis12": [68, 71, 74, 80, 83, 86, 92, 86, 83, 80, 74, 71], "isSectionEnd": false}, {"measureNum": 82, "systemIdx": 20, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["^G", "^B", "^d"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["^G", "^B", "^d", "^g", "^b", "^d'", "^g'", "d'", "b", "g", "d", "B"], "midis12": [68, 72, 75, 80, 84, 87, 92, 87, 84, 80, 75, 72], "isSectionEnd": false}, {"measureNum": 83, "systemIdx": 20, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["^G", "=B", "e"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["^G", "=B", "e", "^g", "=b", "e'", "^g'", "e'", "b", "g", "e", "B"], "midis12": [68, 71, 76, 80, 83, 88, 92, 88, 83, 80, 76, 71], "isSectionEnd": false}, {"measureNum": 84, "systemIdx": 20, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "c", "f"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["_A", "c", "f", "_a", "c'", "f'", "_a'", "f'", "c'", "a", "f", "c"], "midis12": [68, 72, 77, 80, 84, 89, 92, 89, 84, 80, 77, 72], "isSectionEnd": false}, {"measureNum": 85, "systemIdx": 21, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "_d", "f"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["_A", "_d", "f", "_a", "_d'", "f'", "_a'", "f'", "d'", "a", "f", "d"], "midis12": [68, 73, 77, 80, 85, 89, 92, 89, 85, 80, 77, 73], "isSectionEnd": false}, {"measureNum": 86, "systemIdx": 21, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "_c", "f"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["_A", "_c", "f", "_a", "_c'", "f'", "_a'", "f'", "c'", "a", "f", "c"], "midis12": [68, 71, 77, 80, 83, 89, 92, 89, 83, 80, 77, 71], "isSectionEnd": false}, {"measureNum": 87, "systemIdx": 21, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "_d", "_f"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["_A", "_d", "_f", "_a", "_d'", "_f'", "_a'", "f'", "d'", "a", "f", "d"], "midis12": [68, 73, 76, 80, 85, 88, 92, 88, 85, 80, 76, 73], "isSectionEnd": false}, {"measureNum": 88, "systemIdx": 21, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "=d", "=f"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["_A", "=d", "=f", "_a", "=d'", "=f'", "_a'", "f'", "d'", "a", "f", "d"], "midis12": [68, 74, 77, 80, 86, 89, 92, 89, 86, 80, 77, 74], "isSectionEnd": false}, {"measureNum": 89, "systemIdx": 22, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "_c", "_e"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["_A", "_c", "_e", "_a", "_c'", "_e'", "_a'", "e'", "c'", "a", "e", "c"], "midis12": [68, 71, 75, 80, 83, 87, 92, 87, 83, 80, 75, 71], "isSectionEnd": false}, {"measureNum": 90, "systemIdx": 22, "sectionIdx": 8, "sectionShort": "Sol♯/La♭", "triad": ["_A", "=c", "=e"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["_A", "=c", "=e", "_a", "=c'", "=e'", "_a'", "e'", "c'", "a", "e", "c"], "midis12": [68, 72, 76, 80, 84, 88, 92, 88, 84, 80, 76, 72], "isSectionEnd": true}, {"measureNum": 91, "systemIdx": 22, "sectionIdx": 9, "sectionShort": "La", "triad": ["=A", "c", "_e"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["=A", "c", "_e", "=a", "c'", "_e'", "=a'", "e'", "c'", "a", "e", "c"], "midis12": [69, 72, 75, 81, 84, 87, 93, 87, 84, 81, 75, 72], "isSectionEnd": false}, {"measureNum": 92, "systemIdx": 22, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "c", "=e"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["A", "c", "=e", "a", "c'", "=e'", "a'", "e'", "c'", "a", "e", "c"], "midis12": [69, 72, 76, 81, 84, 88, 93, 88, 84, 81, 76, 72], "isSectionEnd": false}, {"measureNum": 93, "systemIdx": 23, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "c", "f"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["A", "c", "f", "a", "c'", "f'", "a'", "f'", "c'", "a", "f", "c"], "midis12": [69, 72, 77, 81, 84, 89, 93, 89, 84, 81, 77, 72], "isSectionEnd": false}, {"measureNum": 94, "systemIdx": 23, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "^c", "^e"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["A", "^c", "^e", "a", "^c'", "^e'", "a'", "e'", "c'", "a", "e", "c"], "midis12": [69, 73, 77, 81, 85, 89, 93, 89, 85, 81, 77, 73], "isSectionEnd": false}, {"measureNum": 95, "systemIdx": 23, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "^c", "^f"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["A", "^c", "^f", "a", "^c'", "^f'", "a'", "f'", "c'", "a", "f", "c"], "midis12": [69, 73, 78, 81, 85, 90, 93, 90, 85, 81, 78, 73], "isSectionEnd": false}, {"measureNum": 96, "systemIdx": 23, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "d", "^f"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["A", "d", "^f", "a", "d'", "^f'", "a'", "f'", "d'", "a", "f", "d"], "midis12": [69, 74, 78, 81, 86, 90, 93, 90, 86, 81, 78, 74], "isSectionEnd": false}, {"measureNum": 97, "systemIdx": 24, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "=c", "^f"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["A", "=c", "^f", "a", "=c'", "^f'", "a'", "f'", "c'", "a", "f", "c"], "midis12": [69, 72, 78, 81, 84, 90, 93, 90, 84, 81, 78, 72], "isSectionEnd": false}, {"measureNum": 98, "systemIdx": 24, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "^d", "^f"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["A", "^d", "^f", "a", "^d'", "^f'", "a'", "f'", "d'", "a", "f", "d"], "midis12": [69, 75, 78, 81, 87, 90, 93, 90, 87, 81, 78, 75], "isSectionEnd": false}, {"measureNum": 99, "systemIdx": 24, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "=d", "=f"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["A", "=d", "=f", "a", "=d'", "=f'", "a'", "f'", "d'", "a", "f", "d"], "midis12": [69, 74, 77, 81, 86, 89, 93, 89, 86, 81, 77, 74], "isSectionEnd": false}, {"measureNum": 100, "systemIdx": 24, "sectionIdx": 9, "sectionShort": "La", "triad": ["A", "^c", "e"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["A", "^c", "e", "a", "^c'", "e'", "a'", "e'", "c'", "a", "e", "c"], "midis12": [69, 73, 76, 81, 85, 88, 93, 88, 85, 81, 76, 73], "isSectionEnd": true}, {"measureNum": 101, "systemIdx": 25, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["^A", "^c", "^f"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["^A", "^c", "^f", "^a", "^c'", "^f'", "^a'", "f'", "c'", "a", "f", "c"], "midis12": [70, 73, 78, 82, 85, 90, 94, 90, 85, 82, 78, 73], "isSectionEnd": false}, {"measureNum": 102, "systemIdx": 25, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "_d", "g"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["_B", "_d", "g", "_b", "_d'", "g'", "_b'", "g'", "d'", "b", "g", "d"], "midis12": [70, 73, 79, 82, 85, 91, 94, 91, 85, 82, 79, 73], "isSectionEnd": false}, {"measureNum": 103, "systemIdx": 25, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "_d", "_f"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["_B", "_d", "_f", "_b", "_d'", "_f'", "_b'", "f'", "d'", "b", "f", "d"], "midis12": [70, 73, 76, 82, 85, 88, 94, 88, 85, 82, 76, 73], "isSectionEnd": false}, {"measureNum": 104, "systemIdx": 25, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "=d", "^f"], "intervals": [4, 8], "chordDesc": "Tríada Aumentada (5ª aum.)", "notes12": ["_B", "=d", "^f", "_b", "=d'", "^f'", "_b'", "f'", "d'", "b", "f", "d"], "midis12": [70, 74, 78, 82, 86, 90, 94, 90, 86, 82, 78, 74], "isSectionEnd": false}, {"measureNum": 105, "systemIdx": 26, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "d", "=f"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["_B", "d", "=f", "_b", "d'", "=f'", "_b'", "f'", "d'", "b", "f", "d"], "midis12": [70, 74, 77, 82, 86, 89, 94, 89, 86, 82, 77, 74], "isSectionEnd": false}, {"measureNum": 106, "systemIdx": 26, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "_e", "g"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["_B", "_e", "g", "_b", "_e'", "g'", "_b'", "g'", "e'", "b", "g", "e"], "midis12": [70, 75, 79, 82, 87, 91, 94, 91, 87, 82, 79, 75], "isSectionEnd": false}, {"measureNum": 107, "systemIdx": 26, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "_d", "f"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["_B", "_d", "f", "_b", "_d'", "f'", "_b'", "f'", "d'", "b", "f", "d"], "midis12": [70, 73, 77, 82, 85, 89, 94, 89, 85, 82, 77, 73], "isSectionEnd": false}, {"measureNum": 108, "systemIdx": 26, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "e", "g"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["_B", "e", "g", "_b", "e'", "g'", "_b'", "g'", "e'", "b", "g", "e"], "midis12": [70, 76, 79, 82, 88, 91, 94, 91, 88, 82, 79, 76], "isSectionEnd": false}, {"measureNum": 109, "systemIdx": 27, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "_e", "_g"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["_B", "_e", "_g", "_b", "_e'", "_g'", "_b'", "g'", "e'", "b", "g", "e"], "midis12": [70, 75, 78, 82, 87, 90, 94, 90, 87, 82, 78, 75], "isSectionEnd": false}, {"measureNum": 110, "systemIdx": 27, "sectionIdx": 10, "sectionShort": "La♯/Si♭", "triad": ["_B", "=d", "=g"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["_B", "=d", "=g", "_b", "=d'", "=g'", "_b'", "g'", "d'", "b", "g", "d"], "midis12": [70, 74, 79, 82, 86, 91, 94, 91, 86, 82, 79, 74], "isSectionEnd": true}, {"measureNum": 111, "systemIdx": 27, "sectionIdx": 11, "sectionShort": "Si", "triad": ["=B", "d", "=f"], "intervals": [3, 6], "chordDesc": "Tríada Dism. (5ª dism.)", "notes12": ["=B", "d", "=f", "=b", "d'", "=f'", "=b'", "f'", "d'", "b", "f", "d"], "midis12": [71, 74, 77, 83, 86, 89, 95, 89, 86, 83, 77, 74], "isSectionEnd": false}, {"measureNum": 112, "systemIdx": 27, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "d", "^f"], "intervals": [3, 7], "chordDesc": "Tríada Menor (5ª justa)", "notes12": ["B", "d", "^f", "b", "d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "midis12": [71, 74, 78, 83, 86, 90, 95, 90, 86, 83, 78, 74], "isSectionEnd": false}, {"measureNum": 113, "systemIdx": 28, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "d", "g"], "intervals": [3, 8], "chordDesc": "Mayor 1ª Inv. (6ª menor)", "notes12": ["B", "d", "g", "b", "d'", "g'", "b'", "g'", "d'", "b", "g", "d"], "midis12": [71, 74, 79, 83, 86, 91, 95, 91, 86, 83, 79, 74], "isSectionEnd": false}, {"measureNum": 114, "systemIdx": 28, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "^d", "^f"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["B", "^d", "^f", "b", "^d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "midis12": [71, 75, 78, 83, 87, 90, 95, 90, 87, 83, 78, 75], "isSectionEnd": false}, {"measureNum": 115, "systemIdx": 28, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "^d", "^g"], "intervals": [4, 9], "chordDesc": "Menor 1ª Inv. (6ª mayor)", "notes12": ["B", "^d", "^g", "b", "^d'", "^g'", "b'", "g'", "d'", "b", "g", "d"], "midis12": [71, 75, 80, 83, 87, 92, 95, 92, 87, 83, 80, 75], "isSectionEnd": false}, {"measureNum": 116, "systemIdx": 28, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "e", "^g"], "intervals": [5, 9], "chordDesc": "Mayor 2ª Inv. (4ª y 6ª M.)", "notes12": ["B", "e", "^g", "b", "e'", "^g'", "b'", "g'", "e'", "b", "g", "e"], "midis12": [71, 76, 80, 83, 88, 92, 95, 92, 88, 83, 80, 76], "isSectionEnd": false}, {"measureNum": 117, "systemIdx": 29, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "=d", "^g"], "intervals": [3, 9], "chordDesc": "Dism. 7ª (6ª mayor)", "notes12": ["B", "=d", "^g", "b", "=d'", "^g'", "b'", "g'", "d'", "b", "g", "d"], "midis12": [71, 74, 80, 83, 86, 92, 95, 92, 86, 83, 80, 74], "isSectionEnd": false}, {"measureNum": 118, "systemIdx": 29, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "^e", "^g"], "intervals": [6, 9], "chordDesc": "Dism. 1ª Inv. (4ª aum. y 6ª M.)", "notes12": ["B", "^e", "^g", "b", "^e'", "^g'", "b'", "g'", "e'", "b", "g", "e"], "midis12": [71, 77, 80, 83, 89, 92, 95, 92, 89, 83, 80, 77], "isSectionEnd": false}, {"measureNum": 119, "systemIdx": 29, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "=e", "=g"], "intervals": [5, 8], "chordDesc": "Menor 2ª Inv. (4ª y 6ª m.)", "notes12": ["B", "=e", "=g", "b", "=e'", "=g'", "b'", "g'", "e'", "b", "g", "e"], "midis12": [71, 76, 79, 83, 88, 91, 95, 91, 88, 83, 79, 76], "isSectionEnd": false}, {"measureNum": 120, "systemIdx": 29, "sectionIdx": 11, "sectionShort": "Si", "triad": ["B", "^d", "^f"], "intervals": [4, 7], "chordDesc": "Tríada Mayor (5ª justa)", "notes12": ["B", "^d", "^f", "b", "^d'", "^f'", "b'", "f'", "d'", "b", "f", "d"], "midis12": [71, 75, 78, 83, 87, 90, 95, 90, 87, 83, 78, 75], "isSectionEnd": false}];
+    const EJ10_SECTIONS = [{"id": 0, "short": "Do", "titleEs": "1 · Bajo en Do (Ut)", "titleEn": "1 · Bass on C", "pillLabel": "1 · Do", "bassMidi": 60, "startMeasure": 1, "endMeasure": 10}, {"id": 1, "short": "Do♯/Re♭", "titleEs": "2 · Bajo en Do♯ / Re♭", "titleEn": "2 · Bass on C♯ / D♭", "pillLabel": "2 · Do♯/Re♭", "bassMidi": 61, "startMeasure": 11, "endMeasure": 20}, {"id": 2, "short": "Re", "titleEs": "3 · Bajo en Re (Ré)", "titleEn": "3 · Bass on D", "pillLabel": "3 · Re", "bassMidi": 62, "startMeasure": 21, "endMeasure": 30}, {"id": 3, "short": "Re♯/Mi♭", "titleEs": "4 · Bajo en Re♯ / Mi♭", "titleEn": "4 · Bass on D♯ / E♭", "pillLabel": "4 · Re♯/Mi♭", "bassMidi": 63, "startMeasure": 31, "endMeasure": 40}, {"id": 4, "short": "Mi", "titleEs": "5 · Bajo en Mi", "titleEn": "5 · Bass on E", "pillLabel": "5 · Mi", "bassMidi": 64, "startMeasure": 41, "endMeasure": 50}, {"id": 5, "short": "Fa", "titleEs": "6 · Bajo en Fa", "titleEn": "6 · Bass on F", "pillLabel": "6 · Fa", "bassMidi": 65, "startMeasure": 51, "endMeasure": 60}, {"id": 6, "short": "Fa♯", "titleEs": "7 · Bajo en Fa♯", "titleEn": "7 · Bass on F♯", "pillLabel": "7 · Fa♯", "bassMidi": 66, "startMeasure": 61, "endMeasure": 70}, {"id": 7, "short": "Sol", "titleEs": "8 · Bajo en Sol", "titleEn": "8 · Bass on G", "pillLabel": "8 · Sol", "bassMidi": 67, "startMeasure": 71, "endMeasure": 80}, {"id": 8, "short": "Sol♯/La♭", "titleEs": "9 · Bajo en Sol♯ / La♭", "titleEn": "9 · Bass on G♯ / A♭", "pillLabel": "9 · Sol♯/La♭", "bassMidi": 68, "startMeasure": 81, "endMeasure": 90}, {"id": 9, "short": "La", "titleEs": "10 · Bajo en La", "titleEn": "10 · Bass on A", "pillLabel": "10 · La", "bassMidi": 69, "startMeasure": 91, "endMeasure": 100}, {"id": 10, "short": "La♯/Si♭", "titleEs": "11 · Bajo en La♯ / Si♭", "titleEn": "11 · Bass on A♯ / B♭", "pillLabel": "11 · La♯/Si♭", "bassMidi": 70, "startMeasure": 101, "endMeasure": 110}, {"id": 11, "short": "Si", "titleEs": "12 · Bajo en Si", "titleEn": "12 · Bass on B", "pillLabel": "12 · Si", "bassMidi": 71, "startMeasure": 111, "endMeasure": 120}];
+    const EJ10_ARTS = [{"id": 0, "meter": "6/8", "name": "Edición Original (Leduc)", "short": "0. Orig.", "formula": "6 + 6 notas por compás (6/8 · 2/4)", "fname": "00_Taffanel_EJ10_Original_AL16588.abc"}, {"id": 1, "meter": "6/8", "name": "1. 12 Ligadas (Compás completo)", "short": "1. (12)", "formula": "(12) · Compás entero ligado en 6/8", "fname": "01_Taffanel_EJ10_Articulacion_01_12_Ligadas.abc"}, {"id": 2, "meter": "6/8", "name": "2. 6 y 6 Ligadas", "short": "2. (6)(6)", "formula": "(6) + (6) · Seisillos ligados en 6/8", "fname": "02_Taffanel_EJ10_Articulacion_02_6_y_6_Ligadas.abc"}, {"id": 3, "meter": "6/8", "name": "3. 4 Ligadas y 2 Picadas", "short": "3. (4)··", "formula": "(4)·· (4)·· en 6/8", "fname": "03_Taffanel_EJ10_Articulacion_03_4_Ligadas_2_Picadas.abc"}, {"id": 4, "meter": "6/8", "name": "4. 2 Picadas y 4 Ligadas", "short": "4. ··(4)", "formula": "··(4) ··(4) en 6/8", "fname": "04_Taffanel_EJ10_Articulacion_04_2_Picadas_4_Ligadas.abc"}, {"id": 5, "meter": "6/8", "name": "5. 2 Ligadas y 4 Picadas", "short": "5. (2)····", "formula": "(2)···· (2)···· en 6/8", "fname": "05_Taffanel_EJ10_Articulacion_05_2_Ligadas_4_Picadas.abc"}, {"id": 6, "meter": "2/4", "name": "6. De 3 en 3 Ligadas (2/4)", "short": "6. (3)(3)(3)(3)", "formula": "(3)(3)(3)(3) · 4 grupos de 3 en 2/4", "fname": "06_Taffanel_EJ10_Articulacion_06_De_3_en_3_Ligadas.abc"}, {"id": 7, "meter": "2/4", "name": "7. 3 Ligadas y 3 Picadas (2/4)", "short": "7. (3)···(3)···", "formula": "(3)··· (3)··· · 4 grupos de 3 en 2/4", "fname": "07_Taffanel_EJ10_Articulacion_07_3_Ligadas_3_Picadas.abc"}, {"id": 8, "meter": "6/8", "name": "8. De 2 en 2 Ligadas", "short": "8. (2)(2)(2)", "formula": "(2)(2)(2) (2)(2)(2) en 6/8", "fname": "08_Taffanel_EJ10_Articulacion_08_De_2_en_2_Ligadas.abc"}, {"id": 9, "meter": "6/8", "name": "9. Sincopadas de a 2", "short": "9. ·(2)(2)(2)·", "formula": "·(2)(2)(2)(2)(2)· desplazadas en 6/8", "fname": "09_Taffanel_EJ10_Articulacion_09_Sincopadas.abc"}, {"id": 10, "meter": "6/8", "name": "10. Todas Picadas (Staccato)", "short": "10. ············", "formula": "12 notas en staccato por compás en 6/8", "fname": "10_Taffanel_EJ10_Articulacion_10_Todas_Picadas.abc"}];
+
+    let currentArtId = 0;
+    let currentSecIdx = -1; // -1 = Todas (121 compases), 0..11 = Sección individual
+    let currentTempo = 80;
+    let isPlaying = false;
+    let audioCtx = null;
+    let playTimeouts = [];
+
+    const ART_STRIP_ROW1_ABC = [
+      "X:101",
+      "M:6/8",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^1" (cccccc cccccc) || "^2" (cccccc) (cccccc) || "^3" (cccc).c.c (cccc).c.c || "^4" .c.c(cccc) .c.c(cccc) || "^5" (cc).c.c.c.c (cc).c.c.c.c ||'
+    ].join("\n");
+
+    const ART_STRIP_ROW2_ABC = [
+      "X:102",
+      "M:2/4",
+      "L:1/16",
+      "K:C",
+      "V:1 clef=treble stem=down",
+      '"^6" (ccc) (ccc) (ccc) (ccc) || "^7" (ccc) .c.c.c (ccc) .c.c.c || [M:6/8] "^8" (cc)(cc)(cc) (cc)(cc)(cc) || "^9" .c(cc)(cc)(c c)(cc)(cc).c || "^10" .c.c.c.c.c.c .c.c.c.c.c.c ||'
+    ].join("\n");
+
+    function formatMeasure12(n, artId) {
+      switch (artId) {
+        case 0:  return n.slice(0,6).join("") + " " + n.slice(6,12).join("");
+        case 1:  return "(" + n.slice(0,6).join("") + " " + n.slice(6,12).join("") + ")";
+        case 2:  return "(" + n.slice(0,6).join("") + ") (" + n.slice(6,12).join("") + ")";
+        case 3:  return `(${n[0]}${n[1]}${n[2]}${n[3]}).${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}${n[9]}).${n[10]}.${n[11]}`;
+        case 4:  return `.${n[0]}.${n[1]}(${n[2]}${n[3]}${n[4]}${n[5]}) .${n[6]}.${n[7]}(${n[8]}${n[9]}${n[10]}${n[11]})`;
+        case 5:  return `(${n[0]}${n[1]}).${n[2]}.${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}).${n[8]}.${n[9]}.${n[10]}.${n[11]}`;
+        case 6:  return `(${n[0]}${n[1]}${n[2]}) (${n[3]}${n[4]}${n[5]}) (${n[6]}${n[7]}${n[8]}) (${n[9]}${n[10]}${n[11]})`;
+        case 7:  return `(${n[0]}${n[1]}${n[2]}) .${n[3]}.${n[4]}.${n[5]} (${n[6]}${n[7]}${n[8]}) .${n[9]}.${n[10]}.${n[11]}`;
+        case 8:  return `(${n[0]}${n[1]})(${n[2]}${n[3]})(${n[4]}${n[5]}) (${n[6]}${n[7]})(${n[8]}${n[9]})(${n[10]}${n[11]})`;
+        case 9:  return `.${n[0]}(${n[1]}${n[2]})(${n[3]}${n[4]})(${n[5]} ${n[6]})(${n[7]}${n[8]})(${n[9]}${n[10]}).${n[11]}`;
+        case 10: return n.slice(0,6).map(x => "." + x).join("") + " " + n.slice(6,12).map(x => "." + x).join("");
+        default: return n.slice(0,6).join("") + " " + n.slice(6,12).join("");
+      }
+    }
+
+    function buildSystemAbc(sysIdx, artId) {
+      const art = EJ10_ARTS[artId];
+      const meterStr = sysIdx === 0 ? art.meter : "none";
+      const startM = sysIdx * 4;
+      const slice = EJ10_MEASURES.slice(startM, startM + 4);
+      const bars = slice.map(mObj => {
+        const bTxt = formatMeasure12(mObj.notes12, artId);
+        const barline = mObj.isSectionEnd ? "||" : "|";
+        return `${bTxt} ${barline}`;
+      });
+      if (sysIdx === 29) {
+        bars.push("B4 z4 |]");
+      }
+      return [
+        `X:${sysIdx + 1}`,
+        "%%stretchlast 1",
+        `M:${meterStr}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble",
+        bars.join(" ")
+      ].join("\n");
+    }
+
+    function buildSectionFocusAbc(secIdx, artId) {
+      const art = EJ10_ARTS[artId];
+      const startM = secIdx * 10;
+      const slice = EJ10_MEASURES.slice(startM, startM + 10);
+      const row1 = slice.slice(0, 5).map((m, i) => `"[c.${m.measureNum}]" ` + formatMeasure12(m.notes12, artId) + " |").join(" ");
+      const row2 = slice.slice(5, 10).map((m, i) => `"[c.${m.measureNum}]" ` + formatMeasure12(m.notes12, artId) + (i === 4 ? " ||" : " |")).join(" ");
+      return [
+        `X:${secIdx + 200}`,
+        "%%stretchlast 1",
+        "%%barsperstaff 5",
+        `M:${art.meter}`,
+        "L:1/16",
+        "K:C",
+        "V:1 clef=treble",
+        row1,
+        row2
+      ].join("\n");
+    }
+
+    function buildFullAbcText(artId) {
+      const art = EJ10_ARTS[artId];
+      const lines = [
+        `X:${artId + 1}`,
+        `T:E. J. 10 — Arpèges · Exercices sur les Accords (${art.name})`,
+        "C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)",
+        "%%stretchlast 1",
+        "%%barsperstaff 4",
+        `M:${art.meter}`,
+        "L:1/16",
+        `Q:1/4=${currentTempo}`,
+        "K:C",
+        "V:1 clef=treble"
+      ];
+      for (let sysIdx = 0; sysIdx < 30; sysIdx++) {
+        const startM = sysIdx * 4;
+        const slice = EJ10_MEASURES.slice(startM, startM + 4);
+        const bars = slice.map(mObj => {
+          const bTxt = formatMeasure12(mObj.notes12, artId);
+          const barline = mObj.isSectionEnd ? "||" : "|";
+          return `${bTxt} ${barline}`;
+        });
+        if (sysIdx === 29) {
+          bars.push("B4 z4 |]");
+        }
+        lines.push(bars.join(" "));
+      }
+      return lines.join("\n");
+    }
+
+    function initLayout() {
+      const artRow = document.getElementById("art-buttons-row");
+      EJ10_ARTS.forEach(art => {
+        const btn = document.createElement("button");
+        btn.className = "pill-btn" + (art.id === currentArtId ? " active" : "");
+        btn.id = `art-btn-${art.id}`;
+        btn.textContent = art.short;
+        btn.title = `${art.name} — ${art.formula}`;
+        btn.onclick = () => selectArticulation(art.id);
+        artRow.appendChild(btn);
+      });
+
+      const secRow = document.getElementById("sec-buttons-row");
+      const allBtn = document.createElement("button");
+      allBtn.className = "pill-btn active-sec";
+      allBtn.id = "sec-btn-all";
+      allBtn.textContent = "Todas (121 c.)";
+      allBtn.onclick = () => selectSection(-1);
+      secRow.appendChild(allBtn);
+
+      EJ10_SECTIONS.forEach(sec => {
+        const btn = document.createElement("button");
+        btn.className = "pill-btn";
+        btn.id = `sec-btn-${sec.id}`;
+        btn.textContent = sec.pillLabel;
+        btn.onclick = () => selectSection(sec.id);
+        secRow.appendChild(btn);
+      });
+
+      const p120 = document.getElementById("systems-page-120");
+      const p121 = document.getElementById("systems-page-121");
+      p120.innerHTML = "";
+      p121.innerHTML = "";
+
+      for (let sysIdx = 0; sysIdx < 30; sysIdx++) {
+        const firstM = sysIdx * 4 + 1;
+        const lastM = sysIdx === 29 ? 121 : sysIdx * 4 + 4;
+        const secObj = EJ10_SECTIONS[Math.floor((firstM - 1) / 10)];
+        const row = document.createElement("div");
+        row.className = "system-row";
+        row.id = `sys-row-${sysIdx}`;
+        row.innerHTML = `
+          <div class="sys-label">
+            c.${firstM}–${lastM}
+            <span class="sec-tag">${secObj.short}</span>
+          </div>
+          <div class="system-staff" id="ej10-sys-${sysIdx}"></div>
+        `;
+        if (sysIdx < 14) p120.appendChild(row);
+        else p121.appendChild(row);
+      }
+    }
+
+    function renderStaffLine(elemId, abc, virtualWidth, padY = 0) {
+      ABCJS.renderAbc(elemId, abc, {
+        staffwidth: virtualWidth,
+        paddingtop: padY,
+        paddingbottom: padY,
+        paddingleft: 2,
+        paddingright: 4
+      });
+      const el = document.getElementById(elemId);
+      const svg = el && el.querySelector("svg");
+      if (svg) {
+        const w = parseFloat(svg.getAttribute("width")) || (virtualWidth + 10);
+        const h = parseFloat(svg.getAttribute("height")) || 85;
+        svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+        svg.style.width = "100%";
+        svg.style.height = "auto";
+        svg.style.display = "block";
+      }
+    }
+
+    function renderAll() {
+      renderStaffLine("ej10-art-strip-1", ART_STRIP_ROW1_ABC, 1750, 1);
+      renderStaffLine("ej10-art-strip-2", ART_STRIP_ROW2_ABC, 1750, 1);
+
+      for (let sysIdx = 0; sysIdx < 30; sysIdx++) {
+        const abc = buildSystemAbc(sysIdx, currentArtId);
+        renderStaffLine(`ej10-sys-${sysIdx}`, abc, sysIdx === 29 ? 2100 : 1960, 0);
+      }
+
+      const focusCard = document.getElementById("focus-card");
+      if (currentSecIdx >= 0) {
+        const sec = EJ10_SECTIONS[currentSecIdx];
+        const art = EJ10_ARTS[currentArtId];
+        focusCard.classList.add("visible");
+        document.getElementById("focus-title").textContent = `🎯 Sección Activa: ${sec.titleEs} — ${art.name}`;
+        document.getElementById("focus-badge").textContent = `Compases ${sec.startMeasure}–${sec.endMeasure} · Pedal MIDI ${sec.bassMidi} · Compás ${art.meter}`;
+
+        const grid = document.getElementById("focus-chords-grid");
+        grid.innerHTML = "";
+        const slice = EJ10_MEASURES.slice(sec.id * 10, sec.id * 10 + 10);
+        slice.forEach(m => {
+          const pill = document.createElement("div");
+          pill.className = "chord-pill";
+          pill.innerHTML = `<strong>c.${m.measureNum}:</strong> <code>${m.triad.join("–")}</code> · ${m.chordDesc}`;
+          grid.appendChild(pill);
+        });
+
+        renderStaffLine("ej10-focus-staff", buildSectionFocusAbc(currentSecIdx, currentArtId), 1920, 2);
+      } else {
+        focusCard.classList.remove("visible");
+      }
+
+      const fullAbc = buildFullAbcText(currentArtId);
+      document.getElementById("abc-source-box").value = fullAbc;
+      const dlLink = document.getElementById("download-abc-link");
+      if (dlLink) {
+        dlLink.href = "downloads/abc/" + EJ10_ARTS[currentArtId].fname;
+      }
+    }
+
+    function selectArticulation(artId) {
+      currentArtId = artId;
+      EJ10_ARTS.forEach(a => {
+        const el = document.getElementById(`art-btn-${a.id}`);
+        if (el) el.classList.toggle("active", a.id === artId);
+      });
+      if (isPlaying) {
+        stopPlayback();
+        startPlayback();
+      }
+      renderAll();
+    }
+
+    function selectSection(secIdx) {
+      currentSecIdx = secIdx;
+      const allBtn = document.getElementById("sec-btn-all");
+      if (allBtn) allBtn.classList.toggle("active-sec", secIdx === -1);
+      EJ10_SECTIONS.forEach(sec => {
+        const btn = document.getElementById(`sec-btn-${sec.id}`);
+        if (btn) btn.classList.toggle("active-sec", sec.id === secIdx);
+      });
+      for (let sysIdx = 0; sysIdx < 30; sysIdx++) {
+        const r = document.getElementById(`sys-row-${sysIdx}`);
+        if (!r) continue;
+        if (secIdx === -1) {
+          r.classList.remove("active-system");
+        } else {
+          const startM = secIdx * 10 + 1;
+          const endM = secIdx * 10 + 10;
+          const sysStart = sysIdx * 4 + 1;
+          const sysEnd = sysIdx * 4 + 4;
+          const overlaps = sysStart <= endM && sysEnd >= startM;
+          r.classList.toggle("active-system", overlaps);
+        }
+      }
+      const badge = document.getElementById("measure-badge");
+      if (secIdx >= 0) {
+        const sec = EJ10_SECTIONS[secIdx];
+        badge.textContent = `Sección: ${sec.short} (c. ${sec.startMeasure}–${sec.endMeasure})`;
+      } else {
+        badge.textContent = `Compases: 1–121 (Completo)`;
+      }
+      if (isPlaying) {
+        stopPlayback();
+        startPlayback();
+      }
+      renderAll();
+    }
+
+    function updateTempo(val) {
+      currentTempo = parseInt(val, 10) || 80;
+      document.getElementById("tempo-label").textContent = `${currentTempo} BPM`;
+      document.getElementById("abc-source-box").value = buildFullAbcText(currentArtId);
+    }
+
+    function midiToFreq(midi) {
+      return 440 * Math.pow(2, (midi - 69) / 12);
+    }
+
+    function playPianoNote(midi, startTime, durationSec, isStaccato) {
+      if (!audioCtx) return;
+      const freq = midiToFreq(midi);
+      const effDur = isStaccato ? Math.min(durationSec * 0.42, 0.09) : durationSec * 0.94;
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc1.type = "triangle";
+      osc2.type = "sine";
+      osc1.frequency.setValueAtTime(freq, startTime);
+      osc2.frequency.setValueAtTime(freq * 2, startTime);
+
+      const g2 = audioCtx.createGain();
+      g2.gain.setValueAtTime(0.18, startTime);
+
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.linearRampToValueAtTime(0.28, startTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0008, startTime + effDur);
+
+      osc1.connect(gain);
+      osc2.connect(g2);
+      g2.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc1.start(startTime);
+      osc2.start(startTime);
+      osc1.stop(startTime + effDur + 0.02);
+      osc2.stop(startTime + effDur + 0.02);
+    }
+
+    function isNoteStaccato(artId, posInMeasure) {
+      const pos6 = posInMeasure % 6;
+      const pos3 = posInMeasure % 6;
+      switch (artId) {
+        case 3:  return pos6 === 4 || pos6 === 5;
+        case 4:  return pos6 === 0 || pos6 === 1;
+        case 5:  return pos6 >= 2;
+        case 7:  return pos3 >= 3;
+        case 9:  return posInMeasure === 0 || posInMeasure === 11;
+        case 10: return true;
+        default: return false;
+      }
+    }
+
+    function startPlayback() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      isPlaying = true;
+      const btn = document.getElementById("play-btn");
+      btn.classList.add("playing");
+      document.getElementById("play-icon").textContent = "⏹";
+      document.getElementById("play-label").textContent = "Detener";
+
+      const noteDur = (60 / currentTempo) / 6;
+      const measuresToPlay = currentSecIdx >= 0
+        ? EJ10_MEASURES.slice(currentSecIdx * 10, currentSecIdx * 10 + 10)
+        : EJ10_MEASURES;
+
+      let cursor = audioCtx.currentTime + 0.06;
+
+      measuresToPlay.forEach((mObj) => {
+        for (let pos = 0; pos < 12; pos++) {
+          const midi = mObj.midis12[pos];
+          const stacc = isNoteStaccato(currentArtId, pos);
+          playPianoNote(midi, cursor, noteDur, stacc);
+
+          if (pos === 0) {
+            const delayMs = Math.max(0, (cursor - audioCtx.currentTime) * 1000);
+            const tid = setTimeout(() => {
+              if (!isPlaying) return;
+              document.getElementById("measure-badge").textContent = `c. ${mObj.measureNum}/121 (${mObj.sectionShort} · ${mObj.triad.join("–")})`;
+              for (let s = 0; s < 30; s++) {
+                const r = document.getElementById(`sys-row-${s}`);
+                if (r) r.classList.toggle("active-system", s === mObj.systemIdx);
+              }
+            }, delayMs);
+            playTimeouts.push(tid);
+          }
+          cursor += noteDur;
+        }
+      });
+
+      if (currentSecIdx === -1 || currentSecIdx === 11) {
+        playPianoNote(71, cursor, noteDur * 6, false);
+        const delayFinal = Math.max(0, (cursor - audioCtx.currentTime) * 1000);
+        const tidFinal = setTimeout(() => {
+          if (!isPlaying) return;
+          document.getElementById("measure-badge").textContent = `c. 121/121 (Si4 Final)`;
+        }, delayFinal);
+        playTimeouts.push(tidFinal);
+        cursor += noteDur * 12;
+      }
+
+      const totalMs = Math.max(0, (cursor - audioCtx.currentTime) * 1000);
+      const endTid = setTimeout(() => {
+        stopPlayback();
+      }, totalMs);
+      playTimeouts.push(endTid);
+    }
+
+    function stopPlayback() {
+      isPlaying = false;
+      playTimeouts.forEach(t => clearTimeout(t));
+      playTimeouts = [];
+      if (audioCtx) {
+        try { audioCtx.close(); } catch (e) {}
+        audioCtx = null;
+      }
+      const btn = document.getElementById("play-btn");
+      if (btn) btn.classList.remove("playing");
+      document.getElementById("play-icon").textContent = "▶";
+      document.getElementById("play-label").textContent = "Escuchar Piano";
+    }
+
+    function togglePlay() {
+      if (isPlaying) stopPlayback();
+      else startPlayback();
+    }
+
+    function copyCurrentAbc() {
+      const txt = document.getElementById("abc-source-box").value;
+      navigator.clipboard.writeText(txt).then(() => {
+        const lbl = document.getElementById("copy-label");
+        lbl.textContent = "¡Copiado!";
+        setTimeout(() => { lbl.textContent = "Copiar ABC"; }, 1800);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initLayout();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

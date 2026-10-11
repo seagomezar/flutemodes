@@ -1,0 +1,229 @@
+X:2
+T:E. J. 5 — Gammes Chromatiques (1. 12 Ligadas (Compás completo))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^CD^DEF ^FG^GA_B=B) | (c^cd^def ^fg^ga_b=b) | (c'b_ba_ag ^f=fe_ed_d) | (cB_BA_AG ^F=FE_ED_D) | C4 z4 |]
+[K:Db] "B" (D=DE=EFG =GA=AB_c=c) | (d=de=efg =ga=ab_c'=c') | (d'c'_c'b__ba =g_gf_fe__e) | (dc_cB__BA =G_GF_FE__E) | D4 z4 |]
+[K:D] "C" (D^DE^EFG ^GA^AB=c^c) | (d^de^efg ^ga^ab=c'^c') | (d'c'=c'b_ba ^g=gf=fe_e) | (dc=cB_BA ^G=GF=FE_E) | D4 z4 |]
+[K:Eb] "D" (E=EF^FGA =AB=Bc_d=d) | (e=ef^fga =ab=bc'_d'=d') | (e'd'_d'c'_c'b =a_ag_gf_f) | (ed_dc_cB =A_AG_GF_F) | E4 z4 |]
+[K:E] "E" (E^EF^^FGA ^AB^Bc=d^d) | (e^ef^^fga ^ab^bc'=d'^d') | (e'd'=d'c'=c'b ^a=ag=gf=f) | (ed=dc=cB ^A=AG=GF=F) | E4 z4 |]
+[K:F] "F" (F^FG^GAB =Bc^cd_e=e) | (f^fg^gab =bc'^c'd'_e'=e') | (f'e'_e'd'_d'c' =b_ba_ag_g) | (fe_ed_dc =B_BA_AG_G) | F4 z4 |]
+[K:Gb] "G" (G=GA=ABc =cd=de_f=f) | (g=ga=abc' =c'd'=d'e'_f'=f') | (g'f'_f'e'__e'd' =c'_c'b__ba__a) | (gf_fe__ed =c_cB__BA__A) | G4 z4 |]
+[K:G] "H" (G^GA^ABc ^cd^de=f^f) | (g^ga^abc' ^c'd'^d'e'=f'^f') | (g'f'=f'e'_e'd' ^c'=c'b_ba_a) | (gf=fe_ed ^c=cB_BA_A) | G4 z4 |]
+[K:Ab] "I" (A=AB=Bcd =de=ef_g=g) | (a=ab=bc'd' =d'e'=e'f'_g'=g') | (a'g'_g'f'_f'e' =d'_d'c'_c'b__b) | (ag_gf_fe =d_dc_cB__B) | A4 z4 |]
+[K:A] "J" (A^AB^Bcd ^de^ef=g^g) | (a^ab^bc'd' ^d'e'^e'f'=g'^g') | (a'g'=g'f'=f'e' ^d'=d'c'=c'b_b) | (ag=gf=fe ^d=dc=cB_B) | A4 z4 |]
+[K:Bb] "K" (B=Bc^cde =ef^fg_a=a) | (b=bc'^c'd'e' =e'f'^f'g'_a'=a') | (b'a'_a'g'_g'f' =e'_e'd'_d'c'_c') | (ba_ag_gf =e_ed_dc_c) | B4 z4 |]
+[K:B] "L" (B^Bc^^cde ^ef^^fg=a^a) | (b^bc'^^c'd'e' ^e'f'^^f'g'=a'^a') | (b'a'=a'g'=g'f' ^e'=e'd'=d'c'=c') | (ba=ag=gf ^e=ed=dc=c) | B4 z4 |]
+
+X:3
+T:E. J. 5 — Gammes Chromatiques (2. 6 y 6 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^CD^DEF) (^FG^GA_B=B) | (c^cd^def) (^fg^ga_b=b) | (c'b_ba_ag) (^f=fe_ed_d) | (cB_BA_AG) (^F=FE_ED_D) | C4 z4 |]
+[K:Db] "B" (D=DE=EFG) (=GA=AB_c=c) | (d=de=efg) (=ga=ab_c'=c') | (d'c'_c'b__ba) (=g_gf_fe__e) | (dc_cB__BA) (=G_GF_FE__E) | D4 z4 |]
+[K:D] "C" (D^DE^EFG) (^GA^AB=c^c) | (d^de^efg) (^ga^ab=c'^c') | (d'c'=c'b_ba) (^g=gf=fe_e) | (dc=cB_BA) (^G=GF=FE_E) | D4 z4 |]
+[K:Eb] "D" (E=EF^FGA) (=AB=Bc_d=d) | (e=ef^fga) (=ab=bc'_d'=d') | (e'd'_d'c'_c'b) (=a_ag_gf_f) | (ed_dc_cB) (=A_AG_GF_F) | E4 z4 |]
+[K:E] "E" (E^EF^^FGA) (^AB^Bc=d^d) | (e^ef^^fga) (^ab^bc'=d'^d') | (e'd'=d'c'=c'b) (^a=ag=gf=f) | (ed=dc=cB) (^A=AG=GF=F) | E4 z4 |]
+[K:F] "F" (F^FG^GAB) (=Bc^cd_e=e) | (f^fg^gab) (=bc'^c'd'_e'=e') | (f'e'_e'd'_d'c') (=b_ba_ag_g) | (fe_ed_dc) (=B_BA_AG_G) | F4 z4 |]
+[K:Gb] "G" (G=GA=ABc) (=cd=de_f=f) | (g=ga=abc') (=c'd'=d'e'_f'=f') | (g'f'_f'e'__e'd') (=c'_c'b__ba__a) | (gf_fe__ed) (=c_cB__BA__A) | G4 z4 |]
+[K:G] "H" (G^GA^ABc) (^cd^de=f^f) | (g^ga^abc') (^c'd'^d'e'=f'^f') | (g'f'=f'e'_e'd') (^c'=c'b_ba_a) | (gf=fe_ed) (^c=cB_BA_A) | G4 z4 |]
+[K:Ab] "I" (A=AB=Bcd) (=de=ef_g=g) | (a=ab=bc'd') (=d'e'=e'f'_g'=g') | (a'g'_g'f'_f'e') (=d'_d'c'_c'b__b) | (ag_gf_fe) (=d_dc_cB__B) | A4 z4 |]
+[K:A] "J" (A^AB^Bcd) (^de^ef=g^g) | (a^ab^bc'd') (^d'e'^e'f'=g'^g') | (a'g'=g'f'=f'e') (^d'=d'c'=c'b_b) | (ag=gf=fe) (^d=dc=cB_B) | A4 z4 |]
+[K:Bb] "K" (B=Bc^cde) (=ef^fg_a=a) | (b=bc'^c'd'e') (=e'f'^f'g'_a'=a') | (b'a'_a'g'_g'f') (=e'_e'd'_d'c'_c') | (ba_ag_gf) (=e_ed_dc_c) | B4 z4 |]
+[K:B] "L" (B^Bc^^cde) (^ef^^fg=a^a) | (b^bc'^^c'd'e') (^e'f'^^f'g'=a'^a') | (b'a'=a'g'=g'f') (^e'=e'd'=d'c'=c') | (ba=ag=gf) (^e=ed=dc=c) | B4 z4 |]
+
+X:4
+T:E. J. 5 — Gammes Chromatiques (3. 4 Ligadas y 2 Picadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^CD^D).E.F (^FG^GA)._B.=B | (c^cd^d).e.f (^fg^ga)._b.=b | (c'b_ba)._a.g (^f=fe_e).d._d | (cB_BA)._A.G (^F=FE_E).D._D | C4 z4 |]
+[K:Db] "B" (D=DE=E).F.G (=GA=AB)._c.=c | (d=de=e).f.g (=ga=ab)._c'.=c' | (d'c'_c'b).__b.a (=g_gf_f).e.__e | (dc_cB).__B.A (=G_GF_F).E.__E | D4 z4 |]
+[K:D] "C" (D^DE^E).F.G (^GA^AB).=c.^c | (d^de^e).f.g (^ga^ab).=c'.^c' | (d'c'=c'b)._b.a (^g=gf=f).e._e | (dc=cB)._B.A (^G=GF=F).E._E | D4 z4 |]
+[K:Eb] "D" (E=EF^F).G.A (=AB=Bc)._d.=d | (e=ef^f).g.a (=ab=bc')._d'.=d' | (e'd'_d'c')._c'.b (=a_ag_g).f._f | (ed_dc)._c.B (=A_AG_G).F._F | E4 z4 |]
+[K:E] "E" (E^EF^^F).G.A (^AB^Bc).=d.^d | (e^ef^^f).g.a (^ab^bc').=d'.^d' | (e'd'=d'c').=c'.b (^a=ag=g).f.=f | (ed=dc).=c.B (^A=AG=G).F.=F | E4 z4 |]
+[K:F] "F" (F^FG^G).A.B (=Bc^cd)._e.=e | (f^fg^g).a.b (=bc'^c'd')._e'.=e' | (f'e'_e'd')._d'.c' (=b_ba_a).g._g | (fe_ed)._d.c (=B_BA_A).G._G | F4 z4 |]
+[K:Gb] "G" (G=GA=A).B.c (=cd=de)._f.=f | (g=ga=a).b.c' (=c'd'=d'e')._f'.=f' | (g'f'_f'e').__e'.d' (=c'_c'b__b).a.__a | (gf_fe).__e.d (=c_cB__B).A.__A | G4 z4 |]
+[K:G] "H" (G^GA^A).B.c (^cd^de).=f.^f | (g^ga^a).b.c' (^c'd'^d'e').=f'.^f' | (g'f'=f'e')._e'.d' (^c'=c'b_b).a._a | (gf=fe)._e.d (^c=cB_B).A._A | G4 z4 |]
+[K:Ab] "I" (A=AB=B).c.d (=de=ef)._g.=g | (a=ab=b).c'.d' (=d'e'=e'f')._g'.=g' | (a'g'_g'f')._f'.e' (=d'_d'c'_c').b.__b | (ag_gf)._f.e (=d_dc_c).B.__B | A4 z4 |]
+[K:A] "J" (A^AB^B).c.d (^de^ef).=g.^g | (a^ab^b).c'.d' (^d'e'^e'f').=g'.^g' | (a'g'=g'f').=f'.e' (^d'=d'c'=c').b._b | (ag=gf).=f.e (^d=dc=c).B._B | A4 z4 |]
+[K:Bb] "K" (B=Bc^c).d.e (=ef^fg)._a.=a | (b=bc'^c').d'.e' (=e'f'^f'g')._a'.=a' | (b'a'_a'g')._g'.f' (=e'_e'd'_d').c'._c' | (ba_ag)._g.f (=e_ed_d).c._c | B4 z4 |]
+[K:B] "L" (B^Bc^^c).d.e (^ef^^fg).=a.^a | (b^bc'^^c').d'.e' (^e'f'^^f'g').=a'.^a' | (b'a'=a'g').=g'.f' (^e'=e'd'=d').c'.=c' | (ba=ag).=g.f (^e=ed=d).c.=c | B4 z4 |]
+
+X:5
+T:E. J. 5 — Gammes Chromatiques (4. 2 Picadas y 4 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" .C.^C(D^DEF) .^F.G(^GA_B=B) | .c.^c(d^def) .^f.g(^ga_b=b) | .c'.b(_ba_ag) .^f.=f(e_ed_d) | .c.B(_BA_AG) .^F.=F(E_ED_D) | C4 z4 |]
+[K:Db] "B" .D.=D(E=EFG) .=G.A(=AB_c=c) | .d.=d(e=efg) .=g.a(=ab_c'=c') | .d'.c'(_c'b__ba) .=g._g(f_fe__e) | .d.c(_cB__BA) .=G._G(F_FE__E) | D4 z4 |]
+[K:D] "C" .D.^D(E^EFG) .^G.A(^AB=c^c) | .d.^d(e^efg) .^g.a(^ab=c'^c') | .d'.c'(=c'b_ba) .^g.=g(f=fe_e) | .d.c(=cB_BA) .^G.=G(F=FE_E) | D4 z4 |]
+[K:Eb] "D" .E.=E(F^FGA) .=A.B(=Bc_d=d) | .e.=e(f^fga) .=a.b(=bc'_d'=d') | .e'.d'(_d'c'_c'b) .=a._a(g_gf_f) | .e.d(_dc_cB) .=A._A(G_GF_F) | E4 z4 |]
+[K:E] "E" .E.^E(F^^FGA) .^A.B(^Bc=d^d) | .e.^e(f^^fga) .^a.b(^bc'=d'^d') | .e'.d'(=d'c'=c'b) .^a.=a(g=gf=f) | .e.d(=dc=cB) .^A.=A(G=GF=F) | E4 z4 |]
+[K:F] "F" .F.^F(G^GAB) .=B.c(^cd_e=e) | .f.^f(g^gab) .=b.c'(^c'd'_e'=e') | .f'.e'(_e'd'_d'c') .=b._b(a_ag_g) | .f.e(_ed_dc) .=B._B(A_AG_G) | F4 z4 |]
+[K:Gb] "G" .G.=G(A=ABc) .=c.d(=de_f=f) | .g.=g(a=abc') .=c'.d'(=d'e'_f'=f') | .g'.f'(_f'e'__e'd') .=c'._c'(b__ba__a) | .g.f(_fe__ed) .=c._c(B__BA__A) | G4 z4 |]
+[K:G] "H" .G.^G(A^ABc) .^c.d(^de=f^f) | .g.^g(a^abc') .^c'.d'(^d'e'=f'^f') | .g'.f'(=f'e'_e'd') .^c'.=c'(b_ba_a) | .g.f(=fe_ed) .^c.=c(B_BA_A) | G4 z4 |]
+[K:Ab] "I" .A.=A(B=Bcd) .=d.e(=ef_g=g) | .a.=a(b=bc'd') .=d'.e'(=e'f'_g'=g') | .a'.g'(_g'f'_f'e') .=d'._d'(c'_c'b__b) | .a.g(_gf_fe) .=d._d(c_cB__B) | A4 z4 |]
+[K:A] "J" .A.^A(B^Bcd) .^d.e(^ef=g^g) | .a.^a(b^bc'd') .^d'.e'(^e'f'=g'^g') | .a'.g'(=g'f'=f'e') .^d'.=d'(c'=c'b_b) | .a.g(=gf=fe) .^d.=d(c=cB_B) | A4 z4 |]
+[K:Bb] "K" .B.=B(c^cde) .=e.f(^fg_a=a) | .b.=b(c'^c'd'e') .=e'.f'(^f'g'_a'=a') | .b'.a'(_a'g'_g'f') .=e'._e'(d'_d'c'_c') | .b.a(_ag_gf) .=e._e(d_dc_c) | B4 z4 |]
+[K:B] "L" .B.^B(c^^cde) .^e.f(^^fg=a^a) | .b.^b(c'^^c'd'e') .^e'.f'(^^f'g'=a'^a') | .b'.a'(=a'g'=g'f') .^e'.=e'(d'=d'c'=c') | .b.a(=ag=gf) .^e.=e(d=dc=c) | B4 z4 |]
+
+X:6
+T:E. J. 5 — Gammes Chromatiques (5. 2 Ligadas y 4 Picadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^C).D.^D.E.F (^FG).^G.A._B.=B | (c^c).d.^d.e.f (^fg).^g.a._b.=b | (c'b)._b.a._a.g (^f=f).e._e.d._d | (cB)._B.A._A.G (^F=F).E._E.D._D | C4 z4 |]
+[K:Db] "B" (D=D).E.=E.F.G (=GA).=A.B._c.=c | (d=d).e.=e.f.g (=ga).=a.b._c'.=c' | (d'c')._c'.b.__b.a (=g_g).f._f.e.__e | (dc)._c.B.__B.A (=G_G).F._F.E.__E | D4 z4 |]
+[K:D] "C" (D^D).E.^E.F.G (^GA).^A.B.=c.^c | (d^d).e.^e.f.g (^ga).^a.b.=c'.^c' | (d'c').=c'.b._b.a (^g=g).f.=f.e._e | (dc).=c.B._B.A (^G=G).F.=F.E._E | D4 z4 |]
+[K:Eb] "D" (E=E).F.^F.G.A (=AB).=B.c._d.=d | (e=e).f.^f.g.a (=ab).=b.c'._d'.=d' | (e'd')._d'.c'._c'.b (=a_a).g._g.f._f | (ed)._d.c._c.B (=A_A).G._G.F._F | E4 z4 |]
+[K:E] "E" (E^E).F.^^F.G.A (^AB).^B.c.=d.^d | (e^e).f.^^f.g.a (^ab).^b.c'.=d'.^d' | (e'd').=d'.c'.=c'.b (^a=a).g.=g.f.=f | (ed).=d.c.=c.B (^A=A).G.=G.F.=F | E4 z4 |]
+[K:F] "F" (F^F).G.^G.A.B (=Bc).^c.d._e.=e | (f^f).g.^g.a.b (=bc').^c'.d'._e'.=e' | (f'e')._e'.d'._d'.c' (=b_b).a._a.g._g | (fe)._e.d._d.c (=B_B).A._A.G._G | F4 z4 |]
+[K:Gb] "G" (G=G).A.=A.B.c (=cd).=d.e._f.=f | (g=g).a.=a.b.c' (=c'd').=d'.e'._f'.=f' | (g'f')._f'.e'.__e'.d' (=c'_c').b.__b.a.__a | (gf)._f.e.__e.d (=c_c).B.__B.A.__A | G4 z4 |]
+[K:G] "H" (G^G).A.^A.B.c (^cd).^d.e.=f.^f | (g^g).a.^a.b.c' (^c'd').^d'.e'.=f'.^f' | (g'f').=f'.e'._e'.d' (^c'=c').b._b.a._a | (gf).=f.e._e.d (^c=c).B._B.A._A | G4 z4 |]
+[K:Ab] "I" (A=A).B.=B.c.d (=de).=e.f._g.=g | (a=a).b.=b.c'.d' (=d'e').=e'.f'._g'.=g' | (a'g')._g'.f'._f'.e' (=d'_d').c'._c'.b.__b | (ag)._g.f._f.e (=d_d).c._c.B.__B | A4 z4 |]
+[K:A] "J" (A^A).B.^B.c.d (^de).^e.f.=g.^g | (a^a).b.^b.c'.d' (^d'e').^e'.f'.=g'.^g' | (a'g').=g'.f'.=f'.e' (^d'=d').c'.=c'.b._b | (ag).=g.f.=f.e (^d=d).c.=c.B._B | A4 z4 |]
+[K:Bb] "K" (B=B).c.^c.d.e (=ef).^f.g._a.=a | (b=b).c'.^c'.d'.e' (=e'f').^f'.g'._a'.=a' | (b'a')._a'.g'._g'.f' (=e'_e').d'._d'.c'._c' | (ba)._a.g._g.f (=e_e).d._d.c._c | B4 z4 |]
+[K:B] "L" (B^B).c.^^c.d.e (^ef).^^f.g.=a.^a | (b^b).c'.^^c'.d'.e' (^e'f').^^f'.g'.=a'.^a' | (b'a').=a'.g'.=g'.f' (^e'=e').d'.=d'.c'.=c' | (ba).=a.g.=g.f (^e=e).d.=d.c.=c | B4 z4 |]
+
+X:7
+T:E. J. 5 — Gammes Chromatiques (6. De 3 en 3 Ligadas (2/4))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:2/4
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^CD) (^DEF) (^FG^G) (A_B=B) | (c^cd) (^def) (^fg^g) (a_b=b) | (c'b_b) (a_ag) (^f=fe) (_ed_d) | (cB_B) (A_AG) (^F=FE) (_ED_D) | C4 z4 |]
+[K:Db] "B" (D=DE) (=EFG) (=GA=A) (B_c=c) | (d=de) (=efg) (=ga=a) (b_c'=c') | (d'c'_c') (b__ba) (=g_gf) (_fe__e) | (dc_c) (B__BA) (=G_GF) (_FE__E) | D4 z4 |]
+[K:D] "C" (D^DE) (^EFG) (^GA^A) (B=c^c) | (d^de) (^efg) (^ga^a) (b=c'^c') | (d'c'=c') (b_ba) (^g=gf) (=fe_e) | (dc=c) (B_BA) (^G=GF) (=FE_E) | D4 z4 |]
+[K:Eb] "D" (E=EF) (^FGA) (=AB=B) (c_d=d) | (e=ef) (^fga) (=ab=b) (c'_d'=d') | (e'd'_d') (c'_c'b) (=a_ag) (_gf_f) | (ed_d) (c_cB) (=A_AG) (_GF_F) | E4 z4 |]
+[K:E] "E" (E^EF) (^^FGA) (^AB^B) (c=d^d) | (e^ef) (^^fga) (^ab^b) (c'=d'^d') | (e'd'=d') (c'=c'b) (^a=ag) (=gf=f) | (ed=d) (c=cB) (^A=AG) (=GF=F) | E4 z4 |]
+[K:F] "F" (F^FG) (^GAB) (=Bc^c) (d_e=e) | (f^fg) (^gab) (=bc'^c') (d'_e'=e') | (f'e'_e') (d'_d'c') (=b_ba) (_ag_g) | (fe_e) (d_dc) (=B_BA) (_AG_G) | F4 z4 |]
+[K:Gb] "G" (G=GA) (=ABc) (=cd=d) (e_f=f) | (g=ga) (=abc') (=c'd'=d') (e'_f'=f') | (g'f'_f') (e'__e'd') (=c'_c'b) (__ba__a) | (gf_f) (e__ed) (=c_cB) (__BA__A) | G4 z4 |]
+[K:G] "H" (G^GA) (^ABc) (^cd^d) (e=f^f) | (g^ga) (^abc') (^c'd'^d') (e'=f'^f') | (g'f'=f') (e'_e'd') (^c'=c'b) (_ba_a) | (gf=f) (e_ed) (^c=cB) (_BA_A) | G4 z4 |]
+[K:Ab] "I" (A=AB) (=Bcd) (=de=e) (f_g=g) | (a=ab) (=bc'd') (=d'e'=e') (f'_g'=g') | (a'g'_g') (f'_f'e') (=d'_d'c') (_c'b__b) | (ag_g) (f_fe) (=d_dc) (_cB__B) | A4 z4 |]
+[K:A] "J" (A^AB) (^Bcd) (^de^e) (f=g^g) | (a^ab) (^bc'd') (^d'e'^e') (f'=g'^g') | (a'g'=g') (f'=f'e') (^d'=d'c') (=c'b_b) | (ag=g) (f=fe) (^d=dc) (=cB_B) | A4 z4 |]
+[K:Bb] "K" (B=Bc) (^cde) (=ef^f) (g_a=a) | (b=bc') (^c'd'e') (=e'f'^f') (g'_a'=a') | (b'a'_a') (g'_g'f') (=e'_e'd') (_d'c'_c') | (ba_a) (g_gf) (=e_ed) (_dc_c) | B4 z4 |]
+[K:B] "L" (B^Bc) (^^cde) (^ef^^f) (g=a^a) | (b^bc') (^^c'd'e') (^e'f'^^f') (g'=a'^a') | (b'a'=a') (g'=g'f') (^e'=e'd') (=d'c'=c') | (ba=a) (g=gf) (^e=ed) (=dc=c) | B4 z4 |]
+
+X:8
+T:E. J. 5 — Gammes Chromatiques (7. 3 Ligadas y 3 Picadas (2/4))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:2/4
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^CD) .^D.E.F (^FG^G) .A._B.=B | (c^cd) .^d.e.f (^fg^g) .a._b.=b | (c'b_b) .a._a.g (^f=fe) ._e.d._d | (cB_B) .A._A.G (^F=FE) ._E.D._D | C4 z4 |]
+[K:Db] "B" (D=DE) .=E.F.G (=GA=A) .B._c.=c | (d=de) .=e.f.g (=ga=a) .b._c'.=c' | (d'c'_c') .b.__b.a (=g_gf) ._f.e.__e | (dc_c) .B.__B.A (=G_GF) ._F.E.__E | D4 z4 |]
+[K:D] "C" (D^DE) .^E.F.G (^GA^A) .B.=c.^c | (d^de) .^e.f.g (^ga^a) .b.=c'.^c' | (d'c'=c') .b._b.a (^g=gf) .=f.e._e | (dc=c) .B._B.A (^G=GF) .=F.E._E | D4 z4 |]
+[K:Eb] "D" (E=EF) .^F.G.A (=AB=B) .c._d.=d | (e=ef) .^f.g.a (=ab=b) .c'._d'.=d' | (e'd'_d') .c'._c'.b (=a_ag) ._g.f._f | (ed_d) .c._c.B (=A_AG) ._G.F._F | E4 z4 |]
+[K:E] "E" (E^EF) .^^F.G.A (^AB^B) .c.=d.^d | (e^ef) .^^f.g.a (^ab^b) .c'.=d'.^d' | (e'd'=d') .c'.=c'.b (^a=ag) .=g.f.=f | (ed=d) .c.=c.B (^A=AG) .=G.F.=F | E4 z4 |]
+[K:F] "F" (F^FG) .^G.A.B (=Bc^c) .d._e.=e | (f^fg) .^g.a.b (=bc'^c') .d'._e'.=e' | (f'e'_e') .d'._d'.c' (=b_ba) ._a.g._g | (fe_e) .d._d.c (=B_BA) ._A.G._G | F4 z4 |]
+[K:Gb] "G" (G=GA) .=A.B.c (=cd=d) .e._f.=f | (g=ga) .=a.b.c' (=c'd'=d') .e'._f'.=f' | (g'f'_f') .e'.__e'.d' (=c'_c'b) .__b.a.__a | (gf_f) .e.__e.d (=c_cB) .__B.A.__A | G4 z4 |]
+[K:G] "H" (G^GA) .^A.B.c (^cd^d) .e.=f.^f | (g^ga) .^a.b.c' (^c'd'^d') .e'.=f'.^f' | (g'f'=f') .e'._e'.d' (^c'=c'b) ._b.a._a | (gf=f) .e._e.d (^c=cB) ._B.A._A | G4 z4 |]
+[K:Ab] "I" (A=AB) .=B.c.d (=de=e) .f._g.=g | (a=ab) .=b.c'.d' (=d'e'=e') .f'._g'.=g' | (a'g'_g') .f'._f'.e' (=d'_d'c') ._c'.b.__b | (ag_g) .f._f.e (=d_dc) ._c.B.__B | A4 z4 |]
+[K:A] "J" (A^AB) .^B.c.d (^de^e) .f.=g.^g | (a^ab) .^b.c'.d' (^d'e'^e') .f'.=g'.^g' | (a'g'=g') .f'.=f'.e' (^d'=d'c') .=c'.b._b | (ag=g) .f.=f.e (^d=dc) .=c.B._B | A4 z4 |]
+[K:Bb] "K" (B=Bc) .^c.d.e (=ef^f) .g._a.=a | (b=bc') .^c'.d'.e' (=e'f'^f') .g'._a'.=a' | (b'a'_a') .g'._g'.f' (=e'_e'd') ._d'.c'._c' | (ba_a) .g._g.f (=e_ed) ._d.c._c | B4 z4 |]
+[K:B] "L" (B^Bc) .^^c.d.e (^ef^^f) .g.=a.^a | (b^bc') .^^c'.d'.e' (^e'f'^^f') .g'.=a'.^a' | (b'a'=a') .g'.=g'.f' (^e'=e'd') .=d'.c'.=c' | (ba=a) .g.=g.f (^e=ed) .=d.c.=c | B4 z4 |]
+
+X:9
+T:E. J. 5 — Gammes Chromatiques (8. De 2 en 2 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" (C^C)(D^D)(EF) (^FG)(^GA)(_B=B) | (c^c)(d^d)(ef) (^fg)(^ga)(_b=b) | (c'b)(_ba)(_ag) (^f=f)(e_e)(d_d) | (cB)(_BA)(_AG) (^F=F)(E_E)(D_D) | C4 z4 |]
+[K:Db] "B" (D=D)(E=E)(FG) (=GA)(=AB)(_c=c) | (d=d)(e=e)(fg) (=ga)(=ab)(_c'=c') | (d'c')(_c'b)(__ba) (=g_g)(f_f)(e__e) | (dc)(_cB)(__BA) (=G_G)(F_F)(E__E) | D4 z4 |]
+[K:D] "C" (D^D)(E^E)(FG) (^GA)(^AB)(=c^c) | (d^d)(e^e)(fg) (^ga)(^ab)(=c'^c') | (d'c')(=c'b)(_ba) (^g=g)(f=f)(e_e) | (dc)(=cB)(_BA) (^G=G)(F=F)(E_E) | D4 z4 |]
+[K:Eb] "D" (E=E)(F^F)(GA) (=AB)(=Bc)(_d=d) | (e=e)(f^f)(ga) (=ab)(=bc')(_d'=d') | (e'd')(_d'c')(_c'b) (=a_a)(g_g)(f_f) | (ed)(_dc)(_cB) (=A_A)(G_G)(F_F) | E4 z4 |]
+[K:E] "E" (E^E)(F^^F)(GA) (^AB)(^Bc)(=d^d) | (e^e)(f^^f)(ga) (^ab)(^bc')(=d'^d') | (e'd')(=d'c')(=c'b) (^a=a)(g=g)(f=f) | (ed)(=dc)(=cB) (^A=A)(G=G)(F=F) | E4 z4 |]
+[K:F] "F" (F^F)(G^G)(AB) (=Bc)(^cd)(_e=e) | (f^f)(g^g)(ab) (=bc')(^c'd')(_e'=e') | (f'e')(_e'd')(_d'c') (=b_b)(a_a)(g_g) | (fe)(_ed)(_dc) (=B_B)(A_A)(G_G) | F4 z4 |]
+[K:Gb] "G" (G=G)(A=A)(Bc) (=cd)(=de)(_f=f) | (g=g)(a=a)(bc') (=c'd')(=d'e')(_f'=f') | (g'f')(_f'e')(__e'd') (=c'_c')(b__b)(a__a) | (gf)(_fe)(__ed) (=c_c)(B__B)(A__A) | G4 z4 |]
+[K:G] "H" (G^G)(A^A)(Bc) (^cd)(^de)(=f^f) | (g^g)(a^a)(bc') (^c'd')(^d'e')(=f'^f') | (g'f')(=f'e')(_e'd') (^c'=c')(b_b)(a_a) | (gf)(=fe)(_ed) (^c=c)(B_B)(A_A) | G4 z4 |]
+[K:Ab] "I" (A=A)(B=B)(cd) (=de)(=ef)(_g=g) | (a=a)(b=b)(c'd') (=d'e')(=e'f')(_g'=g') | (a'g')(_g'f')(_f'e') (=d'_d')(c'_c')(b__b) | (ag)(_gf)(_fe) (=d_d)(c_c)(B__B) | A4 z4 |]
+[K:A] "J" (A^A)(B^B)(cd) (^de)(^ef)(=g^g) | (a^a)(b^b)(c'd') (^d'e')(^e'f')(=g'^g') | (a'g')(=g'f')(=f'e') (^d'=d')(c'=c')(b_b) | (ag)(=gf)(=fe) (^d=d)(c=c)(B_B) | A4 z4 |]
+[K:Bb] "K" (B=B)(c^c)(de) (=ef)(^fg)(_a=a) | (b=b)(c'^c')(d'e') (=e'f')(^f'g')(_a'=a') | (b'a')(_a'g')(_g'f') (=e'_e')(d'_d')(c'_c') | (ba)(_ag)(_gf) (=e_e)(d_d)(c_c) | B4 z4 |]
+[K:B] "L" (B^B)(c^^c)(de) (^ef)(^^fg)(=a^a) | (b^b)(c'^^c')(d'e') (^e'f')(^^f'g')(=a'^a') | (b'a')(=a'g')(=g'f') (^e'=e')(d'=d')(c'=c') | (ba)(=ag)(=gf) (^e=e)(d=d)(c=c) | B4 z4 |]
+
+X:10
+T:E. J. 5 — Gammes Chromatiques (9. Sincopadas de a 2)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" .C(^CD)(^DE)(F ^F)(G^G)(A_B).=B | .c(^cd)(^de)(f ^f)(g^g)(a_b).=b | .c'(b_b)(a_a)(g ^f)(=fe)(_ed)._d | .c(B_B)(A_A)(G ^F)(=FE)(_ED)._D | C4 z4 |]
+[K:Db] "B" .D(=DE)(=EF)(G =G)(A=A)(B_c).=c | .d(=de)(=ef)(g =g)(a=a)(b_c').=c' | .d'(c'_c')(b__b)(a =g)(_gf)(_fe).__e | .d(c_c)(B__B)(A =G)(_GF)(_FE).__E | D4 z4 |]
+[K:D] "C" .D(^DE)(^EF)(G ^G)(A^A)(B=c).^c | .d(^de)(^ef)(g ^g)(a^a)(b=c').^c' | .d'(c'=c')(b_b)(a ^g)(=gf)(=fe)._e | .d(c=c)(B_B)(A ^G)(=GF)(=FE)._E | D4 z4 |]
+[K:Eb] "D" .E(=EF)(^FG)(A =A)(B=B)(c_d).=d | .e(=ef)(^fg)(a =a)(b=b)(c'_d').=d' | .e'(d'_d')(c'_c')(b =a)(_ag)(_gf)._f | .e(d_d)(c_c)(B =A)(_AG)(_GF)._F | E4 z4 |]
+[K:E] "E" .E(^EF)(^^FG)(A ^A)(B^B)(c=d).^d | .e(^ef)(^^fg)(a ^a)(b^b)(c'=d').^d' | .e'(d'=d')(c'=c')(b ^a)(=ag)(=gf).=f | .e(d=d)(c=c)(B ^A)(=AG)(=GF).=F | E4 z4 |]
+[K:F] "F" .F(^FG)(^GA)(B =B)(c^c)(d_e).=e | .f(^fg)(^ga)(b =b)(c'^c')(d'_e').=e' | .f'(e'_e')(d'_d')(c' =b)(_ba)(_ag)._g | .f(e_e)(d_d)(c =B)(_BA)(_AG)._G | F4 z4 |]
+[K:Gb] "G" .G(=GA)(=AB)(c =c)(d=d)(e_f).=f | .g(=ga)(=ab)(c' =c')(d'=d')(e'_f').=f' | .g'(f'_f')(e'__e')(d' =c')(_c'b)(__ba).__a | .g(f_f)(e__e)(d =c)(_cB)(__BA).__A | G4 z4 |]
+[K:G] "H" .G(^GA)(^AB)(c ^c)(d^d)(e=f).^f | .g(^ga)(^ab)(c' ^c')(d'^d')(e'=f').^f' | .g'(f'=f')(e'_e')(d' ^c')(=c'b)(_ba)._a | .g(f=f)(e_e)(d ^c)(=cB)(_BA)._A | G4 z4 |]
+[K:Ab] "I" .A(=AB)(=Bc)(d =d)(e=e)(f_g).=g | .a(=ab)(=bc')(d' =d')(e'=e')(f'_g').=g' | .a'(g'_g')(f'_f')(e' =d')(_d'c')(_c'b).__b | .a(g_g)(f_f)(e =d)(_dc)(_cB).__B | A4 z4 |]
+[K:A] "J" .A(^AB)(^Bc)(d ^d)(e^e)(f=g).^g | .a(^ab)(^bc')(d' ^d')(e'^e')(f'=g').^g' | .a'(g'=g')(f'=f')(e' ^d')(=d'c')(=c'b)._b | .a(g=g)(f=f)(e ^d)(=dc)(=cB)._B | A4 z4 |]
+[K:Bb] "K" .B(=Bc)(^cd)(e =e)(f^f)(g_a).=a | .b(=bc')(^c'd')(e' =e')(f'^f')(g'_a').=a' | .b'(a'_a')(g'_g')(f' =e')(_e'd')(_d'c')._c' | .b(a_a)(g_g)(f =e)(_ed)(_dc)._c | B4 z4 |]
+[K:B] "L" .B(^Bc)(^^cd)(e ^e)(f^^f)(g=a).^a | .b(^bc')(^^c'd')(e' ^e')(f'^^f')(g'=a').^a' | .b'(a'=a')(g'=g')(f' ^e')(=e'd')(=d'c').=c' | .b(a=a)(g=g)(f ^e)(=ed)(=dc).=c | B4 z4 |]
+
+X:11
+T:E. J. 5 — Gammes Chromatiques (10. Todas Picadas (Staccato))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, pág. 115)
+%%stretchlast 1
+%%barsperstaff 5
+M:6/8
+L:1/16
+Q:1/4=96
+K:C
+V:1 clef=treble stem=down
+[K:C] "A" .C.^C.D.^D.E.F .^F.G.^G.A._B.=B | .c.^c.d.^d.e.f .^f.g.^g.a._b.=b | .c'.b._b.a._a.g .^f.=f.e._e.d._d | .c.B._B.A._A.G .^F.=F.E._E.D._D | C4 z4 |]
+[K:Db] "B" .D.=D.E.=E.F.G .=G.A.=A.B._c.=c | .d.=d.e.=e.f.g .=g.a.=a.b._c'.=c' | .d'.c'._c'.b.__b.a .=g._g.f._f.e.__e | .d.c._c.B.__B.A .=G._G.F._F.E.__E | D4 z4 |]
+[K:D] "C" .D.^D.E.^E.F.G .^G.A.^A.B.=c.^c | .d.^d.e.^e.f.g .^g.a.^a.b.=c'.^c' | .d'.c'.=c'.b._b.a .^g.=g.f.=f.e._e | .d.c.=c.B._B.A .^G.=G.F.=F.E._E | D4 z4 |]
+[K:Eb] "D" .E.=E.F.^F.G.A .=A.B.=B.c._d.=d | .e.=e.f.^f.g.a .=a.b.=b.c'._d'.=d' | .e'.d'._d'.c'._c'.b .=a._a.g._g.f._f | .e.d._d.c._c.B .=A._A.G._G.F._F | E4 z4 |]
+[K:E] "E" .E.^E.F.^^F.G.A .^A.B.^B.c.=d.^d | .e.^e.f.^^f.g.a .^a.b.^b.c'.=d'.^d' | .e'.d'.=d'.c'.=c'.b .^a.=a.g.=g.f.=f | .e.d.=d.c.=c.B .^A.=A.G.=G.F.=F | E4 z4 |]
+[K:F] "F" .F.^F.G.^G.A.B .=B.c.^c.d._e.=e | .f.^f.g.^g.a.b .=b.c'.^c'.d'._e'.=e' | .f'.e'._e'.d'._d'.c' .=b._b.a._a.g._g | .f.e._e.d._d.c .=B._B.A._A.G._G | F4 z4 |]
+[K:Gb] "G" .G.=G.A.=A.B.c .=c.d.=d.e._f.=f | .g.=g.a.=a.b.c' .=c'.d'.=d'.e'._f'.=f' | .g'.f'._f'.e'.__e'.d' .=c'._c'.b.__b.a.__a | .g.f._f.e.__e.d .=c._c.B.__B.A.__A | G4 z4 |]
+[K:G] "H" .G.^G.A.^A.B.c .^c.d.^d.e.=f.^f | .g.^g.a.^a.b.c' .^c'.d'.^d'.e'.=f'.^f' | .g'.f'.=f'.e'._e'.d' .^c'.=c'.b._b.a._a | .g.f.=f.e._e.d .^c.=c.B._B.A._A | G4 z4 |]
+[K:Ab] "I" .A.=A.B.=B.c.d .=d.e.=e.f._g.=g | .a.=a.b.=b.c'.d' .=d'.e'.=e'.f'._g'.=g' | .a'.g'._g'.f'._f'.e' .=d'._d'.c'._c'.b.__b | .a.g._g.f._f.e .=d._d.c._c.B.__B | A4 z4 |]
+[K:A] "J" .A.^A.B.^B.c.d .^d.e.^e.f.=g.^g | .a.^a.b.^b.c'.d' .^d'.e'.^e'.f'.=g'.^g' | .a'.g'.=g'.f'.=f'.e' .^d'.=d'.c'.=c'.b._b | .a.g.=g.f.=f.e .^d.=d.c.=c.B._B | A4 z4 |]
+[K:Bb] "K" .B.=B.c.^c.d.e .=e.f.^f.g._a.=a | .b.=b.c'.^c'.d'.e' .=e'.f'.^f'.g'._a'.=a' | .b'.a'._a'.g'._g'.f' .=e'._e'.d'._d'.c'._c' | .b.a._a.g._g.f .=e._e.d._d.c._c | B4 z4 |]
+[K:B] "L" .B.^B.c.^^c.d.e .^e.f.^^f.g.=a.^a | .b.^b.c'.^^c'.d'.e' .^e'.f'.^^f'.g'.=a'.^a' | .b'.a'.=a'.g'.=g'.f' .^e'.=e'.d'.=d'.c'.=c' | .b.a.=a.g.=g.f .^e.=e.d.=d.c.=c | B4 z4 |]

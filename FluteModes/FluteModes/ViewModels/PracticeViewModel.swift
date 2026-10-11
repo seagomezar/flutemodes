@@ -12,6 +12,12 @@ public class PracticeViewModel: ObservableObject {
     @Published public var currentEJ2Articulation: EJ1Articulation
     @Published public var currentEJ4Articulation: EJ4Articulation
     @Published public var currentEJ4Section: Int
+    @Published public var currentEJ5Articulation: EJ5Articulation
+    @Published public var currentEJ5Section: Int
+    @Published public var currentEJ10Articulation: EJ5Articulation
+    @Published public var currentEJ10Section: Int
+    @Published public var currentEJ11Articulation: EJ5Articulation
+    @Published public var currentEJ11Section: Int
 
     @Published public var currentTonic: Tonic
     @Published public var currentMode: ModeType
@@ -22,6 +28,7 @@ public class PracticeViewModel: ObservableObject {
     @Published public var showEJ1CompletionDialog: Bool = false
     @Published public var showEJ2CompletionDialog: Bool = false
     @Published public var showEJ4CompletionDialog: Bool = false
+    @Published public var showEJ5TypeCompletionDialog: Bool = false
     @Published public var keepScreenAwake: Bool {
         didSet {
             UserDefaults.standard.set(keepScreenAwake, forKey: "FluteModes_keepScreenAwake")
@@ -48,6 +55,12 @@ public class PracticeViewModel: ObservableObject {
         self.currentEJ2Articulation = store.lastEJ2Articulation
         self.currentEJ4Articulation = store.lastEJ4Articulation
         self.currentEJ4Section = store.lastEJ4Section
+        self.currentEJ5Articulation = store.lastEJ5Articulation
+        self.currentEJ5Section = store.lastEJ5Section
+        self.currentEJ10Articulation = store.lastEJ10Articulation
+        self.currentEJ10Section = store.lastEJ10Section
+        self.currentEJ11Articulation = store.lastEJ11Articulation
+        self.currentEJ11Section = store.lastEJ11Section
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
@@ -87,6 +100,24 @@ public class PracticeViewModel: ObservableObject {
 
     public var currentChromaticArticulation: EJ1Articulation {
         currentExercise == .ej2 ? currentEJ2Articulation : currentEJ1Articulation
+    }
+
+    public var currentEJ5TypeArticulation: EJ5Articulation {
+        switch currentExercise {
+        case .ej5:  return currentEJ5Articulation
+        case .ej10: return currentEJ10Articulation
+        case .ej11: return currentEJ11Articulation
+        default:    return currentEJ5Articulation
+        }
+    }
+
+    public var currentEJ5TypeSectionIndex: Int {
+        switch currentExercise {
+        case .ej5:  return currentEJ5Section
+        case .ej10: return currentEJ10Section
+        case .ej11: return currentEJ11Section
+        default:    return 0
+        }
     }
 
     public var practicedModesCountInCurrentTonic: Int {
@@ -135,6 +166,24 @@ public class PracticeViewModel: ObservableObject {
                 articulation: currentEJ4Articulation,
                 tempoBPM: metronome.tempoBPM
             )
+        case .ej5:
+            self.currentAbcScore = ExerciseGenerator.generateEJ5ABC(
+                sectionIndex: currentEJ5Section,
+                articulation: currentEJ5Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej10:
+            self.currentAbcScore = ExerciseGenerator.generateEJ10ABC(
+                sectionIndex: currentEJ10Section,
+                articulation: currentEJ10Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej11:
+            self.currentAbcScore = ExerciseGenerator.generateEJ11ABC(
+                sectionIndex: currentEJ11Section,
+                articulation: currentEJ11Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
         case .modos:
             self.currentAbcScore = ExerciseGenerator.generateABC(
                 tonic: currentTonic,
@@ -161,6 +210,24 @@ public class PracticeViewModel: ObservableObject {
             scorePlayer.toggleEJ4(
                 sectionIndex: currentEJ4Section,
                 articulation: currentEJ4Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej5:
+            scorePlayer.toggleEJ5(
+                sectionIndex: currentEJ5Section,
+                articulation: currentEJ5Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej10:
+            scorePlayer.toggleEJ10(
+                sectionIndex: currentEJ10Section,
+                articulation: currentEJ10Articulation,
+                tempoBPM: metronome.tempoBPM
+            )
+        case .ej11:
+            scorePlayer.toggleEJ11(
+                sectionIndex: currentEJ11Section,
+                articulation: currentEJ11Articulation,
                 tempoBPM: metronome.tempoBPM
             )
         case .modos:
@@ -338,6 +405,90 @@ public class PracticeViewModel: ObservableObject {
         store.lastEJ4Articulation = .allSlurred8
         store.saveProgress()
         updateScore()
+    }
+
+    // MARK: - E.J. 5, E.J. 10, E.J. 11 Urtext (12 Sections x 10 Articulations)
+    public func selectEJ5TypeSection(_ secIdx: Int, for exercise: ExerciseType? = nil) {
+        scorePlayer.stop()
+        let targetEx = exercise ?? currentExercise
+        let clamped = max(0, min(11, secIdx))
+        self.currentExercise = targetEx
+        store.lastExerciseType = targetEx
+        switch targetEx {
+        case .ej5:
+            self.currentEJ5Section = clamped
+            store.lastEJ5Section = clamped
+        case .ej10:
+            self.currentEJ10Section = clamped
+            store.lastEJ10Section = clamped
+        case .ej11:
+            self.currentEJ11Section = clamped
+            store.lastEJ11Section = clamped
+        default:
+            break
+        }
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func advanceToNextEJ5TypeSection() {
+        scorePlayer.stop()
+        let nextSec = (currentEJ5TypeSectionIndex + 1) % 12
+        selectEJ5TypeSection(nextSec)
+    }
+
+    public func selectEJ5TypeArticulation(_ articulation: EJ5Articulation, for exercise: ExerciseType? = nil, markPreviousCompleted: Bool = true) {
+        scorePlayer.stop()
+        let targetEx = exercise ?? currentExercise
+        let prevArt: EJ5Articulation
+        switch targetEx {
+        case .ej5:  prevArt = currentEJ5Articulation
+        case .ej10: prevArt = currentEJ10Articulation
+        case .ej11: prevArt = currentEJ11Articulation
+        default:    prevArt = currentEJ5Articulation
+        }
+        if markPreviousCompleted && articulation != prevArt && prevArt.rawValue >= 1 {
+            store.markEJ5TypeCompleted(prevArt, for: targetEx)
+        }
+        self.currentExercise = targetEx
+        store.lastExerciseType = targetEx
+        switch targetEx {
+        case .ej5:
+            self.currentEJ5Articulation = articulation
+            store.lastEJ5Articulation = articulation
+        case .ej10:
+            self.currentEJ10Articulation = articulation
+            store.lastEJ10Articulation = articulation
+        case .ej11:
+            self.currentEJ11Articulation = articulation
+            store.lastEJ11Articulation = articulation
+        default:
+            break
+        }
+        store.saveProgress()
+        updateScore()
+    }
+
+    public func advanceToNextEJ5TypeArticulation() {
+        scorePlayer.stop()
+        let curArt = currentEJ5TypeArticulation
+        if curArt.rawValue >= 1 {
+            store.markEJ5TypeCompleted(curArt, for: currentExercise)
+        }
+        let practiceArts = EJ5Articulation.practiceCases
+        if let idx = practiceArts.firstIndex(of: curArt) {
+            if idx + 1 < practiceArts.count {
+                selectEJ5TypeArticulation(practiceArts[idx + 1], markPreviousCompleted: false)
+            } else {
+                self.showEJ5TypeCompletionDialog = true
+            }
+        } else {
+            selectEJ5TypeArticulation(.allSlurred, markPreviousCompleted: false)
+        }
+    }
+
+    public func restartEJ5TypeRound() {
+        selectEJ5TypeArticulation(.allSlurred, markPreviousCompleted: false)
     }
 
     // MARK: - 84 Modes Articulation & Mode Navigation

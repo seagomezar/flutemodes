@@ -1,0 +1,70 @@
+X:11
+T:E. J. 11 — Arpèges Brisés (10. Todas Picadas (Staccato))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 122–125)
+%%stretchlast 1
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=72
+K:C
+V:1 clef=treble
+.C._A._E.c.A._e .c._a.e.c'.e.a .c.e.A.c.E.A | .C.=A._E.c.A._e .c.=a.e.c'.e.a .c.e.A.c.E.A |
+.C._G._E.c.G._e .c._g.e.c'.e.g .c.e.G.c.E.G | .C.^G.=E.c.G.=e .c.^g.e.c'.e.g .c.e.G.c.E.G |
+.C.=G.E.c.G.e .c.=g.e.c'.e.g .c.e.G.c.E.G | .C.A.F.c.A.f .c.a.f.c'.f.a .c.f.A.c.F.A |
+.C.G._E.c.G._e .c.g.e.c'.e.g .c.e.G.c.E.G | .C.A.^F.c.A.^f .c.a.f.c'.f.a .c.f.A.c.F.A |
+.C._A.=F.c.A.=f .c._a.f.c'.f.a .c.f.A.c.F.A | .C.=A.E.c.A.e .c.=a.e.c'.e.a .c.e.A.c.E.A ||
+.^C.G.E.^c.G.e .c.g.e.^c'.e.g .c.e.G.c.E.G | .^C.^G.E.^c.G.e .c.^g.e.^c'.e.g .c.e.G.c.E.G |
+.^C.A.E.^c.A.e .c.a.e.^c'.e.a .c.e.A.c.E.A | ._D._B.F._d.B.f .d._b.f._d'.f.b .d.f.B.d.F.B |
+._D._B._G._d.B._g .d._b.g._d'.g.b .d.g.B.d.G.B | ._D._B._F._d.B._f .d._b.f._d'.f.b .d.f.B.d.F.B |
+._D.=A.=F._d.A.=f .d.=a.f._d'.f.a .d.f.A.d.F.A | ._D._B.=G._d.B.=g .d._b.g._d'.g.b .d.g.B.d.G.B |
+._D.__B._G._d.B._g .d.__b.g._d'.g.b .d.g.B.d.G.B | ._D._A.F._d.A.f .d._a.f._d'.f.a .d.f.A.d.F.A ||
+.=D._B.=F.=d.B.=f .d._b.f.=d'.f.b .d.f.B.d.F.B | .D.=B.F.d.B.f .d.=b.f.d'.f.b .d.f.B.d.F.B |
+.D._B.G.d.B.g .d._b.g.d'.g.b .d.g.B.d.G.B | .D.^A.^F.d.A.^f .d.^a.f.d'.f.a .d.f.A.d.F.A |
+.D.=A.^F.d.A.^f .d.=a.f.d'.f.a .d.f.A.d.F.A | .D.B.G.d.B.g .d.b.g.d'.g.b .d.g.B.d.G.B |
+.D.A.=F.d.A.=f .d.a.f.d'.f.a .d.f.A.d.F.A | .D.B.^G.d.B.^g .d.b.g.d'.g.b .d.g.B.d.G.B |
+.D._A.=F.d.A.=f .d._a.f.d'.f.a .d.f.A.d.F.A | .D.B.^F.d.B.^f .d.b.f.d'.f.b .d.f.B.d.F.B ||
+.^D.A.^F.^d.A.^f .d.a.f.^d'.f.a .d.f.A.d.F.A | ._E._B._G._e.B._g .e._b.g._e'.g.b .e.g.B.e.G.B |
+._E._c._G._e.c._g .e._c'.g._e'.g.c' .e.g.c.e.G.c | ._E._B.=G._e.B.=g .e._b.g._e'.g.b .e.g.B.e.G.B |
+._E.=c.G._e.c.g .e.=c'.g._e'.g.c' .e.g.c.e.G.c | ._E.c._A._e.c._a .e.c'.a._e'.a.c' .e.a.c.e.A.c |
+._E.c._G._e.c._g .e.c'.g._e'.g.c' .e.g.c.e.G.c | ._E.c.=A._e.c.=a .e.c'.a._e'.a.c' .e.a.c.e.A.c |
+._E._c._A._e.c._a .e._c'.a._e'.a.c' .e.a.c.e.A.c | ._E.=B.=G._e.B.=g .e.=b.g._e'.g.b .e.g.B.e.G.B ||
+.=E._B.G.=e.B.g .e._b.g.=e'.g.b .e.g.B.e.G.B | .E.=B.G.e.B.g .e.=b.g.e'.g.b .e.g.B.e.G.B |
+.E.c.G.e.c.g .e.c'.g.e'.g.c' .e.g.c.e.G.c | .E.^B.^G.e.B.^g .e.^b.g.e'.g.b .e.g.B.e.G.B |
+.E.^c.^G.e.c.^g .e.^c'.g.e'.g.c' .e.g.c.e.G.c | .E.^c.A.e.c.a .e.^c'.a.e'.a.c' .e.a.c.e.A.c |
+.E.^c.=G.e.c.=g .e.^c'.g.e'.g.c' .e.g.c.e.G.c | .E.^c.^A.e.c.^a .e.^c'.a.e'.a.c' .e.a.c.e.A.c |
+.E.=c.=A.e.c.=a .e.=c'.a.e'.a.c' .e.a.c.e.A.c | .E.B.^G.e.B.^g .e.b.g.e'.g.b .e.g.B.e.G.B ||
+.F._d._A.f.d._a .f._d'.a.f'.a.d' .f.a.d.f.A.d | .F.=d._A.f.d._a .f.=d'.a.f'.a.d' .f.a.d.f.A.d |
+.F._c._A.f.c._a .f._c'.a.f'.a.c' .f.a.c.f.A.c | .F.^c.=A.f.c.=a .f.^c'.a.f'.a.c' .f.a.c.f.A.c |
+.F.=c.A.f.c.a .f.=c'.a.f'.a.c' .f.a.c.f.A.c | .F.d._B.f.d._b .f.d'.b.f'.b.d' .f.b.d.f.B.d |
+.F.c._A.f.c._a .f.c'.a.f'.a.c' .f.a.c.f.A.c | .F.d.=B.f.d.=b .f.d'.b.f'.b.d' .f.b.d.f.B.d |
+.F._d._B.f.d._b .f._d'.b.f'.b.d' .f.b.d.f.B.d | .F.=d.=A.f.d.=a .f.=d'.a.f'.a.d' .f.a.d.f.A.d ||
+.^F.^c.A.^f.c.a .f.^c'.a.^f'.a.c' .f.a.c.f.A.c | .^F.^c.^A.^f.c.^a .f.^c'.a.^f'.a.c' .f.a.c.f.A.c |
+.^F.d.=A.^f.d.=a .f.d'.a.^f'.a.d' .f.a.d.f.A.d | .^F.^^c.^A.^f.c.^a .f.^^c'.a.^f'.a.c' .f.a.c.f.A.c |
+.^F.^d.^A.^f.d.^a .f.^d'.a.^f'.a.d' .f.a.d.f.A.d | .^F.^d.B.^f.d.b .f.^d'.b.^f'.b.d' .f.b.d.f.B.d |
+.^F.^d.=A.^f.d.=a .f.^d'.a.^f'.a.d' .f.a.d.f.A.d | .^F.=d.B.^f.d.b .f.=d'.b.^f'.b.d' .f.b.d.f.B.d |
+.^F.=c.A.^f.c.a .f.=c'.a.^f'.a.c' .f.a.c.f.A.c | .^F.^d.^B.^f.d.^b .f.^d'.b.^f'.b.d' .f.b.d.f.B.d ||
+.=G._e._B.=g.e._b .g._e'.b.=g'.b.e' .g.b.e.g.B.e | .G.=e._B.g.e._b .g.=e'.b.g'.b.e' .g.b.e.g.B.e |
+.G._d._B.g.d._b .g._d'.b.g'.b.d' .g.b.d.g.B.d | .G.^d.=B.g.d.=b .g.^d'.b.g'.b.d' .g.b.d.g.B.d |
+.G.=d.B.g.d.b .g.=d'.b.g'.b.d' .g.b.d.g.B.d | .G.e.c.g.e.c' .g.e'.c'.g'.c'.e' .g.c'.e.g.c.e |
+.G.d._B.g.d._b .g.d'.b.g'.b.d' .g.b.d.g.B.d | .G.e.^c.g.e.^c' .g.e'.c'.g'.c'.e' .g.c'.e.g.c.e |
+.G._e.=c.g.e.=c' .g._e'.c'.g'.c'.e' .g.c'.e.g.c.e | .G.=e.=B.g.e.=b .g.=e'.b.g'.b.e' .g.b.e.g.B.e ||
+.^G.d.B.^g.d.b .g.d'.b.^g'.b.d' .g.b.d.g.B.d | .^G.^d.^B.^g.d.^b .g.^d'.b.^g'.b.d' .g.b.d.g.B.d |
+.^G.e.=B.^g.e.=b .g.e'.b.^g'.b.e' .g.b.e.g.B.e | ._A.f.c._a.f.c' .a.f'.c'._a'.c'.f' .a.c'.f.a.c.f |
+._A.f._d._a.f._d' .a.f'.d'._a'.d'.f' .a.d'.f.a.d.f | ._A.f._c._a.f._c' .a.f'.c'._a'.c'.f' .a.c'.f.a.c.f |
+._A._f._d._a.f._d' .a._f'.d'._a'.d'.f' .a.d'.f.a.d.f | ._A.=f.=d._a.f.=d' .a.=f'.d'._a'.d'.f' .a.d'.f.a.d.f |
+._A._e._c._a.e._c' .a._e'.c'._a'.c'.e' .a.c'.e.a.c.e | ._A.=e.=c._a.e.=c' .a.=e'.c'._a'.c'.e' .a.c'.e.a.c.e ||
+.=A._e.c.=a.e.c' .a._e'.c'.=a'.c'.e' .a.c'.e.a.c.e | .A.=e.c.a.e.c' .a.=e'.c'.a'.c'.e' .a.c'.e.a.c.e |
+.A.f.c.a.f.c' .a.f'.c'.a'.c'.f' .a.c'.f.a.c.f | .A.^e.^c.a.e.^c' .a.^e'.c'.a'.c'.e' .a.c'.e.a.c.e |
+.A.^f.^c.a.f.^c' .a.^f'.c'.a'.c'.f' .a.c'.f.a.c.f | .A.^f.d.a.f.d' .a.^f'.d'.a'.d'.f' .a.d'.f.a.d.f |
+.A.^f.=c.a.f.=c' .a.^f'.c'.a'.c'.f' .a.c'.f.a.c.f | .A.^f.^d.a.f.^d' .a.^f'.d'.a'.d'.f' .a.d'.f.a.d.f |
+.A.=f.=d.a.f.=d' .a.=f'.d'.a'.d'.f' .a.d'.f.a.d.f | .A.e.^c.a.e.^c' .a.e'.c'.a'.c'.e' .a.c'.e.a.c.e ||
+.^A.^f.^c.^a.f.^c' .a.^f'.c'.^a'.c'.f' .a.c'.f.a.c.f | ._B.g._d._b.g._d' .b.g'.d'._b'.d'.g' .b.d'.g.b.d.g |
+._B._f._d._b.f._d' .b._f'.d'._b'.d'.f' .b.d'.f.b.d.f | ._B.^f.=d._b.f.=d' .b.^f'.d'._b'.d'.f' .b.d'.f.b.d.f |
+._B.=f.d._b.f.d' .b.=f'.d'._b'.d'.f' .b.d'.f.b.d.f | ._B.g._e._b.g._e' .b.g'.e'._b'.e'.g' .b.e'.g.b.e.g |
+._B.f._d._b.f._d' .b.f'.d'._b'.d'.f' .b.d'.f.b.d.f | ._B.g.e._b.g.e' .b.g'.e'._b'.e'.g' .b.e'.g.b.e.g |
+._B._g._e._b.g._e' .b._g'.e'._b'.e'.g' .b.e'.g.b.e.g | ._B.=g.=d._b.g.=d' .b.=g'.d'._b'.d'.g' .b.d'.g.b.d.g ||
+.=B.=f.d.=b.f.d' .b.=f'.d'.=b'.d'.f' .b.d'.f.b.d.f | .B.^f.d.b.f.d' .b.^f'.d'.b'.d'.f' .b.d'.f.b.d.f |
+.B.g.d.b.g.d' .b.g'.d'.b'.d'.g' .b.d'.g.b.d.g | .B.^f.^d.b.f.^d' .b.^f'.d'.b'.d'.f' .b.d'.f.b.d.f |
+.B.^g.^d.b.g.^d' .b.^g'.d'.b'.d'.g' .b.d'.g.b.d.g | .B.^g.e.b.g.e' .b.^g'.e'.b'.e'.g' .b.e'.g.b.e.g |
+.B.^g.=d.b.g.=d' .b.^g'.d'.b'.d'.g' .b.d'.g.b.d.g | .B.^g.^e.b.g.^e' .b.^g'.e'.b'.e'.g' .b.e'.g.b.e.g |
+.B.=g.=e.b.g.=e' .b.=g'.e'.b'.e'.g' .b.e'.g.b.e.g | .B.^f.^d.b.f.^d' .b.^f'.d'.b'.d'.f' .b.d'.f.b.d.f | B4 z4 z10 |]

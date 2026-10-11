@@ -174,6 +174,39 @@ class ExerciseGeneratorTest {
             assertEquals("Section ${sec.name} should generate $expectedNotes MIDI notes", expectedNotes, midiNotes.size)
         }
     }
+
+    @Test
+    fun testEJ5AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        assertEquals(12, EJ5Section.entries.size)
+        assertEquals(12, ExerciseGenerator.ej5SectionMidiNotes.size)
+
+        for (sec in EJ5Section.entries) {
+            assertTrue("EJ5 section ${sec.name} must have MIDI notes", ExerciseGenerator.ej5SectionMidiNotes[sec.id].isNotEmpty())
+            for (art in EJ5Articulation.entries) {
+                val ej5Abc = ExerciseGenerator.generateEJ5ABC(articulation = art, section = sec, tempoBPM = 120)
+                assertTrue(ej5Abc.contains("% EJ5_LEDUC_ART:${art.id}:SEC:${sec.id}"))
+                assertTrue(ej5Abc.contains("Q:1/4=120"))
+            }
+        }
+    }
+
+    @Test
+    fun testEJ10AndEJ11AllSectionsAndArticulationsGenerateValidAbcAndMidi() {
+        assertEquals(12, EJ10Section.entries.size)
+        assertEquals(12, ExerciseGenerator.ej10SectionMidiNotes.size)
+        assertEquals(12, ExerciseGenerator.ej11SectionMidiNotes.size)
+
+        for (sec in EJ10Section.entries) {
+            assertTrue("EJ10 section ${sec.name} must have MIDI notes", ExerciseGenerator.ej10SectionMidiNotes[sec.id].isNotEmpty())
+            assertTrue("EJ11 section ${sec.name} must have MIDI notes", ExerciseGenerator.ej11SectionMidiNotes[sec.id].isNotEmpty())
+            for (art in EJ5Articulation.entries) {
+                val ej10Abc = ExerciseGenerator.generateEJ10ABC(articulation = art, section = sec, tempoBPM = 120)
+                assertTrue(ej10Abc.contains("% EJ10_LEDUC_ART:${art.id}:SEC:${sec.id}"))
+                val ej11Abc = ExerciseGenerator.generateEJ11ABC(articulation = art, section = sec, tempoBPM = 120)
+                assertTrue(ej11Abc.contains("% EJ11_LEDUC_ART:${art.id}:SEC:${sec.id}"))
+            }
+        }
+    }
 }
 
 

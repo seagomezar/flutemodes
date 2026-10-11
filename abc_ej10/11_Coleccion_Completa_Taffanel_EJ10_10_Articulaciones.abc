@@ -1,0 +1,409 @@
+X:2
+T:E. J. 10 — Arpèges · Exercices sur les Accords (1. 12 Ligadas (Compás completo))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E_Ac_e_a c'aecAE) | (C_E=Ac_e=a c'aecAE) | (C_E_Gc_e_g c'gecGE) | (C=E^Gc=e^g c'gecGE) |
+(CE=Gce=g c'gecGE) | (CFAcfa c'afcAF) | (C_EGc_eg c'gecGE) | (C^FAc^fa c'afcAF) |
+(C=F_Ac=f_a c'afcAF) | (CE=Ace=a c'aecAE) || (^CEG^ceg ^c'gecGE) | (^CE^G^ce^g ^c'gecGE) |
+(^CEA^cea ^c'aecAE) | (_DF_B_df_b _d'bfdBF) | (_D_G_B_d_g_b _d'bgdBG) | (_D_F_B_d_f_b _d'bfdBF) |
+(_D=F=A_d=f=a _d'afdAF) | (_D=G_B_d=g_b _d'bgdBG) | (_D_G__B_d_g__b _d'bgdBG) | (_DF_A_df_a _d'afdAF) ||
+(=D=F_B=d=f_b =d'bfdBF) | (DF=Bdf=b d'bfdBF) | (DG_Bdg_b d'bgdBG) | (D^F^Ad^f^a d'afdAF) |
+(D^F=Ad^f=a d'afdAF) | (DGBdgb d'bgdBG) | (D=FAd=fa d'afdAF) | (D^GBd^gb d'bgdBG) |
+(D=F_Ad=f_a d'afdAF) | (D^FBd^fb d'bfdBF) || (^D^FA^d^fa ^d'afdAF) | (_E_G_B_e_g_b _e'bgeBG) |
+(_E_G_c_e_g_c' _e'c'gecG) | (_E=G_B_e=g_b _e'bgeBG) | (_EG=c_eg=c' _e'c'gecG) | (_E_Ac_e_ac' _e'c'aecA) |
+(_E_Gc_e_gc' _e'c'gecG) | (_E=Ac_e=ac' _e'c'aecA) | (_E_A_c_e_a_c' _e'c'aecA) | (_E=G=B_e=g=b _e'bgeBG) ||
+(=EG_B=eg_b =e'bgeBG) | (EG=Beg=b e'bgeBG) | (EGcegc' e'c'gecG) | (E^G^Be^g^b e'bgeBG) |
+(E^G^ce^g^c' e'c'gecG) | (EA^cea^c' e'c'aecA) | (E=G^ce=g^c' e'c'gecG) | (E^A^ce^a^c' e'c'aecA) |
+(E=A=ce=a=c' e'c'aecA) | (E^GBe^gb e'bgeBG) || (F_A_df_a_d' f'd'afdA) | (F_A=df_a=d' f'd'afdA) |
+(F_A_cf_a_c' f'c'afcA) | (F=A^cf=a^c' f'c'afcA) | (FA=cfa=c' f'c'afcA) | (F_Bdf_bd' f'd'bfdB) |
+(F_Acf_ac' f'c'afcA) | (F=Bdf=bd' f'd'bfdB) | (F_B_df_b_d' f'd'bfdB) | (F=A=df=a=d' f'd'afdA) ||
+(^FA^c^fa^c' ^f'c'afcA) | (^F^A^c^f^a^c' ^f'c'afcA) | (^F=Ad^f=ad' ^f'd'afdA) | (^F^A^^c^f^a^^c' ^f'c'afcA) |
+(^F^A^d^f^a^d' ^f'd'afdA) | (^FB^d^fb^d' ^f'd'bfdB) | (^F=A^d^f=a^d' ^f'd'afdA) | (^FB=d^fb=d' ^f'd'bfdB) |
+(^FA=c^fa=c' ^f'c'afcA) | (^F^B^d^f^b^d' ^f'd'bfdB) || (=G_B_e=g_b_e' =g'e'bgeB) | (G_B=eg_b=e' g'e'bgeB) |
+(G_B_dg_b_d' g'd'bgdB) | (G=B^dg=b^d' g'd'bgdB) | (GB=dgb=d' g'd'bgdB) | (Gcegc'e' g'e'c'gec) |
+(G_Bdg_bd' g'd'bgdB) | (G^ceg^c'e' g'e'c'gec) | (G=c_eg=c'_e' g'e'c'gec) | (G=B=eg=b=e' g'e'bgeB) ||
+(^GBd^gbd' ^g'd'bgdB) | (^G^B^d^g^b^d' ^g'd'bgdB) | (^G=Be^g=be' ^g'e'bgeB) | (_Acf_ac'f' _a'f'c'afc) |
+(_A_df_a_d'f' _a'f'd'afd) | (_A_cf_a_c'f' _a'f'c'afc) | (_A_d_f_a_d'_f' _a'f'd'afd) | (_A=d=f_a=d'=f' _a'f'd'afd) |
+(_A_c_e_a_c'_e' _a'e'c'aec) | (_A=c=e_a=c'=e' _a'e'c'aec) || (=Ac_e=ac'_e' =a'e'c'aec) | (Ac=eac'=e' a'e'c'aec) |
+(Acfac'f' a'f'c'afc) | (A^c^ea^c'^e' a'e'c'aec) | (A^c^fa^c'^f' a'f'c'afc) | (Ad^fad'^f' a'f'd'afd) |
+(A=c^fa=c'^f' a'f'c'afc) | (A^d^fa^d'^f' a'f'd'afd) | (A=d=fa=d'=f' a'f'd'afd) | (A^cea^c'e' a'e'c'aec) ||
+(^A^c^f^a^c'^f' ^a'f'c'afc) | (_B_dg_b_d'g' _b'g'd'bgd) | (_B_d_f_b_d'_f' _b'f'd'bfd) | (_B=d^f_b=d'^f' _b'f'd'bfd) |
+(_Bd=f_bd'=f' _b'f'd'bfd) | (_B_eg_b_e'g' _b'g'e'bge) | (_B_df_b_d'f' _b'f'd'bfd) | (_Beg_be'g' _b'g'e'bge) |
+(_B_e_g_b_e'_g' _b'g'e'bge) | (_B=d=g_b=d'=g' _b'g'd'bgd) || (=Bd=f=bd'=f' =b'f'd'bfd) | (Bd^fbd'^f' b'f'd'bfd) |
+(Bdgbd'g' b'g'd'bgd) | (B^d^fb^d'^f' b'f'd'bfd) | (B^d^gb^d'^g' b'g'd'bgd) | (Be^gbe'^g' b'g'e'bge) |
+(B=d^gb=d'^g' b'g'd'bgd) | (B^e^gb^e'^g' b'g'e'bge) | (B=e=gb=e'=g' b'g'e'bge) | (B^d^fb^d'^f' b'f'd'bfd) | B4 z4 |]
+
+X:3
+T:E. J. 10 — Arpèges · Exercices sur les Accords (2. 6 y 6 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E_Ac_e_a) (c'aecAE) | (C_E=Ac_e=a) (c'aecAE) | (C_E_Gc_e_g) (c'gecGE) | (C=E^Gc=e^g) (c'gecGE) |
+(CE=Gce=g) (c'gecGE) | (CFAcfa) (c'afcAF) | (C_EGc_eg) (c'gecGE) | (C^FAc^fa) (c'afcAF) |
+(C=F_Ac=f_a) (c'afcAF) | (CE=Ace=a) (c'aecAE) || (^CEG^ceg) (^c'gecGE) | (^CE^G^ce^g) (^c'gecGE) |
+(^CEA^cea) (^c'aecAE) | (_DF_B_df_b) (_d'bfdBF) | (_D_G_B_d_g_b) (_d'bgdBG) | (_D_F_B_d_f_b) (_d'bfdBF) |
+(_D=F=A_d=f=a) (_d'afdAF) | (_D=G_B_d=g_b) (_d'bgdBG) | (_D_G__B_d_g__b) (_d'bgdBG) | (_DF_A_df_a) (_d'afdAF) ||
+(=D=F_B=d=f_b) (=d'bfdBF) | (DF=Bdf=b) (d'bfdBF) | (DG_Bdg_b) (d'bgdBG) | (D^F^Ad^f^a) (d'afdAF) |
+(D^F=Ad^f=a) (d'afdAF) | (DGBdgb) (d'bgdBG) | (D=FAd=fa) (d'afdAF) | (D^GBd^gb) (d'bgdBG) |
+(D=F_Ad=f_a) (d'afdAF) | (D^FBd^fb) (d'bfdBF) || (^D^FA^d^fa) (^d'afdAF) | (_E_G_B_e_g_b) (_e'bgeBG) |
+(_E_G_c_e_g_c') (_e'c'gecG) | (_E=G_B_e=g_b) (_e'bgeBG) | (_EG=c_eg=c') (_e'c'gecG) | (_E_Ac_e_ac') (_e'c'aecA) |
+(_E_Gc_e_gc') (_e'c'gecG) | (_E=Ac_e=ac') (_e'c'aecA) | (_E_A_c_e_a_c') (_e'c'aecA) | (_E=G=B_e=g=b) (_e'bgeBG) ||
+(=EG_B=eg_b) (=e'bgeBG) | (EG=Beg=b) (e'bgeBG) | (EGcegc') (e'c'gecG) | (E^G^Be^g^b) (e'bgeBG) |
+(E^G^ce^g^c') (e'c'gecG) | (EA^cea^c') (e'c'aecA) | (E=G^ce=g^c') (e'c'gecG) | (E^A^ce^a^c') (e'c'aecA) |
+(E=A=ce=a=c') (e'c'aecA) | (E^GBe^gb) (e'bgeBG) || (F_A_df_a_d') (f'd'afdA) | (F_A=df_a=d') (f'd'afdA) |
+(F_A_cf_a_c') (f'c'afcA) | (F=A^cf=a^c') (f'c'afcA) | (FA=cfa=c') (f'c'afcA) | (F_Bdf_bd') (f'd'bfdB) |
+(F_Acf_ac') (f'c'afcA) | (F=Bdf=bd') (f'd'bfdB) | (F_B_df_b_d') (f'd'bfdB) | (F=A=df=a=d') (f'd'afdA) ||
+(^FA^c^fa^c') (^f'c'afcA) | (^F^A^c^f^a^c') (^f'c'afcA) | (^F=Ad^f=ad') (^f'd'afdA) | (^F^A^^c^f^a^^c') (^f'c'afcA) |
+(^F^A^d^f^a^d') (^f'd'afdA) | (^FB^d^fb^d') (^f'd'bfdB) | (^F=A^d^f=a^d') (^f'd'afdA) | (^FB=d^fb=d') (^f'd'bfdB) |
+(^FA=c^fa=c') (^f'c'afcA) | (^F^B^d^f^b^d') (^f'd'bfdB) || (=G_B_e=g_b_e') (=g'e'bgeB) | (G_B=eg_b=e') (g'e'bgeB) |
+(G_B_dg_b_d') (g'd'bgdB) | (G=B^dg=b^d') (g'd'bgdB) | (GB=dgb=d') (g'd'bgdB) | (Gcegc'e') (g'e'c'gec) |
+(G_Bdg_bd') (g'd'bgdB) | (G^ceg^c'e') (g'e'c'gec) | (G=c_eg=c'_e') (g'e'c'gec) | (G=B=eg=b=e') (g'e'bgeB) ||
+(^GBd^gbd') (^g'd'bgdB) | (^G^B^d^g^b^d') (^g'd'bgdB) | (^G=Be^g=be') (^g'e'bgeB) | (_Acf_ac'f') (_a'f'c'afc) |
+(_A_df_a_d'f') (_a'f'd'afd) | (_A_cf_a_c'f') (_a'f'c'afc) | (_A_d_f_a_d'_f') (_a'f'd'afd) | (_A=d=f_a=d'=f') (_a'f'd'afd) |
+(_A_c_e_a_c'_e') (_a'e'c'aec) | (_A=c=e_a=c'=e') (_a'e'c'aec) || (=Ac_e=ac'_e') (=a'e'c'aec) | (Ac=eac'=e') (a'e'c'aec) |
+(Acfac'f') (a'f'c'afc) | (A^c^ea^c'^e') (a'e'c'aec) | (A^c^fa^c'^f') (a'f'c'afc) | (Ad^fad'^f') (a'f'd'afd) |
+(A=c^fa=c'^f') (a'f'c'afc) | (A^d^fa^d'^f') (a'f'd'afd) | (A=d=fa=d'=f') (a'f'd'afd) | (A^cea^c'e') (a'e'c'aec) ||
+(^A^c^f^a^c'^f') (^a'f'c'afc) | (_B_dg_b_d'g') (_b'g'd'bgd) | (_B_d_f_b_d'_f') (_b'f'd'bfd) | (_B=d^f_b=d'^f') (_b'f'd'bfd) |
+(_Bd=f_bd'=f') (_b'f'd'bfd) | (_B_eg_b_e'g') (_b'g'e'bge) | (_B_df_b_d'f') (_b'f'd'bfd) | (_Beg_be'g') (_b'g'e'bge) |
+(_B_e_g_b_e'_g') (_b'g'e'bge) | (_B=d=g_b=d'=g') (_b'g'd'bgd) || (=Bd=f=bd'=f') (=b'f'd'bfd) | (Bd^fbd'^f') (b'f'd'bfd) |
+(Bdgbd'g') (b'g'd'bgd) | (B^d^fb^d'^f') (b'f'd'bfd) | (B^d^gb^d'^g') (b'g'd'bgd) | (Be^gbe'^g') (b'g'e'bge) |
+(B=d^gb=d'^g') (b'g'd'bgd) | (B^e^gb^e'^g') (b'g'e'bge) | (B=e=gb=e'=g') (b'g'e'bge) | (B^d^fb^d'^f') (b'f'd'bfd) | B4 z4 |]
+
+X:4
+T:E. J. 10 — Arpèges · Exercices sur les Accords (3. 4 Ligadas y 2 Picadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E_Ac)._e._a (c'aec).A.E | (C_E=Ac)._e.=a (c'aec).A.E | (C_E_Gc)._e._g (c'gec).G.E | (C=E^Gc).=e.^g (c'gec).G.E |
+(CE=Gc).e.=g (c'gec).G.E | (CFAc).f.a (c'afc).A.F | (C_EGc)._e.g (c'gec).G.E | (C^FAc).^f.a (c'afc).A.F |
+(C=F_Ac).=f._a (c'afc).A.F | (CE=Ac).e.=a (c'aec).A.E || (^CEG^c).e.g (^c'gec).G.E | (^CE^G^c).e.^g (^c'gec).G.E |
+(^CEA^c).e.a (^c'aec).A.E | (_DF_B_d).f._b (_d'bfd).B.F | (_D_G_B_d)._g._b (_d'bgd).B.G | (_D_F_B_d)._f._b (_d'bfd).B.F |
+(_D=F=A_d).=f.=a (_d'afd).A.F | (_D=G_B_d).=g._b (_d'bgd).B.G | (_D_G__B_d)._g.__b (_d'bgd).B.G | (_DF_A_d).f._a (_d'afd).A.F ||
+(=D=F_B=d).=f._b (=d'bfd).B.F | (DF=Bd).f.=b (d'bfd).B.F | (DG_Bd).g._b (d'bgd).B.G | (D^F^Ad).^f.^a (d'afd).A.F |
+(D^F=Ad).^f.=a (d'afd).A.F | (DGBd).g.b (d'bgd).B.G | (D=FAd).=f.a (d'afd).A.F | (D^GBd).^g.b (d'bgd).B.G |
+(D=F_Ad).=f._a (d'afd).A.F | (D^FBd).^f.b (d'bfd).B.F || (^D^FA^d).^f.a (^d'afd).A.F | (_E_G_B_e)._g._b (_e'bge).B.G |
+(_E_G_c_e)._g._c' (_e'c'ge).c.G | (_E=G_B_e).=g._b (_e'bge).B.G | (_EG=c_e).g.=c' (_e'c'ge).c.G | (_E_Ac_e)._a.c' (_e'c'ae).c.A |
+(_E_Gc_e)._g.c' (_e'c'ge).c.G | (_E=Ac_e).=a.c' (_e'c'ae).c.A | (_E_A_c_e)._a._c' (_e'c'ae).c.A | (_E=G=B_e).=g.=b (_e'bge).B.G ||
+(=EG_B=e).g._b (=e'bge).B.G | (EG=Be).g.=b (e'bge).B.G | (EGce).g.c' (e'c'ge).c.G | (E^G^Be).^g.^b (e'bge).B.G |
+(E^G^ce).^g.^c' (e'c'ge).c.G | (EA^ce).a.^c' (e'c'ae).c.A | (E=G^ce).=g.^c' (e'c'ge).c.G | (E^A^ce).^a.^c' (e'c'ae).c.A |
+(E=A=ce).=a.=c' (e'c'ae).c.A | (E^GBe).^g.b (e'bge).B.G || (F_A_df)._a._d' (f'd'af).d.A | (F_A=df)._a.=d' (f'd'af).d.A |
+(F_A_cf)._a._c' (f'c'af).c.A | (F=A^cf).=a.^c' (f'c'af).c.A | (FA=cf).a.=c' (f'c'af).c.A | (F_Bdf)._b.d' (f'd'bf).d.B |
+(F_Acf)._a.c' (f'c'af).c.A | (F=Bdf).=b.d' (f'd'bf).d.B | (F_B_df)._b._d' (f'd'bf).d.B | (F=A=df).=a.=d' (f'd'af).d.A ||
+(^FA^c^f).a.^c' (^f'c'af).c.A | (^F^A^c^f).^a.^c' (^f'c'af).c.A | (^F=Ad^f).=a.d' (^f'd'af).d.A | (^F^A^^c^f).^a.^^c' (^f'c'af).c.A |
+(^F^A^d^f).^a.^d' (^f'd'af).d.A | (^FB^d^f).b.^d' (^f'd'bf).d.B | (^F=A^d^f).=a.^d' (^f'd'af).d.A | (^FB=d^f).b.=d' (^f'd'bf).d.B |
+(^FA=c^f).a.=c' (^f'c'af).c.A | (^F^B^d^f).^b.^d' (^f'd'bf).d.B || (=G_B_e=g)._b._e' (=g'e'bg).e.B | (G_B=eg)._b.=e' (g'e'bg).e.B |
+(G_B_dg)._b._d' (g'd'bg).d.B | (G=B^dg).=b.^d' (g'd'bg).d.B | (GB=dg).b.=d' (g'd'bg).d.B | (Gceg).c'.e' (g'e'c'g).e.c |
+(G_Bdg)._b.d' (g'd'bg).d.B | (G^ceg).^c'.e' (g'e'c'g).e.c | (G=c_eg).=c'._e' (g'e'c'g).e.c | (G=B=eg).=b.=e' (g'e'bg).e.B ||
+(^GBd^g).b.d' (^g'd'bg).d.B | (^G^B^d^g).^b.^d' (^g'd'bg).d.B | (^G=Be^g).=b.e' (^g'e'bg).e.B | (_Acf_a).c'.f' (_a'f'c'a).f.c |
+(_A_df_a)._d'.f' (_a'f'd'a).f.d | (_A_cf_a)._c'.f' (_a'f'c'a).f.c | (_A_d_f_a)._d'._f' (_a'f'd'a).f.d | (_A=d=f_a).=d'.=f' (_a'f'd'a).f.d |
+(_A_c_e_a)._c'._e' (_a'e'c'a).e.c | (_A=c=e_a).=c'.=e' (_a'e'c'a).e.c || (=Ac_e=a).c'._e' (=a'e'c'a).e.c | (Ac=ea).c'.=e' (a'e'c'a).e.c |
+(Acfa).c'.f' (a'f'c'a).f.c | (A^c^ea).^c'.^e' (a'e'c'a).e.c | (A^c^fa).^c'.^f' (a'f'c'a).f.c | (Ad^fa).d'.^f' (a'f'd'a).f.d |
+(A=c^fa).=c'.^f' (a'f'c'a).f.c | (A^d^fa).^d'.^f' (a'f'd'a).f.d | (A=d=fa).=d'.=f' (a'f'd'a).f.d | (A^cea).^c'.e' (a'e'c'a).e.c ||
+(^A^c^f^a).^c'.^f' (^a'f'c'a).f.c | (_B_dg_b)._d'.g' (_b'g'd'b).g.d | (_B_d_f_b)._d'._f' (_b'f'd'b).f.d | (_B=d^f_b).=d'.^f' (_b'f'd'b).f.d |
+(_Bd=f_b).d'.=f' (_b'f'd'b).f.d | (_B_eg_b)._e'.g' (_b'g'e'b).g.e | (_B_df_b)._d'.f' (_b'f'd'b).f.d | (_Beg_b).e'.g' (_b'g'e'b).g.e |
+(_B_e_g_b)._e'._g' (_b'g'e'b).g.e | (_B=d=g_b).=d'.=g' (_b'g'd'b).g.d || (=Bd=f=b).d'.=f' (=b'f'd'b).f.d | (Bd^fb).d'.^f' (b'f'd'b).f.d |
+(Bdgb).d'.g' (b'g'd'b).g.d | (B^d^fb).^d'.^f' (b'f'd'b).f.d | (B^d^gb).^d'.^g' (b'g'd'b).g.d | (Be^gb).e'.^g' (b'g'e'b).g.e |
+(B=d^gb).=d'.^g' (b'g'd'b).g.d | (B^e^gb).^e'.^g' (b'g'e'b).g.e | (B=e=gb).=e'.=g' (b'g'e'b).g.e | (B^d^fb).^d'.^f' (b'f'd'b).f.d | B4 z4 |]
+
+X:5
+T:E. J. 10 — Arpèges · Exercices sur les Accords (4. 2 Picadas y 4 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+.C._E(_Ac_e_a) .c'.a(ecAE) | .C._E(=Ac_e=a) .c'.a(ecAE) | .C._E(_Gc_e_g) .c'.g(ecGE) | .C.=E(^Gc=e^g) .c'.g(ecGE) |
+.C.E(=Gce=g) .c'.g(ecGE) | .C.F(Acfa) .c'.a(fcAF) | .C._E(Gc_eg) .c'.g(ecGE) | .C.^F(Ac^fa) .c'.a(fcAF) |
+.C.=F(_Ac=f_a) .c'.a(fcAF) | .C.E(=Ace=a) .c'.a(ecAE) || .^C.E(G^ceg) .^c'.g(ecGE) | .^C.E(^G^ce^g) .^c'.g(ecGE) |
+.^C.E(A^cea) .^c'.a(ecAE) | ._D.F(_B_df_b) ._d'.b(fdBF) | ._D._G(_B_d_g_b) ._d'.b(gdBG) | ._D._F(_B_d_f_b) ._d'.b(fdBF) |
+._D.=F(=A_d=f=a) ._d'.a(fdAF) | ._D.=G(_B_d=g_b) ._d'.b(gdBG) | ._D._G(__B_d_g__b) ._d'.b(gdBG) | ._D.F(_A_df_a) ._d'.a(fdAF) ||
+.=D.=F(_B=d=f_b) .=d'.b(fdBF) | .D.F(=Bdf=b) .d'.b(fdBF) | .D.G(_Bdg_b) .d'.b(gdBG) | .D.^F(^Ad^f^a) .d'.a(fdAF) |
+.D.^F(=Ad^f=a) .d'.a(fdAF) | .D.G(Bdgb) .d'.b(gdBG) | .D.=F(Ad=fa) .d'.a(fdAF) | .D.^G(Bd^gb) .d'.b(gdBG) |
+.D.=F(_Ad=f_a) .d'.a(fdAF) | .D.^F(Bd^fb) .d'.b(fdBF) || .^D.^F(A^d^fa) .^d'.a(fdAF) | ._E._G(_B_e_g_b) ._e'.b(geBG) |
+._E._G(_c_e_g_c') ._e'.c'(gecG) | ._E.=G(_B_e=g_b) ._e'.b(geBG) | ._E.G(=c_eg=c') ._e'.c'(gecG) | ._E._A(c_e_ac') ._e'.c'(aecA) |
+._E._G(c_e_gc') ._e'.c'(gecG) | ._E.=A(c_e=ac') ._e'.c'(aecA) | ._E._A(_c_e_a_c') ._e'.c'(aecA) | ._E.=G(=B_e=g=b) ._e'.b(geBG) ||
+.=E.G(_B=eg_b) .=e'.b(geBG) | .E.G(=Beg=b) .e'.b(geBG) | .E.G(cegc') .e'.c'(gecG) | .E.^G(^Be^g^b) .e'.b(geBG) |
+.E.^G(^ce^g^c') .e'.c'(gecG) | .E.A(^cea^c') .e'.c'(aecA) | .E.=G(^ce=g^c') .e'.c'(gecG) | .E.^A(^ce^a^c') .e'.c'(aecA) |
+.E.=A(=ce=a=c') .e'.c'(aecA) | .E.^G(Be^gb) .e'.b(geBG) || .F._A(_df_a_d') .f'.d'(afdA) | .F._A(=df_a=d') .f'.d'(afdA) |
+.F._A(_cf_a_c') .f'.c'(afcA) | .F.=A(^cf=a^c') .f'.c'(afcA) | .F.A(=cfa=c') .f'.c'(afcA) | .F._B(df_bd') .f'.d'(bfdB) |
+.F._A(cf_ac') .f'.c'(afcA) | .F.=B(df=bd') .f'.d'(bfdB) | .F._B(_df_b_d') .f'.d'(bfdB) | .F.=A(=df=a=d') .f'.d'(afdA) ||
+.^F.A(^c^fa^c') .^f'.c'(afcA) | .^F.^A(^c^f^a^c') .^f'.c'(afcA) | .^F.=A(d^f=ad') .^f'.d'(afdA) | .^F.^A(^^c^f^a^^c') .^f'.c'(afcA) |
+.^F.^A(^d^f^a^d') .^f'.d'(afdA) | .^F.B(^d^fb^d') .^f'.d'(bfdB) | .^F.=A(^d^f=a^d') .^f'.d'(afdA) | .^F.B(=d^fb=d') .^f'.d'(bfdB) |
+.^F.A(=c^fa=c') .^f'.c'(afcA) | .^F.^B(^d^f^b^d') .^f'.d'(bfdB) || .=G._B(_e=g_b_e') .=g'.e'(bgeB) | .G._B(=eg_b=e') .g'.e'(bgeB) |
+.G._B(_dg_b_d') .g'.d'(bgdB) | .G.=B(^dg=b^d') .g'.d'(bgdB) | .G.B(=dgb=d') .g'.d'(bgdB) | .G.c(egc'e') .g'.e'(c'gec) |
+.G._B(dg_bd') .g'.d'(bgdB) | .G.^c(eg^c'e') .g'.e'(c'gec) | .G.=c(_eg=c'_e') .g'.e'(c'gec) | .G.=B(=eg=b=e') .g'.e'(bgeB) ||
+.^G.B(d^gbd') .^g'.d'(bgdB) | .^G.^B(^d^g^b^d') .^g'.d'(bgdB) | .^G.=B(e^g=be') .^g'.e'(bgeB) | ._A.c(f_ac'f') ._a'.f'(c'afc) |
+._A._d(f_a_d'f') ._a'.f'(d'afd) | ._A._c(f_a_c'f') ._a'.f'(c'afc) | ._A._d(_f_a_d'_f') ._a'.f'(d'afd) | ._A.=d(=f_a=d'=f') ._a'.f'(d'afd) |
+._A._c(_e_a_c'_e') ._a'.e'(c'aec) | ._A.=c(=e_a=c'=e') ._a'.e'(c'aec) || .=A.c(_e=ac'_e') .=a'.e'(c'aec) | .A.c(=eac'=e') .a'.e'(c'aec) |
+.A.c(fac'f') .a'.f'(c'afc) | .A.^c(^ea^c'^e') .a'.e'(c'aec) | .A.^c(^fa^c'^f') .a'.f'(c'afc) | .A.d(^fad'^f') .a'.f'(d'afd) |
+.A.=c(^fa=c'^f') .a'.f'(c'afc) | .A.^d(^fa^d'^f') .a'.f'(d'afd) | .A.=d(=fa=d'=f') .a'.f'(d'afd) | .A.^c(ea^c'e') .a'.e'(c'aec) ||
+.^A.^c(^f^a^c'^f') .^a'.f'(c'afc) | ._B._d(g_b_d'g') ._b'.g'(d'bgd) | ._B._d(_f_b_d'_f') ._b'.f'(d'bfd) | ._B.=d(^f_b=d'^f') ._b'.f'(d'bfd) |
+._B.d(=f_bd'=f') ._b'.f'(d'bfd) | ._B._e(g_b_e'g') ._b'.g'(e'bge) | ._B._d(f_b_d'f') ._b'.f'(d'bfd) | ._B.e(g_be'g') ._b'.g'(e'bge) |
+._B._e(_g_b_e'_g') ._b'.g'(e'bge) | ._B.=d(=g_b=d'=g') ._b'.g'(d'bgd) || .=B.d(=f=bd'=f') .=b'.f'(d'bfd) | .B.d(^fbd'^f') .b'.f'(d'bfd) |
+.B.d(gbd'g') .b'.g'(d'bgd) | .B.^d(^fb^d'^f') .b'.f'(d'bfd) | .B.^d(^gb^d'^g') .b'.g'(d'bgd) | .B.e(^gbe'^g') .b'.g'(e'bge) |
+.B.=d(^gb=d'^g') .b'.g'(d'bgd) | .B.^e(^gb^e'^g') .b'.g'(e'bge) | .B.=e(=gb=e'=g') .b'.g'(e'bge) | .B.^d(^fb^d'^f') .b'.f'(d'bfd) | B4 z4 |]
+
+X:6
+T:E. J. 10 — Arpèges · Exercices sur les Accords (5. 2 Ligadas y 4 Picadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E)._A.c._e._a (c'a).e.c.A.E | (C_E).=A.c._e.=a (c'a).e.c.A.E | (C_E)._G.c._e._g (c'g).e.c.G.E | (C=E).^G.c.=e.^g (c'g).e.c.G.E |
+(CE).=G.c.e.=g (c'g).e.c.G.E | (CF).A.c.f.a (c'a).f.c.A.F | (C_E).G.c._e.g (c'g).e.c.G.E | (C^F).A.c.^f.a (c'a).f.c.A.F |
+(C=F)._A.c.=f._a (c'a).f.c.A.F | (CE).=A.c.e.=a (c'a).e.c.A.E || (^CE).G.^c.e.g (^c'g).e.c.G.E | (^CE).^G.^c.e.^g (^c'g).e.c.G.E |
+(^CE).A.^c.e.a (^c'a).e.c.A.E | (_DF)._B._d.f._b (_d'b).f.d.B.F | (_D_G)._B._d._g._b (_d'b).g.d.B.G | (_D_F)._B._d._f._b (_d'b).f.d.B.F |
+(_D=F).=A._d.=f.=a (_d'a).f.d.A.F | (_D=G)._B._d.=g._b (_d'b).g.d.B.G | (_D_G).__B._d._g.__b (_d'b).g.d.B.G | (_DF)._A._d.f._a (_d'a).f.d.A.F ||
+(=D=F)._B.=d.=f._b (=d'b).f.d.B.F | (DF).=B.d.f.=b (d'b).f.d.B.F | (DG)._B.d.g._b (d'b).g.d.B.G | (D^F).^A.d.^f.^a (d'a).f.d.A.F |
+(D^F).=A.d.^f.=a (d'a).f.d.A.F | (DG).B.d.g.b (d'b).g.d.B.G | (D=F).A.d.=f.a (d'a).f.d.A.F | (D^G).B.d.^g.b (d'b).g.d.B.G |
+(D=F)._A.d.=f._a (d'a).f.d.A.F | (D^F).B.d.^f.b (d'b).f.d.B.F || (^D^F).A.^d.^f.a (^d'a).f.d.A.F | (_E_G)._B._e._g._b (_e'b).g.e.B.G |
+(_E_G)._c._e._g._c' (_e'c').g.e.c.G | (_E=G)._B._e.=g._b (_e'b).g.e.B.G | (_EG).=c._e.g.=c' (_e'c').g.e.c.G | (_E_A).c._e._a.c' (_e'c').a.e.c.A |
+(_E_G).c._e._g.c' (_e'c').g.e.c.G | (_E=A).c._e.=a.c' (_e'c').a.e.c.A | (_E_A)._c._e._a._c' (_e'c').a.e.c.A | (_E=G).=B._e.=g.=b (_e'b).g.e.B.G ||
+(=EG)._B.=e.g._b (=e'b).g.e.B.G | (EG).=B.e.g.=b (e'b).g.e.B.G | (EG).c.e.g.c' (e'c').g.e.c.G | (E^G).^B.e.^g.^b (e'b).g.e.B.G |
+(E^G).^c.e.^g.^c' (e'c').g.e.c.G | (EA).^c.e.a.^c' (e'c').a.e.c.A | (E=G).^c.e.=g.^c' (e'c').g.e.c.G | (E^A).^c.e.^a.^c' (e'c').a.e.c.A |
+(E=A).=c.e.=a.=c' (e'c').a.e.c.A | (E^G).B.e.^g.b (e'b).g.e.B.G || (F_A)._d.f._a._d' (f'd').a.f.d.A | (F_A).=d.f._a.=d' (f'd').a.f.d.A |
+(F_A)._c.f._a._c' (f'c').a.f.c.A | (F=A).^c.f.=a.^c' (f'c').a.f.c.A | (FA).=c.f.a.=c' (f'c').a.f.c.A | (F_B).d.f._b.d' (f'd').b.f.d.B |
+(F_A).c.f._a.c' (f'c').a.f.c.A | (F=B).d.f.=b.d' (f'd').b.f.d.B | (F_B)._d.f._b._d' (f'd').b.f.d.B | (F=A).=d.f.=a.=d' (f'd').a.f.d.A ||
+(^FA).^c.^f.a.^c' (^f'c').a.f.c.A | (^F^A).^c.^f.^a.^c' (^f'c').a.f.c.A | (^F=A).d.^f.=a.d' (^f'd').a.f.d.A | (^F^A).^^c.^f.^a.^^c' (^f'c').a.f.c.A |
+(^F^A).^d.^f.^a.^d' (^f'd').a.f.d.A | (^FB).^d.^f.b.^d' (^f'd').b.f.d.B | (^F=A).^d.^f.=a.^d' (^f'd').a.f.d.A | (^FB).=d.^f.b.=d' (^f'd').b.f.d.B |
+(^FA).=c.^f.a.=c' (^f'c').a.f.c.A | (^F^B).^d.^f.^b.^d' (^f'd').b.f.d.B || (=G_B)._e.=g._b._e' (=g'e').b.g.e.B | (G_B).=e.g._b.=e' (g'e').b.g.e.B |
+(G_B)._d.g._b._d' (g'd').b.g.d.B | (G=B).^d.g.=b.^d' (g'd').b.g.d.B | (GB).=d.g.b.=d' (g'd').b.g.d.B | (Gc).e.g.c'.e' (g'e').c'.g.e.c |
+(G_B).d.g._b.d' (g'd').b.g.d.B | (G^c).e.g.^c'.e' (g'e').c'.g.e.c | (G=c)._e.g.=c'._e' (g'e').c'.g.e.c | (G=B).=e.g.=b.=e' (g'e').b.g.e.B ||
+(^GB).d.^g.b.d' (^g'd').b.g.d.B | (^G^B).^d.^g.^b.^d' (^g'd').b.g.d.B | (^G=B).e.^g.=b.e' (^g'e').b.g.e.B | (_Ac).f._a.c'.f' (_a'f').c'.a.f.c |
+(_A_d).f._a._d'.f' (_a'f').d'.a.f.d | (_A_c).f._a._c'.f' (_a'f').c'.a.f.c | (_A_d)._f._a._d'._f' (_a'f').d'.a.f.d | (_A=d).=f._a.=d'.=f' (_a'f').d'.a.f.d |
+(_A_c)._e._a._c'._e' (_a'e').c'.a.e.c | (_A=c).=e._a.=c'.=e' (_a'e').c'.a.e.c || (=Ac)._e.=a.c'._e' (=a'e').c'.a.e.c | (Ac).=e.a.c'.=e' (a'e').c'.a.e.c |
+(Ac).f.a.c'.f' (a'f').c'.a.f.c | (A^c).^e.a.^c'.^e' (a'e').c'.a.e.c | (A^c).^f.a.^c'.^f' (a'f').c'.a.f.c | (Ad).^f.a.d'.^f' (a'f').d'.a.f.d |
+(A=c).^f.a.=c'.^f' (a'f').c'.a.f.c | (A^d).^f.a.^d'.^f' (a'f').d'.a.f.d | (A=d).=f.a.=d'.=f' (a'f').d'.a.f.d | (A^c).e.a.^c'.e' (a'e').c'.a.e.c ||
+(^A^c).^f.^a.^c'.^f' (^a'f').c'.a.f.c | (_B_d).g._b._d'.g' (_b'g').d'.b.g.d | (_B_d)._f._b._d'._f' (_b'f').d'.b.f.d | (_B=d).^f._b.=d'.^f' (_b'f').d'.b.f.d |
+(_Bd).=f._b.d'.=f' (_b'f').d'.b.f.d | (_B_e).g._b._e'.g' (_b'g').e'.b.g.e | (_B_d).f._b._d'.f' (_b'f').d'.b.f.d | (_Be).g._b.e'.g' (_b'g').e'.b.g.e |
+(_B_e)._g._b._e'._g' (_b'g').e'.b.g.e | (_B=d).=g._b.=d'.=g' (_b'g').d'.b.g.d || (=Bd).=f.=b.d'.=f' (=b'f').d'.b.f.d | (Bd).^f.b.d'.^f' (b'f').d'.b.f.d |
+(Bd).g.b.d'.g' (b'g').d'.b.g.d | (B^d).^f.b.^d'.^f' (b'f').d'.b.f.d | (B^d).^g.b.^d'.^g' (b'g').d'.b.g.d | (Be).^g.b.e'.^g' (b'g').e'.b.g.e |
+(B=d).^g.b.=d'.^g' (b'g').d'.b.g.d | (B^e).^g.b.^e'.^g' (b'g').e'.b.g.e | (B=e).=g.b.=e'.=g' (b'g').e'.b.g.e | (B^d).^f.b.^d'.^f' (b'f').d'.b.f.d | B4 z4 |]
+
+X:7
+T:E. J. 10 — Arpèges · Exercices sur les Accords (6. De 3 en 3 Ligadas (2/4))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E_A) (c_e_a) (c'ae) (cAE) | (C_E=A) (c_e=a) (c'ae) (cAE) | (C_E_G) (c_e_g) (c'ge) (cGE) | (C=E^G) (c=e^g) (c'ge) (cGE) |
+(CE=G) (ce=g) (c'ge) (cGE) | (CFA) (cfa) (c'af) (cAF) | (C_EG) (c_eg) (c'ge) (cGE) | (C^FA) (c^fa) (c'af) (cAF) |
+(C=F_A) (c=f_a) (c'af) (cAF) | (CE=A) (ce=a) (c'ae) (cAE) || (^CEG) (^ceg) (^c'ge) (cGE) | (^CE^G) (^ce^g) (^c'ge) (cGE) |
+(^CEA) (^cea) (^c'ae) (cAE) | (_DF_B) (_df_b) (_d'bf) (dBF) | (_D_G_B) (_d_g_b) (_d'bg) (dBG) | (_D_F_B) (_d_f_b) (_d'bf) (dBF) |
+(_D=F=A) (_d=f=a) (_d'af) (dAF) | (_D=G_B) (_d=g_b) (_d'bg) (dBG) | (_D_G__B) (_d_g__b) (_d'bg) (dBG) | (_DF_A) (_df_a) (_d'af) (dAF) ||
+(=D=F_B) (=d=f_b) (=d'bf) (dBF) | (DF=B) (df=b) (d'bf) (dBF) | (DG_B) (dg_b) (d'bg) (dBG) | (D^F^A) (d^f^a) (d'af) (dAF) |
+(D^F=A) (d^f=a) (d'af) (dAF) | (DGB) (dgb) (d'bg) (dBG) | (D=FA) (d=fa) (d'af) (dAF) | (D^GB) (d^gb) (d'bg) (dBG) |
+(D=F_A) (d=f_a) (d'af) (dAF) | (D^FB) (d^fb) (d'bf) (dBF) || (^D^FA) (^d^fa) (^d'af) (dAF) | (_E_G_B) (_e_g_b) (_e'bg) (eBG) |
+(_E_G_c) (_e_g_c') (_e'c'g) (ecG) | (_E=G_B) (_e=g_b) (_e'bg) (eBG) | (_EG=c) (_eg=c') (_e'c'g) (ecG) | (_E_Ac) (_e_ac') (_e'c'a) (ecA) |
+(_E_Gc) (_e_gc') (_e'c'g) (ecG) | (_E=Ac) (_e=ac') (_e'c'a) (ecA) | (_E_A_c) (_e_a_c') (_e'c'a) (ecA) | (_E=G=B) (_e=g=b) (_e'bg) (eBG) ||
+(=EG_B) (=eg_b) (=e'bg) (eBG) | (EG=B) (eg=b) (e'bg) (eBG) | (EGc) (egc') (e'c'g) (ecG) | (E^G^B) (e^g^b) (e'bg) (eBG) |
+(E^G^c) (e^g^c') (e'c'g) (ecG) | (EA^c) (ea^c') (e'c'a) (ecA) | (E=G^c) (e=g^c') (e'c'g) (ecG) | (E^A^c) (e^a^c') (e'c'a) (ecA) |
+(E=A=c) (e=a=c') (e'c'a) (ecA) | (E^GB) (e^gb) (e'bg) (eBG) || (F_A_d) (f_a_d') (f'd'a) (fdA) | (F_A=d) (f_a=d') (f'd'a) (fdA) |
+(F_A_c) (f_a_c') (f'c'a) (fcA) | (F=A^c) (f=a^c') (f'c'a) (fcA) | (FA=c) (fa=c') (f'c'a) (fcA) | (F_Bd) (f_bd') (f'd'b) (fdB) |
+(F_Ac) (f_ac') (f'c'a) (fcA) | (F=Bd) (f=bd') (f'd'b) (fdB) | (F_B_d) (f_b_d') (f'd'b) (fdB) | (F=A=d) (f=a=d') (f'd'a) (fdA) ||
+(^FA^c) (^fa^c') (^f'c'a) (fcA) | (^F^A^c) (^f^a^c') (^f'c'a) (fcA) | (^F=Ad) (^f=ad') (^f'd'a) (fdA) | (^F^A^^c) (^f^a^^c') (^f'c'a) (fcA) |
+(^F^A^d) (^f^a^d') (^f'd'a) (fdA) | (^FB^d) (^fb^d') (^f'd'b) (fdB) | (^F=A^d) (^f=a^d') (^f'd'a) (fdA) | (^FB=d) (^fb=d') (^f'd'b) (fdB) |
+(^FA=c) (^fa=c') (^f'c'a) (fcA) | (^F^B^d) (^f^b^d') (^f'd'b) (fdB) || (=G_B_e) (=g_b_e') (=g'e'b) (geB) | (G_B=e) (g_b=e') (g'e'b) (geB) |
+(G_B_d) (g_b_d') (g'd'b) (gdB) | (G=B^d) (g=b^d') (g'd'b) (gdB) | (GB=d) (gb=d') (g'd'b) (gdB) | (Gce) (gc'e') (g'e'c') (gec) |
+(G_Bd) (g_bd') (g'd'b) (gdB) | (G^ce) (g^c'e') (g'e'c') (gec) | (G=c_e) (g=c'_e') (g'e'c') (gec) | (G=B=e) (g=b=e') (g'e'b) (geB) ||
+(^GBd) (^gbd') (^g'd'b) (gdB) | (^G^B^d) (^g^b^d') (^g'd'b) (gdB) | (^G=Be) (^g=be') (^g'e'b) (geB) | (_Acf) (_ac'f') (_a'f'c') (afc) |
+(_A_df) (_a_d'f') (_a'f'd') (afd) | (_A_cf) (_a_c'f') (_a'f'c') (afc) | (_A_d_f) (_a_d'_f') (_a'f'd') (afd) | (_A=d=f) (_a=d'=f') (_a'f'd') (afd) |
+(_A_c_e) (_a_c'_e') (_a'e'c') (aec) | (_A=c=e) (_a=c'=e') (_a'e'c') (aec) || (=Ac_e) (=ac'_e') (=a'e'c') (aec) | (Ac=e) (ac'=e') (a'e'c') (aec) |
+(Acf) (ac'f') (a'f'c') (afc) | (A^c^e) (a^c'^e') (a'e'c') (aec) | (A^c^f) (a^c'^f') (a'f'c') (afc) | (Ad^f) (ad'^f') (a'f'd') (afd) |
+(A=c^f) (a=c'^f') (a'f'c') (afc) | (A^d^f) (a^d'^f') (a'f'd') (afd) | (A=d=f) (a=d'=f') (a'f'd') (afd) | (A^ce) (a^c'e') (a'e'c') (aec) ||
+(^A^c^f) (^a^c'^f') (^a'f'c') (afc) | (_B_dg) (_b_d'g') (_b'g'd') (bgd) | (_B_d_f) (_b_d'_f') (_b'f'd') (bfd) | (_B=d^f) (_b=d'^f') (_b'f'd') (bfd) |
+(_Bd=f) (_bd'=f') (_b'f'd') (bfd) | (_B_eg) (_b_e'g') (_b'g'e') (bge) | (_B_df) (_b_d'f') (_b'f'd') (bfd) | (_Beg) (_be'g') (_b'g'e') (bge) |
+(_B_e_g) (_b_e'_g') (_b'g'e') (bge) | (_B=d=g) (_b=d'=g') (_b'g'd') (bgd) || (=Bd=f) (=bd'=f') (=b'f'd') (bfd) | (Bd^f) (bd'^f') (b'f'd') (bfd) |
+(Bdg) (bd'g') (b'g'd') (bgd) | (B^d^f) (b^d'^f') (b'f'd') (bfd) | (B^d^g) (b^d'^g') (b'g'd') (bgd) | (Be^g) (be'^g') (b'g'e') (bge) |
+(B=d^g) (b=d'^g') (b'g'd') (bgd) | (B^e^g) (b^e'^g') (b'g'e') (bge) | (B=e=g) (b=e'=g') (b'g'e') (bge) | (B^d^f) (b^d'^f') (b'f'd') (bfd) | B4 z4 |]
+
+X:8
+T:E. J. 10 — Arpèges · Exercices sur les Accords (7. 3 Ligadas y 3 Picadas (2/4))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E_A) .c._e._a (c'ae) .c.A.E | (C_E=A) .c._e.=a (c'ae) .c.A.E | (C_E_G) .c._e._g (c'ge) .c.G.E | (C=E^G) .c.=e.^g (c'ge) .c.G.E |
+(CE=G) .c.e.=g (c'ge) .c.G.E | (CFA) .c.f.a (c'af) .c.A.F | (C_EG) .c._e.g (c'ge) .c.G.E | (C^FA) .c.^f.a (c'af) .c.A.F |
+(C=F_A) .c.=f._a (c'af) .c.A.F | (CE=A) .c.e.=a (c'ae) .c.A.E || (^CEG) .^c.e.g (^c'ge) .c.G.E | (^CE^G) .^c.e.^g (^c'ge) .c.G.E |
+(^CEA) .^c.e.a (^c'ae) .c.A.E | (_DF_B) ._d.f._b (_d'bf) .d.B.F | (_D_G_B) ._d._g._b (_d'bg) .d.B.G | (_D_F_B) ._d._f._b (_d'bf) .d.B.F |
+(_D=F=A) ._d.=f.=a (_d'af) .d.A.F | (_D=G_B) ._d.=g._b (_d'bg) .d.B.G | (_D_G__B) ._d._g.__b (_d'bg) .d.B.G | (_DF_A) ._d.f._a (_d'af) .d.A.F ||
+(=D=F_B) .=d.=f._b (=d'bf) .d.B.F | (DF=B) .d.f.=b (d'bf) .d.B.F | (DG_B) .d.g._b (d'bg) .d.B.G | (D^F^A) .d.^f.^a (d'af) .d.A.F |
+(D^F=A) .d.^f.=a (d'af) .d.A.F | (DGB) .d.g.b (d'bg) .d.B.G | (D=FA) .d.=f.a (d'af) .d.A.F | (D^GB) .d.^g.b (d'bg) .d.B.G |
+(D=F_A) .d.=f._a (d'af) .d.A.F | (D^FB) .d.^f.b (d'bf) .d.B.F || (^D^FA) .^d.^f.a (^d'af) .d.A.F | (_E_G_B) ._e._g._b (_e'bg) .e.B.G |
+(_E_G_c) ._e._g._c' (_e'c'g) .e.c.G | (_E=G_B) ._e.=g._b (_e'bg) .e.B.G | (_EG=c) ._e.g.=c' (_e'c'g) .e.c.G | (_E_Ac) ._e._a.c' (_e'c'a) .e.c.A |
+(_E_Gc) ._e._g.c' (_e'c'g) .e.c.G | (_E=Ac) ._e.=a.c' (_e'c'a) .e.c.A | (_E_A_c) ._e._a._c' (_e'c'a) .e.c.A | (_E=G=B) ._e.=g.=b (_e'bg) .e.B.G ||
+(=EG_B) .=e.g._b (=e'bg) .e.B.G | (EG=B) .e.g.=b (e'bg) .e.B.G | (EGc) .e.g.c' (e'c'g) .e.c.G | (E^G^B) .e.^g.^b (e'bg) .e.B.G |
+(E^G^c) .e.^g.^c' (e'c'g) .e.c.G | (EA^c) .e.a.^c' (e'c'a) .e.c.A | (E=G^c) .e.=g.^c' (e'c'g) .e.c.G | (E^A^c) .e.^a.^c' (e'c'a) .e.c.A |
+(E=A=c) .e.=a.=c' (e'c'a) .e.c.A | (E^GB) .e.^g.b (e'bg) .e.B.G || (F_A_d) .f._a._d' (f'd'a) .f.d.A | (F_A=d) .f._a.=d' (f'd'a) .f.d.A |
+(F_A_c) .f._a._c' (f'c'a) .f.c.A | (F=A^c) .f.=a.^c' (f'c'a) .f.c.A | (FA=c) .f.a.=c' (f'c'a) .f.c.A | (F_Bd) .f._b.d' (f'd'b) .f.d.B |
+(F_Ac) .f._a.c' (f'c'a) .f.c.A | (F=Bd) .f.=b.d' (f'd'b) .f.d.B | (F_B_d) .f._b._d' (f'd'b) .f.d.B | (F=A=d) .f.=a.=d' (f'd'a) .f.d.A ||
+(^FA^c) .^f.a.^c' (^f'c'a) .f.c.A | (^F^A^c) .^f.^a.^c' (^f'c'a) .f.c.A | (^F=Ad) .^f.=a.d' (^f'd'a) .f.d.A | (^F^A^^c) .^f.^a.^^c' (^f'c'a) .f.c.A |
+(^F^A^d) .^f.^a.^d' (^f'd'a) .f.d.A | (^FB^d) .^f.b.^d' (^f'd'b) .f.d.B | (^F=A^d) .^f.=a.^d' (^f'd'a) .f.d.A | (^FB=d) .^f.b.=d' (^f'd'b) .f.d.B |
+(^FA=c) .^f.a.=c' (^f'c'a) .f.c.A | (^F^B^d) .^f.^b.^d' (^f'd'b) .f.d.B || (=G_B_e) .=g._b._e' (=g'e'b) .g.e.B | (G_B=e) .g._b.=e' (g'e'b) .g.e.B |
+(G_B_d) .g._b._d' (g'd'b) .g.d.B | (G=B^d) .g.=b.^d' (g'd'b) .g.d.B | (GB=d) .g.b.=d' (g'd'b) .g.d.B | (Gce) .g.c'.e' (g'e'c') .g.e.c |
+(G_Bd) .g._b.d' (g'd'b) .g.d.B | (G^ce) .g.^c'.e' (g'e'c') .g.e.c | (G=c_e) .g.=c'._e' (g'e'c') .g.e.c | (G=B=e) .g.=b.=e' (g'e'b) .g.e.B ||
+(^GBd) .^g.b.d' (^g'd'b) .g.d.B | (^G^B^d) .^g.^b.^d' (^g'd'b) .g.d.B | (^G=Be) .^g.=b.e' (^g'e'b) .g.e.B | (_Acf) ._a.c'.f' (_a'f'c') .a.f.c |
+(_A_df) ._a._d'.f' (_a'f'd') .a.f.d | (_A_cf) ._a._c'.f' (_a'f'c') .a.f.c | (_A_d_f) ._a._d'._f' (_a'f'd') .a.f.d | (_A=d=f) ._a.=d'.=f' (_a'f'd') .a.f.d |
+(_A_c_e) ._a._c'._e' (_a'e'c') .a.e.c | (_A=c=e) ._a.=c'.=e' (_a'e'c') .a.e.c || (=Ac_e) .=a.c'._e' (=a'e'c') .a.e.c | (Ac=e) .a.c'.=e' (a'e'c') .a.e.c |
+(Acf) .a.c'.f' (a'f'c') .a.f.c | (A^c^e) .a.^c'.^e' (a'e'c') .a.e.c | (A^c^f) .a.^c'.^f' (a'f'c') .a.f.c | (Ad^f) .a.d'.^f' (a'f'd') .a.f.d |
+(A=c^f) .a.=c'.^f' (a'f'c') .a.f.c | (A^d^f) .a.^d'.^f' (a'f'd') .a.f.d | (A=d=f) .a.=d'.=f' (a'f'd') .a.f.d | (A^ce) .a.^c'.e' (a'e'c') .a.e.c ||
+(^A^c^f) .^a.^c'.^f' (^a'f'c') .a.f.c | (_B_dg) ._b._d'.g' (_b'g'd') .b.g.d | (_B_d_f) ._b._d'._f' (_b'f'd') .b.f.d | (_B=d^f) ._b.=d'.^f' (_b'f'd') .b.f.d |
+(_Bd=f) ._b.d'.=f' (_b'f'd') .b.f.d | (_B_eg) ._b._e'.g' (_b'g'e') .b.g.e | (_B_df) ._b._d'.f' (_b'f'd') .b.f.d | (_Beg) ._b.e'.g' (_b'g'e') .b.g.e |
+(_B_e_g) ._b._e'._g' (_b'g'e') .b.g.e | (_B=d=g) ._b.=d'.=g' (_b'g'd') .b.g.d || (=Bd=f) .=b.d'.=f' (=b'f'd') .b.f.d | (Bd^f) .b.d'.^f' (b'f'd') .b.f.d |
+(Bdg) .b.d'.g' (b'g'd') .b.g.d | (B^d^f) .b.^d'.^f' (b'f'd') .b.f.d | (B^d^g) .b.^d'.^g' (b'g'd') .b.g.d | (Be^g) .b.e'.^g' (b'g'e') .b.g.e |
+(B=d^g) .b.=d'.^g' (b'g'd') .b.g.d | (B^e^g) .b.^e'.^g' (b'g'e') .b.g.e | (B=e=g) .b.=e'.=g' (b'g'e') .b.g.e | (B^d^f) .b.^d'.^f' (b'f'd') .b.f.d | B4 z4 |]
+
+X:9
+T:E. J. 10 — Arpèges · Exercices sur les Accords (8. De 2 en 2 Ligadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+(C_E)(_Ac)(_e_a) (c'a)(ec)(AE) | (C_E)(=Ac)(_e=a) (c'a)(ec)(AE) | (C_E)(_Gc)(_e_g) (c'g)(ec)(GE) | (C=E)(^Gc)(=e^g) (c'g)(ec)(GE) |
+(CE)(=Gc)(e=g) (c'g)(ec)(GE) | (CF)(Ac)(fa) (c'a)(fc)(AF) | (C_E)(Gc)(_eg) (c'g)(ec)(GE) | (C^F)(Ac)(^fa) (c'a)(fc)(AF) |
+(C=F)(_Ac)(=f_a) (c'a)(fc)(AF) | (CE)(=Ac)(e=a) (c'a)(ec)(AE) || (^CE)(G^c)(eg) (^c'g)(ec)(GE) | (^CE)(^G^c)(e^g) (^c'g)(ec)(GE) |
+(^CE)(A^c)(ea) (^c'a)(ec)(AE) | (_DF)(_B_d)(f_b) (_d'b)(fd)(BF) | (_D_G)(_B_d)(_g_b) (_d'b)(gd)(BG) | (_D_F)(_B_d)(_f_b) (_d'b)(fd)(BF) |
+(_D=F)(=A_d)(=f=a) (_d'a)(fd)(AF) | (_D=G)(_B_d)(=g_b) (_d'b)(gd)(BG) | (_D_G)(__B_d)(_g__b) (_d'b)(gd)(BG) | (_DF)(_A_d)(f_a) (_d'a)(fd)(AF) ||
+(=D=F)(_B=d)(=f_b) (=d'b)(fd)(BF) | (DF)(=Bd)(f=b) (d'b)(fd)(BF) | (DG)(_Bd)(g_b) (d'b)(gd)(BG) | (D^F)(^Ad)(^f^a) (d'a)(fd)(AF) |
+(D^F)(=Ad)(^f=a) (d'a)(fd)(AF) | (DG)(Bd)(gb) (d'b)(gd)(BG) | (D=F)(Ad)(=fa) (d'a)(fd)(AF) | (D^G)(Bd)(^gb) (d'b)(gd)(BG) |
+(D=F)(_Ad)(=f_a) (d'a)(fd)(AF) | (D^F)(Bd)(^fb) (d'b)(fd)(BF) || (^D^F)(A^d)(^fa) (^d'a)(fd)(AF) | (_E_G)(_B_e)(_g_b) (_e'b)(ge)(BG) |
+(_E_G)(_c_e)(_g_c') (_e'c')(ge)(cG) | (_E=G)(_B_e)(=g_b) (_e'b)(ge)(BG) | (_EG)(=c_e)(g=c') (_e'c')(ge)(cG) | (_E_A)(c_e)(_ac') (_e'c')(ae)(cA) |
+(_E_G)(c_e)(_gc') (_e'c')(ge)(cG) | (_E=A)(c_e)(=ac') (_e'c')(ae)(cA) | (_E_A)(_c_e)(_a_c') (_e'c')(ae)(cA) | (_E=G)(=B_e)(=g=b) (_e'b)(ge)(BG) ||
+(=EG)(_B=e)(g_b) (=e'b)(ge)(BG) | (EG)(=Be)(g=b) (e'b)(ge)(BG) | (EG)(ce)(gc') (e'c')(ge)(cG) | (E^G)(^Be)(^g^b) (e'b)(ge)(BG) |
+(E^G)(^ce)(^g^c') (e'c')(ge)(cG) | (EA)(^ce)(a^c') (e'c')(ae)(cA) | (E=G)(^ce)(=g^c') (e'c')(ge)(cG) | (E^A)(^ce)(^a^c') (e'c')(ae)(cA) |
+(E=A)(=ce)(=a=c') (e'c')(ae)(cA) | (E^G)(Be)(^gb) (e'b)(ge)(BG) || (F_A)(_df)(_a_d') (f'd')(af)(dA) | (F_A)(=df)(_a=d') (f'd')(af)(dA) |
+(F_A)(_cf)(_a_c') (f'c')(af)(cA) | (F=A)(^cf)(=a^c') (f'c')(af)(cA) | (FA)(=cf)(a=c') (f'c')(af)(cA) | (F_B)(df)(_bd') (f'd')(bf)(dB) |
+(F_A)(cf)(_ac') (f'c')(af)(cA) | (F=B)(df)(=bd') (f'd')(bf)(dB) | (F_B)(_df)(_b_d') (f'd')(bf)(dB) | (F=A)(=df)(=a=d') (f'd')(af)(dA) ||
+(^FA)(^c^f)(a^c') (^f'c')(af)(cA) | (^F^A)(^c^f)(^a^c') (^f'c')(af)(cA) | (^F=A)(d^f)(=ad') (^f'd')(af)(dA) | (^F^A)(^^c^f)(^a^^c') (^f'c')(af)(cA) |
+(^F^A)(^d^f)(^a^d') (^f'd')(af)(dA) | (^FB)(^d^f)(b^d') (^f'd')(bf)(dB) | (^F=A)(^d^f)(=a^d') (^f'd')(af)(dA) | (^FB)(=d^f)(b=d') (^f'd')(bf)(dB) |
+(^FA)(=c^f)(a=c') (^f'c')(af)(cA) | (^F^B)(^d^f)(^b^d') (^f'd')(bf)(dB) || (=G_B)(_e=g)(_b_e') (=g'e')(bg)(eB) | (G_B)(=eg)(_b=e') (g'e')(bg)(eB) |
+(G_B)(_dg)(_b_d') (g'd')(bg)(dB) | (G=B)(^dg)(=b^d') (g'd')(bg)(dB) | (GB)(=dg)(b=d') (g'd')(bg)(dB) | (Gc)(eg)(c'e') (g'e')(c'g)(ec) |
+(G_B)(dg)(_bd') (g'd')(bg)(dB) | (G^c)(eg)(^c'e') (g'e')(c'g)(ec) | (G=c)(_eg)(=c'_e') (g'e')(c'g)(ec) | (G=B)(=eg)(=b=e') (g'e')(bg)(eB) ||
+(^GB)(d^g)(bd') (^g'd')(bg)(dB) | (^G^B)(^d^g)(^b^d') (^g'd')(bg)(dB) | (^G=B)(e^g)(=be') (^g'e')(bg)(eB) | (_Ac)(f_a)(c'f') (_a'f')(c'a)(fc) |
+(_A_d)(f_a)(_d'f') (_a'f')(d'a)(fd) | (_A_c)(f_a)(_c'f') (_a'f')(c'a)(fc) | (_A_d)(_f_a)(_d'_f') (_a'f')(d'a)(fd) | (_A=d)(=f_a)(=d'=f') (_a'f')(d'a)(fd) |
+(_A_c)(_e_a)(_c'_e') (_a'e')(c'a)(ec) | (_A=c)(=e_a)(=c'=e') (_a'e')(c'a)(ec) || (=Ac)(_e=a)(c'_e') (=a'e')(c'a)(ec) | (Ac)(=ea)(c'=e') (a'e')(c'a)(ec) |
+(Ac)(fa)(c'f') (a'f')(c'a)(fc) | (A^c)(^ea)(^c'^e') (a'e')(c'a)(ec) | (A^c)(^fa)(^c'^f') (a'f')(c'a)(fc) | (Ad)(^fa)(d'^f') (a'f')(d'a)(fd) |
+(A=c)(^fa)(=c'^f') (a'f')(c'a)(fc) | (A^d)(^fa)(^d'^f') (a'f')(d'a)(fd) | (A=d)(=fa)(=d'=f') (a'f')(d'a)(fd) | (A^c)(ea)(^c'e') (a'e')(c'a)(ec) ||
+(^A^c)(^f^a)(^c'^f') (^a'f')(c'a)(fc) | (_B_d)(g_b)(_d'g') (_b'g')(d'b)(gd) | (_B_d)(_f_b)(_d'_f') (_b'f')(d'b)(fd) | (_B=d)(^f_b)(=d'^f') (_b'f')(d'b)(fd) |
+(_Bd)(=f_b)(d'=f') (_b'f')(d'b)(fd) | (_B_e)(g_b)(_e'g') (_b'g')(e'b)(ge) | (_B_d)(f_b)(_d'f') (_b'f')(d'b)(fd) | (_Be)(g_b)(e'g') (_b'g')(e'b)(ge) |
+(_B_e)(_g_b)(_e'_g') (_b'g')(e'b)(ge) | (_B=d)(=g_b)(=d'=g') (_b'g')(d'b)(gd) || (=Bd)(=f=b)(d'=f') (=b'f')(d'b)(fd) | (Bd)(^fb)(d'^f') (b'f')(d'b)(fd) |
+(Bd)(gb)(d'g') (b'g')(d'b)(gd) | (B^d)(^fb)(^d'^f') (b'f')(d'b)(fd) | (B^d)(^gb)(^d'^g') (b'g')(d'b)(gd) | (Be)(^gb)(e'^g') (b'g')(e'b)(ge) |
+(B=d)(^gb)(=d'^g') (b'g')(d'b)(gd) | (B^e)(^gb)(^e'^g') (b'g')(e'b)(ge) | (B=e)(=gb)(=e'=g') (b'g')(e'b)(ge) | (B^d)(^fb)(^d'^f') (b'f')(d'b)(fd) | B4 z4 |]
+
+X:10
+T:E. J. 10 — Arpèges · Exercices sur les Accords (9. Sincopadas de a 2)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+.C(_E_A)(c_e)(_a c')(ae)(cA).E | .C(_E=A)(c_e)(=a c')(ae)(cA).E | .C(_E_G)(c_e)(_g c')(ge)(cG).E | .C(=E^G)(c=e)(^g c')(ge)(cG).E |
+.C(E=G)(ce)(=g c')(ge)(cG).E | .C(FA)(cf)(a c')(af)(cA).F | .C(_EG)(c_e)(g c')(ge)(cG).E | .C(^FA)(c^f)(a c')(af)(cA).F |
+.C(=F_A)(c=f)(_a c')(af)(cA).F | .C(E=A)(ce)(=a c')(ae)(cA).E || .^C(EG)(^ce)(g ^c')(ge)(cG).E | .^C(E^G)(^ce)(^g ^c')(ge)(cG).E |
+.^C(EA)(^ce)(a ^c')(ae)(cA).E | ._D(F_B)(_df)(_b _d')(bf)(dB).F | ._D(_G_B)(_d_g)(_b _d')(bg)(dB).G | ._D(_F_B)(_d_f)(_b _d')(bf)(dB).F |
+._D(=F=A)(_d=f)(=a _d')(af)(dA).F | ._D(=G_B)(_d=g)(_b _d')(bg)(dB).G | ._D(_G__B)(_d_g)(__b _d')(bg)(dB).G | ._D(F_A)(_df)(_a _d')(af)(dA).F ||
+.=D(=F_B)(=d=f)(_b =d')(bf)(dB).F | .D(F=B)(df)(=b d')(bf)(dB).F | .D(G_B)(dg)(_b d')(bg)(dB).G | .D(^F^A)(d^f)(^a d')(af)(dA).F |
+.D(^F=A)(d^f)(=a d')(af)(dA).F | .D(GB)(dg)(b d')(bg)(dB).G | .D(=FA)(d=f)(a d')(af)(dA).F | .D(^GB)(d^g)(b d')(bg)(dB).G |
+.D(=F_A)(d=f)(_a d')(af)(dA).F | .D(^FB)(d^f)(b d')(bf)(dB).F || .^D(^FA)(^d^f)(a ^d')(af)(dA).F | ._E(_G_B)(_e_g)(_b _e')(bg)(eB).G |
+._E(_G_c)(_e_g)(_c' _e')(c'g)(ec).G | ._E(=G_B)(_e=g)(_b _e')(bg)(eB).G | ._E(G=c)(_eg)(=c' _e')(c'g)(ec).G | ._E(_Ac)(_e_a)(c' _e')(c'a)(ec).A |
+._E(_Gc)(_e_g)(c' _e')(c'g)(ec).G | ._E(=Ac)(_e=a)(c' _e')(c'a)(ec).A | ._E(_A_c)(_e_a)(_c' _e')(c'a)(ec).A | ._E(=G=B)(_e=g)(=b _e')(bg)(eB).G ||
+.=E(G_B)(=eg)(_b =e')(bg)(eB).G | .E(G=B)(eg)(=b e')(bg)(eB).G | .E(Gc)(eg)(c' e')(c'g)(ec).G | .E(^G^B)(e^g)(^b e')(bg)(eB).G |
+.E(^G^c)(e^g)(^c' e')(c'g)(ec).G | .E(A^c)(ea)(^c' e')(c'a)(ec).A | .E(=G^c)(e=g)(^c' e')(c'g)(ec).G | .E(^A^c)(e^a)(^c' e')(c'a)(ec).A |
+.E(=A=c)(e=a)(=c' e')(c'a)(ec).A | .E(^GB)(e^g)(b e')(bg)(eB).G || .F(_A_d)(f_a)(_d' f')(d'a)(fd).A | .F(_A=d)(f_a)(=d' f')(d'a)(fd).A |
+.F(_A_c)(f_a)(_c' f')(c'a)(fc).A | .F(=A^c)(f=a)(^c' f')(c'a)(fc).A | .F(A=c)(fa)(=c' f')(c'a)(fc).A | .F(_Bd)(f_b)(d' f')(d'b)(fd).B |
+.F(_Ac)(f_a)(c' f')(c'a)(fc).A | .F(=Bd)(f=b)(d' f')(d'b)(fd).B | .F(_B_d)(f_b)(_d' f')(d'b)(fd).B | .F(=A=d)(f=a)(=d' f')(d'a)(fd).A ||
+.^F(A^c)(^fa)(^c' ^f')(c'a)(fc).A | .^F(^A^c)(^f^a)(^c' ^f')(c'a)(fc).A | .^F(=Ad)(^f=a)(d' ^f')(d'a)(fd).A | .^F(^A^^c)(^f^a)(^^c' ^f')(c'a)(fc).A |
+.^F(^A^d)(^f^a)(^d' ^f')(d'a)(fd).A | .^F(B^d)(^fb)(^d' ^f')(d'b)(fd).B | .^F(=A^d)(^f=a)(^d' ^f')(d'a)(fd).A | .^F(B=d)(^fb)(=d' ^f')(d'b)(fd).B |
+.^F(A=c)(^fa)(=c' ^f')(c'a)(fc).A | .^F(^B^d)(^f^b)(^d' ^f')(d'b)(fd).B || .=G(_B_e)(=g_b)(_e' =g')(e'b)(ge).B | .G(_B=e)(g_b)(=e' g')(e'b)(ge).B |
+.G(_B_d)(g_b)(_d' g')(d'b)(gd).B | .G(=B^d)(g=b)(^d' g')(d'b)(gd).B | .G(B=d)(gb)(=d' g')(d'b)(gd).B | .G(ce)(gc')(e' g')(e'c')(ge).c |
+.G(_Bd)(g_b)(d' g')(d'b)(gd).B | .G(^ce)(g^c')(e' g')(e'c')(ge).c | .G(=c_e)(g=c')(_e' g')(e'c')(ge).c | .G(=B=e)(g=b)(=e' g')(e'b)(ge).B ||
+.^G(Bd)(^gb)(d' ^g')(d'b)(gd).B | .^G(^B^d)(^g^b)(^d' ^g')(d'b)(gd).B | .^G(=Be)(^g=b)(e' ^g')(e'b)(ge).B | ._A(cf)(_ac')(f' _a')(f'c')(af).c |
+._A(_df)(_a_d')(f' _a')(f'd')(af).d | ._A(_cf)(_a_c')(f' _a')(f'c')(af).c | ._A(_d_f)(_a_d')(_f' _a')(f'd')(af).d | ._A(=d=f)(_a=d')(=f' _a')(f'd')(af).d |
+._A(_c_e)(_a_c')(_e' _a')(e'c')(ae).c | ._A(=c=e)(_a=c')(=e' _a')(e'c')(ae).c || .=A(c_e)(=ac')(_e' =a')(e'c')(ae).c | .A(c=e)(ac')(=e' a')(e'c')(ae).c |
+.A(cf)(ac')(f' a')(f'c')(af).c | .A(^c^e)(a^c')(^e' a')(e'c')(ae).c | .A(^c^f)(a^c')(^f' a')(f'c')(af).c | .A(d^f)(ad')(^f' a')(f'd')(af).d |
+.A(=c^f)(a=c')(^f' a')(f'c')(af).c | .A(^d^f)(a^d')(^f' a')(f'd')(af).d | .A(=d=f)(a=d')(=f' a')(f'd')(af).d | .A(^ce)(a^c')(e' a')(e'c')(ae).c ||
+.^A(^c^f)(^a^c')(^f' ^a')(f'c')(af).c | ._B(_dg)(_b_d')(g' _b')(g'd')(bg).d | ._B(_d_f)(_b_d')(_f' _b')(f'd')(bf).d | ._B(=d^f)(_b=d')(^f' _b')(f'd')(bf).d |
+._B(d=f)(_bd')(=f' _b')(f'd')(bf).d | ._B(_eg)(_b_e')(g' _b')(g'e')(bg).e | ._B(_df)(_b_d')(f' _b')(f'd')(bf).d | ._B(eg)(_be')(g' _b')(g'e')(bg).e |
+._B(_e_g)(_b_e')(_g' _b')(g'e')(bg).e | ._B(=d=g)(_b=d')(=g' _b')(g'd')(bg).d || .=B(d=f)(=bd')(=f' =b')(f'd')(bf).d | .B(d^f)(bd')(^f' b')(f'd')(bf).d |
+.B(dg)(bd')(g' b')(g'd')(bg).d | .B(^d^f)(b^d')(^f' b')(f'd')(bf).d | .B(^d^g)(b^d')(^g' b')(g'd')(bg).d | .B(e^g)(be')(^g' b')(g'e')(bg).e |
+.B(=d^g)(b=d')(^g' b')(g'd')(bg).d | .B(^e^g)(b^e')(^g' b')(g'e')(bg).e | .B(=e=g)(b=e')(=g' b')(g'e')(bg).e | .B(^d^f)(b^d')(^f' b')(f'd')(bf).d | B4 z4 |]
+
+X:11
+T:E. J. 10 — Arpèges · Exercices sur les Accords (10. Todas Picadas (Staccato))
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 120–121)
+%%stretchlast 1
+%%barsperstaff 4
+M:6/8
+L:1/16
+Q:1/4=80
+K:C
+V:1 clef=treble
+.C._E._A.c._e._a .c'.a.e.c.A.E | .C._E.=A.c._e.=a .c'.a.e.c.A.E | .C._E._G.c._e._g .c'.g.e.c.G.E | .C.=E.^G.c.=e.^g .c'.g.e.c.G.E |
+.C.E.=G.c.e.=g .c'.g.e.c.G.E | .C.F.A.c.f.a .c'.a.f.c.A.F | .C._E.G.c._e.g .c'.g.e.c.G.E | .C.^F.A.c.^f.a .c'.a.f.c.A.F |
+.C.=F._A.c.=f._a .c'.a.f.c.A.F | .C.E.=A.c.e.=a .c'.a.e.c.A.E || .^C.E.G.^c.e.g .^c'.g.e.c.G.E | .^C.E.^G.^c.e.^g .^c'.g.e.c.G.E |
+.^C.E.A.^c.e.a .^c'.a.e.c.A.E | ._D.F._B._d.f._b ._d'.b.f.d.B.F | ._D._G._B._d._g._b ._d'.b.g.d.B.G | ._D._F._B._d._f._b ._d'.b.f.d.B.F |
+._D.=F.=A._d.=f.=a ._d'.a.f.d.A.F | ._D.=G._B._d.=g._b ._d'.b.g.d.B.G | ._D._G.__B._d._g.__b ._d'.b.g.d.B.G | ._D.F._A._d.f._a ._d'.a.f.d.A.F ||
+.=D.=F._B.=d.=f._b .=d'.b.f.d.B.F | .D.F.=B.d.f.=b .d'.b.f.d.B.F | .D.G._B.d.g._b .d'.b.g.d.B.G | .D.^F.^A.d.^f.^a .d'.a.f.d.A.F |
+.D.^F.=A.d.^f.=a .d'.a.f.d.A.F | .D.G.B.d.g.b .d'.b.g.d.B.G | .D.=F.A.d.=f.a .d'.a.f.d.A.F | .D.^G.B.d.^g.b .d'.b.g.d.B.G |
+.D.=F._A.d.=f._a .d'.a.f.d.A.F | .D.^F.B.d.^f.b .d'.b.f.d.B.F || .^D.^F.A.^d.^f.a .^d'.a.f.d.A.F | ._E._G._B._e._g._b ._e'.b.g.e.B.G |
+._E._G._c._e._g._c' ._e'.c'.g.e.c.G | ._E.=G._B._e.=g._b ._e'.b.g.e.B.G | ._E.G.=c._e.g.=c' ._e'.c'.g.e.c.G | ._E._A.c._e._a.c' ._e'.c'.a.e.c.A |
+._E._G.c._e._g.c' ._e'.c'.g.e.c.G | ._E.=A.c._e.=a.c' ._e'.c'.a.e.c.A | ._E._A._c._e._a._c' ._e'.c'.a.e.c.A | ._E.=G.=B._e.=g.=b ._e'.b.g.e.B.G ||
+.=E.G._B.=e.g._b .=e'.b.g.e.B.G | .E.G.=B.e.g.=b .e'.b.g.e.B.G | .E.G.c.e.g.c' .e'.c'.g.e.c.G | .E.^G.^B.e.^g.^b .e'.b.g.e.B.G |
+.E.^G.^c.e.^g.^c' .e'.c'.g.e.c.G | .E.A.^c.e.a.^c' .e'.c'.a.e.c.A | .E.=G.^c.e.=g.^c' .e'.c'.g.e.c.G | .E.^A.^c.e.^a.^c' .e'.c'.a.e.c.A |
+.E.=A.=c.e.=a.=c' .e'.c'.a.e.c.A | .E.^G.B.e.^g.b .e'.b.g.e.B.G || .F._A._d.f._a._d' .f'.d'.a.f.d.A | .F._A.=d.f._a.=d' .f'.d'.a.f.d.A |
+.F._A._c.f._a._c' .f'.c'.a.f.c.A | .F.=A.^c.f.=a.^c' .f'.c'.a.f.c.A | .F.A.=c.f.a.=c' .f'.c'.a.f.c.A | .F._B.d.f._b.d' .f'.d'.b.f.d.B |
+.F._A.c.f._a.c' .f'.c'.a.f.c.A | .F.=B.d.f.=b.d' .f'.d'.b.f.d.B | .F._B._d.f._b._d' .f'.d'.b.f.d.B | .F.=A.=d.f.=a.=d' .f'.d'.a.f.d.A ||
+.^F.A.^c.^f.a.^c' .^f'.c'.a.f.c.A | .^F.^A.^c.^f.^a.^c' .^f'.c'.a.f.c.A | .^F.=A.d.^f.=a.d' .^f'.d'.a.f.d.A | .^F.^A.^^c.^f.^a.^^c' .^f'.c'.a.f.c.A |
+.^F.^A.^d.^f.^a.^d' .^f'.d'.a.f.d.A | .^F.B.^d.^f.b.^d' .^f'.d'.b.f.d.B | .^F.=A.^d.^f.=a.^d' .^f'.d'.a.f.d.A | .^F.B.=d.^f.b.=d' .^f'.d'.b.f.d.B |
+.^F.A.=c.^f.a.=c' .^f'.c'.a.f.c.A | .^F.^B.^d.^f.^b.^d' .^f'.d'.b.f.d.B || .=G._B._e.=g._b._e' .=g'.e'.b.g.e.B | .G._B.=e.g._b.=e' .g'.e'.b.g.e.B |
+.G._B._d.g._b._d' .g'.d'.b.g.d.B | .G.=B.^d.g.=b.^d' .g'.d'.b.g.d.B | .G.B.=d.g.b.=d' .g'.d'.b.g.d.B | .G.c.e.g.c'.e' .g'.e'.c'.g.e.c |
+.G._B.d.g._b.d' .g'.d'.b.g.d.B | .G.^c.e.g.^c'.e' .g'.e'.c'.g.e.c | .G.=c._e.g.=c'._e' .g'.e'.c'.g.e.c | .G.=B.=e.g.=b.=e' .g'.e'.b.g.e.B ||
+.^G.B.d.^g.b.d' .^g'.d'.b.g.d.B | .^G.^B.^d.^g.^b.^d' .^g'.d'.b.g.d.B | .^G.=B.e.^g.=b.e' .^g'.e'.b.g.e.B | ._A.c.f._a.c'.f' ._a'.f'.c'.a.f.c |
+._A._d.f._a._d'.f' ._a'.f'.d'.a.f.d | ._A._c.f._a._c'.f' ._a'.f'.c'.a.f.c | ._A._d._f._a._d'._f' ._a'.f'.d'.a.f.d | ._A.=d.=f._a.=d'.=f' ._a'.f'.d'.a.f.d |
+._A._c._e._a._c'._e' ._a'.e'.c'.a.e.c | ._A.=c.=e._a.=c'.=e' ._a'.e'.c'.a.e.c || .=A.c._e.=a.c'._e' .=a'.e'.c'.a.e.c | .A.c.=e.a.c'.=e' .a'.e'.c'.a.e.c |
+.A.c.f.a.c'.f' .a'.f'.c'.a.f.c | .A.^c.^e.a.^c'.^e' .a'.e'.c'.a.e.c | .A.^c.^f.a.^c'.^f' .a'.f'.c'.a.f.c | .A.d.^f.a.d'.^f' .a'.f'.d'.a.f.d |
+.A.=c.^f.a.=c'.^f' .a'.f'.c'.a.f.c | .A.^d.^f.a.^d'.^f' .a'.f'.d'.a.f.d | .A.=d.=f.a.=d'.=f' .a'.f'.d'.a.f.d | .A.^c.e.a.^c'.e' .a'.e'.c'.a.e.c ||
+.^A.^c.^f.^a.^c'.^f' .^a'.f'.c'.a.f.c | ._B._d.g._b._d'.g' ._b'.g'.d'.b.g.d | ._B._d._f._b._d'._f' ._b'.f'.d'.b.f.d | ._B.=d.^f._b.=d'.^f' ._b'.f'.d'.b.f.d |
+._B.d.=f._b.d'.=f' ._b'.f'.d'.b.f.d | ._B._e.g._b._e'.g' ._b'.g'.e'.b.g.e | ._B._d.f._b._d'.f' ._b'.f'.d'.b.f.d | ._B.e.g._b.e'.g' ._b'.g'.e'.b.g.e |
+._B._e._g._b._e'._g' ._b'.g'.e'.b.g.e | ._B.=d.=g._b.=d'.=g' ._b'.g'.d'.b.g.d || .=B.d.=f.=b.d'.=f' .=b'.f'.d'.b.f.d | .B.d.^f.b.d'.^f' .b'.f'.d'.b.f.d |
+.B.d.g.b.d'.g' .b'.g'.d'.b.g.d | .B.^d.^f.b.^d'.^f' .b'.f'.d'.b.f.d | .B.^d.^g.b.^d'.^g' .b'.g'.d'.b.g.d | .B.e.^g.b.e'.^g' .b'.g'.e'.b.g.e |
+.B.=d.^g.b.=d'.^g' .b'.g'.d'.b.g.d | .B.^e.^g.b.^e'.^g' .b'.g'.e'.b.g.e | .B.=e.=g.b.=e'.=g' .b'.g'.e'.b.g.e | .B.^d.^f.b.^d'.^f' .b'.f'.d'.b.f.d | B4 z4 |]

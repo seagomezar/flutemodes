@@ -4,6 +4,9 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
     case ej1 = "EJ1"
     case ej2 = "EJ2"
     case ej4 = "EJ4"
+    case ej5 = "EJ5"
+    case ej10 = "EJ10"
+    case ej11 = "EJ11"
     case modos = "MODOS"
 
     public var id: String { rawValue }
@@ -12,8 +15,20 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         self == .ej1 || self == .ej2
     }
 
+    public var isEJ4Exercise: Bool {
+        self == .ej4
+    }
+
+    public var isEJ5TypeExercise: Bool {
+        self == .ej5 || self == .ej10 || self == .ej11
+    }
+
+    public var isSectionedLeducExercise: Bool {
+        self == .ej4 || self == .ej5 || self == .ej10 || self == .ej11
+    }
+
     public var isLeducExercise: Bool {
-        self == .ej1 || self == .ej2 || self == .ej4
+        self != .modos
     }
 
     public var pillLabel: String {
@@ -22,6 +37,9 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej1: return "E.J. 1"
         case .ej2: return "E.J. 2"
         case .ej4: return "E.J. 4"
+        case .ej5: return "E.J. 5"
+        case .ej10: return "E.J. 10"
+        case .ej11: return "E.J. 11"
         case .modos: return isEn ? "84 Modes" : "84 Modos"
         }
     }
@@ -32,6 +50,9 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej1: return isEn ? "E.J. 1 · Major (10 Arts.)" : "E.J. 1 · Mayor (10 Arts.)"
         case .ej2: return isEn ? "E.J. 2 · Minor (10 Arts.)" : "E.J. 2 · Menor (10 Arts.)"
         case .ej4: return isEn ? "E.J. 4 · 24 Keys (8 Arts.)" : "E.J. 4 · 24 Ton. (8 Arts.)"
+        case .ej5: return isEn ? "E.J. 5 · Chromatic (10 Arts.)" : "E.J. 5 · Cromáticas (10 Arts.)"
+        case .ej10: return isEn ? "E.J. 10 · Arpeggios (10 Arts.)" : "E.J. 10 · Arpegios (10 Arts.)"
+        case .ej11: return isEn ? "E.J. 11 · Broken Arp. (10 Arts.)" : "E.J. 11 · Arp. Quebrados (10 Arts.)"
         case .modos: return isEn ? "84 Parallel Modes" : "84 Modos Paralelos"
         }
     }
@@ -42,6 +63,9 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .ej1: return isEn ? "E.J. 1 (Major)" : "E.J. 1 (Mayor)"
         case .ej2: return isEn ? "E.J. 2 (Minor)" : "E.J. 2 (Menor)"
         case .ej4: return isEn ? "E.J. 4 (24 Keys)" : "E.J. 4 (24 Ton.)"
+        case .ej5: return isEn ? "E.J. 5 (Chromatic)" : "E.J. 5 (Cromáticas)"
+        case .ej10: return isEn ? "E.J. 10 (Arpeggios)" : "E.J. 10 (Arpegios)"
+        case .ej11: return isEn ? "E.J. 11 (Broken Arp.)" : "E.J. 11 (Arp. Quebr.)"
         case .modos: return isEn ? "84 Modes" : "84 Modos"
         }
     }
@@ -121,6 +145,116 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
     }
 }
 
+public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
+    case original = 0
+    case allSlurred = 1
+    case slurredSixBySix = 2
+    case slur4Stacc2 = 3
+    case stacc2Slur4 = 4
+    case slur2Stacc4 = 5
+    case slurredThreeByThree = 6
+    case slur3Stacc3 = 7
+    case pairsSlurred = 8
+    case syncopatedPairs = 9
+    case allStaccato = 10
+
+    public var id: Int { rawValue }
+
+    /// The 10 official articulations of Taffanel & Gaubert E.J. 5, E.J. 10, E.J. 11 (1...10)
+    public static var practiceCases: [EJ5Articulation] {
+        [
+            .allSlurred,
+            .slurredSixBySix,
+            .slur4Stacc2,
+            .stacc2Slur4,
+            .slur2Stacc4,
+            .slurredThreeByThree,
+            .slur3Stacc3,
+            .pairsSlurred,
+            .syncopatedPairs,
+            .allStaccato
+        ]
+    }
+
+    public func title(for exercise: ExerciseType = .ej5) -> String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        let is98 = (exercise == .ej11)
+        switch self {
+        case .original:
+            return isEn ? "0. Original (As written — A. L. 16.588)" : "0. Original (Como está escrito — A. L. 16.588)"
+        case .allSlurred:
+            return is98
+                ? (isEn ? "1. 18 slurred (full measure)" : "1. 18 ligadas (compás completo)")
+                : (isEn ? "1. 12 slurred (full measure)" : "1. 12 ligadas (compás completo)")
+        case .slurredSixBySix:
+            return is98
+                ? (isEn ? "2. 6+6+6 slurred (by beats)" : "2. 6+6+6 ligadas (por tiempos)")
+                : (isEn ? "2. 6 and 6 slurred (by beats)" : "2. 6 y 6 ligadas (por tiempos)")
+        case .slur4Stacc2:
+            return isEn ? "3. 4 slurred and 2 staccato" : "3. 4 ligadas y 2 picadas"
+        case .stacc2Slur4:
+            return isEn ? "4. 2 staccato and 4 slurred" : "4. 2 picadas y 4 ligadas"
+        case .slur2Stacc4:
+            return isEn ? "5. 2 slurred and 4 staccato" : "5. 2 ligadas y 4 picadas"
+        case .slurredThreeByThree:
+            return is98
+                ? (isEn ? "6. Slurred in 3s (3/4)" : "6. De 3 en 3 ligadas (3/4)")
+                : (isEn ? "6. Slurred in 3s (2/4)" : "6. De 3 en 3 ligadas (2/4)")
+        case .slur3Stacc3:
+            return is98
+                ? (isEn ? "7. 3 slurred, 3 staccato (3/4)" : "7. 3 ligadas y 3 picadas (3/4)")
+                : (isEn ? "7. 3 slurred, 3 staccato (2/4)" : "7. 3 ligadas y 3 picadas (2/4)")
+        case .pairsSlurred:
+            return isEn ? "8. Slurred in pairs" : "8. De 2 en 2 ligadas"
+        case .syncopatedPairs:
+            return isEn ? "9. Syncopated pairs" : "9. De 2 en 2 sincopadas"
+        case .allStaccato:
+            return isEn ? "10. All staccato" : "10. Todas picadas (Staccato)"
+        }
+    }
+
+    public var title: String { title(for: .ej5) }
+
+    public func shortTitle(for exercise: ExerciseType = .ej5) -> String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        let is98 = (exercise == .ej11)
+        switch self {
+        case .original:            return "Orig."
+        case .allSlurred:          return is98 ? (isEn ? "1: 18 Slur" : "1: 18 Lig.") : (isEn ? "1: 12 Slur" : "1: 12 Lig.")
+        case .slurredSixBySix:     return is98 ? "2: 6+6+6" : "2: 6+6"
+        case .slur4Stacc2:         return "3: 4L+2P"
+        case .stacc2Slur4:         return "4: 2P+4L"
+        case .slur2Stacc4:         return "5: 2L+4P"
+        case .slurredThreeByThree: return isEn ? "6: 3 by 3" : "6: 3 en 3"
+        case .slur3Stacc3:         return "7: 3L+3P"
+        case .pairsSlurred:        return isEn ? "8: 2 by 2" : "8: 2 en 2"
+        case .syncopatedPairs:     return isEn ? "9: Sync." : "9: Sinc."
+        case .allStaccato:         return "10: Stacc."
+        }
+    }
+
+    public var shortTitle: String { shortTitle(for: .ej5) }
+
+    public func formulaBadge(for exercise: ExerciseType = .ej5) -> String {
+        let is98 = (exercise == .ej11)
+        switch self {
+        case .original:            return is98 ? "9/8 · 3/4" : "6/8 · 2/4"
+        case .allSlurred:          return is98 ? "(18)" : "(12)"
+        case .slurredSixBySix:     return is98 ? "(6)+(6)+(6)" : "(6)+(6)"
+        case .slur4Stacc2:         return "(4)·· (4)··"
+        case .stacc2Slur4:         return "··(4) ··(4)"
+        case .slur2Stacc4:         return "(2)····"
+        case .slurredThreeByThree: return is98 ? "(3)×6 [3/4]" : "(3)(3)(3)(3)"
+        case .slur3Stacc3:         return "(3)···"
+        case .pairsSlurred:        return "(2)(2)(2)"
+        case .syncopatedPairs:     return "·(2)(2)·"
+        case .allStaccato:         return "······"
+        }
+    }
+
+    public var formulaBadge: String { formulaBadge(for: .ej5) }
+}
+
 public struct EJ4Section: Identifiable, Equatable {
     public let id: Int
     public let shortName: String
@@ -154,6 +288,50 @@ public struct EJ4Section: Identifiable, Equatable {
         EJ4Section(id: 22, shortName: "23. Sol M", fullName: "23. Sol Mayor (G Major)",         measureRange: "c. 177–184", isMinor: false),
         EJ4Section(id: 23, shortName: "24. Mi m",  fullName: "24. Mi menor (Mineur)",           measureRange: "c. 185–192", isMinor: true),
         EJ4Section(id: 24, shortName: "25. Coda",  fullName: "25. Do Mayor (Coda Final)",       measureRange: "c. 193–194", isMinor: false)
+    ]
+}
+
+public struct EJ5Section: Identifiable, Equatable {
+    public let id: Int
+    public let shortName: String
+    public let fullName: String
+    public let measureRange: String
+
+    public static let all: [EJ5Section] = [
+        EJ5Section(id: 0,  shortName: "A. Do",    fullName: "A. Escala cromática desde Do (C4–C6)",       measureRange: "c. 1–5"),
+        EJ5Section(id: 1,  shortName: "B. Re♭",   fullName: "B. Escala cromática desde Re♭ (D♭4–D♭6)",    measureRange: "c. 6–10"),
+        EJ5Section(id: 2,  shortName: "C. Re",    fullName: "C. Escala cromática desde Re (D4–D6)",       measureRange: "c. 11–15"),
+        EJ5Section(id: 3,  shortName: "D. Mi♭",   fullName: "D. Escala cromática desde Mi♭ (E♭4–E♭6)",    measureRange: "c. 16–20"),
+        EJ5Section(id: 4,  shortName: "E. Mi",    fullName: "E. Escala cromática desde Mi (E4–E6)",       measureRange: "c. 21–25"),
+        EJ5Section(id: 5,  shortName: "F. Fa",    fullName: "F. Escala cromática desde Fa (F4–F6)",       measureRange: "c. 26–30"),
+        EJ5Section(id: 6,  shortName: "G. Sol♭",  fullName: "G. Escala cromática desde Sol♭ (G♭4–G♭6)",   measureRange: "c. 31–35"),
+        EJ5Section(id: 7,  shortName: "H. Sol",   fullName: "H. Escala cromática desde Sol (G4–G6)",      measureRange: "c. 36–40"),
+        EJ5Section(id: 8,  shortName: "I. La♭",   fullName: "I. Escala cromática desde La♭ (A♭4–A♭6)",    measureRange: "c. 41–45"),
+        EJ5Section(id: 9,  shortName: "J. La",    fullName: "J. Escala cromática desde La (A4–A6)",       measureRange: "c. 46–50"),
+        EJ5Section(id: 10, shortName: "K. Si♭",   fullName: "K. Escala cromática desde Si♭ (B♭4–B♭6)",    measureRange: "c. 51–55"),
+        EJ5Section(id: 11, shortName: "L. Si",    fullName: "L. Escala cromática desde Si (B4–B6)",       measureRange: "c. 56–60")
+    ]
+}
+
+public struct EJ10Section: Identifiable, Equatable {
+    public let id: Int
+    public let shortName: String
+    public let fullName: String
+    public let measureRange: String
+
+    public static let all: [EJ10Section] = [
+        EJ10Section(id: 0,  shortName: "1. Do",        fullName: "1. Serie sobre Do (C)",               measureRange: "c. 1–10"),
+        EJ10Section(id: 1,  shortName: "2. Do♯/Re♭",   fullName: "2. Serie sobre Do♯ / Re♭ (C♯ / D♭)",  measureRange: "c. 11–20"),
+        EJ10Section(id: 2,  shortName: "3. Re",        fullName: "3. Serie sobre Re (D)",               measureRange: "c. 21–30"),
+        EJ10Section(id: 3,  shortName: "4. Re♯/Mi♭",   fullName: "4. Serie sobre Re♯ / Mi♭ (D♯ / E♭)",  measureRange: "c. 31–40"),
+        EJ10Section(id: 4,  shortName: "5. Mi",        fullName: "5. Serie sobre Mi (E)",               measureRange: "c. 41–50"),
+        EJ10Section(id: 5,  shortName: "6. Fa",        fullName: "6. Serie sobre Fa (F)",               measureRange: "c. 51–60"),
+        EJ10Section(id: 6,  shortName: "7. Fa♯/Sol♭",  fullName: "7. Serie sobre Fa♯ / Sol♭ (F♯ / G♭)", measureRange: "c. 61–70"),
+        EJ10Section(id: 7,  shortName: "8. Sol",       fullName: "8. Serie sobre Sol (G)",              measureRange: "c. 71–80"),
+        EJ10Section(id: 8,  shortName: "9. Sol♯/La♭",  fullName: "9. Serie sobre Sol♯ / La♭ (G♯ / A♭)", measureRange: "c. 81–90"),
+        EJ10Section(id: 9,  shortName: "10. La",       fullName: "10. Serie sobre La (A)",              measureRange: "c. 91–100"),
+        EJ10Section(id: 10, shortName: "11. La♯/Si♭",  fullName: "11. Serie sobre La♯ / Si♭ (A♯ / B♭)", measureRange: "c. 101–110"),
+        EJ10Section(id: 11, shortName: "12. Si",       fullName: "12. Serie sobre Si + Coda (B)",       measureRange: "c. 111–121")
     ]
 }
 

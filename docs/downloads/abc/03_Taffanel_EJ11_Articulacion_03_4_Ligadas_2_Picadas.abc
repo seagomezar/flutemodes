@@ -1,0 +1,70 @@
+X:4
+T:E. J. 11 — Arpèges Brisés (3. 4 Ligadas y 2 Picadas)
+C:Paul Taffanel & Philippe Gaubert (Ed. Alphonse Leduc A. L. 16.588, págs. 122–125)
+%%stretchlast 1
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=72
+K:C
+V:1 clef=treble
+(C_A_Ec).A._e (c_aec').e.a (ceAc).E.A | (C=A_Ec).A._e (c=aec').e.a (ceAc).E.A |
+(C_G_Ec).G._e (c_gec').e.g (ceGc).E.G | (C^G=Ec).G.=e (c^gec').e.g (ceGc).E.G |
+(C=GEc).G.e (c=gec').e.g (ceGc).E.G | (CAFc).A.f (cafc').f.a (cfAc).F.A |
+(CG_Ec).G._e (cgec').e.g (ceGc).E.G | (CA^Fc).A.^f (cafc').f.a (cfAc).F.A |
+(C_A=Fc).A.=f (c_afc').f.a (cfAc).F.A | (C=AEc).A.e (c=aec').e.a (ceAc).E.A ||
+(^CGE^c).G.e (cge^c').e.g (ceGc).E.G | (^C^GE^c).G.e (c^ge^c').e.g (ceGc).E.G |
+(^CAE^c).A.e (cae^c').e.a (ceAc).E.A | (_D_BF_d).B.f (d_bf_d').f.b (dfBd).F.B |
+(_D_B_G_d).B._g (d_bg_d').g.b (dgBd).G.B | (_D_B_F_d).B._f (d_bf_d').f.b (dfBd).F.B |
+(_D=A=F_d).A.=f (d=af_d').f.a (dfAd).F.A | (_D_B=G_d).B.=g (d_bg_d').g.b (dgBd).G.B |
+(_D__B_G_d).B._g (d__bg_d').g.b (dgBd).G.B | (_D_AF_d).A.f (d_af_d').f.a (dfAd).F.A ||
+(=D_B=F=d).B.=f (d_bf=d').f.b (dfBd).F.B | (D=BFd).B.f (d=bfd').f.b (dfBd).F.B |
+(D_BGd).B.g (d_bgd').g.b (dgBd).G.B | (D^A^Fd).A.^f (d^afd').f.a (dfAd).F.A |
+(D=A^Fd).A.^f (d=afd').f.a (dfAd).F.A | (DBGd).B.g (dbgd').g.b (dgBd).G.B |
+(DA=Fd).A.=f (dafd').f.a (dfAd).F.A | (DB^Gd).B.^g (dbgd').g.b (dgBd).G.B |
+(D_A=Fd).A.=f (d_afd').f.a (dfAd).F.A | (DB^Fd).B.^f (dbfd').f.b (dfBd).F.B ||
+(^DA^F^d).A.^f (daf^d').f.a (dfAd).F.A | (_E_B_G_e).B._g (e_bg_e').g.b (egBe).G.B |
+(_E_c_G_e).c._g (e_c'g_e').g.c' (egce).G.c | (_E_B=G_e).B.=g (e_bg_e').g.b (egBe).G.B |
+(_E=cG_e).c.g (e=c'g_e').g.c' (egce).G.c | (_Ec_A_e).c._a (ec'a_e').a.c' (eace).A.c |
+(_Ec_G_e).c._g (ec'g_e').g.c' (egce).G.c | (_Ec=A_e).c.=a (ec'a_e').a.c' (eace).A.c |
+(_E_c_A_e).c._a (e_c'a_e').a.c' (eace).A.c | (_E=B=G_e).B.=g (e=bg_e').g.b (egBe).G.B ||
+(=E_BG=e).B.g (e_bg=e').g.b (egBe).G.B | (E=BGe).B.g (e=bge').g.b (egBe).G.B |
+(EcGe).c.g (ec'ge').g.c' (egce).G.c | (E^B^Ge).B.^g (e^bge').g.b (egBe).G.B |
+(E^c^Ge).c.^g (e^c'ge').g.c' (egce).G.c | (E^cAe).c.a (e^c'ae').a.c' (eace).A.c |
+(E^c=Ge).c.=g (e^c'ge').g.c' (egce).G.c | (E^c^Ae).c.^a (e^c'ae').a.c' (eace).A.c |
+(E=c=Ae).c.=a (e=c'ae').a.c' (eace).A.c | (EB^Ge).B.^g (ebge').g.b (egBe).G.B ||
+(F_d_Af).d._a (f_d'af').a.d' (fadf).A.d | (F=d_Af).d._a (f=d'af').a.d' (fadf).A.d |
+(F_c_Af).c._a (f_c'af').a.c' (facf).A.c | (F^c=Af).c.=a (f^c'af').a.c' (facf).A.c |
+(F=cAf).c.a (f=c'af').a.c' (facf).A.c | (Fd_Bf).d._b (fd'bf').b.d' (fbdf).B.d |
+(Fc_Af).c._a (fc'af').a.c' (facf).A.c | (Fd=Bf).d.=b (fd'bf').b.d' (fbdf).B.d |
+(F_d_Bf).d._b (f_d'bf').b.d' (fbdf).B.d | (F=d=Af).d.=a (f=d'af').a.d' (fadf).A.d ||
+(^F^cA^f).c.a (f^c'a^f').a.c' (facf).A.c | (^F^c^A^f).c.^a (f^c'a^f').a.c' (facf).A.c |
+(^Fd=A^f).d.=a (fd'a^f').a.d' (fadf).A.d | (^F^^c^A^f).c.^a (f^^c'a^f').a.c' (facf).A.c |
+(^F^d^A^f).d.^a (f^d'a^f').a.d' (fadf).A.d | (^F^dB^f).d.b (f^d'b^f').b.d' (fbdf).B.d |
+(^F^d=A^f).d.=a (f^d'a^f').a.d' (fadf).A.d | (^F=dB^f).d.b (f=d'b^f').b.d' (fbdf).B.d |
+(^F=cA^f).c.a (f=c'a^f').a.c' (facf).A.c | (^F^d^B^f).d.^b (f^d'b^f').b.d' (fbdf).B.d ||
+(=G_e_B=g).e._b (g_e'b=g').b.e' (gbeg).B.e | (G=e_Bg).e._b (g=e'bg').b.e' (gbeg).B.e |
+(G_d_Bg).d._b (g_d'bg').b.d' (gbdg).B.d | (G^d=Bg).d.=b (g^d'bg').b.d' (gbdg).B.d |
+(G=dBg).d.b (g=d'bg').b.d' (gbdg).B.d | (Gecg).e.c' (ge'c'g').c'.e' (gc'eg).c.e |
+(Gd_Bg).d._b (gd'bg').b.d' (gbdg).B.d | (Ge^cg).e.^c' (ge'c'g').c'.e' (gc'eg).c.e |
+(G_e=cg).e.=c' (g_e'c'g').c'.e' (gc'eg).c.e | (G=e=Bg).e.=b (g=e'bg').b.e' (gbeg).B.e ||
+(^GdB^g).d.b (gd'b^g').b.d' (gbdg).B.d | (^G^d^B^g).d.^b (g^d'b^g').b.d' (gbdg).B.d |
+(^Ge=B^g).e.=b (ge'b^g').b.e' (gbeg).B.e | (_Afc_a).f.c' (af'c'_a').c'.f' (ac'fa).c.f |
+(_Af_d_a).f._d' (af'd'_a').d'.f' (ad'fa).d.f | (_Af_c_a).f._c' (af'c'_a').c'.f' (ac'fa).c.f |
+(_A_f_d_a).f._d' (a_f'd'_a').d'.f' (ad'fa).d.f | (_A=f=d_a).f.=d' (a=f'd'_a').d'.f' (ad'fa).d.f |
+(_A_e_c_a).e._c' (a_e'c'_a').c'.e' (ac'ea).c.e | (_A=e=c_a).e.=c' (a=e'c'_a').c'.e' (ac'ea).c.e ||
+(=A_ec=a).e.c' (a_e'c'=a').c'.e' (ac'ea).c.e | (A=eca).e.c' (a=e'c'a').c'.e' (ac'ea).c.e |
+(Afca).f.c' (af'c'a').c'.f' (ac'fa).c.f | (A^e^ca).e.^c' (a^e'c'a').c'.e' (ac'ea).c.e |
+(A^f^ca).f.^c' (a^f'c'a').c'.f' (ac'fa).c.f | (A^fda).f.d' (a^f'd'a').d'.f' (ad'fa).d.f |
+(A^f=ca).f.=c' (a^f'c'a').c'.f' (ac'fa).c.f | (A^f^da).f.^d' (a^f'd'a').d'.f' (ad'fa).d.f |
+(A=f=da).f.=d' (a=f'd'a').d'.f' (ad'fa).d.f | (Ae^ca).e.^c' (ae'c'a').c'.e' (ac'ea).c.e ||
+(^A^f^c^a).f.^c' (a^f'c'^a').c'.f' (ac'fa).c.f | (_Bg_d_b).g._d' (bg'd'_b').d'.g' (bd'gb).d.g |
+(_B_f_d_b).f._d' (b_f'd'_b').d'.f' (bd'fb).d.f | (_B^f=d_b).f.=d' (b^f'd'_b').d'.f' (bd'fb).d.f |
+(_B=fd_b).f.d' (b=f'd'_b').d'.f' (bd'fb).d.f | (_Bg_e_b).g._e' (bg'e'_b').e'.g' (be'gb).e.g |
+(_Bf_d_b).f._d' (bf'd'_b').d'.f' (bd'fb).d.f | (_Bge_b).g.e' (bg'e'_b').e'.g' (be'gb).e.g |
+(_B_g_e_b).g._e' (b_g'e'_b').e'.g' (be'gb).e.g | (_B=g=d_b).g.=d' (b=g'd'_b').d'.g' (bd'gb).d.g ||
+(=B=fd=b).f.d' (b=f'd'=b').d'.f' (bd'fb).d.f | (B^fdb).f.d' (b^f'd'b').d'.f' (bd'fb).d.f |
+(Bgdb).g.d' (bg'd'b').d'.g' (bd'gb).d.g | (B^f^db).f.^d' (b^f'd'b').d'.f' (bd'fb).d.f |
+(B^g^db).g.^d' (b^g'd'b').d'.g' (bd'gb).d.g | (B^geb).g.e' (b^g'e'b').e'.g' (be'gb).e.g |
+(B^g=db).g.=d' (b^g'd'b').d'.g' (bd'gb).d.g | (B^g^eb).g.^e' (b^g'e'b').e'.g' (be'gb).e.g |
+(B=g=eb).g.=e' (b=g'e'b').e'.g' (be'gb).e.g | (B^f^db).f.^d' (b^f'd'b').d'.f' (bd'fb).d.f | B4 z4 z10 |]
