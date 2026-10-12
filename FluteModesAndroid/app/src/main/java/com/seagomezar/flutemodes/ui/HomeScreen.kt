@@ -129,45 +129,160 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Exercise Switcher
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                ExerciseType.entries.forEach { ex ->
-                    val isSel = selectedExercise == ex
-                    Surface(
-                        onClick = {
-                            selectedExercise = ex
-                            store.lastExerciseType = ex
-                            store.saveLastSelection()
-                        },
-                        shape = RoundedCornerShape(14.dp),
-                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                        tonalElevation = if (isSel) 4.dp else 0.dp
+            // 3-Collection Exercise Selector (All 11 exercises visible on screen without horizontal scroll)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                // 1. Taffanel & Gaubert (A. L. 16.588) — 6 Exercises in 2 rows of 3
+                Text(
+                    text = "TAFFANEL & GAUBERT · A. L. 16.588",
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+                val tgRows = listOf(
+                    listOf(ExerciseType.EJ1, ExerciseType.EJ2, ExerciseType.EJ4),
+                    listOf(ExerciseType.EJ5, ExerciseType.EJ10, ExerciseType.EJ11)
+                )
+                tgRows.forEach { rowExs ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 11.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        rowExs.forEach { ex ->
+                            val isSel = selectedExercise == ex
+                            Surface(
+                                onClick = {
+                                    selectedExercise = ex
+                                    store.lastExerciseType = ex
+                                    store.saveLastSelection()
+                                },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                tonalElevation = if (isSel) 4.dp else 0.dp
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = ex.homeButtonTitle,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        maxLines = 1,
+                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = ex.homeButtonSubtitle(loc),
+                                        fontSize = 9.sp,
+                                        maxLines = 1,
+                                        color = if (isSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                // 2. M.-A. Reichert Op. 5 (B. Schott 20623) — 4 Exercises in 2 rows of 2
+                Text(
+                    text = "M.-A. REICHERT · OP. 5 (SCHOTT 20623)",
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF6366F1),
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+                val reichertRows = listOf(
+                    listOf(ExerciseType.R1, ExerciseType.R2),
+                    listOf(ExerciseType.R4, ExerciseType.R5)
+                )
+                reichertRows.forEach { rowExs ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        rowExs.forEach { ex ->
+                            val isSel = selectedExercise == ex
+                            Surface(
+                                onClick = {
+                                    selectedExercise = ex
+                                    store.lastExerciseType = ex
+                                    store.saveLastSelection()
+                                },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isSel) Color(0xFF6366F1) else MaterialTheme.colorScheme.surfaceVariant,
+                                border = if (!isSel) androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6366F1).copy(alpha = 0.35f)) else null,
+                                tonalElevation = if (isSel) 4.dp else 0.dp
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = ex.homeButtonTitle,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        maxLines = 1,
+                                        color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface
+                                    )
+                                    Text(
+                                        text = ex.homeButtonSubtitle(loc),
+                                        fontSize = 9.5.sp,
+                                        maxLines = 1,
+                                        color = if (isSel) Color.White.copy(alpha = 0.9f) else MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                // 3. Sistema Modal Paralelo (84 Modos)
+                val isModosSel = selectedExercise == ExerciseType.MODOS
+                Surface(
+                    onClick = {
+                        selectedExercise = ExerciseType.MODOS
+                        store.lastExerciseType = ExerciseType.MODOS
+                        store.saveLastSelection()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (isModosSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                    tonalElevation = if (isModosSel) 4.dp else 0.dp
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
-                                imageVector = if (ex.isChromaticExercise || ex.isEJ4Exercise || ex.isEJ5TypeExercise) Icons.Default.MusicNote else Icons.Default.GridView,
+                                imageVector = Icons.Default.GridView,
                                 contentDescription = null,
-                                modifier = Modifier.size(14.dp),
-                                tint = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                modifier = Modifier.size(16.dp),
+                                tint = if (isModosSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = ex.pillLabel,
-                                fontSize = 12.sp,
+                                text = ExerciseType.MODOS.homeButtonTitle,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                                color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                color = if (isModosSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
+                        Text(
+                            text = ExerciseType.MODOS.homeButtonSubtitle(loc),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (isModosSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
             }

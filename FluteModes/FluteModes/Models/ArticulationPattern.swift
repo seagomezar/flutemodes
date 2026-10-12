@@ -101,6 +101,40 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
     }
 
     public var shortName: String { displayTitle }
+
+    public var homeButtonTitle: String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        switch self {
+        case .ej1: return "E.J. 1"
+        case .ej2: return "E.J. 2"
+        case .ej4: return "E.J. 4"
+        case .ej5: return "E.J. 5"
+        case .ej10: return "E.J. 10"
+        case .ej11: return "E.J. 11"
+        case .r1: return "Reichert 1"
+        case .r2: return "Reichert 2"
+        case .r4: return "Reichert 4"
+        case .r5: return "Reichert 5"
+        case .modos: return isEn ? "84 Parallel Modes (12 Tonics × 7 Modes)" : "84 Modos Paralelos (12 Tónicas × 7 Modos)"
+        }
+    }
+
+    public var homeButtonSubtitle: String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        switch self {
+        case .ej1: return isEn ? "Major · 10 Arts." : "Mayor · 10 Arts."
+        case .ej2: return isEn ? "Minor · 10 Arts." : "Menor · 10 Arts."
+        case .ej4: return isEn ? "24 Keys · 8 Arts." : "24 Ton. · 8 Arts."
+        case .ej5: return isEn ? "Chromatic · 10" : "Cromáticas · 10"
+        case .ej10: return isEn ? "Arpeggios · 10" : "Arpegios · 10"
+        case .ej11: return isEn ? "Broken · 10" : "Quebrados · 10"
+        case .r1: return isEn ? "6/8 · 10 Arts." : "6/8 · 10 Arts."
+        case .r2: return isEn ? "2/4 · 8 Arts." : "2/4 · 8 Arts."
+        case .r4: return isEn ? "4/4 · 8 Arts." : "4/4 · 8 Arts."
+        case .r5: return isEn ? "Triplets · 10" : "Tresillos · 10"
+        case .modos: return isEn ? "Maestro León Giraldo" : "Maestro León Giraldo"
+        }
+    }
 }
 
 public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
@@ -130,10 +164,11 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
         ]
     }
 
-    public var title: String {
+    public func title(for exercise: ExerciseType = .ej4) -> String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
+        let plate = exercise.isReichertExercise ? "B. Schott 20623" : "A. L. 16.588"
         switch self {
-        case .original:                return isEn ? "Original (As written — A. L. 16.588)" : "Original (Como está escrito — A. L. 16.588)"
+        case .original:                return isEn ? "Original (As written — \(plate))" : "Original (Como está escrito — \(plate))"
         case .allSlurred8:             return isEn ? "1. 8 slurred: (CDEFGABc)" : "1. 8 ligadas: (CDEFGABc)"
         case .slurred4And4:            return isEn ? "2. 4 and 4 slurred: (CDEF)(GABc)" : "2. 4 y 4 ligadas: (CDEF)(GABc)"
         case .staccato1Slur3:          return isEn ? "3. 1 staccato, 3 slurred: .C(DEF) .G(ABc)" : "3. 1 picada y 3 ligadas: .C(DEF) .G(ABc)"
@@ -144,6 +179,8 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
         case .syncopatedPairs:         return isEn ? "8. Syncopated pairs: .C(DE)(FG)(AB).c" : "8. De 2 en 2 sincopadas: .C(DE)(FG)(AB).c"
         }
     }
+
+    public var title: String { title(for: .ej4) }
 
     public var shortTitle: String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
@@ -160,9 +197,9 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
         }
     }
 
-    public var formulaBadge: String {
+    public func formulaBadge(for exercise: ExerciseType = .ej4) -> String {
         switch self {
-        case .original:                return "A.L. 16.588"
+        case .original:                return exercise.isReichertExercise ? "Schott 20623" : "A.L. 16.588"
         case .allSlurred8:             return "(8)"
         case .slurred4And4:            return "(4)+(4)"
         case .staccato1Slur3:          return "·(3) ·(3)"
@@ -173,6 +210,8 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
         case .syncopatedPairs:         return "·(2)(2)(2)·"
         }
     }
+
+    public var formulaBadge: String { formulaBadge(for: .ej4) }
 }
 
 public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
@@ -209,9 +248,10 @@ public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
     public func title(for exercise: ExerciseType = .ej5) -> String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
         let is98 = (exercise == .ej11)
+        let plate = exercise.isReichertExercise ? "B. Schott 20623" : "A. L. 16.588"
         switch self {
         case .original:
-            return isEn ? "0. Original (As written — A. L. 16.588)" : "0. Original (Como está escrito — A. L. 16.588)"
+            return isEn ? "0. Original (As written — \(plate))" : "0. Original (Como está escrito — \(plate))"
         case .allSlurred:
             return is98
                 ? (isEn ? "1. 18 slurred (full measure)" : "1. 18 ligadas (compás completo)")
@@ -268,7 +308,10 @@ public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
     public func formulaBadge(for exercise: ExerciseType = .ej5) -> String {
         let is98 = (exercise == .ej11)
         switch self {
-        case .original:            return is98 ? "9/8 · 3/4" : "6/8 · 2/4"
+        case .original:
+            if exercise == .r1 { return "6/8 · Schott 20623" }
+            if exercise == .r5 { return "2/4 · Schott 20623" }
+            return is98 ? "9/8 · 3/4" : "6/8 · 2/4"
         case .allSlurred:          return is98 ? "(18)" : "(12)"
         case .slurredSixBySix:     return is98 ? "(6)+(6)+(6)" : "(6)+(6)"
         case .slur4Stacc2:         return "(4)·· (4)··"

@@ -69,7 +69,7 @@ public struct PracticeView: View {
                 UIApplication.shared.isIdleTimerDisabled = true
             }
         }
-        .onChange(of: viewModel.keepScreenAwake) { isAwake in
+        .onChange(of: viewModel.keepScreenAwake) { _, isAwake in
             UIApplication.shared.isIdleTimerDisabled = isAwake
         }
         .onDisappear {
@@ -176,27 +176,73 @@ public struct PracticeView: View {
                 .foregroundColor(.primary)
             }
 
-            // Exercise quick switcher (Horizontal Scroll for exercises)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 2) {
-                    ForEach(ExerciseType.allCases) { ex in
-                        let isSel = viewModel.currentExercise == ex
+            // Exercise quick switcher (Horizontal Scroll + ScrollViewReader + Grouped Menu)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
+                        ForEach(ExerciseType.allCases) { ex in
+                            let isSel = viewModel.currentExercise == ex
+                            Button {
+                                viewModel.selectExercise(ex)
+                            } label: {
+                                Text(ex.pillLabel)
+                                    .font(.system(size: 11, weight: .bold))
+                                    .padding(.horizontal, 7)
+                                    .padding(.vertical, 5)
+                                    .background(isSel ? (ex.isReichertExercise ? Color.indigo : Color.primary) : Color.clear)
+                                    .foregroundColor(isSel ? (ex.isReichertExercise ? Color.white : Color(uiColor: .systemBackground)) : .primary)
+                                    .cornerRadius(8)
+                            }
+                            .id(ex)
+                        }
+                    }
+                    .padding(2)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .cornerRadius(10)
+                }
+                .onAppear {
+                    proxy.scrollTo(viewModel.currentExercise, anchor: .center)
+                }
+                .onChange(of: viewModel.currentExercise) { _, newEx in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        proxy.scrollTo(newEx, anchor: .center)
+                    }
+                }
+            }
+
+            Menu {
+                Section("Taffanel & Gaubert (A. L. 16.588)") {
+                    ForEach([ExerciseType.ej1, .ej2, .ej4, .ej5, .ej10, .ej11]) { ex in
                         Button {
                             viewModel.selectExercise(ex)
                         } label: {
-                            Text(ex.pillLabel)
-                                .font(.system(size: 11, weight: .bold))
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 5)
-                                .background(isSel ? Color.primary : Color.clear)
-                                .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
-                                .cornerRadius(8)
+                            Label(ex.displayTitle, systemImage: viewModel.currentExercise == ex ? "checkmark.circle.fill" : "music.quarternote.3")
                         }
                     }
                 }
-                .padding(2)
-                .background(Color(uiColor: .tertiarySystemFill))
-                .cornerRadius(10)
+                Section("M.-A. Reichert Op. 5 (Schott 20623)") {
+                    ForEach([ExerciseType.r1, .r2, .r4, .r5]) { ex in
+                        Button {
+                            viewModel.selectExercise(ex)
+                        } label: {
+                            Label(ex.displayTitle, systemImage: viewModel.currentExercise == ex ? "checkmark.circle.fill" : "music.note.list")
+                        }
+                    }
+                }
+                Section("Sistema Modal (León Giraldo)") {
+                    Button {
+                        viewModel.selectExercise(.modos)
+                    } label: {
+                        Label(ExerciseType.modos.displayTitle, systemImage: viewModel.currentExercise == .modos ? "checkmark.circle.fill" : "dial.medium.fill")
+                    }
+                }
+            } label: {
+                Image(systemName: "list.bullet")
+                    .font(.caption.bold())
+                    .padding(7)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .foregroundColor(.primary)
+                    .clipShape(Circle())
             }
 
             if viewModel.currentExercise == .modos {
@@ -296,7 +342,7 @@ public struct PracticeView: View {
                             .foregroundColor(.primary)
                             .lineLimit(1)
 
-                        Text("\(currentArt.title) · \(curSec.measureRange(for: ex))")
+                        Text("\(currentArt.title(for: ex)) · \(curSec.measureRange(for: ex))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
@@ -465,26 +511,37 @@ public struct PracticeView: View {
             }
 
             // Exercise Switcher Pill
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 2) {
-                    ForEach(ExerciseType.allCases) { ex in
-                        let isSel = viewModel.currentExercise == ex
-                        Button {
-                            viewModel.selectExercise(ex)
-                        } label: {
-                            Text(ex.pillLabel)
-                                .font(.caption.bold())
-                                .padding(.horizontal, 9)
-                                .padding(.vertical, 5)
-                                .background(isSel ? Color.primary : Color.clear)
-                                .foregroundColor(isSel ? Color(uiColor: .systemBackground) : .primary)
-                                .cornerRadius(8)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
+                        ForEach(ExerciseType.allCases) { ex in
+                            let isSel = viewModel.currentExercise == ex
+                            Button {
+                                viewModel.selectExercise(ex)
+                            } label: {
+                                Text(ex.pillLabel)
+                                    .font(.caption.bold())
+                                    .padding(.horizontal, 9)
+                                    .padding(.vertical, 5)
+                                    .background(isSel ? (ex.isReichertExercise ? Color.indigo : Color.primary) : Color.clear)
+                                    .foregroundColor(isSel ? (ex.isReichertExercise ? Color.white : Color(uiColor: .systemBackground)) : .primary)
+                                    .cornerRadius(8)
+                            }
+                            .id(ex)
                         }
                     }
+                    .padding(2)
+                    .background(Color(uiColor: .tertiarySystemFill))
+                    .cornerRadius(10)
                 }
-                .padding(2)
-                .background(Color(uiColor: .tertiarySystemFill))
-                .cornerRadius(10)
+                .onAppear {
+                    proxy.scrollTo(viewModel.currentExercise, anchor: .center)
+                }
+                .onChange(of: viewModel.currentExercise) { _, newEx in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        proxy.scrollTo(newEx, anchor: .center)
+                    }
+                }
             }
 
             Spacer()
@@ -553,7 +610,7 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(currentArt.title) | \(curSec.measureRange(for: ex)) de \(totalMeas)")
+                    Text("\(currentArt.title(for: ex)) | \(curSec.measureRange(for: ex)) de \(totalMeas)")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }

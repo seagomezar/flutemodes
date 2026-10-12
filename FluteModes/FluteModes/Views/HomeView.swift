@@ -6,6 +6,7 @@ public struct HomeView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var navigateToPractice = false
     @State private var navigateToMatrix = false
+    @State private var didHandleLaunchArgs = false
 
     private var isCompact: Bool {
         horizontalSizeClass == .compact
@@ -75,42 +76,83 @@ public struct HomeView: View {
                                     .foregroundColor(.primary)
                             }
 
-                            // Exercise Selector (E.J. 1 | E.J. 2 | E.J. 4 | E.J. 5 | E.J. 10 | E.J. 11 | 84 Modos)
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 8) {
-                                    ForEach(ExerciseType.allCases) { exercise in
-                                        let isSelected = viewModel.currentExercise == exercise
-                                        Button {
-                                            withAnimation(.easeInOut(duration: 0.2)) {
-                                                viewModel.selectExercise(exercise)
-                                            }
-                                        } label: {
-                                            HStack(spacing: 5) {
-                                                Image(systemName: exercise.isLeducExercise ? "music.quarternote.3" : "dial.medium.fill")
-                                                    .font(.caption2.bold())
-                                                Text(isCompact ? exercise.pillLabel : exercise.displayTitle)
-                                                    .font(.system(size: isCompact ? 13 : 13.5, weight: .bold))
-                                                    .lineLimit(1)
-                                            }
-                                            .padding(.vertical, 10)
-                                            .padding(.horizontal, isCompact ? 14 : 16)
-                                            .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
-                                            .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
-                                            .cornerRadius(14)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 14)
-                                                    .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
-                                            )
+                            // 3-Collection Exercise Selector (All 11 exercises visible on screen without horizontal scroll)
+                            VStack(alignment: .leading, spacing: 10) {
+                                // 1. Taffanel & Gaubert (A. L. 16.588) — 6 Exercises in 2 rows of 3
+                                VStack(alignment: .leading, spacing: 5) {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "music.quarternote.3")
+                                            .font(.caption2.bold())
+                                            .foregroundColor(.secondary)
+                                        Text("TAFFANEL & GAUBERT · A. L. 16.588")
+                                            .font(.system(size: 10.5, weight: .bold))
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .padding(.horizontal, 4)
+
+                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 3), spacing: 6) {
+                                        ForEach([ExerciseType.ej1, .ej2, .ej4, .ej5, .ej10, .ej11]) { exercise in
+                                            exerciseGridButton(exercise)
                                         }
                                     }
                                 }
-                                .padding(.horizontal, 2)
+
+                                // 2. M.-A. Reichert Op. 5 (B. Schott 20623) — 4 Exercises in 2 rows of 2 (or 4 columns)
+                                VStack(alignment: .leading, spacing: 5) {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "music.note.list")
+                                            .font(.caption2.bold())
+                                            .foregroundColor(.indigo)
+                                        Text("M.-A. REICHERT · OP. 5 (SCHOTT 20623)")
+                                            .font(.system(size: 10.5, weight: .bold))
+                                            .foregroundColor(.indigo)
+                                    }
+                                    .padding(.horizontal, 4)
+
+                                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: isCompact ? 2 : 4), spacing: 6) {
+                                        ForEach([ExerciseType.r1, .r2, .r4, .r5]) { exercise in
+                                            exerciseGridButton(exercise, isReichert: true)
+                                        }
+                                    }
+                                }
+
+                                // 3. Sistema Modal Paralelo (84 Modos)
+                                Button {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        viewModel.selectExercise(.modos)
+                                    }
+                                } label: {
+                                    let isSelected = viewModel.currentExercise == .modos
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "dial.medium.fill")
+                                            .font(.caption.bold())
+                                        Text(ExerciseType.modos.homeButtonTitle)
+                                            .font(.system(size: 13, weight: .bold))
+                                            .lineLimit(1)
+                                        Spacer()
+                                        Text(ExerciseType.modos.homeButtonSubtitle)
+                                            .font(.system(size: 10.5, weight: .semibold))
+                                            .opacity(0.8)
+                                            .lineLimit(1)
+                                    }
+                                    .padding(.vertical, 9)
+                                    .padding(.horizontal, 12)
+                                    .frame(maxWidth: .infinity)
+                                    .background(isSelected ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
+                                    .foregroundColor(isSelected ? Color(uiColor: .systemBackground) : .primary)
+                                    .cornerRadius(12)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
+                                    )
+                                }
                             }
 
                             Text(headerTitle)
                                 .font(isCompact ? .subheadline.weight(.semibold) : .headline)
                                 .foregroundColor(.primary)
                                 .multilineTextAlignment(.center)
+                                .padding(.top, 2)
 
                             Text(headerSubDesc)
                                 .font(.caption)
@@ -442,8 +484,15 @@ public struct HomeView: View {
                 ProgressMatrixView(viewModel: viewModel)
             }
             .onAppear {
+                guard !didHandleLaunchArgs else { return }
+                didHandleLaunchArgs = true
                 for arg in CommandLine.arguments {
-                    if arg.hasPrefix("ej1Art=") || arg.hasPrefix("-ej1Art=") {
+                    if arg.hasPrefix("exercise=") || arg.hasPrefix("-exercise=") {
+                        if let valStr = arg.split(separator: "=").last,
+                           let ex = ExerciseType(rawValue: String(valStr).uppercased()) {
+                            viewModel.selectExercise(ex)
+                        }
+                    } else if arg.hasPrefix("ej1Art=") || arg.hasPrefix("-ej1Art=") {
                         if let valStr = arg.split(separator: "=").last,
                            let raw = Int(valStr),
                            let art = EJ1Articulation(rawValue: raw) {
@@ -482,6 +531,51 @@ public struct HomeView: View {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func exerciseGridButton(_ exercise: ExerciseType, isReichert: Bool = false) -> some View {
+        let isSelected = viewModel.currentExercise == exercise
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                viewModel.selectExercise(exercise)
+            }
+        } label: {
+            VStack(spacing: 2) {
+                Text(exercise.homeButtonTitle)
+                    .font(.system(size: isCompact ? 12.5 : 13.5, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
+                Text(exercise.homeButtonSubtitle)
+                    .font(.system(size: isCompact ? 9.5 : 10.5, weight: .medium))
+                    .opacity(isSelected ? 0.9 : 0.72)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            }
+            .padding(.vertical, 7)
+            .padding(.horizontal, 6)
+            .frame(maxWidth: .infinity)
+            .background(
+                isSelected
+                    ? (isReichert ? Color.indigo : Color.primary)
+                    : Color(uiColor: .secondarySystemGroupedBackground)
+            )
+            .foregroundColor(
+                isSelected
+                    ? (isReichert ? Color.white : Color(uiColor: .systemBackground))
+                    : .primary
+            )
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(
+                        isSelected
+                            ? Color.clear
+                            : (isReichert ? Color.indigo.opacity(0.35) : Color(uiColor: .separator)),
+                        lineWidth: 1
+                    )
+            )
         }
     }
 
@@ -695,11 +789,11 @@ public struct HomeView: View {
                     } label: {
                         HStack(spacing: 12) {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(art.title)
+                                Text(art.title(for: ex))
                                     .font(.subheadline.weight(isSelected ? .bold : .semibold))
                                     .foregroundColor(.primary)
                                     .multilineTextAlignment(.leading)
-                                Text(art.formulaBadge)
+                                Text(art.formulaBadge(for: ex))
                                     .font(.caption2.monospaced())
                                     .foregroundColor(.secondary)
                             }

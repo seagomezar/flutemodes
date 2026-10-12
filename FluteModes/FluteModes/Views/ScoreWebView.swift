@@ -19,9 +19,8 @@ public struct ScoreWebView: UIViewRepresentable {
         webView.scrollView.isScrollEnabled = true
         webView.navigationDelegate = context.coordinator
 
-        if let templateURL = Bundle.main.url(forResource: "score_template", withExtension: "html"),
-           let htmlContent = try? String(contentsOf: templateURL, encoding: .utf8) {
-            webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
+        if let templateURL = Bundle.main.url(forResource: "score_template", withExtension: "html") {
+            webView.loadFileURL(templateURL, allowingReadAccessTo: templateURL.deletingLastPathComponent())
         }
         return webView
     }
@@ -48,7 +47,16 @@ public struct ScoreWebView: UIViewRepresentable {
 
         public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             isLoaded = true
+            lastRenderedAbc = nil
             renderIfReady(webView)
+        }
+
+        public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            isLoaded = false
+            lastRenderedAbc = nil
+            if let templateURL = Bundle.main.url(forResource: "score_template", withExtension: "html") {
+                webView.loadFileURL(templateURL, allowingReadAccessTo: templateURL.deletingLastPathComponent())
+            }
         }
 
         func renderIfReady(_ webView: WKWebView) {
@@ -58,12 +66,13 @@ public struct ScoreWebView: UIViewRepresentable {
             lastHighlightedIndex = nil
             if let json = try? JSONEncoder().encode(currentAbc),
                let jsonString = String(data: json, encoding: .utf8) {
-                let js = "window.lastAbc = \(jsonString); if (typeof renderScore === 'function') { renderScore(\(jsonString)); }"
-                webView.evaluateJavaScript(js) { _, error in
-                    if let err = error {
-                        print("JavaScript renderScore error: \(err)")
-                    }
+                let js = """
+                window.lastAbc = \(jsonString);
+                if (typeof renderScore === 'function') {
+                    renderScore(\(jsonString));
                 }
+                """
+                webView.evaluateJavaScript(js, completionHandler: nil)
             }
         }
 

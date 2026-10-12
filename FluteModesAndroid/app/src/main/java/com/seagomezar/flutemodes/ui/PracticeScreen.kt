@@ -6,6 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -780,22 +783,34 @@ fun PracticeScreen(
 
                     Row(
                         modifier = Modifier.weight(1f).padding(start = 8.dp),
-                        horizontalArrangement = Arrangement.End,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Exercise Switcher (E.J. 1 | E.J. 2 | E.J. 4 | E.J. 5 | E.J. 10 | E.J. 11 | 84 Modos)
+                        val exerciseListState = rememberLazyListState()
+                        var showExerciseMenu by remember { mutableStateOf(false) }
+
+                        LaunchedEffect(currentExercise) {
+                            val idx = ExerciseType.entries.indexOf(currentExercise)
+                            if (idx >= 0) {
+                                exerciseListState.animateScrollToItem(idx)
+                            }
+                        }
+
+                        // Exercise Switcher (Auto-scrolling LazyRow + Indigo Reichert pills)
                         Surface(
                             shape = RoundedCornerShape(10.dp),
                             color = MaterialTheme.colorScheme.surfaceVariant,
                             modifier = Modifier.weight(1f, fill = false)
                         ) {
-                            Row(
-                                modifier = Modifier
-                                    .horizontalScroll(rememberScrollState())
-                                    .padding(2.dp)
+                            LazyRow(
+                                state = exerciseListState,
+                                modifier = Modifier.padding(2.dp),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp)
                             ) {
-                                ExerciseType.entries.forEach { ex ->
+                                items(ExerciseType.entries) { ex ->
                                     val isSel = currentExercise == ex
+                                    val selBg = if (ex.isReichertExercise) Color(0xFF6366F1) else MaterialTheme.colorScheme.primary
+                                    val selFg = if (ex.isReichertExercise) Color.White else MaterialTheme.colorScheme.onPrimary
                                     Surface(
                                         onClick = {
                                             scorePlayer.stop()
@@ -804,17 +819,58 @@ fun PracticeScreen(
                                             store.saveLastSelection()
                                         },
                                         shape = RoundedCornerShape(8.dp),
-                                        color = if (isSel) MaterialTheme.colorScheme.primary else Color.Transparent
+                                        color = if (isSel) selBg else Color.Transparent
                                     ) {
                                         Text(
                                             text = ex.pillLabel,
                                             fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
                                             maxLines = 1,
-                                            color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = if (isSel) selFg else MaterialTheme.colorScheme.onSurfaceVariant,
                                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp)
                                         )
                                     }
+                                }
+                            }
+                        }
+
+                        // Quick Switcher Dropdown Menu for all 11 exercises
+                        Box {
+                            IconButton(
+                                onClick = { showExerciseMenu = true },
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clip(CircleShape)
+                                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                            ) {
+                                Icon(
+                                    Icons.Default.List,
+                                    contentDescription = "Select Exercise",
+                                    modifier = Modifier.size(16.dp),
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = showExerciseMenu,
+                                onDismissRequest = { showExerciseMenu = false }
+                            ) {
+                                ExerciseType.entries.forEach { ex ->
+                                    DropdownMenuItem(
+                                        text = {
+                                            Text(
+                                                text = ex.displayTitle(loc),
+                                                fontWeight = if (currentExercise == ex) FontWeight.Bold else FontWeight.Normal,
+                                                color = if (ex.isReichertExercise) Color(0xFF6366F1) else MaterialTheme.colorScheme.onSurface
+                                            )
+                                        },
+                                        onClick = {
+                                            scorePlayer.stop()
+                                            currentExercise = ex
+                                            store.lastExerciseType = ex
+                                            store.saveLastSelection()
+                                            showExerciseMenu = false
+                                        }
+                                    )
                                 }
                             }
                         }

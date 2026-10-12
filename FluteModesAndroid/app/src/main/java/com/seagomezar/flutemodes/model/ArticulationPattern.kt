@@ -49,6 +49,38 @@ enum class ExerciseType(val id: String) {
             MODOS -> "84 Modos"
         }
 
+    val homeButtonTitle: String
+        get() = when (this) {
+            EJ1 -> "E.J. 1"
+            EJ2 -> "E.J. 2"
+            EJ4 -> "E.J. 4"
+            EJ5 -> "E.J. 5"
+            EJ10 -> "E.J. 10"
+            EJ11 -> "E.J. 11"
+            R1 -> "Reichert 1"
+            R2 -> "Reichert 2"
+            R4 -> "Reichert 4"
+            R5 -> "Reichert 5"
+            MODOS -> "84 Modos"
+        }
+
+    fun homeButtonSubtitle(loc: LocalizationManager): String {
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+        return when (this) {
+            EJ1 -> if (isEn) "Major" else "Mayor"
+            EJ2 -> if (isEn) "Minor" else "Menor"
+            EJ4 -> if (isEn) "24 Keys" else "24 Ton."
+            EJ5 -> if (isEn) "Chrom." else "Cromát."
+            EJ10 -> if (isEn) "Arpeggios" else "Arpegios"
+            EJ11 -> if (isEn) "Brk. Arp." else "Arp. Queb."
+            R1 -> "Op. 5 Nº 1 (6/8)"
+            R2 -> "Op. 5 Nº 2 (2/4)"
+            R4 -> "Op. 5 Nº 4 (4/4)"
+            R5 -> "Op. 5 Nº 5 (3plets)"
+            MODOS -> if (isEn) "12 Tonics × 7 Modes" else "12 Tónicas × 7 Modos"
+        }
+    }
+
     fun displayTitle(loc: LocalizationManager): String {
         val isEn = loc.currentLanguage == AppLanguage.ENGLISH
         return when (this) {
@@ -98,10 +130,21 @@ enum class EJ4Articulation(
     SLUR_PAIRS_2_BY_2(7, "(2)(2)(2)(2)"),
     SLUR_SYNCOPATED(8, "·(2)(2)(2)·");
 
-    fun title(loc: LocalizationManager): String {
+    fun formulaBadge(exercise: ExerciseType): String {
+        if (this == ORIGINAL && exercise.isReichertExercise) {
+            return "B. Schott 20623"
+        }
+        return formulaBadge
+    }
+
+    fun title(loc: LocalizationManager, exercise: ExerciseType = ExerciseType.EJ4): String {
         val isEn = loc.currentLanguage == AppLanguage.ENGLISH
         return when (this) {
-            ORIGINAL -> if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
+            ORIGINAL -> if (exercise.isReichertExercise) {
+                if (isEn) "0. Original (Schott 20623)" else "0. Original (Schott 20623)"
+            } else {
+                if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
+            }
             ALL_SLURRED_8 -> if (isEn) "1. 8 slurred: (CDEFGABc)" else "1. 8 ligadas: (CDEFGABc)"
             SLURRED_4_AND_4 -> if (isEn) "2. 4 and 4 slurred: (CDEF)(GABc)" else "2. 4 y 4 ligadas: (CDEF)(GABc)"
             STACC_1_SLUR_3 -> if (isEn) "3. 1 staccato, 3 slurred: .C(DEF) .G(ABc)" else "3. 1 picada y 3 ligadas: .C(DEF) .G(ABc)"
@@ -151,7 +194,11 @@ enum class EJ5Articulation(val id: Int) {
         val isEn = loc.currentLanguage == AppLanguage.ENGLISH
         val is98 = (exercise == ExerciseType.EJ11)
         return when (this) {
-            ORIGINAL -> if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
+            ORIGINAL -> if (exercise.isReichertExercise) {
+                if (isEn) "0. Original (Schott 20623)" else "0. Original (Schott 20623)"
+            } else {
+                if (isEn) "0. Original (As written)" else "0. Original (Como está escrito)"
+            }
             ALL_SLURRED -> if (is98) {
                 if (isEn) "1. 18 slurred (full measure)" else "1. 18 ligadas (compás completo)"
             } else {
@@ -202,7 +249,7 @@ enum class EJ5Articulation(val id: Int) {
     fun formulaBadge(exercise: ExerciseType = ExerciseType.EJ5): String {
         val is98 = (exercise == ExerciseType.EJ11)
         return when (this) {
-            ORIGINAL -> if (is98) "9/8 · 3/4" else "6/8 · 2/4"
+            ORIGINAL -> if (exercise == ExerciseType.R5) "2/4 · Schott" else if (exercise == ExerciseType.R1) "6/8 · Schott" else if (is98) "9/8 · 3/4" else "6/8 · 2/4"
             ALL_SLURRED -> if (is98) "(18)" else "(12)"
             SLURRED_6_BY_6 -> if (is98) "(6)+(6)+(6)" else "(6)+(6)"
             SLUR_4_STACC_2 -> "(4)·· (4)··"

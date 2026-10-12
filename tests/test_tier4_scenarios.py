@@ -165,7 +165,7 @@ class TestTier4Scenarios(unittest.TestCase):
     def test_s10_multiplatform_version_consistency_target(self):
         """
         Scenario 10: Multiplatform Version Consistency Target
-        Target release is v1.5.1 (iOS Build 10, Android versionCode 9, Web v1.5.1).
+        Target release is v1.5.2 (iOS Build 11, Android versionCode 10, Web v1.5.2).
         Verifies version consistency across iOS, Android, and Web files.
         """
         gradle_file = WORKSPACE_ROOT / "FluteModesAndroid" / "app" / "build.gradle.kts"
@@ -177,13 +177,16 @@ class TestTier4Scenarios(unittest.TestCase):
         pbx_content = pbx_file.read_text(encoding="utf-8")
 
         web_index = (WORKSPACE_ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        ios_webview = (WORKSPACE_ROOT / "FluteModes" / "FluteModes" / "Views" / "ScoreWebView.swift").read_text(encoding="utf-8")
 
-        # Check for target version 1.5.1
-        self.assertIn('versionName = "1.5.1"', gradle_content, "Android versionName must be updated to 1.5.1")
-        self.assertIn("versionCode = 9", gradle_content, "Android versionCode must be updated to 9")
-        self.assertIn("MARKETING_VERSION = 1.5.1", pbx_content, "iOS MARKETING_VERSION must be updated to 1.5.1")
-        self.assertIn("CURRENT_PROJECT_VERSION = 10", pbx_content, "iOS CURRENT_PROJECT_VERSION must be 10")
-        self.assertIn("v1.5.1", web_index, "docs/index.html must reference v1.5.1")
+        # Check for target version 1.5.2
+        self.assertIn('versionName = "1.5.2"', gradle_content, "Android versionName must be updated to 1.5.2")
+        self.assertIn("versionCode = 10", gradle_content, "Android versionCode must be updated to 10")
+        self.assertIn("MARKETING_VERSION = 1.5.2", pbx_content, "iOS MARKETING_VERSION must be updated to 1.5.2")
+        self.assertIn("CURRENT_PROJECT_VERSION = 11", pbx_content, "iOS CURRENT_PROJECT_VERSION must be 11")
+        self.assertIn("v1.5.2", web_index, "docs/index.html must reference v1.5.2")
+        self.assertIn("loadFileURL", ios_webview, "iOS ScoreWebView must use loadFileURL to support >512 KB score_template.html")
+        self.assertNotIn("loadHTMLString", ios_webview, "iOS ScoreWebView must not use loadHTMLString")
 
 
 if __name__ == "__main__":
