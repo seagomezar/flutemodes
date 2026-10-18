@@ -1,0 +1,115 @@
+%abc-2.1
+% Tónica 05_mi_bemol: Mi bemol (Mi♭) — 7 Modos Paralelos bajo el esquema E.J. 11
+% E.J. 11 — Arpegios Quebrados Modales en 9/8 (Taffanel & Gaubert (págs. 122–125))
+
+X:1
+T:Modo 1: Mi♭ Jónico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Eb
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (FcAfca) (fc'af'ac') (facfAc) |
+(EBGdBg) (dbgd'gb) (dgBdGB) | (EcAeca) (ec'ae'ac') (eaceAc) |
+(FdBfdb) (fd'bf'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(FdAfda) (fd'af'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:2
+T:Modo 2: Mi♭ Lidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: La♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Eb
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (Fc=Afc=a) (fc'af'ac') (facfAc) |
+(EBGdBg) (dbgd'gb) (dgBdGB) | (Ec=Aec=a) (ec'ae'ac') (eaceAc) |
+(FdBfdb) (fd'bf'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(Fd=Afd=a) (fd'af'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:3
+T:Modo 3: Mi♭ Mixolidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Re♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Eb
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (FcAfca) (fc'af'ac') (facfAc) |
+(EBG_dBg) (dbg_d'gb) (dgBdGB) | (EcAeca) (ec'ae'ac') (eaceAc) |
+(F_dBfdb) (f_d'bf'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(F_dAfda) (f_d'af'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:4
+T:Modo 4: Mi♭ Dórico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Do♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ebm
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (F=cAfca) (f=c'af'ac') (facfAc) |
+(EBGdBg) (dbgd'gb) (dgBdGB) | (E=cAeca) (e=c'ae'ac') (eaceAc) |
+(FdBfdb) (fd'bf'bd') (fbdfBd) | (E=cGecg) (e=c'ge'gc') (egceGc) |
+(FdAfda) (fd'af'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:5
+T:Modo 5: Mi♭ Eólico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ebm
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (FcAfca) (fc'af'ac') (facfAc) |
+(EBGdBg) (dbgd'gb) (dgBdGB) | (EcAeca) (ec'ae'ac') (eaceAc) |
+(FdBfdb) (fd'bf'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(FdAfda) (fd'af'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:6
+T:Modo 6: Mi♭ Frigio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 6/7 (Menor) | Segunda menor accidental: Fa♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ebm
+V:1 clef=treble
+%%score 1
+(EBGeBg) (ebge'gb) (egBeGB) | (_FcA_fca) (fc'a_f'ac') (facfAc) |
+(EBGdBg) (dbgd'gb) (dgBdGB) | (EcAeca) (ec'ae'ac') (eaceAc) |
+(_FdB_fdb) (fd'b_f'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(_FdA_fda) (fd'a_f'ad') (fadfAd) | (EBGeBg) (ebge'gb) (egBeGB) | E6 z3 z9 |]
+
+X:7
+T:Modo 7: Mi♭ Lócrio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 7/7 (Menor) | Segunda menor: Fa♭ y Quinta disminuida: Si𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ebm
+V:1 clef=treble
+%%score 1
+(E__BGeBg) (e__bge'gb) (egBeGB) | (_FcA_fca) (fc'a_f'ac') (facfAc) |
+(E__BGdBg) (d__bgd'gb) (dgBdGB) | (EcAeca) (ec'ae'ac') (eaceAc) |
+(_Fd__B_fd__b) (fd'b_f'bd') (fbdfBd) | (EcGecg) (ec'ge'gc') (egceGc) |
+(_FdA_fda) (fd'a_f'ad') (fadfAd) | (E__BGeBg) (e__bge'gb) (egBeGB) | E6 z3 z9 |]

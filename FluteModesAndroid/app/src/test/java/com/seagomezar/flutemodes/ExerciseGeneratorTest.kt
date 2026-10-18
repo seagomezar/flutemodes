@@ -235,4 +235,115 @@ class ExerciseGeneratorTest {
             }
         }
     }
+
+    @Test
+    fun testAll840ModalSchemesGenerateValidAbcAndMidi() {
+        var count = 0
+        for (tonic in Tonic.entries) {
+            for (mode in ModeType.entries) {
+                for (scheme in ModalScheme.entries) {
+                    val abc = ExerciseGenerator.generateABC(
+                        tonic = tonic,
+                        mode = mode,
+                        articulation = ArticulationPattern.ALL_SLURRED,
+                        tempoBPM = 96,
+                        loc = loc,
+                        scheme = scheme
+                    )
+                    assertTrue(abc.startsWith("X:1"))
+                    assertTrue(abc.contains("M:${scheme.meter}"))
+                    assertTrue(abc.contains("Esquema: ${scheme.code}"))
+                    assertTrue(abc.trimEnd().endsWith("|]"))
+
+                    val midi = ExerciseGenerator.generateModalSchemeMidiNotes(
+                        tonic = tonic,
+                        mode = mode,
+                        scheme = scheme
+                    )
+                    assertEquals(
+                        "Scheme ${scheme.code} in ${tonic.name} ${mode.name} should have ${scheme.totalNotes} MIDI notes",
+                        scheme.totalNotes,
+                        midi.size
+                    )
+                    for (m in midi) {
+                        assertTrue("MIDI note $m must be >= 58", m >= 58)
+                        assertTrue("MIDI note $m must be <= 98", m <= 98)
+                    }
+                    count++
+                }
+            }
+        }
+        assertEquals("Should have verified all 12 tonics * 7 modes * 10 schemes = 840 combinations", 840, count)
+
+        // Verify double flats in E-flat Locrian and A-flat Phrygian/Locrian
+        val ebLocAbc = ExerciseGenerator.generateABC(
+            tonic = Tonic.MI_BEMOL,
+            mode = ModeType.LOCRIAN,
+            articulation = ArticulationPattern.ALL_SLURRED,
+            tempoBPM = 96,
+            loc = loc,
+            scheme = ModalScheme.EJ4
+        )
+        assertTrue(ebLocAbc.contains("__B") || ebLocAbc.contains("__b"))
+
+        val abLocAbc = ExerciseGenerator.generateABC(
+            tonic = Tonic.LA_BEMOL,
+            mode = ModeType.LOCRIAN,
+            articulation = ArticulationPattern.ALL_SLURRED,
+            tempoBPM = 96,
+            loc = loc,
+            scheme = ModalScheme.R1
+        )
+        assertTrue(abLocAbc.contains("__E") || abLocAbc.contains("__e"))
+        assertTrue(abLocAbc.contains("__B") || abLocAbc.contains("__b"))
+    }
+
+    @Test
+    fun testConservatoryCoachPracticeWizardRoutines() {
+        for (duration in PracticeWizardDuration.entries) {
+            for (focus in PracticeWizardFocus.entries) {
+                val blocks = PracticeRoutineBlock.generateRoutine(
+                    duration = duration,
+                    focus = focus,
+                    tonic = Tonic.RE,
+                    mode = ModeType.DORIAN,
+                    loc = loc
+                )
+                assertEquals(3, blocks.size)
+                val totalMinutes = blocks.sumOf { it.minutes }
+                assertEquals(duration.minutes, totalMinutes)
+            }
+        }
+
+        assertEquals(1, ModalScheme.EJ1.barsPerStaff)
+        assertEquals(1, ModalScheme.EJ2.barsPerStaff)
+        assertEquals(2, ModalScheme.EJ4.barsPerStaff)
+        assertEquals(2, ModalScheme.EJ5.barsPerStaff)
+        assertEquals(2, ModalScheme.EJ10.barsPerStaff)
+        assertEquals(2, ModalScheme.EJ11.barsPerStaff)
+        assertEquals(2, ModalScheme.R1.barsPerStaff)
+        assertEquals(2, ModalScheme.R4.barsPerStaff)
+        assertEquals(4, ModalScheme.R2.barsPerStaff)
+        assertEquals(4, ModalScheme.R5.barsPerStaff)
+
+        assertTrue(CoachStrings.coachHeroTitle(loc) != "coach_title")
+        assertTrue(CoachStrings.openWizardButton(loc) != "coach_open_wizard")
+        assertTrue(CoachStrings.level3SchemeHeader(loc) != "coach_level3_scheme")
+        assertFalse(CoachStrings.coachBadge(loc).contains("OPCIÓN 1"))
+        assertFalse(CoachStrings.coachBadge(loc).contains("OPTION 1"))
+        assertEquals("CONSERVATORY COACH · ASISTENTE GUIADO", CoachStrings.coachBadge(loc))
+
+        val ej4ModalAbc = ExerciseGenerator.generateABC(
+            tonic = Tonic.DO_NATURAL,
+            mode = ModeType.AEOLIAN,
+            articulation = ArticulationPattern.ALL_SLURRED,
+            tempoBPM = 96,
+            loc = loc,
+            scheme = ModalScheme.EJ4
+        )
+        assertTrue(ej4ModalAbc.contains("T:Modo 5: Do Eólico (E.J. 4)"))
+        assertFalse(ej4ModalAbc.contains("(Menor Natural)"))
+    }
 }
+
+

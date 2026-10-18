@@ -1,0 +1,115 @@
+%abc-2.1
+% Tónica 12_si_bemol: Si bemol (Si♭) — 7 Modos Paralelos bajo el esquema E.J. 11
+% E.J. 11 — Arpegios Quebrados Modales en 9/8 (Taffanel & Gaubert (págs. 122–125))
+
+X:1
+T:Modo 1: Si♭ Jónico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bb
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (cgec'ge') (c'g'e'c''e'g') (c'e'gc'eg) |
+(Bfdafd') (af'd'a'd'f') (ad'fadf) | (Bgebge') (bg'e'b'e'g') (be'gbeg) |
+(cafc'af') (c'a'f'c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(caec'ae') (c'a'e'c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:2
+T:Modo 2: Si♭ Lidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Mi♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bb
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (cg=ec'g=e') (c'g'e'c''e'g') (c'e'gc'eg) |
+(Bfdafd') (af'd'a'd'f') (ad'fadf) | (Bg=ebg=e') (bg'e'b'e'g') (be'gbeg) |
+(cafc'af') (c'a'f'c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(ca=ec'a=e') (c'a'e'c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:3
+T:Modo 3: Si♭ Mixolidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 3/7 (Mayor) | Séptima menor accidental: La♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bb
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (cgec'ge') (c'g'e'c''e'g') (c'e'gc'eg) |
+(Bfd_afd') (af'd'_a'd'f') (ad'fadf) | (Bgebge') (bg'e'b'e'g') (be'gbeg) |
+(c_afc'af') (c'_a'f'c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(c_aec'ae') (c'_a'e'c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:4
+T:Modo 4: Si♭ Dórico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Sol♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bbm
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (c=gec'ge') (c'=g'e'c''e'g') (c'e'gc'eg) |
+(Bfdafd') (af'd'a'd'f') (ad'fadf) | (B=gebge') (b=g'e'b'e'g') (be'gbeg) |
+(cafc'af') (c'a'f'c''f'a') (c'f'ac'fa) | (B=gdbgd') (b=g'd'b'd'g') (bd'gbdg) |
+(caec'ae') (c'a'e'c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:5
+T:Modo 5: Si♭ Eólico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bbm
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (cgec'ge') (c'g'e'c''e'g') (c'e'gc'eg) |
+(Bfdafd') (af'd'a'd'f') (ad'fadf) | (Bgebge') (bg'e'b'e'g') (be'gbeg) |
+(cafc'af') (c'a'f'c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(caec'ae') (c'a'e'c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:6
+T:Modo 6: Si♭ Frigio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 6/7 (Menor) | Segunda menor accidental: Do♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bbm
+V:1 clef=treble
+%%score 1
+(Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | (_cge_c'ge') (c'g'e'_c''e'g') (c'e'gc'eg) |
+(Bfdafd') (af'd'a'd'f') (ad'fadf) | (Bgebge') (bg'e'b'e'g') (be'gbeg) |
+(_caf_c'af') (c'a'f'_c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(_cae_c'ae') (c'a'e'_c''e'a') (c'e'ac'ea) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]
+
+X:7
+T:Modo 7: Si♭ Lócrio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 7/7 (Menor) | Segunda menor: Do♭ y Quinta disminuida: Fa♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Bbm
+V:1 clef=treble
+%%score 1
+(B_fdbfd') (b_f'd'b'd'f') (bd'fbdf) | (_cge_c'ge') (c'g'e'_c''e'g') (c'e'gc'eg) |
+(B_fdafd') (a_f'd'a'd'f') (ad'fadf) | (Bgebge') (bg'e'b'e'g') (be'gbeg) |
+(_ca_f_c'a_f') (c'a'f'_c''f'a') (c'f'ac'fa) | (Bgdbgd') (bg'd'b'd'g') (bd'gbdg) |
+(_cae_c'ae') (c'a'e'_c''e'a') (c'e'ac'ea) | (B_fdbfd') (b_f'd'b'd'f') (bd'fbdf) | B6 z3 z9 |]

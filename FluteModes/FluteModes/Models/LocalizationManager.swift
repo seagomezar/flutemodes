@@ -54,26 +54,26 @@ public class LocalizationManager: ObservableObject {
             "Daily Exercise No. 4 · Paul Taffanel & Philippe Gaubert"
         ],
         "sub_desc": [
-            "Sistema paralelo del Maestro León Giraldo · 84 Modos (12 Tónicas × 7 Modos)",
-            "Maestro León Giraldo's Parallel System · 84 Modes (12 Tonics × 7 Modes)"
+            "Sistema Modal Paralelo · 84 Modos (12 Tónicas × 7 Modos)",
+            "Parallel Modal System · 84 Modes (12 Tonics × 7 Modes)"
         ],
 
         // E.J. 1 General
         "ej1_title": [
-            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
-            "E. J. 1 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 1 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej1_sub_desc": [
-            "17 Grands Exercices Journaliers de Mécanisme · Pentacordos cromáticos (31 compases · 10 articulaciones oficiales)",
-            "17 Daily Mechanism Exercises · Chromatic pentachords (31 measures · 10 official articulations)"
+            "17 Grands Exercices Journaliers de Mécanisme · Pentacordos cromáticos (31 compases · 10 articulaciones)",
+            "17 Daily Mechanism Exercises · Chromatic pentachords (31 measures · 10 articulations)"
         ],
         "ej1_header_info": [
             "Compases 1–10 (plicas ↑) · Compases 11–31 (plicas ↓) · Reprise à l'octave · 8va",
             "Measures 1–10 (stems ↑) · Measures 11–31 (stems ↓) · Reprise à l'octave · 8va"
         ],
         "ej1_select_art": [
-            "10 Articulaciones Oficiales (E. J. 1)",
-            "10 Official Articulations (E. J. 1)"
+            "10 Articulaciones (E. J. 1)",
+            "10 Articulations (E. J. 1)"
         ],
         "ej1_start_practice": [
             "Practicar E. J. 1",
@@ -88,8 +88,8 @@ public class LocalizationManager: ObservableObject {
             "E. J. 1 Completed (10/10 Articulations)!"
         ],
         "ej1_milestone_msg": [
-            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N.° 1 de Taffanel & Gaubert.",
-            "You have completed all 10 official articulations of Taffanel & Gaubert Daily Exercise No. 1."
+            "Has completado las 10 articulaciones del Ejercicio Diario N.° 1 de Taffanel & Gaubert.",
+            "You have completed all 10 articulations of Taffanel & Gaubert Daily Exercise No. 1."
         ],
         "ej1_restart_round": [
             "🔁 Volver a Articulación 1",
@@ -106,20 +106,20 @@ public class LocalizationManager: ObservableObject {
 
         // E.J. 2 General
         "ej2_title": [
-            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
-            "E. J. 2 · Paul Taffanel & Philippe Gaubert (A. L. 16.588)"
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 2 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej2_sub_desc": [
-            "17 Grands Exercices Journaliers de Mécanisme · Pentacordios menores y 7ª disminuida (31 compases · 10 articulaciones oficiales)",
-            "17 Daily Mechanism Exercises · Minor pentachords & diminished 7th (31 measures · 10 official articulations)"
+            "17 Grands Exercices Journaliers de Mécanisme · Pentacordios menores y 7ª disminuida (31 compases · 10 articulaciones)",
+            "17 Daily Mechanism Exercises · Minor pentachords & diminished 7th (31 measures · 10 articulations)"
         ],
         "ej2_header_info": [
             "Compases 1–10 (plicas ↑) · Compases 11–31 (plicas ↓) · Pentacordios menores · 8va",
             "Measures 1–10 (stems ↑) · Measures 11–31 (stems ↓) · Minor pentachords · 8va"
         ],
         "ej2_select_art": [
-            "10 Articulaciones Oficiales (E. J. 2)",
-            "10 Official Articulations (E. J. 2)"
+            "10 Articulaciones (E. J. 2)",
+            "10 Articulations (E. J. 2)"
         ],
         "ej2_start_practice": [
             "Practicar E. J. 2",
@@ -134,8 +134,8 @@ public class LocalizationManager: ObservableObject {
             "E. J. 2 Completed (10/10 Articulations)!"
         ],
         "ej2_milestone_msg": [
-            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N.° 2 de Taffanel & Gaubert.",
-            "You have completed all 10 official articulations of Taffanel & Gaubert Daily Exercise No. 2."
+            "Has completado las 10 articulaciones del Ejercicio Diario N.° 2 de Taffanel & Gaubert.",
+            "You have completed all 10 articulations of Taffanel & Gaubert Daily Exercise No. 2."
         ],
         "ej2_restart_round": [
             "🔁 Volver a Articulación 1",
@@ -146,14 +146,14 @@ public class LocalizationManager: ObservableObject {
             "🎵 Switch to E. J. 4 (Diatonic Scales)"
         ],
 
-        // E.J. 4 Urtext General
+        // E.J. 4 General
         "ej4_title": [
-            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 111–114)",
-            "E. J. 4 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 111–114)"
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 4 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej4_sub_desc": [
-            "Escalas Diatónicas en 24 Tonalidades Mayores y Menores Relativas + Coda (194 compases · 8 articulaciones oficiales)",
-            "Diatonic Scales across 24 Major & Relative Minor Keys + Coda (194 measures · 8 official articulations)"
+            "Escalas Diatónicas en 24 Tonalidades Mayores y Menores Relativas + Coda (194 compases · 8 articulaciones)",
+            "Diatonic Scales across 24 Major & Relative Minor Keys + Coda (194 measures · 8 articulations)"
         ],
         "ej4_header_info": [
             "24 Tonalidades (Mayores y Menores: armónica en c. 1 y 7, melódica/natural) · 194 Compases · 8 Articulaciones",
@@ -164,12 +164,12 @@ public class LocalizationManager: ObservableObject {
             "25 Tonal Sections (194 Measures)"
         ],
         "ej4_select_art": [
-            "8 Articulaciones Oficiales (E. J. 4)",
-            "8 Official Articulations (E. J. 4)"
+            "8 Articulaciones (E. J. 4)",
+            "8 Articulations (E. J. 4)"
         ],
         "ej4_start_practice": [
-            "Practicar E. J. 4 (Urtext)",
-            "Practice E. J. 4 (Urtext)"
+            "Practicar E. J. 4",
+            "Practice E. J. 4"
         ],
         "ej4_eight_arts_completed": [
             "8 Articulaciones Completadas",
@@ -180,30 +180,30 @@ public class LocalizationManager: ObservableObject {
             "E. J. 4 Completed (8/8 Articulations)!"
         ],
         "ej4_milestone_msg": [
-            "Has completado las 8 articulaciones oficiales del Ejercicio Diario N.° 4 de Taffanel & Gaubert (194 compases).",
-            "You have completed all 8 official articulations of Taffanel & Gaubert Daily Exercise No. 4 (194 measures)."
+            "Has completado las 8 articulaciones del Ejercicio Diario N.° 4 de Taffanel & Gaubert (194 compases).",
+            "You have completed all 8 articulations of Taffanel & Gaubert Daily Exercise No. 4 (194 measures)."
         ],
         "ej4_restart_round": [
             "🔁 Volver a Articulación 1",
             "🔁 Restart from Articulation 1"
         ],
         "ej4_go_to_modos": [
-            "🎵 Ir a 84 Modos Paralelos (León Giraldo)",
-            "🎵 Switch to 84 Parallel Modes (León Giraldo)"
+            "🎵 Ir a 84 Modos Paralelos",
+            "🎵 Switch to 84 Parallel Modes"
         ],
         "ej4_next_section": [
             "Siguiente Tonalidad",
             "Next Tonality"
         ],
 
-        // E.J. 5 Urtext General
+        // E.J. 5 General
         "ej5_title": [
-            "E. J. 5 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pág. 115)",
-            "E. J. 5 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, p. 115)"
+            "E. J. 5 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 5 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej5_sub_desc": [
-            "Escalas Cromáticas (Gammes Chromatiques) · 12 Escalas A–L (60 compases · 6/8 & 2/4 · 10 articulaciones oficiales)",
-            "Chromatic Scales (Gammes Chromatiques) · 12 Scales A–L (60 measures · 6/8 & 2/4 · 10 official articulations)"
+            "Escalas Cromáticas (Gammes Chromatiques) · 12 Escalas A–L (60 compases · 6/8 & 2/4 · 10 articulaciones)",
+            "Chromatic Scales (Gammes Chromatiques) · 12 Scales A–L (60 measures · 6/8 & 2/4 · 10 articulations)"
         ],
         "ej5_header_info": [
             "12 Escalas Cromáticas (Do a Si · 2 Octavas + Reprise à l'octave) · 60 Compases · 10 Articulaciones",
@@ -214,12 +214,12 @@ public class LocalizationManager: ObservableObject {
             "12 Chromatic Scales (A–L · 60 Measures)"
         ],
         "ej5_select_art": [
-            "10 Articulaciones Oficiales (E. J. 5)",
-            "10 Official Articulations (E. J. 5)"
+            "10 Articulaciones (E. J. 5)",
+            "10 Articulations (E. J. 5)"
         ],
         "ej5_start_practice": [
-            "Practicar E. J. 5 (Urtext)",
-            "Practice E. J. 5 (Urtext)"
+            "Practicar E. J. 5",
+            "Practice E. J. 5"
         ],
         "ej5_ten_arts_completed": [
             "10 Articulaciones Completadas",
@@ -230,8 +230,8 @@ public class LocalizationManager: ObservableObject {
             "E. J. 5 Completed (10/10 Articulations)!"
         ],
         "ej5_milestone_msg": [
-            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 5 de Taffanel & Gaubert.",
-            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 5."
+            "Has completado las 10 articulaciones del Ejercicio Diario N° 5 de Taffanel & Gaubert.",
+            "You have completed all 10 articulations of Taffanel & Gaubert's Daily Exercise No. 5."
         ],
         "ej5_restart_round": [
             "🔁 Reiniciar las 10 Articulaciones",
@@ -246,10 +246,10 @@ public class LocalizationManager: ObservableObject {
             "Next Scale (Chromatic)"
         ],
 
-        // E.J. 10 Urtext General
+        // E.J. 10 General
         "ej10_title": [
-            "E. J. 10 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 120–121)",
-            "E. J. 10 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 120–121)"
+            "E. J. 10 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 10 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej10_sub_desc": [
             "Arpegios Progresivos de 2 Octavas (Arpèges) · 12 Series Cromáticas (121 compases · 6/8 & 2/4 · 10 articulaciones)",
@@ -264,12 +264,12 @@ public class LocalizationManager: ObservableObject {
             "12 Arpeggio Series (121 Measures)"
         ],
         "ej10_select_art": [
-            "10 Articulaciones Oficiales (E. J. 10)",
-            "10 Official Articulations (E. J. 10)"
+            "10 Articulaciones (E. J. 10)",
+            "10 Articulations (E. J. 10)"
         ],
         "ej10_start_practice": [
-            "Practicar E. J. 10 (Urtext)",
-            "Practice E. J. 10 (Urtext)"
+            "Practicar E. J. 10",
+            "Practice E. J. 10"
         ],
         "ej10_ten_arts_completed": [
             "10 Articulaciones Completadas",
@@ -280,8 +280,8 @@ public class LocalizationManager: ObservableObject {
             "E. J. 10 Completed (10/10 Articulations)!"
         ],
         "ej10_milestone_msg": [
-            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 10 de Taffanel & Gaubert.",
-            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 10."
+            "Has completado las 10 articulaciones del Ejercicio Diario N° 10 de Taffanel & Gaubert.",
+            "You have completed all 10 articulations of Taffanel & Gaubert's Daily Exercise No. 10."
         ],
         "ej10_restart_round": [
             "🔁 Reiniciar las 10 Articulaciones",
@@ -296,10 +296,10 @@ public class LocalizationManager: ObservableObject {
             "Next Arpeggio Series"
         ],
 
-        // E.J. 11 Urtext General
+        // E.J. 11 General
         "ej11_title": [
-            "E. J. 11 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 122–125)",
-            "E. J. 11 · Paul Taffanel & Philippe Gaubert (A. L. 16.588, pp. 122–125)"
+            "E. J. 11 · Paul Taffanel & Philippe Gaubert",
+            "E. J. 11 · Paul Taffanel & Philippe Gaubert"
         ],
         "ej11_sub_desc": [
             "Arpegios Quebrados (Arpèges Brisés) · 12 Series Cromáticas (121 compases · 9/8 & 3/4 · 10 articulaciones)",
@@ -314,12 +314,12 @@ public class LocalizationManager: ObservableObject {
             "12 Broken Arpeggio Series (121 Measures)"
         ],
         "ej11_select_art": [
-            "10 Articulaciones Oficiales (E. J. 11)",
-            "10 Official Articulations (E. J. 11)"
+            "10 Articulaciones (E. J. 11)",
+            "10 Articulations (E. J. 11)"
         ],
         "ej11_start_practice": [
-            "Practicar E. J. 11 (Urtext)",
-            "Practice E. J. 11 (Urtext)"
+            "Practicar E. J. 11",
+            "Practice E. J. 11"
         ],
         "ej11_ten_arts_completed": [
             "10 Articulaciones Completadas",
@@ -330,8 +330,8 @@ public class LocalizationManager: ObservableObject {
             "E. J. 11 Completed (10/10 Articulations)!"
         ],
         "ej11_milestone_msg": [
-            "Has completado las 10 articulaciones oficiales del Ejercicio Diario N° 11 de Taffanel & Gaubert.",
-            "You have completed all 10 official articulations of Taffanel & Gaubert's Daily Exercise No. 11."
+            "Has completado las 10 articulaciones del Ejercicio Diario N° 11 de Taffanel & Gaubert.",
+            "You have completed all 10 articulations of Taffanel & Gaubert's Daily Exercise No. 11."
         ],
         "ej11_restart_round": [
             "🔁 Reiniciar las 10 Articulaciones",
@@ -348,8 +348,8 @@ public class LocalizationManager: ObservableObject {
 
         // Reichert Op. 5, Nº 1 (R1)
         "r1_title": [
-            "Reichert Op. 5 Nº 1 · 7 Exercices Journaliers (B. Schott 20623, págs. 2–3)",
-            "Reichert Op. 5 No. 1 · 7 Daily Exercises (B. Schott 20623, pp. 2–3)"
+            "Reichert Op. 5 Nº 1 · 7 Exercices Journaliers",
+            "Reichert Op. 5 No. 1 · 7 Daily Exercises"
         ],
         "r1_sub_desc": [
             "24 Tonalidades Mayores y Menores en 6/8 + D.S. al Fine (100 compases · 10 articulaciones)",
@@ -368,14 +368,14 @@ public class LocalizationManager: ObservableObject {
             "10 Articulations (Reichert No. 1)"
         ],
         "r1_start_practice": [
-            "Practicar Reichert Nº 1 (Urtext)",
-            "Practice Reichert No. 1 (Urtext)"
+            "Practicar Reichert Nº 1",
+            "Practice Reichert No. 1"
         ],
 
         // Reichert Op. 5, Nº 2 (R2)
         "r2_title": [
-            "Reichert Op. 5 Nº 2 · 7 Exercices Journaliers (B. Schott 20623, págs. 4–5)",
-            "Reichert Op. 5 No. 2 · 7 Daily Exercises (B. Schott 20623, pp. 4–5)"
+            "Reichert Op. 5 Nº 2 · 7 Exercices Journaliers",
+            "Reichert Op. 5 No. 2 · 7 Daily Exercises"
         ],
         "r2_sub_desc": [
             "Arpegios modulantes en 24 Tonalidades (2/4 · anacrusa + 200 compases · 8 articulaciones)",
@@ -394,14 +394,14 @@ public class LocalizationManager: ObservableObject {
             "8 Articulations (Reichert No. 2)"
         ],
         "r2_start_practice": [
-            "Practicar Reichert Nº 2 (Urtext)",
-            "Practice Reichert No. 2 (Urtext)"
+            "Practicar Reichert Nº 2",
+            "Practice Reichert No. 2"
         ],
 
         // Reichert Op. 5, Nº 4 (R4)
         "r4_title": [
-            "Reichert Op. 5 Nº 4 · 7 Exercices Journaliers (B. Schott 20623, págs. 8–9)",
-            "Reichert Op. 5 No. 4 · 7 Daily Exercises (B. Schott 20623, pp. 8–9)"
+            "Reichert Op. 5 Nº 4 · 7 Exercices Journaliers",
+            "Reichert Op. 5 No. 4 · 7 Daily Exercises"
         ],
         "r4_sub_desc": [
             "Mecanismo diatónico y saltos en 24 Tonalidades (4/4 · 100 compases · 8 articulaciones)",
@@ -420,14 +420,14 @@ public class LocalizationManager: ObservableObject {
             "8 Articulations (Reichert No. 4)"
         ],
         "r4_start_practice": [
-            "Practicar Reichert Nº 4 (Urtext)",
-            "Practice Reichert No. 4 (Urtext)"
+            "Practicar Reichert Nº 4",
+            "Practice Reichert No. 4"
         ],
 
         // Reichert Op. 5, Nº 5 (R5)
         "r5_title": [
-            "Reichert Op. 5 Nº 5 · 7 Exercices Journaliers (B. Schott 20623, págs. 10–13)",
-            "Reichert Op. 5 No. 5 · 7 Daily Exercises (B. Schott 20623, pp. 10–13)"
+            "Reichert Op. 5 Nº 5 · 7 Exercices Journaliers",
+            "Reichert Op. 5 No. 5 · 7 Daily Exercises"
         ],
         "r5_sub_desc": [
             "Tresillos de semicorchea y bordaduras cromáticas en 24 Tonalidades (2/4 · 200 compases · 10 articulaciones)",
@@ -446,8 +446,8 @@ public class LocalizationManager: ObservableObject {
             "10 Articulations (Reichert No. 5)"
         ],
         "r5_start_practice": [
-            "Practicar Reichert Nº 5 (Urtext)",
-            "Practice Reichert No. 5 (Urtext)"
+            "Practicar Reichert Nº 5",
+            "Practice Reichert No. 5"
         ],
         // Reichert Completion & Milestones
         "r1_milestone_title": [
@@ -564,29 +564,29 @@ public class LocalizationManager: ObservableObject {
         ],
 
         // E.J. 1 Articulations (0..10)
-        "ej1_art_0_title": ["Original (A. L. 16.588)", "Original (A. L. 16.588)"],
-        "ej1_art_1_title": ["1. A 8 ligadas (Toda ligada)", "1. All 8 slurred"],
-        "ej1_art_2_title": ["2. A 4 y 4 ligadas", "2. Slurred 4 & 4"],
-        "ej1_art_3_title": ["3. 1 picada y 3 ligadas", "3. 1 staccato, 3 slurred"],
-        "ej1_art_4_title": ["4. 3 ligadas y 1 picada", "4. 3 slurred, 1 staccato"],
-        "ej1_art_5_title": ["5. 2 ligadas y 2 picadas", "5. 2 slurred, 2 staccato"],
-        "ej1_art_6_title": ["6. 2 picadas y 2 ligadas", "6. 2 staccato, 2 slurred"],
-        "ej1_art_7_title": ["7. 1 picada, 2 ligadas y 1 picada", "7. 1 stacc., 2 slurred, 1 stacc."],
-        "ej1_art_8_title": ["8. De 2 en 2 ligadas", "8. Slurred in pairs (2+2+2+2)"],
-        "ej1_art_9_title": ["9. De 2 en 2 sincopadas", "9. Syncopated pairs"],
-        "ej1_art_10_title": ["10. Todo picado (Staccato)", "10. All staccato"],
+        "ej1_art_0_title": ["Original", "Original"],
+        "ej1_art_1_title": ["A 8 ligadas (Toda ligada)", "All 8 slurred"],
+        "ej1_art_2_title": ["A 4 y 4 ligadas", "Slurred 4 & 4"],
+        "ej1_art_3_title": ["1 picada y 3 ligadas", "1 staccato, 3 slurred"],
+        "ej1_art_4_title": ["3 ligadas y 1 picada", "3 slurred, 1 staccato"],
+        "ej1_art_5_title": ["2 ligadas y 2 picadas", "2 slurred, 2 staccato"],
+        "ej1_art_6_title": ["2 picadas y 2 ligadas", "2 staccato, 2 slurred"],
+        "ej1_art_7_title": ["1 picada, 2 ligadas y 1 picada", "1 stacc., 2 slurred, 1 stacc."],
+        "ej1_art_8_title": ["De 2 en 2 ligadas", "Slurred in pairs (2+2+2+2)"],
+        "ej1_art_9_title": ["De 2 en 2 sincopadas", "Syncopated pairs"],
+        "ej1_art_10_title": ["Todo picado (Staccato)", "All staccato"],
 
-        "ej1_art_0_short": ["0. Original", "0. Original"],
-        "ej1_art_1_short": ["1. 8 ligadas", "1. 8 slurred"],
-        "ej1_art_2_short": ["2. 4 y 4 lig.", "2. 4 & 4 slur"],
-        "ej1_art_3_short": ["3. 1 pic., 3 lig.", "3. 1 stacc., 3 slur"],
-        "ej1_art_4_short": ["4. 3 lig., 1 pic.", "4. 3 slur, 1 stacc."],
-        "ej1_art_5_short": ["5. 2 lig., 2 pic.", "5. 2 slur, 2 stacc."],
-        "ej1_art_6_short": ["6. 2 pic., 2 lig.", "6. 2 stacc., 2 slur"],
-        "ej1_art_7_short": ["7. 1 pic., 2 lig., 1 pic.", "7. 1 stacc., 2 slur, 1 stacc."],
-        "ej1_art_8_short": ["8. De 2 en 2 lig.", "8. Pairs slurred"],
-        "ej1_art_9_short": ["9. Sincopadas", "9. Syncopated"],
-        "ej1_art_10_short": ["10. Todo picado", "10. All staccato"],
+        "ej1_art_0_short": ["Orig.", "Orig."],
+        "ej1_art_1_short": ["8 Lig.", "8 Slur"],
+        "ej1_art_2_short": ["4+4", "4+4"],
+        "ej1_art_3_short": ["1P+3L", "1P+3L"],
+        "ej1_art_4_short": ["3L+1P", "3L+1P"],
+        "ej1_art_5_short": ["2L+2P", "2L+2P"],
+        "ej1_art_6_short": ["2P+2L", "2P+2L"],
+        "ej1_art_7_short": ["1P+2L+1P", "1P+2L+1P"],
+        "ej1_art_8_short": ["2 en 2", "2+2"],
+        "ej1_art_9_short": ["Sinc.", "Sync."],
+        "ej1_art_10_short": ["Stacc.", "Stacc."],
 
         // Home View
         "select_tonic": ["Selecciona una Tónica", "Select a Tonic"],
@@ -633,14 +633,14 @@ public class LocalizationManager: ObservableObject {
         "acc_locrian": ["Segunda menor (♭2) y Quinta disminuida (♭5)", "Minor second (♭2) & Diminished fifth (♭5)"],
 
         // Articulations E.J. 4 (short)
-        "art_1_short": ["Toda ligada", "All slurred"],
-        "art_2_short": ["Ligado 4 y 4", "Slurred 4 & 4"],
-        "art_3_short": ["Lig. 2, pic. 2", "Slur 2, stacc. 2"],
-        "art_4_short": ["Pic. 1, lig. 2, pic. 1", "Stacc. 1, slur 2, stacc. 1"],
-        "art_5_short": ["Pic. 2, lig. 2", "Stacc. 2, slur 2"],
-        "art_6_short": ["Pic. 1, lig. 3", "Stacc. 1, slur 3"],
-        "art_7_short": ["Lig. 3, pic. 1", "Slur 3, stacc. 1"],
-        "art_8_short": ["Toda picada", "All staccato"],
+        "art_1_short": ["8 Lig.", "8 Slur"],
+        "art_2_short": ["4+4", "4+4"],
+        "art_3_short": ["2L+2P", "2L+2P"],
+        "art_4_short": ["1P+2L+1P", "1P+2L+1P"],
+        "art_5_short": ["2P+2L", "2P+2L"],
+        "art_6_short": ["1P+3L", "1P+3L"],
+        "art_7_short": ["3L+1P", "3L+1P"],
+        "art_8_short": ["Stacc.", "Stacc."],
 
         // Matrix View
         "matrix_title": ["Matriz de Estudio Modal", "Modal Study Matrix"],
@@ -672,6 +672,32 @@ public class LocalizationManager: ObservableObject {
         "legend_in_progress": ["En Progreso (1-7/8 arts.)", "In Progress (1-7/8 arts)"],
         "legend_not_started": ["No iniciado (0/8 arts.)", "Not started (0/8 arts)"],
         "completed": ["Completada", "Completed"],
-        "in_progress": ["En curso", "Current"]
+        "in_progress": ["En curso", "Current"],
+
+        // Conservatory Coach & 3-Step Practice Wizard & 3-Level Modes Explorer
+        "coach_badge": ["CONSERVATORY COACH · ASISTENTE GUIADO", "CONSERVATORY COACH · GUIDED ASSISTANT"],
+        "coach_title": ["Asistente de Estudio: ¿Qué debo practicar hoy?", "Study Assistant: What should I practice today?"],
+        "coach_subtitle": [
+            "Rutina guiada combinando Taffanel & Gaubert, Reichert Op. 5 y las 840 Variaciones de Modos Paralelos.",
+            "Guided daily routine combining Taffanel & Gaubert, Reichert Op. 5, and the 840 Parallel Modal Variations."
+        ],
+        "coach_open_wizard": ["Practice Wizard (3 Pasos)", "Practice Wizard (3 Steps)"],
+        "coach_wizard_title": ["Asistente de Práctica · Conservatory Coach", "Conservatory Practice Wizard"],
+        "coach_resume_banner": ["CONTINUAR ÚLTIMA SESIÓN", "CONTINUE LAST SESSION"],
+        "coach_resume_action": ["Reanudar", "Resume"],
+        "coach_step1_title": ["PASO 1 · TIEMPO DISPONIBLE", "STEP 1 · AVAILABLE TIME"],
+        "coach_step2_title": ["PASO 2 · ENFOQUE TÉCNICO PRINCIPAL", "STEP 2 · TECHNICAL FOCUS"],
+        "coach_step3_title": ["PASO 3 · TÓNICA, MODO Y RUTINA SUGERIDA", "STEP 3 · TONIC, MODE & GENERATED ROUTINE"],
+        "coach_launch_routine": ["🚀 Iniciar Sesión Guiada en el Atril", "🚀 Start Guided Session on Stand"],
+        "coach_level1_tonic": ["NIVEL 1 · TÓNICA CROMÁTICA (12)", "LEVEL 1 · CHROMATIC TONIC (12)"],
+        "coach_level2_mode": ["NIVEL 2 · MODO PARALELO (7)", "LEVEL 2 · PARALLEL MODE (7)"],
+        "coach_level3_scheme": ["NIVEL 3 · ESQUEMA TÉCNICO (10 · 840 VARIACIONES)", "LEVEL 3 · TECHNICAL SCHEME (10 · 840 VARIATIONS)"],
+        "coach_level3_subtitle": [
+            "Aplica cualquier patrón de Taffanel & Gaubert o Reichert Op. 5 al modo paralelo elegido:",
+            "Apply any Taffanel & Gaubert or Reichert Op. 5 pattern to the selected parallel mode:"
+        ],
+        "coach_taffanel_group": ["Taffanel & Gaubert (6 Esquemas):", "Taffanel & Gaubert (6 Schemes):"],
+        "coach_reichert_group": ["M. A. Reichert Op. 5 (4 Esquemas):", "M. A. Reichert Op. 5 (4 Schemes):"]
     ]
 }
+

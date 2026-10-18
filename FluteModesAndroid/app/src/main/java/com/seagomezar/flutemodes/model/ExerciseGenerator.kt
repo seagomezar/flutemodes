@@ -2,90 +2,391 @@ package com.seagomezar.flutemodes.model
 
 object ExerciseGenerator {
 
+    /**
+     * Returns (sBase, sAcc) for the 16 diatonic scale positions (0..15) of a Parallel Mode,
+     * including Urtext double flats (__B, __E) for Mi♭ Locrian and La♭ Phrygian/Locrian.
+     */
+    fun getModalScaleNotesPair(tonic: Tonic, mode: ModeType): Pair<List<String>, List<String>> {
+        val sBase = tonic.abcNoteSequence
+        val accMap = tonic.accidentalMap(mode).toMutableMap()
+        if (tonic == Tonic.MI_BEMOL && mode == ModeType.LOCRIAN) {
+            accMap[4] = "__"
+        } else if (tonic == Tonic.LA_BEMOL && mode == ModeType.PHRYGIAN) {
+            accMap[1] = "__"
+        } else if (tonic == Tonic.LA_BEMOL && mode == ModeType.LOCRIAN) {
+            accMap[1] = "__"
+            accMap[4] = "__"
+        }
+        val sAcc = sBase.mapIndexed { idx, note ->
+            val degree = idx % 7
+            val acc = accMap[degree]
+            if (acc != null) "$acc$note" else note
+        }
+        return Pair(sBase, sAcc)
+    }
+
+    /**
+     * Applies Urtext engraving rule within a single measure: the first occurrence of an altered
+     * scale position `d` in the measure carries its accidental (`sAcc[d]`), and subsequent
+     * occurrences of the same `d` within that measure use `sBase[d]`.
+     */
+    fun resolveMeasureGroups(
+        groupsOfIndices: List<List<Int>>,
+        sBase: List<String>,
+        sAcc: List<String>
+    ): List<List<String>> {
+        val seenInMeasure = mutableSetOf<Int>()
+        return groupsOfIndices.map { idxList ->
+            idxList.map { d ->
+                if (seenInMeasure.add(d)) sAcc[d] else sBase[d]
+            }
+        }
+    }
+
+    /**
+     * Generates both the exact scale degree indices (0..15) and the ABC body lines for any of the 10 ModalSchemes.
+     */
+    fun generateModalSchemeDegreesAndLines(
+        tonic: Tonic,
+        mode: ModeType,
+        scheme: ModalScheme,
+        articulation: ArticulationPattern
+    ): Pair<List<Int>, List<String>> {
+        val (sBase, sAcc) = getModalScaleNotesPair(tonic, mode)
+        val degrees = mutableListOf<Int>()
+
+        when (scheme) {
+            ModalScheme.EJ1 -> {
+                val lines = mutableListOf<String>()
+                for (d in 0 until 8) {
+                    val idxStd = listOf(d, d + 1, d + 2, d + 3, d + 4, d + 3, d + 2, d + 1)
+                    val beatsIdx: List<List<Int>>
+                    val barEnd: String
+                    if (d < 7) {
+                        beatsIdx = listOf(idxStd, idxStd, idxStd, idxStd)
+                        barEnd = "|"
+                    } else {
+                        val idxTurn = listOf(d, d + 1, d + 2, d + 3, d + 4, d + 2, d + 1, d)
+                        beatsIdx = listOf(idxStd, idxStd, idxStd, idxTurn)
+                        barEnd = "| ${sAcc[7]}4 z4 z8 |]"
+                    }
+                    for (b in beatsIdx) degrees.addAll(b)
+                    val beats = resolveMeasureGroups(beatsIdx, sBase, sAcc)
+                    val artStr = beats.joinToString(" ") { articulation.apply16ths8(it) }
+                    lines.add("$artStr $barEnd")
+                }
+                degrees.add(7)
+                return Pair(degrees, lines)
+            }
+
+            ModalScheme.EJ2 -> {
+                val degreesArch = listOf(0, 2, 4, 7, 10, 5, 3)
+                val lines = mutableListOf<String>()
+                for (d in degreesArch) {
+                    val idxStd = listOf(d, d + 1, d + 2, d + 3, d + 4, d + 3, d + 2, d + 1)
+                    val idxTurn = listOf(d, d + 1, d + 2, d + 3, d + 4, d + 2, d + 1, d)
+                    val beatsIdx = listOf(idxStd, idxStd, idxStd, idxTurn)
+                    for (b in beatsIdx) degrees.addAll(b)
+                    val beats = resolveMeasureGroups(beatsIdx, sBase, sAcc)
+                    val artStr = beats.joinToString(" ") { articulation.apply16ths8(it) }
+                    lines.add("$artStr |")
+                }
+                val idxII = listOf(1, 2, 3, 4, 5, 4, 3, 2)
+                val idxI = listOf(0, 1, 2, 3, 4, 3, 2, 1)
+                val idxITurn = listOf(0, 1, 2, 3, 4, 2, 1, 0)
+                val c8BeatsIdx = listOf(idxII, idxII, idxI, idxITurn)
+                for (b in c8BeatsIdx) degrees.addAll(b)
+                degrees.add(0)
+                val c8Beats = resolveMeasureGroups(c8BeatsIdx, sBase, sAcc)
+                val artC8 = c8Beats.joinToString(" ") { articulation.apply16ths8(it) }
+                lines.add("$artC8 | ${sAcc[0]}4 z4 z8 |]")
+                return Pair(degrees, lines)
+            }
+
+            ModalScheme.EJ4 -> {
+                val groupsIdx = listOf(
+                    Pair((0 until 8).toList(),  listOf(8, 7, 6, 5, 4, 3, 2, 1)),
+                    Pair((2 until 10).toList(), listOf(10, 9, 8, 7, 6, 5, 4, 3)),
+                    Pair((4 until 12).toList(), listOf(12, 11, 10, 9, 8, 7, 6, 5)),
+                    Pair((6 until 14).toList(), listOf(14, 13, 12, 11, 10, 9, 8, 7)),
+                    Pair((6 until 14).toList(), listOf(12, 11, 10, 9, 8, 7, 6, 5)),
+                    Pair((4 until 12).toList(), listOf(10, 9, 8, 7, 6, 5, 4, 3)),
+                    Pair((2 until 10).toList(), listOf(8, 7, 6, 5, 4, 3, 2, 1))
+                )
+                val bars = mutableListOf<String>()
+                for ((gAsc, gDesc) in groupsIdx) {
+                    degrees.addAll(gAsc)
+                    degrees.addAll(gDesc)
+                    val resolved = resolveMeasureGroups(listOf(gAsc, gDesc), sBase, sAcc)
+                    bars.add("${articulation.apply(resolved[0])} ${articulation.apply(resolved[1])}")
+                }
+                val c8AscIdx = (0 until 8).toList()
+                val c8DescIdx = listOf(6, 5, 4, 3, 2, 1, 0)
+                degrees.addAll(c8AscIdx)
+                degrees.addAll(c8DescIdx)
+                val resolved8 = resolveMeasureGroups(listOf(c8AscIdx, c8DescIdx), sBase, sAcc)
+                val n8Asc = resolved8[0]
+                val n8Desc = resolved8[1]
+                val c8Asc = articulation.apply(n8Asc)
+                val c8Desc = if (articulation == ArticulationPattern.ALL_STACCATO) {
+                    ".${n8Desc[0]}.${n8Desc[1]}.${n8Desc[2]}.${n8Desc[3]} .${n8Desc[4]}.${n8Desc[5]}.${n8Desc[6]}2"
+                } else {
+                    "(${n8Desc[0]}${n8Desc[1]}${n8Desc[2]}${n8Desc[3]}${n8Desc[4]}${n8Desc[5]} ${n8Desc[6]}2)"
+                }
+                bars.add("$c8Asc $c8Desc")
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${bars[0]} | ${bars[1]} |",
+                        "${bars[2]} | ${bars[3]} |",
+                        "${bars[4]} | ${bars[5]} |",
+                        "${bars[6]} | ${bars[7]} |]"
+                    )
+                )
+            }
+
+            ModalScheme.EJ5 -> {
+                val measurePairs = listOf(
+                    Pair(listOf(0, 1, 2, 3, 4, 5), listOf(6, 7, 8, 9, 10, 11)),
+                    Pair(listOf(12, 13, 14, 13, 12, 11), listOf(10, 9, 8, 7, 6, 5)),
+                    Pair(listOf(4, 5, 6, 7, 8, 9), listOf(10, 11, 12, 13, 14, 13)),
+                    Pair(listOf(12, 11, 10, 9, 8, 7), listOf(6, 5, 4, 3, 2, 1))
+                )
+                val fmtBars = mutableListOf<String>()
+                for ((g1, g2) in measurePairs) {
+                    degrees.addAll(g1)
+                    degrees.addAll(g2)
+                    val res = resolveMeasureGroups(listOf(g1, g2), sBase, sAcc)
+                    fmtBars.add("${articulation.apply16ths6(res[0])} ${articulation.apply16ths6(res[1])}")
+                }
+                degrees.add(0)
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${fmtBars[0]} | ${fmtBars[1]} |",
+                        "${fmtBars[2]} | ${fmtBars[3]} | ${sAcc[0]}4 z2 z6 |]"
+                    )
+                )
+            }
+
+            ModalScheme.EJ10, ModalScheme.EJ11 -> {
+                val chordDegrees = listOf(
+                    listOf(0, 2, 4, 7, 9, 11, 14),
+                    listOf(1, 3, 5, 8, 10, 12, 15),
+                    listOf(0, 2, 4, 6, 9, 11, 13),
+                    listOf(0, 3, 5, 7, 10, 12, 14),
+                    listOf(1, 4, 6, 8, 11, 13, 15),
+                    listOf(0, 2, 5, 7, 9, 12, 14),
+                    listOf(1, 3, 6, 8, 10, 13, 15),
+                    listOf(0, 2, 4, 7, 9, 11, 14)
+                )
+                val bars = mutableListOf<String>()
+                for (cd in chordDegrees) {
+                    val d1 = cd[0]; val d2 = cd[1]; val d3 = cd[2]; val d4 = cd[3]
+                    val d5 = cd[4]; val d6 = cd[5]; val d7 = cd[6]
+                    if (scheme == ModalScheme.EJ10) {
+                        val g1Idx = listOf(d1, d2, d3, d4, d5, d6)
+                        val g2Idx = listOf(d7, d6, d5, d4, d3, d2)
+                        degrees.addAll(g1Idx)
+                        degrees.addAll(g2Idx)
+                        val res = resolveMeasureGroups(listOf(g1Idx, g2Idx), sBase, sAcc)
+                        bars.add("${articulation.apply16ths6(res[0])} ${articulation.apply16ths6(res[1])}")
+                    } else {
+                        val g1Idx = listOf(d1, d3, d2, d4, d3, d5)
+                        val g2Idx = listOf(d4, d6, d5, d7, d5, d6)
+                        val g3Idx = listOf(d4, d5, d3, d4, d2, d3)
+                        degrees.addAll(g1Idx)
+                        degrees.addAll(g2Idx)
+                        degrees.addAll(g3Idx)
+                        val res = resolveMeasureGroups(listOf(g1Idx, g2Idx, g3Idx), sBase, sAcc)
+                        bars.add("${articulation.apply16ths6(res[0])} ${articulation.apply16ths6(res[1])} ${articulation.apply16ths6(res[2])}")
+                    }
+                }
+                degrees.add(0)
+                val closing = if (scheme == ModalScheme.EJ10) "${sAcc[0]}4 z2 z6 |]" else "${sAcc[0]}6 z3 z9 |]"
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${bars[0]} | ${bars[1]} |",
+                        "${bars[2]} | ${bars[3]} |",
+                        "${bars[4]} | ${bars[5]} |",
+                        "${bars[6]} | ${bars[7]} | $closing"
+                    )
+                )
+            }
+
+            ModalScheme.R1 -> {
+                val m1G = listOf(listOf(7, 4, 5, 6, 7, 8), listOf(9, 7, 8, 9, 10, 11))
+                val m2G = listOf(listOf(11, 9, 10, 11, 12, 13), listOf(14, 13, 12, 11, 10, 9))
+                val m3G = listOf(listOf(12, 11, 10, 9, 8, 7), listOf(6, 5, 4, 3, 2, 1))
+                val m4G = listOf(listOf(0, 2, 4, 7, 9, 11), listOf(14))
+                for (mG in listOf(m1G, m2G, m3G, m4G)) {
+                    for (g in mG) degrees.addAll(g)
+                }
+                val m1N = resolveMeasureGroups(m1G, sBase, sAcc)
+                val m2N = resolveMeasureGroups(m2G, sBase, sAcc)
+                val m3N = resolveMeasureGroups(m3G, sBase, sAcc)
+                val m4N = resolveMeasureGroups(m4G, sBase, sAcc)
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${articulation.apply16ths6(m1N[0])} ${articulation.apply16ths6(m1N[1])} | ${articulation.apply16ths6(m2N[0])} ${articulation.apply16ths6(m2N[1])} |",
+                        "${articulation.apply16ths6(m3N[0])} ${articulation.apply16ths6(m3N[1])} | ${articulation.apply16ths6(m4N[0])} .${m4N[1][0]}2 z2 z2 |]"
+                    )
+                )
+            }
+
+            ModalScheme.R2 -> {
+                val pickupIdx = listOf(0, 2, 4, 7)
+                val measuresIdx = listOf(
+                    listOf(6, 4, 3, 1, 3, 4, 6, 8),
+                    listOf(7, 4, 2, 0, 2, 4, 7, 9),
+                    listOf(8, 6, 4, 3, 4, 6, 8, 10),
+                    listOf(9, 7, 4, 2, 4, 7, 9, 11),
+                    listOf(10, 8, 6, 4, 6, 8, 10, 11),
+                    listOf(11, 9, 7, 4, 7, 9, 11, 14),
+                    listOf(8, 6, 4, 3, 1, 3, 4, 6)
+                )
+                degrees.addAll(pickupIdx)
+                for (mIdx in measuresIdx) degrees.addAll(mIdx)
+                degrees.add(7)
+                val pkNotes = resolveMeasureGroups(listOf(pickupIdx), sBase, sAcc)[0]
+                val pickup = articulation.apply16ths4(pkNotes)
+                val mStrs = measuresIdx.map { mIdx ->
+                    val notes = resolveMeasureGroups(listOf(mIdx), sBase, sAcc)[0]
+                    articulation.apply(notes)
+                }
+                return Pair(
+                    degrees,
+                    listOf(
+                        "$pickup | ${mStrs[0]} | ${mStrs[1]} | ${mStrs[2]} |",
+                        "${mStrs[3]} | ${mStrs[4]} | ${mStrs[5]} | ${mStrs[6]} | .${sAcc[7]}2 z2 |]"
+                    )
+                )
+            }
+
+            ModalScheme.R4 -> {
+                val barsIdx = listOf(
+                    Pair(listOf(0, 2, 4, 5, 4, 3, 4, 2), listOf(2, 4, 7, 8, 7, 6, 7, 4)),
+                    Pair(listOf(4, 7, 9, 10, 9, 8, 9, 7), listOf(7, 9, 11, 12, 11, 10, 11, 9)),
+                    Pair(listOf(4, 7, 9, 10, 9, 8, 9, 7), listOf(2, 4, 7, 8, 7, 6, 7, 4))
+                )
+                val m4Hb1Idx = listOf(0, 2, 4, 7, 9, 11, 7, 9)
+                val m4TailIdx = listOf(4, 7, 2, 4)
+                val m4EndIdx = listOf(0)
+
+                val barStrs = mutableListOf<String>()
+                for ((hb1, hb2) in barsIdx) {
+                    degrees.addAll(hb1)
+                    degrees.addAll(hb2)
+                    val res = resolveMeasureGroups(listOf(hb1, hb2), sBase, sAcc)
+                    barStrs.add("${articulation.apply(res[0])} ${articulation.apply(res[1])}")
+                }
+                degrees.addAll(m4Hb1Idx)
+                degrees.addAll(m4TailIdx)
+                degrees.addAll(m4EndIdx)
+                val res4 = resolveMeasureGroups(listOf(m4Hb1Idx, m4TailIdx, m4EndIdx), sBase, sAcc)
+                val m4Str = "${articulation.apply(res4[0])} ${articulation.apply16ths4(res4[1])} .${res4[2][0]}2 z2 |]"
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${barStrs[0]} | ${barStrs[1]} |",
+                        "${barStrs[2]} | $m4Str"
+                    )
+                )
+            }
+
+            ModalScheme.R5 -> {
+                val tripletPairsIdx = listOf(
+                    Pair(listOf(7, 9, 11, 14, 9, 11), listOf(7, 9, 11, 4, 9, 11)),
+                    Pair(listOf(8, 10, 11, 13, 10, 11), listOf(8, 10, 11, 4, 10, 11)),
+                    Pair(listOf(6, 10, 11, 15, 10, 11), listOf(6, 10, 11, 4, 10, 11)),
+                    Pair(listOf(7, 9, 11, 14, 9, 11), listOf(7, 9, 11, 4, 9, 11)),
+                    Pair(listOf(7, 9, 12, 14, 9, 12), listOf(6, 9, 11, 15, 9, 11)),
+                    Pair(listOf(5, 9, 12, 14, 9, 12), listOf(3, 8, 11, 15, 8, 11)),
+                    Pair(listOf(4, 9, 11, 14, 9, 11), listOf(4, 10, 11, 13, 10, 11))
+                )
+                val m8Idx = listOf(7, 9, 11, 14, 9, 11)
+                val m8EndIdx = listOf(7)
+                val mStrs = mutableListOf<String>()
+                for ((p1, p2) in tripletPairsIdx) {
+                    degrees.addAll(p1)
+                    degrees.addAll(p2)
+                    val res = resolveMeasureGroups(listOf(p1, p2), sBase, sAcc)
+                    mStrs.add("${articulation.applyTripletPair(res[0])} ${articulation.applyTripletPair(res[1])}")
+                }
+                degrees.addAll(m8Idx)
+                degrees.addAll(m8EndIdx)
+                val res8 = resolveMeasureGroups(listOf(m8Idx, m8EndIdx), sBase, sAcc)
+                val m8Str = "${articulation.applyTripletPair(res8[0])} .${res8[1][0]}2 z2"
+                return Pair(
+                    degrees,
+                    listOf(
+                        "${mStrs[0]} | ${mStrs[1]} | ${mStrs[2]} | ${mStrs[3]} |",
+                        "${mStrs[4]} | ${mStrs[5]} | ${mStrs[6]} | $m8Str |]"
+                    )
+                )
+            }
+        }
+    }
+
+    /**
+     * Computes the exact MIDI note sequence for any of the 840 modal combinations (12 tonics x 7 modes x 10 schemes).
+     */
+    fun generateModalSchemeMidiNotes(
+        tonic: Tonic,
+        mode: ModeType,
+        scheme: ModalScheme = ModalScheme.EJ4
+    ): List<Int> {
+        val (degrees, _) = generateModalSchemeDegreesAndLines(
+            tonic = tonic,
+            mode = mode,
+            scheme = scheme,
+            articulation = ArticulationPattern.ALL_SLURRED
+        )
+        val intervals = mode.intervals
+        val rootMidi = tonic.rootMidi
+        return degrees.map { deg ->
+            val octave = deg / 7
+            val step = deg % 7
+            rootMidi + octave * 12 + intervals[step]
+        }
+    }
+
     fun generateABC(
         tonic: Tonic,
         mode: ModeType,
         articulation: ArticulationPattern,
         tempoBPM: Int = 90,
-        loc: LocalizationManager
+        loc: LocalizationManager,
+        scheme: ModalScheme = ModalScheme.EJ4
     ): String {
         val keySig = mode.keySignature(tonic)
-        val accMap = tonic.accidentalMap(mode)
-        val baseNotes = tonic.abcNoteSequence
-
-        val s = mutableListOf<String>()
-        for ((idx, note) in baseNotes.withIndex()) {
-            val degree = idx % 7
-            val acc = accMap[degree]
-            if (acc != null) {
-                s.add("$acc$note")
-            } else {
-                s.add(note)
-            }
+        val (_, bodyLines) = generateModalSchemeDegreesAndLines(
+            tonic = tonic,
+            mode = mode,
+            scheme = scheme,
+            articulation = articulation
+        )
+        val tempoHeader = when (scheme) {
+            ModalScheme.EJ4 -> "Q:1/2=$tempoBPM"
+            ModalScheme.EJ5, ModalScheme.EJ10, ModalScheme.EJ11, ModalScheme.R1 -> "Q:3/8=$tempoBPM"
+            else -> "Q:1/4=$tempoBPM"
         }
-
-        fun art(notes: List<String>): String {
-            return articulation.apply(notes)
-        }
-
-        // Measure 1
-        val c1Asc = s.subList(0, 8)
-        val c1Desc = listOf(s[8], s[7], s[6], s[5], s[4], s[3], s[2], s[1])
-        val c1 = "${art(c1Asc)} ${art(c1Desc)}"
-
-        // Measure 2
-        val c2Asc = s.subList(2, 10)
-        val c2Desc = listOf(s[10], s[9], s[8], s[7], s[6], s[5], s[4], s[3])
-        val c2 = "${art(c2Asc)} ${art(c2Desc)}"
-
-        // Measure 3
-        val c3Asc = s.subList(4, 12)
-        val c3Desc = listOf(s[12], s[11], s[10], s[9], s[8], s[7], s[6], s[5])
-        val c3 = "${art(c3Asc)} ${art(c3Desc)}"
-
-        // Measure 4 (Peak)
-        val c4Asc = s.subList(6, 14)
-        val c4Desc = listOf(s[14], s[13], s[12], s[11], s[10], s[9], s[8], s[7])
-        val c4 = "${art(c4Asc)} ${art(c4Desc)}"
-
-        // Measure 5
-        val c5Asc = s.subList(6, 14)
-        val c5Desc = listOf(s[12], s[11], s[10], s[9], s[8], s[7], s[6], s[5])
-        val c5 = "${art(c5Asc)} ${art(c5Desc)}"
-
-        // Measure 6
-        val c6Asc = s.subList(4, 12)
-        val c6Desc = listOf(s[10], s[9], s[8], s[7], s[6], s[5], s[4], s[3])
-        val c6 = "${art(c6Asc)} ${art(c6Desc)}"
-
-        // Measure 7
-        val c7Asc = s.subList(2, 10)
-        val c7Desc = listOf(s[8], s[7], s[6], s[5], s[4], s[3], s[2], s[1])
-        val c7 = "${art(c7Asc)} ${art(c7Desc)}"
-
-        // Measure 8
-        val c8Asc = s.subList(0, 8)
-        val c8DescNotes = listOf(s[6], s[5], s[4], s[3], s[2], s[1])
-        val finalTonic = "${s[0]}2"
-        val c8DescStr = "(${c8DescNotes.joinToString("")} $finalTonic)"
-        val c8 = "${art(c8Asc)} $c8DescStr"
-
-        return """
-            X:1
-            T:Modo ${mode.id}: ${tonic.displayName} ${mode.getName(loc)}
-            % ${mode.family.displayName} | ${mode.accidentalBadge(loc)} | Fórmula: ${mode.formula}
-            %%barsperstaff 2
-            M:4/2
-            L:1/8
-            Q:1/2=$tempoBPM
-            K:$keySig
-            V:1 clef=treble
-            %%score 1
-            $c1 | $c2 |
-            $c3 | $c4 |
-            $c5 | $c6 |
-            $c7 | $c8 |]
-        """.trimIndent()
+        val headerLines = mutableListOf(
+            "X:1",
+            "T:Modo ${mode.id}: ${tonic.displayName} ${mode.getShortName(loc)} (${scheme.pillLabel})",
+            "% ${mode.family.displayName} | ${mode.accidentalBadge(loc)} | Fórmula: ${mode.formula} | Esquema: ${scheme.code}",
+            "%%barsperstaff ${scheme.barsPerStaff}",
+            "M:${scheme.meter}",
+            "L:${scheme.unitLen}",
+            tempoHeader,
+            "K:$keySig",
+            "V:1 clef=treble",
+            "%%score 1"
+        )
+        headerLines.addAll(bodyLines)
+        return headerLines.joinToString("\n")
     }
 
     internal data class EJ1Measure(
@@ -207,7 +508,7 @@ object ExerciseGenerator {
         val lines = mutableListOf(
             "X:1",
             "T:E. J. $exerciseNum — ${articulation.title(loc)}",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ${exerciseNum}_LEDUC_ART:${articulation.id}",
             "%%barsperstaff 1",
             "M:4/2",
@@ -253,7 +554,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:E. J. 4 — ${section.titleEs}",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ4_LEDUC_ART:${articulation.id}:SEC:${section.id}",
             "M:4/2",
             "L:1/8",
@@ -306,7 +607,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:E. J. 5 — ${section.titleEs}",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ5_LEDUC_ART:${articulation.id}:SEC:${section.id}",
             "M:6/8",
             "L:1/16",
@@ -343,7 +644,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:E. J. 10 — ${section.titleEs}",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ10_LEDUC_ART:${articulation.id}:SEC:${section.id}",
             "M:6/8",
             "L:1/16",
@@ -380,7 +681,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:E. J. 11 — ${section.titleEs}",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ11_LEDUC_ART:${articulation.id}:SEC:${section.id}",
             "M:9/8",
             "L:1/16",
@@ -414,7 +715,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:Reichert Op. 5 Nº 1 — ${section.titleEs}",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 2–3)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R1_SCHOTT_ART:${articulation.id}:SEC:${section.id}",
             "M:6/8",
             "L:1/16",
@@ -461,7 +762,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:Reichert Op. 5 Nº 2 — ${section.titleEs}",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 4–5)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R2_SCHOTT_ART:${articulation.id}:SEC:${section.id}",
             "M:2/4",
             "L:1/16",
@@ -508,7 +809,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:Reichert Op. 5 Nº 4 — ${section.titleEs}",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 8–9)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R4_SCHOTT_ART:${articulation.id}:SEC:${section.id}",
             "M:C",
             "L:1/16",
@@ -555,7 +856,7 @@ object ExerciseGenerator {
         return listOf(
             "X:1",
             "T:Reichert Op. 5 Nº 5 — ${section.titleEs}",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 10–13)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R5_SCHOTT_ART:${articulation.id}:SEC:${section.id}",
             "M:2/4",
             "L:1/16",

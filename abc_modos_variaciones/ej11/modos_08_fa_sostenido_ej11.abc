@@ -1,0 +1,115 @@
+%abc-2.1
+% Tónica 08_fa_sostenido: Fa sostenido (Fa♯) — 7 Modos Paralelos bajo el esquema E.J. 11
+% E.J. 11 — Arpegios Quebrados Modales en 9/8 (Taffanel & Gaubert (págs. 122–125))
+
+X:1
+T:Modo 1: Fa♯ Jónico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (GdBgdb) (gd'bg'bd') (gbdgBd) |
+(FcAeca) (ec'ae'ac') (eaceAc) | (FdBfdb) (fd'bf'bd') (fbdfBd) |
+(Gecgec') (ge'c'g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(GeBgeb) (ge'bg'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:2
+T:Modo 2: Fa♯ Lidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Si♯ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (Gd^Bgd^b) (gd'bg'bd') (gbdgBd) |
+(FcAeca) (ec'ae'ac') (eaceAc) | (Fd^Bfd^b) (fd'bf'bd') (fbdfBd) |
+(Gecgec') (ge'c'g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(Ge^Bge^b) (ge'bg'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:3
+T:Modo 3: Fa♯ Mixolidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Mi♮ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (GdBgdb) (gd'bg'bd') (gbdgBd) |
+(FcA=eca) (ec'a=e'ac') (eaceAc) | (FdBfdb) (fd'bf'bd') (fbdfBd) |
+(G=ecgec') (g=e'c'g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(G=eBgeb) (g=e'bg'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:4
+T:Modo 4: Fa♯ Dórico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Re♯ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#m
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (G^dBgdb) (g^d'bg'bd') (gbdgBd) |
+(FcAeca) (ec'ae'ac') (eaceAc) | (F^dBfdb) (f^d'bf'bd') (fbdfBd) |
+(Gecgec') (ge'c'g'c'e') (gc'egce) | (F^dAfda) (f^d'af'ad') (fadfAd) |
+(GeBgeb) (ge'bg'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:5
+T:Modo 5: Fa♯ Eólico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#m
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (GdBgdb) (gd'bg'bd') (gbdgBd) |
+(FcAeca) (ec'ae'ac') (eaceAc) | (FdBfdb) (fd'bf'bd') (fbdfBd) |
+(Gecgec') (ge'c'g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(GeBgeb) (ge'bg'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:6
+T:Modo 6: Fa♯ Frigio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 6/7 (Menor) | Segunda menor accidental: Sol♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#m
+V:1 clef=treble
+%%score 1
+(FcAfca) (fc'af'ac') (facfAc) | (=GdB=gdb) (gd'b=g'bd') (gbdgBd) |
+(FcAeca) (ec'ae'ac') (eaceAc) | (FdBfdb) (fd'bf'bd') (fbdfBd) |
+(=Gec=gec') (ge'c'=g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(=GeB=geb) (ge'b=g'be') (gbegBe) | (FcAfca) (fc'af'ac') (facfAc) | F6 z3 z9 |]
+
+X:7
+T:Modo 7: Fa♯ Lócrio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 7/7 (Menor) | Segunda menor: Sol♮ y Quinta disminuida: Do♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:F#m
+V:1 clef=treble
+%%score 1
+(F=cAfca) (f=c'af'ac') (facfAc) | (=GdB=gdb) (gd'b=g'bd') (gbdgBd) |
+(F=cAeca) (e=c'ae'ac') (eaceAc) | (FdBfdb) (fd'bf'bd') (fbdfBd) |
+(=Ge=c=ge=c') (ge'c'=g'c'e') (gc'egce) | (FdAfda) (fd'af'ad') (fadfAd) |
+(=GeB=geb) (ge'b=g'be') (gbegBe) | (F=cAfca) (f=c'af'ac') (facfAc) | F6 z3 z9 |]

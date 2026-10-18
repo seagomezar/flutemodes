@@ -101,6 +101,7 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
     }
 
     public var shortName: String { displayTitle }
+    public var shortBadge: String { pillLabel }
 
     public var homeButtonTitle: String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
@@ -115,7 +116,7 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .r2: return "Reichert 2"
         case .r4: return "Reichert 4"
         case .r5: return "Reichert 5"
-        case .modos: return isEn ? "84 Parallel Modes (12 Tonics × 7 Modes)" : "84 Modos Paralelos (12 Tónicas × 7 Modos)"
+        case .modos: return isEn ? "84 Parallel Modes (84 × 10)" : "84 Modos Paralelos (84 × 10)"
         }
     }
 
@@ -132,7 +133,7 @@ public enum ExerciseType: String, CaseIterable, Identifiable, Codable {
         case .r2: return isEn ? "2/4 · 8 Arts." : "2/4 · 8 Arts."
         case .r4: return isEn ? "4/4 · 8 Arts." : "4/4 · 8 Arts."
         case .r5: return isEn ? "Triplets · 10" : "Tresillos · 10"
-        case .modos: return isEn ? "Maestro León Giraldo" : "Maestro León Giraldo"
+        case .modos: return isEn ? "12 Tonics × 7 Modes" : "12 Tónicas × 7 Modos"
         }
     }
 }
@@ -166,17 +167,16 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
 
     public func title(for exercise: ExerciseType = .ej4) -> String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
-        let plate = exercise.isReichertExercise ? "B. Schott 20623" : "A. L. 16.588"
         switch self {
-        case .original:                return isEn ? "Original (As written — \(plate))" : "Original (Como está escrito — \(plate))"
-        case .allSlurred8:             return isEn ? "1. 8 slurred: (CDEFGABc)" : "1. 8 ligadas: (CDEFGABc)"
-        case .slurred4And4:            return isEn ? "2. 4 and 4 slurred: (CDEF)(GABc)" : "2. 4 y 4 ligadas: (CDEF)(GABc)"
-        case .staccato1Slur3:          return isEn ? "3. 1 staccato, 3 slurred: .C(DEF) .G(ABc)" : "3. 1 picada y 3 ligadas: .C(DEF) .G(ABc)"
-        case .slur2Staccato2:          return isEn ? "4. 2 slurred, 2 staccato: (CD).E.F (GA).B.c" : "4. 2 ligadas y 2 picadas: (CD).E.F (GA).B.c"
-        case .staccato2Slur2:          return isEn ? "5. 2 staccato, 2 slurred: .C.D(EF) .G.A(Bc)" : "5. 2 picadas y 2 ligadas: .C.D(EF) .G.A(Bc)"
-        case .staccato1Slur2Staccato1: return isEn ? "6. 1 stacc., 2 slurred, 1 stacc.: .C(DE).F .G(AB).c" : "6. 1 picada, 2 ligadas y 1 picada: .C(DE).F .G(AB).c"
-        case .pairsSlurred:            return isEn ? "7. Slurred in pairs: (CD)(EF)(GA)(Bc)" : "7. De 2 en 2 ligadas: (CD)(EF)(GA)(Bc)"
-        case .syncopatedPairs:         return isEn ? "8. Syncopated pairs: .C(DE)(FG)(AB).c" : "8. De 2 en 2 sincopadas: .C(DE)(FG)(AB).c"
+        case .original:                return isEn ? "Original (As written)" : "Original (Como está escrito)"
+        case .allSlurred8:             return isEn ? "8 slurred: (CDEFGABc)" : "8 ligadas: (CDEFGABc)"
+        case .slurred4And4:            return isEn ? "4 and 4 slurred: (CDEF)(GABc)" : "4 y 4 ligadas: (CDEF)(GABc)"
+        case .staccato1Slur3:          return isEn ? "1 staccato, 3 slurred: .C(DEF) .G(ABc)" : "1 picada y 3 ligadas: .C(DEF) .G(ABc)"
+        case .slur2Staccato2:          return isEn ? "2 slurred, 2 staccato: (CD).E.F (GA).B.c" : "2 ligadas y 2 picadas: (CD).E.F (GA).B.c"
+        case .staccato2Slur2:          return isEn ? "2 staccato, 2 slurred: .C.D(EF) .G.A(Bc)" : "2 picadas y 2 ligadas: .C.D(EF) .G.A(Bc)"
+        case .staccato1Slur2Staccato1: return isEn ? "1 stacc., 2 slurred, 1 stacc.: .C(DE).F .G(AB).c" : "1 picada, 2 ligadas y 1 picada: .C(DE).F .G(AB).c"
+        case .pairsSlurred:            return isEn ? "Slurred in pairs: (CD)(EF)(GA)(Bc)" : "De 2 en 2 ligadas: (CD)(EF)(GA)(Bc)"
+        case .syncopatedPairs:         return isEn ? "Syncopated pairs: .C(DE)(FG)(AB).c" : "De 2 en 2 sincopadas: .C(DE)(FG)(AB).c"
         }
     }
 
@@ -186,20 +186,20 @@ public enum EJ4Articulation: Int, CaseIterable, Identifiable, Codable {
         let isEn = LocalizationManager.shared.currentLanguage == .english
         switch self {
         case .original:                return "Orig."
-        case .allSlurred8:             return isEn ? "1: 8 Slur" : "1: 8 Lig."
-        case .slurred4And4:            return isEn ? "2: 4+4" : "2: 4+4"
-        case .staccato1Slur3:          return isEn ? "3: 1P+3L" : "3: 1P+3L"
-        case .slur2Staccato2:          return isEn ? "4: 2L+2P" : "4: 2L+2P"
-        case .staccato2Slur2:          return isEn ? "5: 2P+2L" : "5: 2P+2L"
-        case .staccato1Slur2Staccato1: return isEn ? "6: 1P+2L+1P" : "6: 1P+2L+1P"
-        case .pairsSlurred:            return isEn ? "7: 2+2" : "7: 2 en 2"
-        case .syncopatedPairs:         return isEn ? "8: Sync." : "8: Sinc."
+        case .allSlurred8:             return isEn ? "8 Slur" : "8 Lig."
+        case .slurred4And4:            return "4+4"
+        case .staccato1Slur3:          return "1P+3L"
+        case .slur2Staccato2:          return "2L+2P"
+        case .staccato2Slur2:          return "2P+2L"
+        case .staccato1Slur2Staccato1: return "1P+2L+1P"
+        case .pairsSlurred:            return isEn ? "2+2" : "2 en 2"
+        case .syncopatedPairs:         return isEn ? "Sync." : "Sinc."
         }
     }
 
     public func formulaBadge(for exercise: ExerciseType = .ej4) -> String {
         switch self {
-        case .original:                return exercise.isReichertExercise ? "Schott 20623" : "A.L. 16.588"
+        case .original:                return "Original"
         case .allSlurred8:             return "(8)"
         case .slurred4And4:            return "(4)+(4)"
         case .staccato1Slur3:          return "·(3) ·(3)"
@@ -248,38 +248,37 @@ public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
     public func title(for exercise: ExerciseType = .ej5) -> String {
         let isEn = LocalizationManager.shared.currentLanguage == .english
         let is98 = (exercise == .ej11)
-        let plate = exercise.isReichertExercise ? "B. Schott 20623" : "A. L. 16.588"
         switch self {
         case .original:
-            return isEn ? "0. Original (As written — \(plate))" : "0. Original (Como está escrito — \(plate))"
+            return isEn ? "Original (As written)" : "Original (Como está escrito)"
         case .allSlurred:
             return is98
-                ? (isEn ? "1. 18 slurred (full measure)" : "1. 18 ligadas (compás completo)")
-                : (isEn ? "1. 12 slurred (full measure)" : "1. 12 ligadas (compás completo)")
+                ? (isEn ? "18 slurred (full measure)" : "18 ligadas (compás completo)")
+                : (isEn ? "12 slurred (full measure)" : "12 ligadas (compás completo)")
         case .slurredSixBySix:
             return is98
-                ? (isEn ? "2. 6+6+6 slurred (by beats)" : "2. 6+6+6 ligadas (por tiempos)")
-                : (isEn ? "2. 6 and 6 slurred (by beats)" : "2. 6 y 6 ligadas (por tiempos)")
+                ? (isEn ? "6+6+6 slurred (by beats)" : "6+6+6 ligadas (por tiempos)")
+                : (isEn ? "6 and 6 slurred (by beats)" : "6 y 6 ligadas (por tiempos)")
         case .slur4Stacc2:
-            return isEn ? "3. 4 slurred and 2 staccato" : "3. 4 ligadas y 2 picadas"
+            return isEn ? "4 slurred and 2 staccato" : "4 ligadas y 2 picadas"
         case .stacc2Slur4:
-            return isEn ? "4. 2 staccato and 4 slurred" : "4. 2 picadas y 4 ligadas"
+            return isEn ? "2 staccato and 4 slurred" : "2 picadas y 4 ligadas"
         case .slur2Stacc4:
-            return isEn ? "5. 2 slurred and 4 staccato" : "5. 2 ligadas y 4 picadas"
+            return isEn ? "2 slurred and 4 staccato" : "2 ligadas y 4 picadas"
         case .slurredThreeByThree:
             return is98
-                ? (isEn ? "6. Slurred in 3s (3/4)" : "6. De 3 en 3 ligadas (3/4)")
-                : (isEn ? "6. Slurred in 3s (2/4)" : "6. De 3 en 3 ligadas (2/4)")
+                ? (isEn ? "Slurred in 3s (3/4)" : "De 3 en 3 ligadas (3/4)")
+                : (isEn ? "Slurred in 3s (2/4)" : "De 3 en 3 ligadas (2/4)")
         case .slur3Stacc3:
             return is98
-                ? (isEn ? "7. 3 slurred, 3 staccato (3/4)" : "7. 3 ligadas y 3 picadas (3/4)")
-                : (isEn ? "7. 3 slurred, 3 staccato (2/4)" : "7. 3 ligadas y 3 picadas (2/4)")
+                ? (isEn ? "3 slurred, 3 staccato (3/4)" : "3 ligadas y 3 picadas (3/4)")
+                : (isEn ? "3 slurred, 3 staccato (2/4)" : "3 ligadas y 3 picadas (2/4)")
         case .pairsSlurred:
-            return isEn ? "8. Slurred in pairs" : "8. De 2 en 2 ligadas"
+            return isEn ? "Slurred in pairs" : "De 2 en 2 ligadas"
         case .syncopatedPairs:
-            return isEn ? "9. Syncopated pairs" : "9. De 2 en 2 sincopadas"
+            return isEn ? "Syncopated pairs" : "De 2 en 2 sincopadas"
         case .allStaccato:
-            return isEn ? "10. All staccato" : "10. Todas picadas (Staccato)"
+            return isEn ? "All staccato" : "Todas picadas (Staccato)"
         }
     }
 
@@ -290,16 +289,16 @@ public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
         let is98 = (exercise == .ej11)
         switch self {
         case .original:            return "Orig."
-        case .allSlurred:          return is98 ? (isEn ? "1: 18 Slur" : "1: 18 Lig.") : (isEn ? "1: 12 Slur" : "1: 12 Lig.")
-        case .slurredSixBySix:     return is98 ? "2: 6+6+6" : "2: 6+6"
-        case .slur4Stacc2:         return "3: 4L+2P"
-        case .stacc2Slur4:         return "4: 2P+4L"
-        case .slur2Stacc4:         return "5: 2L+4P"
-        case .slurredThreeByThree: return isEn ? "6: 3 by 3" : "6: 3 en 3"
-        case .slur3Stacc3:         return "7: 3L+3P"
-        case .pairsSlurred:        return isEn ? "8: 2 by 2" : "8: 2 en 2"
-        case .syncopatedPairs:     return isEn ? "9: Sync." : "9: Sinc."
-        case .allStaccato:         return "10: Stacc."
+        case .allSlurred:          return is98 ? (isEn ? "18 Slur" : "18 Lig.") : (isEn ? "12 Slur" : "12 Lig.")
+        case .slurredSixBySix:     return is98 ? "6+6+6" : "6+6"
+        case .slur4Stacc2:         return "4L+2P"
+        case .stacc2Slur4:         return "2P+4L"
+        case .slur2Stacc4:         return "2L+4P"
+        case .slurredThreeByThree: return isEn ? "3 by 3" : "3 en 3"
+        case .slur3Stacc3:         return "3L+3P"
+        case .pairsSlurred:        return isEn ? "2 by 2" : "2 en 2"
+        case .syncopatedPairs:     return isEn ? "Sync." : "Sinc."
+        case .allStaccato:         return "Stacc."
         }
     }
 
@@ -309,8 +308,8 @@ public enum EJ5Articulation: Int, CaseIterable, Identifiable, Codable {
         let is98 = (exercise == .ej11)
         switch self {
         case .original:
-            if exercise == .r1 { return "6/8 · Schott 20623" }
-            if exercise == .r5 { return "2/4 · Schott 20623" }
+            if exercise == .r1 { return "6/8" }
+            if exercise == .r5 { return "2/4" }
             return is98 ? "9/8 · 3/4" : "6/8 · 2/4"
         case .allSlurred:          return is98 ? "(18)" : "(12)"
         case .slurredSixBySix:     return is98 ? "(6)+(6)+(6)" : "(6)+(6)"
@@ -474,7 +473,7 @@ public enum EJ1Articulation: Int, CaseIterable, Identifiable, Codable {
 
     public var formulaBadge: String {
         switch self {
-        case .original:                return "A.L. 16.588"
+        case .original:                return "Original"
         case .allSlurred8:             return "(8)"
         case .slurred4And4:            return "(4)+(4)"
         case .staccato1Slur3:          return "·(3) ·(3)"
@@ -533,14 +532,14 @@ public enum ArticulationPattern: Int, CaseIterable, Identifiable, Codable {
 
     public var title: String {
         switch self {
-        case .allSlurred: return "1. Toda ligada"
-        case .slurredFourAndFour: return "2. Ligado 4 y 4"
-        case .slurTwoStaccatoTwo: return "3. Ligado 2, picado 2"
-        case .staccatoSlurTwoStaccato: return "4. Picado 1, ligado 2, picado 1"
-        case .staccatoTwoSlurTwo: return "5. Picado 2, ligado 2"
-        case .staccatoOneSlurThree: return "6. Picado 1, ligado 3"
-        case .slurThreeStaccatoOne: return "7. Ligado 3, picado 1"
-        case .allStaccato: return "8. Toda picada (Staccato)"
+        case .allSlurred: return "Toda ligada"
+        case .slurredFourAndFour: return "Ligado 4 y 4"
+        case .slurTwoStaccatoTwo: return "Ligado 2, picado 2"
+        case .staccatoSlurTwoStaccato: return "Picado 1, ligado 2, picado 1"
+        case .staccatoTwoSlurTwo: return "Picado 2, ligado 2"
+        case .staccatoOneSlurThree: return "Picado 1, ligado 3"
+        case .slurThreeStaccatoOne: return "Ligado 3, picado 1"
+        case .allStaccato: return "Toda picada (Staccato)"
         }
     }
 
@@ -584,4 +583,565 @@ public enum ArticulationPattern: Int, CaseIterable, Identifiable, Codable {
             return ".\(n[0]).\(n[1]).\(n[2]).\(n[3]) .\(n[4]).\(n[5]).\(n[6]).\(n[7])"
         }
     }
+
+    /// Formats an 8-sixteenth-note group (E.J. 1 / E.J. 2 modal schemes)
+    public func apply16ths8(to notes: [String]) -> String {
+        guard notes.count == 8 else { return notes.joined() }
+        let n = notes
+        switch self {
+        case .allSlurred:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3])\(n[4])\(n[5])\(n[6])\(n[7]))"
+        case .slurredFourAndFour:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3]))(\(n[4])\(n[5])\(n[6])\(n[7]))"
+        case .slurTwoStaccatoTwo:
+            return "(\(n[0])\(n[1])).\(n[2]).\(n[3])(\(n[4])\(n[5])).\(n[6]).\(n[7])"
+        case .staccatoSlurTwoStaccato:
+            return ".\(n[0])(\(n[1])\(n[2])).\(n[3]).\(n[4])(\(n[5])\(n[6])).\(n[7])"
+        case .staccatoTwoSlurTwo:
+            return ".\(n[0]).\(n[1])(\(n[2])\(n[3])).\(n[4]).\(n[5])(\(n[6])\(n[7]))"
+        case .staccatoOneSlurThree:
+            return ".\(n[0])(\(n[1])\(n[2])\(n[3])).\(n[4])(\(n[5])\(n[6])\(n[7]))"
+        case .slurThreeStaccatoOne:
+            return "(\(n[0])\(n[1])\(n[2])).\(n[3])(\(n[4])\(n[5])\(n[6])).\(n[7])"
+        case .allStaccato:
+            return ".\(n[0]).\(n[1]).\(n[2]).\(n[3]).\(n[4]).\(n[5]).\(n[6]).\(n[7])"
+        }
+    }
+
+    /// Formats a 4-sixteenth-note group (R. 2 pickup / R. 4 tail)
+    public func apply16ths4(to notes: [String]) -> String {
+        guard notes.count == 4 else { return notes.joined() }
+        let n = notes
+        switch self {
+        case .allSlurred, .slurredFourAndFour:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3]))"
+        case .slurTwoStaccatoTwo:
+            return "(\(n[0])\(n[1])).\(n[2]).\(n[3])"
+        case .staccatoSlurTwoStaccato:
+            return ".\(n[0])(\(n[1])\(n[2])).\(n[3])"
+        case .staccatoTwoSlurTwo:
+            return ".\(n[0]).\(n[1])(\(n[2])\(n[3]))"
+        case .staccatoOneSlurThree:
+            return ".\(n[0])(\(n[1])\(n[2])\(n[3]))"
+        case .slurThreeStaccatoOne:
+            return "(\(n[0])\(n[1])\(n[2])).\(n[3])"
+        case .allStaccato:
+            return ".\(n[0]).\(n[1]).\(n[2]).\(n[3])"
+        }
+    }
+
+    /// Formats a 6-sixteenth-note group (E.J. 5, E.J. 10, E.J. 11, R. 1 modal schemes)
+    public func apply16ths6(to notes: [String]) -> String {
+        guard notes.count == 6 else { return notes.joined() }
+        let n = notes
+        switch self {
+        case .allSlurred:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3])\(n[4])\(n[5]))"
+        case .slurredFourAndFour:
+            return "(\(n[0])\(n[1])\(n[2]))(\(n[3])\(n[4])\(n[5]))"
+        case .slurTwoStaccatoTwo:
+            return "(\(n[0])\(n[1])\(n[2])\(n[3])).\(n[4]).\(n[5])"
+        case .staccatoSlurTwoStaccato:
+            return ".\(n[0])(\(n[1])\(n[2])).\(n[3])(\(n[4])\(n[5]))"
+        case .staccatoTwoSlurTwo:
+            return ".\(n[0]).\(n[1])(\(n[2])\(n[3])\(n[4])\(n[5]))"
+        case .staccatoOneSlurThree:
+            return "(\(n[0])\(n[1])).\(n[2])(\(n[3])\(n[4])).\(n[5])"
+        case .slurThreeStaccatoOne:
+            return "(\(n[0])\(n[1])\(n[2])).\(n[3]).\(n[4]).\(n[5])"
+        case .allStaccato:
+            return ".\(n[0]).\(n[1]).\(n[2]).\(n[3]).\(n[4]).\(n[5])"
+        }
+    }
+
+    /// Formats a 6-note triplet pair (R. 5 modal scheme)
+    public func applyTripletPair(to notes: [String]) -> String {
+        guard notes.count == 6 else { return notes.joined() }
+        let n = notes
+        switch self {
+        case .allSlurred:
+            return "((3\(n[0])\(n[1])\(n[2])(3\(n[3])\(n[4])\(n[5]))"
+        case .slurredFourAndFour:
+            return "((3\(n[0])\(n[1])\(n[2])) ((3\(n[3])\(n[4])\(n[5]))"
+        case .slurTwoStaccatoTwo:
+            return "((3\(n[0])\(n[1])\(n[2])(3\(n[3])).\(n[4]).\(n[5])"
+        case .staccatoSlurTwoStaccato:
+            return "(3.\(n[0])(\(n[1])\(n[2])) (3.\(n[3])(\(n[4])\(n[5]))"
+        case .staccatoTwoSlurTwo:
+            return "(3.\(n[0]).\(n[1])(\(n[2])(3\(n[3])\(n[4])\(n[5]))"
+        case .staccatoOneSlurThree:
+            return "(3(\(n[0])\(n[1])).\(n[2]) (3(\(n[3])\(n[4])).\(n[5])"
+        case .slurThreeStaccatoOne:
+            return "((3\(n[0])\(n[1])\(n[2])) (3.\(n[3]).\(n[4]).\(n[5])"
+        case .allStaccato:
+            return "(3.\(n[0]).\(n[1]).\(n[2]) (3.\(n[3]).\(n[4]).\(n[5])"
+        }
+    }
 }
+
+/// 10 Technical Schemes for the 84 Parallel Modes (84 × 10 = 840 Modal Variations)
+public enum ModalScheme: String, CaseIterable, Identifiable, Codable {
+    case ej1  = "ej1"
+    case ej2  = "ej2"
+    case ej4  = "ej4"
+    case ej5  = "ej5"
+    case ej10 = "ej10"
+    case ej11 = "ej11"
+    case r1   = "r1"
+    case r2   = "r2"
+    case r4   = "r4"
+    case r5   = "r5"
+
+    public var id: String { rawValue }
+
+    public var code: String {
+        switch self {
+        case .ej1:  return "EJ1"
+        case .ej2:  return "EJ2"
+        case .ej4:  return "EJ4"
+        case .ej5:  return "EJ5"
+        case .ej10: return "EJ10"
+        case .ej11: return "EJ11"
+        case .r1:   return "R1"
+        case .r2:   return "R2"
+        case .r4:   return "R4"
+        case .r5:   return "R5"
+        }
+    }
+
+    public var shortName: String {
+        switch self {
+        case .ej1:  return "E.J. 1"
+        case .ej2:  return "E.J. 2"
+        case .ej4:  return "E.J. 4"
+        case .ej5:  return "E.J. 5"
+        case .ej10: return "E.J. 10"
+        case .ej11: return "E.J. 11"
+        case .r1:   return "R. 1"
+        case .r2:   return "R. 2"
+        case .r4:   return "R. 4"
+        case .r5:   return "R. 5"
+        }
+    }
+
+    public var pillLabel: String { shortName }
+
+    public var isReichert: Bool {
+        switch self {
+        case .r1, .r2, .r4, .r5: return true
+        default: return false
+        }
+    }
+
+    public var meter: String {
+        switch self {
+        case .ej1, .ej2, .ej4: return "4/2"
+        case .ej5, .ej10, .r1: return "6/8"
+        case .ej11:            return "9/8"
+        case .r2, .r5:         return "2/4"
+        case .r4:              return "C"
+        }
+    }
+
+    public var unitLen: String {
+        self == .ej4 ? "1/8" : "1/16"
+    }
+
+    public var barsPerStaff: Int {
+        switch self {
+        case .ej1, .ej2:                         return 1
+        case .ej4, .ej5, .ej10, .ej11, .r1, .r4: return 2
+        case .r2, .r5:                           return 4
+        }
+    }
+
+    public var totalNotes: Int {
+        switch self {
+        case .ej1, .ej2: return 257
+        case .ej4:       return 127
+        case .ej5:       return 49
+        case .ej10:      return 97
+        case .ej11:      return 145
+        case .r1:        return 43
+        case .r2, .r4:   return 61
+        case .r5:        return 91
+        }
+    }
+
+    public var measuresCount: Int {
+        switch self {
+        case .ej1, .ej2, .ej10, .ej11: return 9
+        case .ej4, .r2, .r5:           return 8
+        case .ej5:                     return 5
+        case .r1, .r4:                 return 4
+        }
+    }
+
+    public var sourceRef: String {
+        isReichert ? "M.-A. Reichert Op. 5" : "Taffanel & Gaubert"
+    }
+
+    public func title(_ loc: LocalizationManager = .shared) -> String {
+        let isEn = loc.currentLanguage == .english
+        switch self {
+        case .ej1:  return isEn ? "E.J. 1 · Modal Pentachords by Degree" : "E.J. 1 · Pentacordios Modales por Grados"
+        case .ej2:  return isEn ? "E.J. 2 · Harmonic Modal Pentachords" : "E.J. 2 · Pentacordios Modales en Progresión"
+        case .ej4:  return isEn ? "E.J. 4 · Canonical 2-Octave Modal Scale" : "E.J. 4 · Escala Modal Canónica en 2 Octavas"
+        case .ej5:  return isEn ? "E.J. 5 · Continuous 6/8 Modal Scale" : "E.J. 5 · Escala Modal Continua en 6/8"
+        case .ej10: return isEn ? "E.J. 10 · 2-Octave Modal Arpeggios" : "E.J. 10 · Arpegios Modales de 2 Octavas"
+        case .ej11: return isEn ? "E.J. 11 · Broken Modal Arpeggios (9/8)" : "E.J. 11 · Arpegios Modales Quebrados (9/8)"
+        case .r1:   return isEn ? "R. 1 · Reichert Op. 5 No. 1 Gruppetti (6/8)" : "R. 1 · Grupetos Modales Reichert Nº 1 (6/8)"
+        case .r2:   return isEn ? "R. 2 · Reichert Op. 5 No. 2 Arpeggios (2/4)" : "R. 2 · Arpegios con Anacrusa Reichert Nº 2 (2/4)"
+        case .r4:   return isEn ? "R. 4 · Reichert Op. 5 No. 4 Diatonic Leaps" : "R. 4 · Saltos Diatónicos Reichert Nº 4 (4/4)"
+        case .r5:   return isEn ? "R. 5 · Reichert Op. 5 No. 5 Triplets (2/4)" : "R. 5 · Tresillos Modales Reichert Nº 5 (2/4)"
+        }
+    }
+
+    public func pedagogy(_ loc: LocalizationManager = .shared) -> String {
+        let isEn = loc.currentLanguage == .english
+        switch self {
+        case .ej1:  return isEn ? "5-note modal cells ascending step-by-step I–VIII (257 notes · 4/2)" : "Células de 5 notas sobre los 8 grados del modo I–VIII (257 notas · 4/2)"
+        case .ej2:  return isEn ? "Modal pentachords over degrees I–III–V–I8–IV8–VI–IV–II–I (257 notes)" : "Pentacordios modales sobre grados I–III–V–I8–IV8–VI–IV–II–I (257 notas)"
+        case .ej4:  return isEn ? "Taffanel E.J. 4 overlapping 8-note waves across 2 octaves (127 notes)" : "Olas progresivas de 8 corcheas de Taffanel E.J. 4 en 2 octavas (127 notas)"
+        case .ej5:  return isEn ? "Uninterrupted 2-octave modal velocity stream in 6/8 (49 notes)" : "Flujo modal ininterrumpido de 2 octavas en 6/8 (49 notas)"
+        case .ej10: return isEn ? "7th chords built on every degree of the parallel mode (97 notes · 6/8)" : "Acordes de 7ª sobre los 7 grados del modo paralelo (97 notas · 6/8)"
+        case .ej11: return isEn ? "Broken thirds & fourths across all 7 modal chords (145 notes · 9/8)" : "Arpegios quebrados sobre los 7 acordes del modo (145 notas · 9/8)"
+        case .r1:   return isEn ? "Turn figures & register leaps culminating in a 2-octave tonic arpeggio" : "Giros melódicos en 6/8 culminando en gran arpegio modal de 2 octavas"
+        case .r2:   return isEn ? "Pickup arpeggio waves alternating I and VII across 2 octaves (61 notes)" : "Arpegios con anacrusa de 4 semicorcheas en 2/4 (61 notas)"
+        case .r4:   return isEn ? "Arpeggio ascents with upper neighbor turns & cascade resolution (61 notes)" : "Ascenso arpegiado con bordadura superior y cascada final (61 notas)"
+        case .r5:   return isEn ? "Wide-interval sixteenth triplets testing embouchure flexibility (91 notes)" : "Tresillos de semicorchea con grandes intervalos de embocadura (91 notas)"
+        }
+    }
+
+    public static var taffanelSchemes: [ModalScheme] {
+        [.ej1, .ej2, .ej4, .ej5, .ej10, .ej11]
+    }
+
+    public static var reichertSchemes: [ModalScheme] {
+        [.r1, .r2, .r4, .r5]
+    }
+}
+
+/// Step 1 of the Conservatory Coach 3-Step Practice Wizard
+public enum PracticeWizardDuration: Int, CaseIterable, Identifiable {
+    case min15 = 15
+    case min30 = 30
+    case min45 = 45
+
+    public var id: Int { rawValue }
+
+    public var warmupMinutes: Int {
+        switch self {
+        case .min15: return 4
+        case .min30: return 8
+        case .min45: return 12
+        }
+    }
+
+    public var coreMinutes: Int {
+        switch self {
+        case .min15: return 7
+        case .min30: return 14
+        case .min45: return 20
+        }
+    }
+
+    public var agilityMinutes: Int {
+        switch self {
+        case .min15: return 4
+        case .min30: return 8
+        case .min45: return 13
+        }
+    }
+
+    public func label(_ loc: LocalizationManager = .shared) -> String {
+        "\(rawValue) min"
+    }
+
+    public func presetTitle(_ loc: LocalizationManager = .shared) -> String {
+        "\(rawValue) min"
+    }
+
+    public func subtitle(_ loc: LocalizationManager = .shared) -> String {
+        let isEn = loc.currentLanguage == .english
+        switch self {
+        case .min15: return isEn ? "Warmup + Direct Modal Core" : "Activación + Núcleo Modal directo"
+        case .min30: return isEn ? "Standard Taffanel + Reichert + Mode" : "Estándar Taffanel + Reichert + Modo"
+        case .min45: return isEn ? "Full Cycle + 10 Articulations" : "Ciclo completo + 10 Articulaciones"
+        }
+    }
+}
+
+/// Step 2 of the Conservatory Coach 3-Step Practice Wizard
+public enum PracticeWizardFocus: String, CaseIterable, Identifiable {
+    case scales    = "scales"
+    case arpeggios = "arpeggios"
+    case reichert  = "reichert"
+    case modes     = "modes"
+
+    public var id: String { rawValue }
+
+    public var badgeCode: String {
+        switch self {
+        case .scales:    return "E.J. 1 · 2 · 4 · 5"
+        case .arpeggios: return "E.J. 10 · 11 · R. 2 · 4"
+        case .reichert:  return "R. 1 · 2 · 4 · 5"
+        case .modes:     return "84 × 10 (840)"
+        }
+    }
+
+    public var iconName: String {
+        switch self {
+        case .scales:    return "waveform.path.ecg"
+        case .arpeggios: return "tuningfork"
+        case .reichert:  return "bolt.fill"
+        case .modes:     return "sparkles"
+        }
+    }
+
+    public func title(_ loc: LocalizationManager = .shared) -> String {
+        let isEn = loc.currentLanguage == .english
+        switch self {
+        case .scales:    return isEn ? "Scales & Finger Equality" : "Escalas / Igualdad Digital"
+        case .arpeggios: return isEn ? "Arpeggios & Flexibility" : "Arpegios & Flexibilidad"
+        case .reichert:  return isEn ? "Reichert Op. 5 Agility" : "Agilidad Reichert Op. 5"
+        case .modes:     return isEn ? "Parallel Modes (84 × 10)" : "Modos Paralelos (84 × 10)"
+        }
+    }
+
+    public func subtitle(_ loc: LocalizationManager = .shared) -> String {
+        let isEn = loc.currentLanguage == .english
+        switch self {
+        case .scales:    return isEn ? "Pentachords, Diatonic & Chromatic" : "Pentacordios, Diatónicas y Cromáticas"
+        case .arpeggios: return isEn ? "Progressive & Broken Arpeggios" : "Arpegios Progresivos y Quebrados"
+        case .reichert:  return isEn ? "6/8 Gruppetti, 2/4, 4/4 & Triplets" : "Grupetos 6/8, Anacrusa, 4/4 y Tresillos"
+        case .modes:     return isEn ? "12 Tonics × 7 Modes · 10 Schemes" : "12 Tónicas × 7 Modos · 10 Esquemas"
+        }
+    }
+}
+
+/// Generated Practice Block from Step 3 of the Conservatory Coach Wizard
+public struct PracticeRoutineBlock: Identifiable, Equatable {
+    public let id: Int
+    public let phaseTitle: String
+    public let minutes: Int
+    public let exerciseTitle: String
+    public let detailSubtitle: String
+    public let exerciseType: ExerciseType
+    public let modalScheme: ModalScheme
+    public let tonic: Tonic
+    public let mode: ModeType
+
+    public static func generateRoutine(
+        duration: PracticeWizardDuration,
+        focus: PracticeWizardFocus,
+        tonic: Tonic,
+        mode: ModeType,
+        loc: LocalizationManager = .shared
+    ) -> [PracticeRoutineBlock] {
+        let isEn = loc.currentLanguage == .english
+        let tonicName = tonic.displayName
+        let modeName = mode.localizedName
+
+        let phase1 = isEn ? "1. Warmup & Sound" : "1. Calentamiento y Sonido"
+        let phase2 = isEn ? "2. Technical Core" : "2. Núcleo Técnico"
+        let phase3 = isEn ? "3. Modal Agility & Closure" : "3. Agilidad Modal y Cierre"
+
+        switch focus {
+        case .scales:
+            return [
+                PracticeRoutineBlock(
+                    id: 1,
+                    phaseTitle: phase1,
+                    minutes: duration.warmupMinutes,
+                    exerciseTitle: isEn ? "Taffanel E.J. 1 (Chromatic Pentachords)" : "Taffanel E.J. 1 (Pentacordios Cromáticos)",
+                    detailSubtitle: isEn ? "Art. 1 (All slurred) · ♩ = 72 BPM" : "Art. 1 (Toda ligada) · ♩ = 72 BPM",
+                    exerciseType: .ej1,
+                    modalScheme: .ej1,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 2,
+                    phaseTitle: phase2,
+                    minutes: duration.coreMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 4",
+                    detailSubtitle: isEn ? "Canonical 2-Octave Modal Scale · ♩ = 88 BPM" : "Escala Modal Canónica en 2 Octavas · ♩ = 88 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej4,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 3,
+                    phaseTitle: phase3,
+                    minutes: duration.agilityMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 5 (6/8)",
+                    detailSubtitle: isEn ? "Continuous 6/8 Modal Scale · ♩. = 84 BPM" : "Escala Modal Continua en 6/8 · ♩. = 84 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej5,
+                    tonic: tonic,
+                    mode: mode
+                )
+            ]
+        case .arpeggios:
+            return [
+                PracticeRoutineBlock(
+                    id: 1,
+                    phaseTitle: phase1,
+                    minutes: duration.warmupMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 2",
+                    detailSubtitle: isEn ? "Modal Pentachords over I–III–V · ♩ = 76 BPM" : "Pentacordios Modales sobre I–III–V · ♩ = 76 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej2,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 2,
+                    phaseTitle: phase2,
+                    minutes: duration.coreMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 10",
+                    detailSubtitle: isEn ? "2-Octave Modal 7th Arpeggios (6/8) · ♩. = 76 BPM" : "Arpegios Modales de 7ª en 2 Octavas (6/8) · ♩. = 76 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej10,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 3,
+                    phaseTitle: phase3,
+                    minutes: duration.agilityMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 11 (9/8)",
+                    detailSubtitle: isEn ? "Broken Modal Arpeggios · ♩. = 72 BPM" : "Arpegios Modales Quebrados (9/8) · ♩. = 72 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej11,
+                    tonic: tonic,
+                    mode: mode
+                )
+            ]
+        case .reichert:
+            return [
+                PracticeRoutineBlock(
+                    id: 1,
+                    phaseTitle: phase1,
+                    minutes: duration.warmupMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · R. 1 (6/8)",
+                    detailSubtitle: isEn ? "Reichert Op. 5 No. 1 Gruppetti · ♩. = 84 BPM" : "Grupetos Modales Reichert Nº 1 · ♩. = 84 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .r1,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 2,
+                    phaseTitle: phase2,
+                    minutes: duration.coreMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · R. 2 & R. 4",
+                    detailSubtitle: isEn ? "Reichert Pickup Arpeggios & Diatonic Leaps · ♩ = 112 BPM" : "Arpegios con Anacrusa y Saltos Reichert · ♩ = 112 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .r2,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 3,
+                    phaseTitle: phase3,
+                    minutes: duration.agilityMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · R. 5 (2/4)",
+                    detailSubtitle: isEn ? "Reichert Sixteenth-Note Triplets · ♩ = 88 BPM" : "Tresillos de Semicorchea Reichert Nº 5 · ♩ = 88 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .r5,
+                    tonic: tonic,
+                    mode: mode
+                )
+            ]
+        case .modes:
+            return [
+                PracticeRoutineBlock(
+                    id: 1,
+                    phaseTitle: phase1,
+                    minutes: duration.warmupMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 1",
+                    detailSubtitle: isEn ? "Modal Pentachords I–VIII · ♩ = 80 BPM" : "Pentacordios Modales por Grados I–VIII · ♩ = 80 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej1,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 2,
+                    phaseTitle: phase2,
+                    minutes: duration.coreMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 4 & E.J. 10",
+                    detailSubtitle: isEn ? "Canonical Scale + Modal Arpeggios · ♩ = 90 BPM" : "Escala Canónica + Arpegios del Modo · ♩ = 90 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .ej4,
+                    tonic: tonic,
+                    mode: mode
+                ),
+                PracticeRoutineBlock(
+                    id: 3,
+                    phaseTitle: phase3,
+                    minutes: duration.agilityMinutes,
+                    exerciseTitle: "\(tonicName) \(modeName) · R. 1 & R. 5",
+                    detailSubtitle: isEn ? "Reichert Op. 5 Modal Integration · ♩. = 88 BPM" : "Integración Modal Reichert Op. 5 · ♩. = 88 BPM",
+                    exerciseType: .modos,
+                    modalScheme: .r1,
+                    tonic: tonic,
+                    mode: mode
+                )
+            ]
+        }
+    }
+}
+
+/// Bilingual strings for Opción 1 (Conservatory Coach), 3-Step Practice Wizard & 3-Level Modes Explorer
+public enum CoachStrings {
+    public static func coachBadge(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_badge")
+    }
+    public static func coachTitle(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_title")
+    }
+    public static func coachSubtitle(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_subtitle")
+    }
+    public static func openWizardBtn(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_open_wizard")
+    }
+    public static func resumeBannerTitle(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_resume_banner")
+    }
+    public static func resumeAction(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_resume_action")
+    }
+    public static func step1Title(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_step1_title")
+    }
+    public static func step2Title(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_step2_title")
+    }
+    public static func step3Title(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_step3_title")
+    }
+    public static func launchRoutineBtn(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_launch_routine")
+    }
+    public static func level1TonicLabel(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_level1_tonic")
+    }
+    public static func level2ModeLabel(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_level2_mode")
+    }
+    public static func level3SchemeLabel(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_level3_scheme")
+    }
+    public static func taffanelGroupLabel(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_taffanel_group")
+    }
+    public static func reichertGroupLabel(_ loc: LocalizationManager = .shared) -> String {
+        loc.t("coach_reichert_group")
+    }
+}
+

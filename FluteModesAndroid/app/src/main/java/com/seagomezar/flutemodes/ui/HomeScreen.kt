@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.seagomezar.flutemodes.model.*
@@ -57,9 +58,94 @@ fun HomeScreen(
     var selectedR5Section by remember { mutableStateOf(store.lastR5Section) }
     var selectedTonic by remember { mutableStateOf(store.lastTonic ?: Tonic.DO_NATURAL) }
     var selectedMode by remember { mutableStateOf(store.lastMode ?: ModeType.IONIAN) }
+    var selectedModalScheme by remember { mutableStateOf(store.lastModalScheme) }
+    var showPracticeWizard by remember { mutableStateOf(false) }
+    var wizardDuration by remember { mutableStateOf(PracticeWizardDuration.MIN_30) }
+    var wizardFocus by remember { mutableStateOf(PracticeWizardFocus.MODES840) }
+    var wizardTonic by remember { mutableStateOf(selectedTonic) }
+    var wizardMode by remember { mutableStateOf(selectedMode) }
 
     val majorModes = listOf(ModeType.IONIAN, ModeType.LYDIAN, ModeType.MIXOLYDIAN)
     val minorModes = listOf(ModeType.DORIAN, ModeType.AEOLIAN, ModeType.PHRYGIAN, ModeType.LOCRIAN)
+
+    fun launchRoutineBlock(block: PracticeRoutineBlock) {
+        showPracticeWizard = false
+        val secIdx = block.sectionIndex
+        when (block.exercise) {
+            ExerciseType.EJ1 -> onStartEJ1Practice(selectedEJ1Art)
+            ExerciseType.EJ2 -> onStartEJ2Practice(selectedEJ2Art)
+            ExerciseType.EJ4 -> {
+                val sec = EJ4Section.entries.getOrElse(secIdx) { EJ4Section.C_MAJOR }
+                selectedEJ4Section = sec
+                onStartEJ4Practice(selectedEJ4Art, sec)
+            }
+            ExerciseType.EJ5 -> {
+                val sec = EJ5Section.entries.getOrElse(secIdx % 12) { EJ5Section.C_CHROM }
+                selectedEJ5Section = sec
+                onStartEJ5Practice(selectedEJ5Art, sec)
+            }
+            ExerciseType.EJ10 -> {
+                val sec = EJ10Section.entries.getOrElse(secIdx % 12) { EJ10Section.C_ARP }
+                selectedEJ10Section = sec
+                onStartEJ10Practice(selectedEJ10Art, sec)
+            }
+            ExerciseType.EJ11 -> {
+                val sec = EJ10Section.entries.getOrElse(secIdx % 12) { EJ10Section.C_ARP }
+                selectedEJ11Section = sec
+                onStartEJ11Practice(selectedEJ11Art, sec)
+            }
+            ExerciseType.R1 -> {
+                val sec = EJ4Section.entries.getOrElse(secIdx) { EJ4Section.C_MAJOR }
+                selectedR1Section = sec
+                onStartReichertPractice(ExerciseType.R1, selectedR1Art, sec)
+            }
+            ExerciseType.R2 -> {
+                val sec = EJ4Section.entries.getOrElse(secIdx) { EJ4Section.C_MAJOR }
+                selectedR2Section = sec
+                onStartReichertPractice(ExerciseType.R2, selectedR2Art, sec)
+            }
+            ExerciseType.R4 -> {
+                val sec = EJ4Section.entries.getOrElse(secIdx) { EJ4Section.C_MAJOR }
+                selectedR4Section = sec
+                onStartReichertPractice(ExerciseType.R4, selectedR4Art, sec)
+            }
+            ExerciseType.R5 -> {
+                val sec = EJ4Section.entries.getOrElse(secIdx) { EJ4Section.C_MAJOR }
+                selectedR5Section = sec
+                onStartReichertPractice(ExerciseType.R5, selectedR5Art, sec)
+            }
+            ExerciseType.MODOS -> {
+                selectedTonic = block.tonic
+                selectedMode = block.mode
+                selectedModalScheme = block.modalScheme
+                store.lastTonic = block.tonic
+                store.lastMode = block.mode
+                store.lastModalScheme = block.modalScheme
+                store.saveLastSelection()
+                onStartPractice(block.tonic, block.mode)
+            }
+        }
+    }
+
+    fun resumeLastSession() {
+        when (selectedExercise) {
+            ExerciseType.EJ1 -> onStartEJ1Practice(selectedEJ1Art)
+            ExerciseType.EJ2 -> onStartEJ2Practice(selectedEJ2Art)
+            ExerciseType.EJ4 -> onStartEJ4Practice(selectedEJ4Art, selectedEJ4Section)
+            ExerciseType.EJ5 -> onStartEJ5Practice(selectedEJ5Art, selectedEJ5Section)
+            ExerciseType.EJ10 -> onStartEJ10Practice(selectedEJ10Art, selectedEJ10Section)
+            ExerciseType.EJ11 -> onStartEJ11Practice(selectedEJ11Art, selectedEJ11Section)
+            ExerciseType.R1 -> onStartReichertPractice(ExerciseType.R1, selectedR1Art, selectedR1Section)
+            ExerciseType.R2 -> onStartReichertPractice(ExerciseType.R2, selectedR2Art, selectedR2Section)
+            ExerciseType.R4 -> onStartReichertPractice(ExerciseType.R4, selectedR4Art, selectedR4Section)
+            ExerciseType.R5 -> onStartReichertPractice(ExerciseType.R5, selectedR5Art, selectedR5Section)
+            ExerciseType.MODOS -> {
+                store.lastModalScheme = selectedModalScheme
+                store.saveLastSelection()
+                onStartPractice(selectedTonic, selectedMode)
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -74,17 +160,21 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
+                    Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = loc.t("app_name"),
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = if (selectedExercise.isReichertExercise) "M.-A. Reichert · Op. 5 (Schott 20623)" else if (selectedExercise.isChromaticExercise || selectedExercise.isEJ4Exercise || selectedExercise.isEJ5TypeExercise) "Taffanel & Gaubert · A. L. 16.588" else "Maestro León Giraldo",
-                            fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            text = if (selectedExercise == ExerciseType.MODOS) selectedModalScheme.title(loc) else if (selectedExercise.isReichertExercise) "M.-A. Reichert · Op. 5" else "Taffanel & Gaubert",
+                            fontSize = 11.5.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
 
@@ -129,11 +219,33 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Opción 1 (Conservatory Coach) Hero Card + 1-Tap Resume + 3-Step Practice Wizard
+            ConservatoryCoachHeroCard(
+                loc = loc,
+                selectedExercise = selectedExercise,
+                selectedTonic = selectedTonic,
+                selectedMode = selectedMode,
+                selectedModalScheme = selectedModalScheme,
+                wizardDuration = wizardDuration,
+                onSelectDurationPreset = { dur ->
+                    wizardDuration = dur
+                    wizardTonic = selectedTonic
+                    wizardMode = selectedMode
+                    showPracticeWizard = true
+                },
+                onResumeLastSession = { resumeLastSession() },
+                onOpenWizard = {
+                    wizardTonic = selectedTonic
+                    wizardMode = selectedMode
+                    showPracticeWizard = true
+                }
+            )
+
             // 3-Collection Exercise Selector (All 11 exercises visible on screen without horizontal scroll)
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                // 1. Taffanel & Gaubert (A. L. 16.588) — 6 Exercises in 2 rows of 3
+                // 1. Taffanel & Gaubert — 6 Exercises in 2 rows of 3
                 Text(
-                    text = "TAFFANEL & GAUBERT · A. L. 16.588",
+                    text = "TAFFANEL & GAUBERT",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -186,9 +298,9 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-                // 2. M.-A. Reichert Op. 5 (B. Schott 20623) — 4 Exercises in 2 rows of 2
+                // 2. M.-A. Reichert Op. 5 — 4 Exercises in 2 rows of 2
                 Text(
-                    text = "M.-A. REICHERT · OP. 5 (SCHOTT 20623)",
+                    text = "M.-A. REICHERT · OP. 5",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF6366F1),
@@ -305,7 +417,7 @@ fun HomeScreen(
                             ExerciseType.R2 -> loc.t("r2_title")
                             ExerciseType.R4 -> loc.t("r4_title")
                             ExerciseType.R5 -> loc.t("r5_title")
-                            ExerciseType.MODOS -> loc.t("subtitle")
+                            ExerciseType.MODOS -> selectedModalScheme.title(loc)
                         },
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
@@ -418,7 +530,7 @@ fun HomeScreen(
                                     color = Color(0xFF6366F1).copy(alpha = 0.18f)
                                 ) {
                                     Text(
-                                        text = "Urtext",
+                                        text = "Original",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = Color(0xFF6366F1),
@@ -638,7 +750,7 @@ fun HomeScreen(
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = if (art == EJ4Articulation.ORIGINAL && ex.isReichertExercise) "Schott 20623" else art.formulaBadge,
+                                    text = art.formulaBadge,
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -650,7 +762,7 @@ fun HomeScreen(
                                     color = Color(0xFF6366F1).copy(alpha = 0.18f)
                                 ) {
                                     Text(
-                                        text = "Urtext",
+                                        text = "Original",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = Color(0xFF6366F1),
@@ -972,7 +1084,7 @@ fun HomeScreen(
                                     color = Color(0xFF6366F1).copy(alpha = 0.18f)
                                 ) {
                                     Text(
-                                        text = "Urtext",
+                                        text = "Original",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = Color(0xFF6366F1),
@@ -1052,13 +1164,20 @@ fun HomeScreen(
                     )
                 }
             } else {
-                // Tonic Picker
+                // 3-Level Modes Explorer: Nivel 1 · Tónica Cromática (12)
                 Column {
+                    Text(
+                        text = CoachStrings.level1TonicHeader(loc),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(horizontal = 4.dp)
+                    )
                     Text(
                         text = loc.t("select_tonic"),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp)
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
                     )
 
                     Row(
@@ -1072,7 +1191,11 @@ fun HomeScreen(
                             val completedInTonic = store.practicedModesCount(tonic)
 
                             Surface(
-                                onClick = { selectedTonic = tonic },
+                                onClick = {
+                                    selectedTonic = tonic
+                                    store.lastTonic = tonic
+                                    store.saveLastSelection()
+                                },
                                 shape = RoundedCornerShape(14.dp),
                                 color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
                                 tonalElevation = if (isSelected) 4.dp else 0.dp,
@@ -1099,7 +1222,15 @@ fun HomeScreen(
                     }
                 }
 
-                // Parallel System Cards (Major & Minor Families)
+                // Nivel 2 · Modo Paralelo (7)
+                Text(
+                    text = CoachStrings.level2ModeHeader(loc),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+
                 Text(
                     text = "${selectedTonic.displayName} · ${loc.t("major_family")}",
                     fontSize = 15.sp,
@@ -1114,7 +1245,11 @@ fun HomeScreen(
                         isSelected = (mode == selectedMode),
                         loc = loc,
                         store = store,
-                        onClick = { selectedMode = mode }
+                        onClick = {
+                            selectedMode = mode
+                            store.lastMode = mode
+                            store.saveLastSelection()
+                        }
                     )
                 }
 
@@ -1134,27 +1269,53 @@ fun HomeScreen(
                         isSelected = (mode == selectedMode),
                         loc = loc,
                         store = store,
-                        onClick = { selectedMode = mode }
+                        onClick = {
+                            selectedMode = mode
+                            store.lastMode = mode
+                            store.saveLastSelection()
+                        }
                     )
                 }
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                // Nivel 3 · Esquema Técnico (10 · 840 Variaciones)
+                ModalSchemesSelectorCard(
+                    loc = loc,
+                    selectedTonic = selectedTonic,
+                    selectedMode = selectedMode,
+                    selectedModalScheme = selectedModalScheme,
+                    onSelectScheme = { scheme ->
+                        selectedModalScheme = scheme
+                        store.lastModalScheme = scheme
+                        store.saveLastSelection()
+                    }
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Start Practice Button
                 Button(
-                    onClick = { onStartPractice(selectedTonic, selectedMode) },
+                    onClick = {
+                        store.lastModalScheme = selectedModalScheme
+                        store.saveLastSelection()
+                        onStartPractice(selectedTonic, selectedMode)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     shape = RoundedCornerShape(18.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedModalScheme.isReichert) Color(0xFF6366F1) else MaterialTheme.colorScheme.primary
+                    )
                 ) {
                     Icon(Icons.Default.PlayArrow, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)})",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
+                        text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)} · ${selectedModalScheme.shortName})",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1
                     )
                 }
 
@@ -1233,7 +1394,581 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
         }
+
+        if (showPracticeWizard) {
+            PracticeWizardDialog(
+                loc = loc,
+                duration = wizardDuration,
+                focus = wizardFocus,
+                tonic = wizardTonic,
+                mode = wizardMode,
+                onSelectDuration = { wizardDuration = it },
+                onSelectFocus = { wizardFocus = it },
+                onSelectTonic = { wizardTonic = it },
+                onSelectMode = { wizardMode = it },
+                onLaunchBlock = { launchRoutineBlock(it) },
+                onDismiss = { showPracticeWizard = false }
+            )
+        }
     }
+}
+
+@Composable
+fun ConservatoryCoachHeroCard(
+    loc: LocalizationManager,
+    selectedExercise: ExerciseType,
+    selectedTonic: Tonic,
+    selectedMode: ModeType,
+    selectedModalScheme: ModalScheme,
+    wizardDuration: PracticeWizardDuration,
+    onSelectDurationPreset: (PracticeWizardDuration) -> Unit,
+    onResumeLastSession: () -> Unit,
+    onOpenWizard: () -> Unit
+) {
+    val resumeLabel = when (selectedExercise) {
+        ExerciseType.MODOS -> "${selectedTonic.displayName} ${selectedMode.getName(loc)} · ${selectedModalScheme.shortName}"
+        else -> selectedExercise.displayTitle(loc)
+    }
+
+    Card(
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
+        ),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.14f),
+                    modifier = Modifier.weight(1f, fill = false)
+                ) {
+                    Text(
+                        text = "✨ ${CoachStrings.coachBadge(loc)}",
+                        fontSize = 8.5.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(6.dp))
+
+                TextButton(
+                    onClick = onOpenWizard,
+                    contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = CoachStrings.openWizardButton(loc),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1
+                    )
+                }
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(
+                    text = CoachStrings.coachHeroTitle(loc),
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = CoachStrings.coachHeroSubtitle(loc),
+                    fontSize = 11.5.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            // 1-Tap Resume Banner
+            Surface(
+                onClick = onResumeLastSession,
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = CoachStrings.resumeLastSession(loc),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)
+                        )
+                        Text(
+                            text = resumeLabel,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
+
+            // 3 Quick Duration Preset Cards (15m Express, 30m Conservatorio, 45m Maestría)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                PracticeWizardDuration.entries.forEach { dur ->
+                    val isSel = wizardDuration == dur
+                    Surface(
+                        onClick = { onSelectDurationPreset(dur) },
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (isSel) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+                        border = androidx.compose.foundation.BorderStroke(
+                            1.dp,
+                            if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
+                        ),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 7.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = dur.title(loc),
+                                fontSize = 9.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = dur.subtitle(loc),
+                                fontSize = 8.sp,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ModalSchemesSelectorCard(
+    loc: LocalizationManager,
+    selectedTonic: Tonic,
+    selectedMode: ModeType,
+    selectedModalScheme: ModalScheme,
+    onSelectScheme: (ModalScheme) -> Unit
+) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+        ),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = CoachStrings.level3SchemeHeader(loc),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = CoachStrings.level3SchemeSubtitle(loc),
+                fontSize = 11.5.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            // Group A: Taffanel & Gaubert (6 schemes in 2 rows of 3)
+            Text(
+                text = "TAFFANEL & GAUBERT",
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            val tgRows = listOf(
+                listOf(ModalScheme.EJ1, ModalScheme.EJ2, ModalScheme.EJ4),
+                listOf(ModalScheme.EJ5, ModalScheme.EJ10, ModalScheme.EJ11)
+            )
+            tgRows.forEach { rowSchemes ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    rowSchemes.forEach { scheme ->
+                        val isSel = selectedModalScheme == scheme
+                        Surface(
+                            onClick = { onSelectScheme(scheme) },
+                            shape = RoundedCornerShape(10.dp),
+                            color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                            border = if (!isSel) androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant) else null,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = scheme.shortName,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = "${scheme.subtitle(loc)} · ${scheme.meter}",
+                                    fontSize = 9.sp,
+                                    maxLines = 1,
+                                    color = if (isSel) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Group B: M.-A. Reichert Op. 5 (4 schemes in 2 rows of 2)
+            Text(
+                text = "M.-A. REICHERT · OP. 5",
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF6366F1)
+            )
+            val reichertRows = listOf(
+                listOf(ModalScheme.R1, ModalScheme.R2),
+                listOf(ModalScheme.R4, ModalScheme.R5)
+            )
+            reichertRows.forEach { rowSchemes ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    rowSchemes.forEach { scheme ->
+                        val isSel = selectedModalScheme == scheme
+                        Surface(
+                            onClick = { onSelectScheme(scheme) },
+                            shape = RoundedCornerShape(10.dp),
+                            color = if (isSel) Color(0xFF6366F1) else MaterialTheme.colorScheme.surface,
+                            border = if (!isSel) androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF6366F1).copy(alpha = 0.35f)) else null,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = scheme.shortName,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = "${scheme.subtitle(loc)} · ${scheme.meter}",
+                                    fontSize = 9.5.sp,
+                                    maxLines = 1,
+                                    color = if (isSel) Color.White.copy(alpha = 0.9f) else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Active Scheme Detail Banner
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surface,
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    if (selectedModalScheme.isReichert) Color(0xFF6366F1).copy(alpha = 0.45f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "${selectedTonic.displayName} ${selectedMode.getName(loc)} · ${selectedModalScheme.title(loc)}",
+                            fontSize = 12.5.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Surface(
+                            shape = RoundedCornerShape(6.dp),
+                            color = if (selectedModalScheme.isReichert) Color(0xFF6366F1).copy(alpha = 0.15f) else MaterialTheme.colorScheme.primaryContainer
+                        ) {
+                            Text(
+                                text = "${selectedModalScheme.meter} · ${selectedModalScheme.totalNotes} n.",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (selectedModalScheme.isReichert) Color(0xFF6366F1) else MaterialTheme.colorScheme.onPrimaryContainer,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+                    Text(
+                        text = selectedModalScheme.pedagogy(loc),
+                        fontSize = 11.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun PracticeWizardDialog(
+    loc: LocalizationManager,
+    duration: PracticeWizardDuration,
+    focus: PracticeWizardFocus,
+    tonic: Tonic,
+    mode: ModeType,
+    onSelectDuration: (PracticeWizardDuration) -> Unit,
+    onSelectFocus: (PracticeWizardFocus) -> Unit,
+    onSelectTonic: (Tonic) -> Unit,
+    onSelectMode: (ModeType) -> Unit,
+    onLaunchBlock: (PracticeRoutineBlock) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val blocks = remember(duration, focus, tonic, mode, loc.currentLanguage) {
+        PracticeRoutineBlock.generateRoutine(duration, focus, tonic, mode, loc)
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = CoachStrings.wizardTitle(loc),
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                // Step 1: Duration
+                Text(
+                    text = CoachStrings.step1Title(loc),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    PracticeWizardDuration.entries.forEach { dur ->
+                        val isSel = duration == dur
+                        Surface(
+                            onClick = { onSelectDuration(dur) },
+                            shape = RoundedCornerShape(10.dp),
+                            color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(6.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "${dur.minutes} min",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // Step 2: Focus
+                Text(
+                    text = CoachStrings.step2Title(loc),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    PracticeWizardFocus.entries.forEach { item ->
+                        val isSel = focus == item
+                        Surface(
+                            onClick = { onSelectFocus(item) },
+                            shape = RoundedCornerShape(10.dp),
+                            color = if (isSel) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                            border = if (isSel) androidx.compose.foundation.BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary) else null,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(text = item.icon, fontSize = 16.sp)
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = item.title(loc),
+                                        fontSize = 12.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                    Text(
+                                        text = item.subtitle(loc),
+                                        fontSize = 10.5.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Step 3: Tonic, Mode & Generated Routine
+                Text(
+                    text = CoachStrings.step3Title(loc),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Tonic.entries.forEach { t ->
+                        val isSel = tonic == t
+                        Surface(
+                            onClick = { onSelectTonic(t) },
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                        ) {
+                            Text(
+                                text = t.displayName,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    ModeType.entries.forEach { m ->
+                        val isSel = mode == m
+                        Surface(
+                            onClick = { onSelectMode(m) },
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (isSel) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surfaceVariant
+                        ) {
+                            Text(
+                                text = m.getName(loc),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isSel) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
+                }
+
+                blocks.forEach { block ->
+                    Surface(
+                        onClick = { onLaunchBlock(block) },
+                        shape = RoundedCornerShape(12.dp),
+                        color = MaterialTheme.colorScheme.surface,
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = "${block.title} (${block.minutes} min)",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = block.detail,
+                                    fontSize = 10.5.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = MaterialTheme.colorScheme.primary
+                            ) {
+                                Text(
+                                    text = CoachStrings.startBlockButton(loc),
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    blocks.firstOrNull()?.let { onLaunchBlock(it) }
+                }
+            ) {
+                Text(CoachStrings.startBlockButton(loc))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("✕")
+            }
+        }
+    )
 }
 
 @Composable

@@ -1,0 +1,115 @@
+%abc-2.1
+% Tónica 07_fa: Fa — 7 Modos Paralelos bajo el esquema E.J. 4
+% E.J. 4 — Escalas Diatónicas Modales por Terceras (Taffanel & Gaubert (págs. 111–114))
+
+X:1
+T:Modo 1: Fa Jónico (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:F
+V:1 clef=treble
+%%score 1
+(FGABcdef) (gfedcBAG) | (ABcdefga) (bagfedcB) |
+(cdefgabc') (d'c'bagfed) | (efgabc'd'e') (f'e'd'c'bagf) |
+(efgabc'd'e') (d'c'bagfed) | (cdefgabc') (bagfedcB) |
+(ABcdefga) (gfedcBAG) | (FGABcdef) (edcBAG F2) |]
+
+X:2
+T:Modo 2: Fa Lidio (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Si♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:F
+V:1 clef=treble
+%%score 1
+(FGA=Bcdef) (gfedcBAG) | (A=Bcdefga) (=bagfedcB) |
+(cdefga=bc') (d'c'bagfed) | (efga=bc'd'e') (f'e'd'c'bagf) |
+(efga=bc'd'e') (d'c'bagfed) | (cdefga=bc') (bagfedc=B) |
+(A=Bcdefga) (gfedcBAG) | (FGA=Bcdef) (edcBAG F2) |]
+
+X:3
+T:Modo 3: Fa Mixolidio (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Mi♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:F
+V:1 clef=treble
+%%score 1
+(FGABcd_ef) (gfedcBAG) | (ABcd_efga) (bagfedcB) |
+(cd_efgabc') (d'c'bagfed) | (_efgabc'd'_e') (f'e'd'c'bagf) |
+(_efgabc'd'_e') (d'c'bagfed) | (cd_efgabc') (bagfedcB) |
+(ABcd_efga) (gfedcBAG) | (FGABcd_ef) (edcBAG F2) |]
+
+X:4
+T:Modo 4: Fa Dórico (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Re♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:Fm
+V:1 clef=treble
+%%score 1
+(FGABc=def) (gfedcBAG) | (ABc=defga) (bagfedcB) |
+(c=defgabc') (=d'c'bagfed) | (efgabc'=d'e') (f'e'd'c'bagf) |
+(efgabc'=d'e') (d'c'bagfe=d) | (c=defgabc') (bagfedcB) |
+(ABc=defga) (gfedcBAG) | (FGABc=def) (edcBAG F2) |]
+
+X:5
+T:Modo 5: Fa Eólico (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:Fm
+V:1 clef=treble
+%%score 1
+(FGABcdef) (gfedcBAG) | (ABcdefga) (bagfedcB) |
+(cdefgabc') (d'c'bagfed) | (efgabc'd'e') (f'e'd'c'bagf) |
+(efgabc'd'e') (d'c'bagfed) | (cdefgabc') (bagfedcB) |
+(ABcdefga) (gfedcBAG) | (FGABcdef) (edcBAG F2) |]
+
+X:6
+T:Modo 6: Fa Frigio (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 6/7 (Menor) | Segunda menor accidental: Sol♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:Fm
+V:1 clef=treble
+%%score 1
+(F_GABcdef) (_gfedcBAG) | (ABcdef_ga) (bagfedcB) |
+(cdef_gabc') (d'c'bagfed) | (ef_gabc'd'e') (f'e'd'c'bagf) |
+(ef_gabc'd'e') (d'c'bagfed) | (cdef_gabc') (bagfedcB) |
+(ABcdef_ga) (gfedcBA_G) | (F_GABcdef) (edcBAG F2) |]
+
+X:7
+T:Modo 7: Fa Lócrio (E.J. 4)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 111–114))
+% Modo 7/7 (Menor) | Segunda menor: Sol♭ y Quinta disminuida: Do♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:4/2
+L:1/8
+Q:1/2=80
+K:Fm
+V:1 clef=treble
+%%score 1
+(F_GAB_cdef) (_gfedcBAG) | (AB_cdef_ga) (bagfedcB) |
+(_cdef_gab_c') (d'c'bagfed) | (ef_gab_c'd'e') (f'e'd'c'bagf) |
+(ef_gab_c'd'e') (d'c'bagfed) | (_cdef_gab_c') (bagfedcB) |
+(AB_cdef_ga) (gfedcBA_G) | (F_GAB_cdef) (edcBAG F2) |]

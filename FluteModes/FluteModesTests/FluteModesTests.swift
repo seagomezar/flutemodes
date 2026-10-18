@@ -541,7 +541,106 @@ final class FluteModesTests: XCTestCase {
             }
         }
     }
+
+    func testAll840ModalSchemesGenerateValidAbcAndMidi() {
+        XCTAssertEqual(ModalScheme.allCases.count, 10, "There must be 10 technical schemes in Modos Paralelos")
+        let expectedNoteCounts: [ModalScheme: Int] = [
+            .ej1: 257,
+            .ej2: 257,
+            .ej4: 127,
+            .ej5: 49,
+            .ej10: 97,
+            .ej11: 145,
+            .r1: 43,
+            .r2: 61,
+            .r4: 61,
+            .r5: 91
+        ]
+
+        var totalCombinations = 0
+        for tonic in Tonic.allCases {
+            for mode in ModeType.allCases {
+                for scheme in ModalScheme.allCases {
+                    totalCombinations += 1
+                    let midiNotes = ExerciseGenerator.generateModalSchemeMidiNotes(tonic: tonic, mode: mode, scheme: scheme)
+                    XCTAssertEqual(
+                        midiNotes.count,
+                        expectedNoteCounts[scheme],
+                        "Scheme \(scheme.rawValue) for \(tonic.rawValue) \(mode.name) must have \(expectedNoteCounts[scheme]!) MIDI notes"
+                    )
+                    for midi in midiNotes {
+                        XCTAssertTrue((58...98).contains(midi), "MIDI \(midi) out of flute range in \(tonic.rawValue) \(mode.name) \(scheme.rawValue)")
+                    }
+
+                    let abc = ExerciseGenerator.generateABC(
+                        tonic: tonic,
+                        mode: mode,
+                        articulation: .allSlurred,
+                        tempoBPM: 92,
+                        scheme: scheme
+                    )
+                    let expectedTitle = "T:Modo \(mode.rawValue): \(tonic.rawValue) \(mode.shortName) (\(scheme.pillLabel))"
+                    XCTAssertTrue(abc.contains(expectedTitle), "ABC must contain concise title '\(expectedTitle)'")
+                    XCTAssertLessThanOrEqual(expectedTitle.dropFirst(2).count, 32, "Visible ABC title '\(expectedTitle.dropFirst(2))' must be <= 32 chars to prevent mobile SVG clipping")
+                    XCTAssertFalse(expectedTitle.contains("(Mayor)") || expectedTitle.contains("(Menor"), "ABC T: title must use shortName without parentheticals")
+                    XCTAssertTrue(abc.contains("M:\(scheme.meter)"), "ABC for \(scheme.rawValue) must contain M:\(scheme.meter)")
+                    XCTAssertTrue(abc.contains("L:\(scheme.unitLen)"), "ABC for \(scheme.rawValue) must contain L:\(scheme.unitLen)")
+                    XCTAssertTrue(abc.contains("K:\(mode.keySignature(for: tonic))"), "ABC must contain parallel key signature K:\(mode.keySignature(for: tonic))")
+
+                    if tonic == .miBemol && mode == .locrian {
+                        XCTAssertTrue(abc.contains("__B") || abc.contains("__b"), "Eb Locrian in \(scheme.rawValue) must contain double flat Bbb (__B)")
+                    }
+                    if tonic == .laBemol && (mode == .phrygian || mode == .locrian) {
+                        XCTAssertTrue(abc.contains("__B") || abc.contains("__b") || abc.contains("__E") || abc.contains("__e"), "Ab \(mode.name) in \(scheme.rawValue) must contain double flat (__B or __E)")
+                    }
+                }
+            }
+        }
+        XCTAssertEqual(totalCombinations, 840, "Must test all 840 modal combinations (12 tonics x 7 modes x 10 schemes)")
+    }
+
+    func testConservatoryCoachPracticeWizardRoutines() {
+        for duration in PracticeWizardDuration.allCases {
+            for focus in PracticeWizardFocus.allCases {
+                let blocks = PracticeRoutineBlock.generateRoutine(
+                    duration: duration,
+                    focus: focus,
+                    tonic: .doNatural,
+                    mode: .dorian
+                )
+                XCTAssertEqual(blocks.count, 3, "Conservatory Coach routine must have 3 structured blocks")
+                let sumMinutes = blocks.reduce(0) { $0 + $1.minutes }
+                XCTAssertEqual(sumMinutes, duration.rawValue, "Sum of block minutes (\(sumMinutes)) must equal preset duration (\(duration.rawValue))")
+            }
+        }
+
+        // Verify barsPerStaff matches the 2-bars-per-line ABC layout for ej10 and ej11
+        XCTAssertEqual(ModalScheme.ej1.barsPerStaff, 1)
+        XCTAssertEqual(ModalScheme.ej2.barsPerStaff, 1)
+        XCTAssertEqual(ModalScheme.ej4.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.ej5.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.ej10.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.ej11.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.r1.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.r4.barsPerStaff, 2)
+        XCTAssertEqual(ModalScheme.r2.barsPerStaff, 4)
+        XCTAssertEqual(ModalScheme.r5.barsPerStaff, 4)
+
+        // Verify LocalizationManager Coach/Wizard keys resolve properly (not returning raw key) and omit internal "OPCIÓN 1"
+        let loc = LocalizationManager.shared
+        XCTAssertNotEqual(CoachStrings.coachTitle(loc), "coach_title")
+        XCTAssertNotEqual(CoachStrings.openWizardBtn(loc), "coach_open_wizard")
+        XCTAssertNotEqual(CoachStrings.level3SchemeLabel(loc), "coach_level3_scheme")
+        XCTAssertFalse(CoachStrings.coachBadge(loc).contains("OPCIÓN 1"))
+        XCTAssertFalse(CoachStrings.coachBadge(loc).contains("OPTION 1"))
+        XCTAssertTrue(
+            CoachStrings.coachBadge(loc) == "CONSERVATORY COACH · ASISTENTE GUIADO" ||
+            CoachStrings.coachBadge(loc) == "CONSERVATORY COACH · GUIDED ASSISTANT"
+        )
+    }
 }
+
+
 
 
 

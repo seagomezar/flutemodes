@@ -51,6 +51,21 @@ public enum ModeType: Int, CaseIterable, Identifiable, Codable {
         }
     }
 
+    public var localizedName: String { name }
+
+    public var shortName: String {
+        let isEn = LocalizationManager.shared.currentLanguage == .english
+        switch self {
+        case .ionian: return isEn ? "Ionian" : "Jónico"
+        case .lydian: return isEn ? "Lydian" : "Lidio"
+        case .mixolydian: return isEn ? "Mixolydian" : "Mixolidio"
+        case .dorian: return isEn ? "Dorian" : "Dórico"
+        case .aeolian: return isEn ? "Aeolian" : "Eólico"
+        case .phrygian: return isEn ? "Phrygian" : "Frigio"
+        case .locrian: return isEn ? "Locrian" : "Lócrio"
+        }
+    }
+
     public var character: String {
         switch self {
         case .ionian: return "Brillante y luminoso"

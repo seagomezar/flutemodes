@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-11T19:31:00Z",
+  "timestamp": "2026-10-17T23:23:17Z",
   "tier": "all",
   "total_tests": 141,
   "passed": 141,
   "failed": 0,
   "errors": 0,
   "pass_rate_percent": 100.0,
-  "duration_seconds": 0.125,
+  "duration_seconds": 0.155,
   "defects_summary": {
     "DEF-01": {
       "name": "Missing Schott Renderers in score_template.html",

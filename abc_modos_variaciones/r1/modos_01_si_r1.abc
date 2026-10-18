@@ -1,0 +1,101 @@
+%abc-2.1
+% Tónica 01_si: Si (B3 - Pata de Si) — 7 Modos Paralelos bajo el esquema R. 1
+% Reichert Op. 5 Nº 1 — Diseño Melódico Modal en 6/8 (M.-A. Reichert Op. 5 (págs. 2–3))
+
+X:1
+T:Modo 1: Si Jónico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:B
+V:1 clef=treble
+%%score 1
+(BFGABc) (dBcdef) | (fdefga) (bagfed) |
+(gfedcB) (AGFEDC) | (B,DFBdf) .b2 z2 z2 |]
+
+X:2
+T:Modo 2: Si Lidio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Mi♯ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:B
+V:1 clef=treble
+%%score 1
+(BFGABc) (dBcd^ef) | (fd^efga) (bagfed) |
+(gf^edcB) (AGF^EDC) | (B,DFBdf) .b2 z2 z2 |]
+
+X:3
+T:Modo 3: Si Mixolidio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 3/7 (Mayor) | Séptima menor accidental: La♮ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:B
+V:1 clef=treble
+%%score 1
+(BFG=ABc) (dBcdef) | (fdefg=a) (bagfed) |
+(gfedcB) (=AGFEDC) | (B,DFBdf) .b2 z2 z2 |]
+
+X:4
+T:Modo 4: Si Dórico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Sol♯ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Bm
+V:1 clef=treble
+%%score 1
+(BF^GABc) (dBcdef) | (fdef^ga) (bagfed) |
+(^gfedcB) (A^GFEDC) | (B,DFBdf) .b2 z2 z2 |]
+
+X:5
+T:Modo 5: Si Eólico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Bm
+V:1 clef=treble
+%%score 1
+(BFGABc) (dBcdef) | (fdefga) (bagfed) |
+(gfedcB) (AGFEDC) | (B,DFBdf) .b2 z2 z2 |]
+
+X:6
+T:Modo 6: Si Frigio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 6/7 (Menor) | Segunda menor accidental: Do♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Bm
+V:1 clef=treble
+%%score 1
+(BFGAB=c) (dBcdef) | (fdefga) (bagfed) |
+(gfed=cB) (AGFED=C) | (B,DFBdf) .b2 z2 z2 |]
+
+X:7
+T:Modo 7: Si Lócrio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 7/7 (Menor) | Segunda menor: Do♮ y Quinta disminuida: Fa♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Bm
+V:1 clef=treble
+%%score 1
+(B=FGAB=c) (dBcde=f) | (=fdefga) (bagfed) |
+(g=fed=cB) (AG=FED=C) | (B,D=FBd=f) .b2 z2 z2 |]

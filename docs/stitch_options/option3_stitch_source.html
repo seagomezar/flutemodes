@@ -1,0 +1,421 @@
+<html><head><meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&family=Newsreader:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-surface": "#1b1c19",
+          "on-secondary": "#ffffff",
+          "on-primary-fixed": "#00164e",
+          "secondary-container": "#fed65b",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#4059aa",
+          "secondary": "#735c00",
+          "on-secondary-container": "#745c00",
+          "surface-container-low": "#f5f4ef",
+          "on-error-container": "#93000a",
+          "error-container": "#ffdad6",
+          "surface-variant": "#e3e3de",
+          "secondary-fixed": "#ffe088",
+          "primary": "#00236f",
+          "on-secondary-fixed": "#241a00",
+          "outline-variant": "#c5c5d3",
+          "secondary-fixed-dim": "#e9c349",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e3e3de",
+          "on-tertiary-fixed": "#341100",
+          "primary-fixed-dim": "#b6c4ff",
+          "surface-dim": "#dbdad5",
+          "tertiary-fixed-dim": "#ffb691",
+          "primary-container": "#1e3a8a",
+          "on-secondary-fixed-variant": "#574500",
+          "on-background": "#1b1c19",
+          "surface-container": "#efeee9",
+          "on-primary": "#ffffff",
+          "on-error": "#ffffff",
+          "outline": "#757682",
+          "inverse-surface": "#30312e",
+          "tertiary": "#4b1c00",
+          "inverse-primary": "#b6c4ff",
+          "inverse-on-surface": "#f2f1ec",
+          "background": "#faf9f4",
+          "surface-container-lowest": "#ffffff",
+          "on-tertiary-fixed-variant": "#773205",
+          "tertiary-fixed": "#ffdbcb",
+          "primary-fixed": "#dce1ff",
+          "surface-container-high": "#e9e8e3",
+          "on-primary-container": "#90a8ff",
+          "surface-bright": "#faf9f4",
+          "on-tertiary-container": "#f39461",
+          "on-primary-fixed-variant": "#264191",
+          "tertiary-container": "#6e2c00",
+          "on-surface-variant": "#444651",
+          "surface": "#faf9f4"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-xs": "0.25rem",
+          "margin": "2rem",
+          "space-sm": "0.5rem",
+          "space-lg": "2rem",
+          "gutter": "1.5rem",
+          "space-xl": "4rem",
+          "space-md": "1rem"
+        },
+        "fontFamily": {
+          "headline-md": ["EB Garamond"],
+          "body-md": ["Newsreader"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["EB Garamond"],
+          "headline-sm": ["EB Garamond"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "body-sm": ["Newsreader"],
+          "headline-xl": ["EB Garamond"],
+          "body-lg": ["Newsreader"]
+        },
+        "fontSize": {
+          "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "400" }],
+          "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+          "headline-lg": ["36px", { "lineHeight": "44px", "fontWeight": "500" }],
+          "headline-sm": ["22px", { "lineHeight": "28px", "fontWeight": "400" }],
+          "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+          "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "headline-xl": ["48px", { "lineHeight": "56px", "fontWeight": "500" }],
+          "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+        }
+      }
+    }
+  }
+</script>
+</head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TOP APP BAR -->
+<header class="bg-surface text-primary sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-lg py-space-md max-w-7xl mx-auto">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-md text-headline-md font-medium text-primary">Flute Conservatory Workbench</span>
+</div>
+<nav class="hidden md:flex items-center space-x-space-lg font-label-md">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-200" href="#">Score Analysis</a>
+<a class="text-on-surface-variant hover:text-primary transition-all duration-200" href="#">Pedagogy Queue</a>
+<a class="text-on-surface-variant hover:text-primary transition-all duration-200" href="#">Diagnostic Wizard</a>
+<a class="text-on-surface-variant hover:text-primary transition-all duration-200" href="#">Settings</a>
+</nav>
+<div class="flex items-center space-x-space-md">
+<button class="hidden lg:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg border border-outline-variant/30 text-label-md font-label-md text-primary hover:bg-surface-variant/50 transition-all">
+<span class="material-symbols-outlined text-sm">settings</span>
+          Session Sync
+        </button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-primary text-on-primary text-label-md font-label-md hover:bg-primary-container transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm">download</span>
+          Export PDF
+        </button>
+<div class="h-6 w-[1px] bg-outline-variant/30 mx-1"></div>
+<div class="flex items-center gap-space-sm cursor-pointer">
+<img class="w-9 h-9 rounded-full object-cover border border-secondary-container" data-alt="A refined portrait of a master classical musician in a scholarly conservatory library setting, surrounded by leather-bound music scores, soft warm lighting, and a silver flute resting gently on a mahogany desk, rendered in an elegant fine art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE3NyeiRS8zy3EUdV8KrWvrnas4ejaDMBeCrc4836UASYfrQxWt1aWomZeYUFOWNkrGzIJZ4uo1FwH3Ovt6i07O_mj0Blm8B2tcGqKWWq1nHmsAX9jn_6Um8m1nyx8yxOUrRxxuk4pxC4udX9R_6TxkRSboSfR6ILVz6dpq1v-3eT66A4jIKDk88xm2Y4ak4BLvHz7-NXfJBN_eZHsI4nVkAMHyMuiRM6-9UDPP_FsUDSNCxTuwukyJbeeWIELMC5XGYlV_tjvztbA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SPLIT WORKBENCH CONTAINER -->
+<div class="flex flex-1 flex-col md:flex-row w-full max-w-[1600px] mx-auto min-h-[calc(100vh-73px)]">
+<!-- LEFT SIDEBAR -->
+<aside class="w-full md:w-80 bg-surface-container-low border-r border-outline-variant/15 flex flex-col justify-between p-space-md shrink-0">
+<div class="flex flex-col space-y-space-lg">
+<!-- HEADER -->
+<div class="flex items-center space-x-space-sm pb-space-md border-b border-outline-variant/15">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center font-headline-sm">
+<span class="material-symbols-outlined">music_note</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Pedagogical Navigation</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">12-Tonic Workbench</p>
+</div>
+</div>
+<!-- CHROMATIC WHEEL -->
+<div class="flex flex-col space-y-space-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary uppercase">Chromatic Wheel</span>
+<span class="text-[10px] font-label-sm text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full">Active: Do</span>
+</div>
+<div class="relative w-full aspect-square bg-surface border border-outline-variant/20 rounded-xl p-space-md flex items-center justify-center shadow-inner">
+<!-- Simulated Chromatic wheel nodes -->
+<div class="absolute w-full h-full rounded-full border border-dashed border-outline-variant/40"></div>
+<!-- Center hub -->
+<div class="z-10 w-16 h-16 rounded-full bg-primary text-on-primary flex flex-col items-center justify-center shadow-md">
+<span class="font-headline-sm text-sm">C 442</span>
+<span class="text-[9px] font-label-sm text-primary-fixed-dim">Concert</span>
+</div>
+<!-- Nodes around circle -->
+<button class="absolute top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-xs font-bold flex items-center justify-center shadow-sm">Do</button>
+<button class="absolute top-6 right-12 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Do♯</button>
+<button class="absolute top-16 right-4 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Re</button>
+<button class="absolute top-1/2 right-2 -translate-y-1/2 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Mi♭</button>
+<button class="absolute bottom-16 right-4 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Mi</button>
+<button class="absolute bottom-6 right-12 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Fa</button>
+<button class="absolute bottom-3 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Fa♯</button>
+<button class="absolute bottom-6 left-12 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Sol</button>
+<button class="absolute bottom-16 left-4 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">La♭</button>
+<button class="absolute top-1/2 left-2 -translate-y-1/2 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">La</button>
+<button class="absolute top-16 left-4 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Si♭</button>
+<button class="absolute top-6 left-12 w-7 h-7 rounded-full bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-[11px] flex items-center justify-center">Si</button>
+</div>
+</div>
+<!-- DIAGNOSTIC PRACTICE WIZARD -->
+<div class="bg-surface border border-outline-variant/20 rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs mb-space-xs text-primary">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<h3 class="font-headline-sm text-base">Diagnostic Practice Wizard</h3>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-space-md italic">¿Qué necesita tu técnica hoy?</p>
+<div class="space-y-space-sm">
+<div class="p-space-sm bg-surface-container-low rounded-lg border-l-2 border-secondary flex justify-between items-center cursor-pointer hover:bg-surface-variant/40 transition-all">
+<div>
+<span class="text-xs font-bold text-primary block">Block I: Flexibilidad Labial</span>
+<span class="text-[11px] text-on-surface-variant">Taffanel Scheme 4 (Intervals)</span>
+</div>
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg border-l-2 border-outline-variant flex justify-between items-center cursor-pointer hover:bg-surface-variant/40 transition-all">
+<div>
+<span class="text-xs font-bold text-primary block">Block II: Emisión & Articulación</span>
+<span class="text-[11px] text-on-surface-variant">Reichert Op.5 R.2 (Staccato)</span>
+</div>
+<span class="material-symbols-outlined text-sm text-outline">radio_button_unchecked</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg border-l-2 border-outline-variant flex justify-between items-center cursor-pointer hover:bg-surface-variant/40 transition-all">
+<div>
+<span class="text-xs font-bold text-primary block">Block III: Homogeneidad de Registro</span>
+<span class="text-[11px] text-on-surface-variant">Taffanel Scheme 10 (Arpeggios)</span>
+</div>
+<span class="material-symbols-outlined text-sm text-outline">radio_button_unchecked</span>
+</div>
+</div>
+<button class="w-full mt-space-md py-space-sm bg-primary text-on-primary rounded-lg font-label-md text-xs hover:bg-primary-container transition-all shadow-sm flex items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+            Run Diagnostic Routine
+          </button>
+</div>
+</div>
+<!-- FOOTER NAV -->
+<div class="pt-space-md border-t border-outline-variant/15 flex flex-col space-y-space-xs font-label-md">
+<a class="flex items-center gap-space-sm text-on-surface-variant px-space-md py-space-sm hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">volume_up</span>
+          Audio Engine
+        </a>
+<a class="flex items-center gap-space-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg px-space-md py-space-sm transition-all" href="#">
+<span class="material-symbols-outlined">tune</span>
+          Settings
+        </a>
+</div>
+</aside>
+<!-- MAIN RIGHT AREA -->
+<main class="flex-1 overflow-y-auto bg-surface p-space-lg flex flex-col space-y-space-lg">
+<!-- HEADER TITLE -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-md border-b border-outline-variant/20">
+<div>
+<span class="font-label-md text-secondary uppercase tracking-widest block mb-1">Conservatory Matrix System</span>
+<h1 class="font-headline-lg text-headline-lg text-primary">Matriz Modal 7 Modos × 10 Esquemas</h1>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-xs font-label-md text-primary font-bold">A=442Hz Standard</span>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE 2D MATRIX SELECTOR -->
+<div class="bg-surface-container-low border border-outline-variant/20 rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<h3 class="font-headline-sm text-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">grid_view</span>
+            Selector 2D: Greek Modes & Technical Schemes
+          </h3>
+<span class="text-xs font-label-md text-on-surface-variant">Selected: Dórico × Taffanel E.J. 2</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Greek Modes -->
+<div class="lg:col-span-5 flex flex-col space-y-space-xs">
+<span class="text-xs font-label-md text-primary uppercase font-bold tracking-wider">Modos Griegos</span>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Jónico</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-primary text-on-primary font-bold shadow-sm">Dórico</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Frigio</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Lidio</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Mixolidio</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Eólico</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Lócrio</button>
+</div>
+</div>
+<!-- Technical Schemes -->
+<div class="lg:col-span-7 flex flex-col space-y-space-xs">
+<span class="text-xs font-label-md text-primary uppercase font-bold tracking-wider">Esquemas Técnicos (Taffanel & Gaubert / Reichert)</span>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">T&G E.J. 1</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-secondary-container text-on-secondary-container font-bold shadow-sm border border-secondary">T&G E.J. 2</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">T&G E.J. 4</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">T&G E.J. 5</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">T&G E.J. 10</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">T&G E.J. 11</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Reichert R.1</button>
+<button class="px-2.5 py-2 rounded-lg text-xs font-label-md bg-surface border border-outline-variant/30 text-on-surface hover:border-primary transition-all">Reichert R.2</button>
+</div>
+</div>
+</div>
+</div>
+<!-- LIVE ENGRAVED SHEET MUSIC STAFF VIEWER -->
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-space-lg shadow-sm flex flex-col space-y-space-md relative overflow-hidden">
+<div class="flex items-center justify-between border-b border-outline-variant/15 pb-space-sm">
+<div>
+<h4 class="font-headline-md text-xl text-primary">Dorian Mode on D4 — Taffanel & Gaubert Exercise 2</h4>
+<p class="font-body-sm text-on-surface-variant">Standard Boehm Fingering • Range D4 to B5 • Articulation Pattern (a)</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container font-bold text-xs rounded-full">mf cantabile</span>
+<span class="px-3 py-1 bg-primary text-on-primary font-bold text-xs rounded-full">♩ = 96</span>
+</div>
+</div>
+<!-- Simulated Sheet Music Staff Container -->
+<div class="py-space-xl px-space-md bg-surface border border-outline-variant/10 rounded-lg relative flex flex-col justify-center space-y-8">
+<!-- Clef & Key signature indicator -->
+<div class="absolute left-6 top-1/2 -translate-y-1/2 flex items-center space-x-2 text-primary">
+<span class="font-headline-xl">𝄞</span>
+<span class="text-xs font-bold font-mono">♮♮♮</span>
+</div>
+<!-- Staff line 1 -->
+<div class="w-full relative flex flex-col justify-between h-12 ml-12">
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<!-- Notes representation -->
+<div class="absolute inset-0 flex justify-around items-center px-12">
+<div class="flex flex-col items-center relative">
+<span class="text-xs font-bold text-secondary mb-1">96</span>
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<!-- Breath mark -->
+<span class="text-lg font-bold text-secondary">,</span>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+</div>
+</div>
+<!-- Staff line 2 -->
+<div class="w-full relative flex flex-col justify-between h-12 ml-12">
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<div class="absolute inset-0 flex justify-around items-center px-12">
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-secondary -rotate-12 border border-secondary"></div>
+<div class="w-[1.5px] h-8 bg-secondary absolute left-3 -top-6"></div>
+</div>
+<span class="text-lg font-bold text-secondary">,</span>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="w-3 h-2.5 rounded-full bg-primary -rotate-12 border border-primary"></div>
+<div class="w-[1.5px] h-8 bg-primary absolute left-3 -top-6"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ARTICULATION SELECTOR (a..j) -->
+<div class="flex flex-col space-y-space-xs pt-space-sm">
+<span class="text-xs font-label-md text-primary uppercase font-bold">Patrón de Articulación (a — j)</span>
+<div class="flex flex-wrap gap-2">
+<button class="w-9 h-9 rounded-lg bg-secondary-container text-on-secondary-container font-bold text-xs flex items-center justify-center shadow-sm border border-secondary">a</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">b</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">c</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">d</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">e</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">f</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">g</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">h</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">i</button>
+<button class="w-9 h-9 rounded-lg bg-surface border border-outline-variant/30 text-on-surface hover:border-primary text-xs flex items-center justify-center">j</button>
+</div>
+</div>
+<!-- WEBAUDIO REFERENCE PLAYER CONTROLS -->
+<div class="bg-surface-container-low border border-outline-variant/20 rounded-xl p-space-md mt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center space-x-space-md w-full md:w-auto">
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-all shadow-md">
+<span class="material-symbols-outlined text-xl">play_arrow</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:bg-secondary-fixed transition-all" title="A=442Hz Tuning Fork">
+<span class="material-symbols-outlined text-lg">multiple_airports</span>
+</button>
+<div>
+<span class="text-xs font-bold text-primary block">WebAudio Reference Player</span>
+<span class="text-[11px] text-on-surface-variant">Sinusoidal Flute Timbre Generator Active</span>
+</div>
+</div>
+<!-- BPM Slider & Controls -->
+<div class="flex items-center space-x-space-md w-full md:w-auto justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-xs font-label-md text-on-surface-variant">BPM:</span>
+<span class="text-xs font-bold text-primary font-mono bg-surface px-2 py-1 rounded border border-outline-variant/30">96</span>
+<input class="accent-primary w-24 sm:w-32 cursor-pointer" max="144" min="60" type="range" value="96"/>
+</div>
+</div>
+<!-- Progress bar -->
+<div class="w-full md:w-48 flex flex-col space-y-1">
+<div class="flex justify-between text-[10px] text-on-surface-variant font-mono">
+<span>01:12</span>
+<span>03:45</span>
+</div>
+<div class="w-full h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

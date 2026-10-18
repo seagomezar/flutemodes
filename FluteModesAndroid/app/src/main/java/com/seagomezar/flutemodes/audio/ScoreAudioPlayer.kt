@@ -15,6 +15,7 @@ import com.seagomezar.flutemodes.model.EJ5Articulation
 import com.seagomezar.flutemodes.model.EJ5Section
 import com.seagomezar.flutemodes.model.ExerciseGenerator
 import com.seagomezar.flutemodes.model.ExerciseType
+import com.seagomezar.flutemodes.model.ModalScheme
 import com.seagomezar.flutemodes.model.ModeType
 import com.seagomezar.flutemodes.model.Tonic
 import kotlinx.coroutines.*
@@ -35,11 +36,17 @@ class ScoreAudioPlayer {
 
     private val sampleRate = 44100
 
-    fun toggle(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
+    fun toggle(
+        tonic: Tonic,
+        mode: ModeType,
+        articulation: ArticulationPattern,
+        tempoBPM: Int,
+        scheme: ModalScheme = ModalScheme.EJ4
+    ) {
         if (isPlaying) {
             stop()
         } else {
-            play(tonic, mode, articulation, tempoBPM)
+            play(tonic, mode, articulation, tempoBPM, scheme)
         }
     }
 
@@ -105,12 +112,18 @@ class ScoreAudioPlayer {
         isPlaying = false
     }
 
-    fun play(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
+    fun play(
+        tonic: Tonic,
+        mode: ModeType,
+        articulation: ArticulationPattern,
+        tempoBPM: Int,
+        scheme: ModalScheme = ModalScheme.EJ4
+    ) {
         stop()
         isPlaying = true
 
         playbackJob = scope.launch {
-            val buffer = generateScoreBuffer(tonic, mode, articulation, tempoBPM)
+            val buffer = generateScoreBuffer(tonic, mode, articulation, tempoBPM, scheme)
             playPcmBuffer(buffer)
         }
     }
@@ -237,66 +250,106 @@ class ScoreAudioPlayer {
         tonic: Tonic,
         mode: ModeType,
         articulation: ArticulationPattern,
-        tempoBPM: Int
+        tempoBPM: Int,
+        scheme: ModalScheme = ModalScheme.EJ4
     ): ShortArray {
-        val rootMidi = tonic.rootMidi
-        val intervals = mode.intervals
+        val midis = ExerciseGenerator.generateModalSchemeMidiNotes(
+            tonic = tonic,
+            mode = mode,
+            scheme = scheme
+        )
+        if (midis.isEmpty()) return ShortArray(0)
 
-        fun freqForIndex(idx: Int): Double {
-            val octave = idx / 7
-            val degree = idx % 7
-            val semitones = intervals[degree] + (octave * 12)
-            val midi = (rootMidi + semitones).toDouble()
-            return midiToFrequency(midi)
-        }
-
-        val eighthDuration = (60.0 / tempoBPM.toDouble()) / 4.0
-        val halfDuration = eighthDuration * 4.0
-
-        fun isStaccatoAt(beatSubIndex: Int): Boolean {
-            val i = beatSubIndex % 4
-            return when (articulation) {
-                ArticulationPattern.ALL_SLURRED, ArticulationPattern.SLURRED_FOUR_AND_FOUR -> false
-                ArticulationPattern.SLUR_TWO_STACCATO_TWO -> (i >= 2)
-                ArticulationPattern.STACCATO_SLUR_TWO_STACCATO -> (i == 0 || i == 3)
-                ArticulationPattern.STACCATO_TWO_SLUR_TWO -> (i < 2)
-                ArticulationPattern.STACCATO_ONE_SLUR_THREE -> (i == 0)
-                ArticulationPattern.SLUR_THREE_STACCATO_ONE -> (i == 3)
-                ArticulationPattern.ALL_STACCATO -> true
+        fun isStaccatoAt(beatSubIndex: Int, groupSize: Int = 4): Boolean {
+            return if (groupSize == 6) {
+                val i = beatSubIndex % 6
+                when (articulation) {
+                    ArticulationPattern.ALL_SLURRED, ArticulationPattern.SLURRED_FOUR_AND_FOUR -> false
+                    ArticulationPattern.SLUR_TWO_STACCATO_TWO -> (i == 4 || i == 5)
+                    ArticulationPattern.STACCATO_SLUR_TWO_STACCATO -> (i == 0 || i == 3)
+                    ArticulationPattern.STACCATO_TWO_SLUR_TWO -> (i == 0 || i == 1)
+                    ArticulationPattern.STACCATO_ONE_SLUR_THREE -> (i == 2 || i == 5)
+                    ArticulationPattern.SLUR_THREE_STACCATO_ONE -> (i >= 3)
+                    ArticulationPattern.ALL_STACCATO -> true
+                }
+            } else {
+                val i = beatSubIndex % 4
+                when (articulation) {
+                    ArticulationPattern.ALL_SLURRED, ArticulationPattern.SLURRED_FOUR_AND_FOUR -> false
+                    ArticulationPattern.SLUR_TWO_STACCATO_TWO -> (i >= 2)
+                    ArticulationPattern.STACCATO_SLUR_TWO_STACCATO -> (i == 0 || i == 3)
+                    ArticulationPattern.STACCATO_TWO_SLUR_TWO -> (i < 2)
+                    ArticulationPattern.STACCATO_ONE_SLUR_THREE -> (i == 0)
+                    ArticulationPattern.SLUR_THREE_STACCATO_ONE -> (i == 3)
+                    ArticulationPattern.ALL_STACCATO -> true
+                }
             }
         }
 
-        val notes = mutableListOf<NoteDef>()
-        fun addNotes(indices: List<Int>) {
-            indices.forEachIndexed { subIdx, idx ->
-                notes.add(
-                    NoteDef(
-                        freq = freqForIndex(idx),
-                        duration = eighthDuration,
-                        isStaccato = isStaccatoAt(subIdx)
-                    )
+        val baseNoteDuration: Double
+        val finalNoteDuration: Double
+        val groupSize: Int
+        val finalIsStaccato: Boolean
+
+        when (scheme) {
+            ModalScheme.EJ4, ModalScheme.EJ1, ModalScheme.EJ2 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+                finalNoteDuration = baseNoteDuration * 4.0
+                groupSize = 4
+                finalIsStaccato = false
+            }
+            ModalScheme.EJ5, ModalScheme.EJ10 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 6.0
+                finalNoteDuration = baseNoteDuration * 4.0
+                groupSize = 6
+                finalIsStaccato = false
+            }
+            ModalScheme.EJ11 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 6.0
+                finalNoteDuration = baseNoteDuration * 6.0
+                groupSize = 6
+                finalIsStaccato = false
+            }
+            ModalScheme.R1 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 6.0
+                finalNoteDuration = baseNoteDuration * 2.0
+                groupSize = 6
+                finalIsStaccato = true
+            }
+            ModalScheme.R2, ModalScheme.R4 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 4.0
+                finalNoteDuration = baseNoteDuration * 2.0
+                groupSize = 4
+                finalIsStaccato = true
+            }
+            ModalScheme.R5 -> {
+                baseNoteDuration = (60.0 / tempoBPM.toDouble()) / 6.0
+                finalNoteDuration = (60.0 / tempoBPM.toDouble()) / 2.0
+                groupSize = 6
+                finalIsStaccato = true
+            }
+        }
+
+        val notes = midis.mapIndexed { idx, midi ->
+            if (idx == midis.lastIndex) {
+                NoteDef(
+                    freq = midiToFrequency(midi.toDouble()),
+                    duration = finalNoteDuration,
+                    isStaccato = finalIsStaccato
+                )
+            } else {
+                val stacc = if (scheme == ModalScheme.EJ4 && idx >= 120) {
+                    articulation == ArticulationPattern.ALL_STACCATO
+                } else {
+                    isStaccatoAt(idx, groupSize)
+                }
+                NoteDef(
+                    freq = midiToFrequency(midi.toDouble()),
+                    duration = baseNoteDuration,
+                    isStaccato = stacc
                 )
             }
         }
-
-        // Measure 1
-        addNotes(listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1))
-        // Measure 2
-        addNotes(listOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3))
-        // Measure 3
-        addNotes(listOf(4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 10, 9, 8, 7, 6, 5))
-        // Measure 4 (Peak)
-        addNotes(listOf(6, 7, 8, 9, 10, 11, 12, 13, 14, 13, 12, 11, 10, 9, 8, 7))
-        // Measure 5
-        addNotes(listOf(6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 10, 9, 8, 7, 6, 5))
-        // Measure 6
-        addNotes(listOf(4, 5, 6, 7, 8, 9, 10, 11, 10, 9, 8, 7, 6, 5, 4, 3))
-        // Measure 7
-        addNotes(listOf(2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4, 3, 2, 1))
-        // Measure 8
-        addNotes(listOf(0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1))
-        // Final tonic half note
-        notes.add(NoteDef(freq = freqForIndex(0), duration = halfDuration, isStaccato = false))
 
         return renderNotesToPcm(notes)
     }

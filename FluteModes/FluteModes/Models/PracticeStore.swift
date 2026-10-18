@@ -66,6 +66,7 @@ public class PracticeStore: ObservableObject {
     @Published public var lastTonic: Tonic?
     @Published public var lastMode: ModeType?
     @Published public var lastArticulation: ArticulationPattern?
+    @Published public var lastModalScheme: ModalScheme = .ej4
 
     public init() {
         loadProgress()
@@ -553,7 +554,8 @@ public class PracticeStore: ObservableObject {
             "r1Articulation": String(lastR1Articulation.rawValue),
             "r1Section": String(lastR1Section),
             "r5Articulation": String(lastR5Articulation.rawValue),
-            "r5Section": String(lastR5Section)
+            "r5Section": String(lastR5Section),
+            "modalScheme": lastModalScheme.rawValue
         ]
         if let t = lastTonic, let m = lastMode, let a = lastArticulation {
             sessionData["tonic"] = t.rawValue
@@ -682,6 +684,9 @@ public class PracticeStore: ObservableObject {
             }
             if let aStr = sessionData["articulation"], let aInt = Int(aStr), let a = ArticulationPattern(rawValue: aInt) {
                 self.lastArticulation = a
+            }
+            if let schemeStr = sessionData["modalScheme"], let scheme = ModalScheme(rawValue: schemeStr) {
+                self.lastModalScheme = scheme
             }
         }
     }

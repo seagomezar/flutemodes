@@ -30,6 +30,14 @@ public class PracticeViewModel: ObservableObject {
     @Published public var currentTonic: Tonic
     @Published public var currentMode: ModeType
     @Published public var currentArticulation: ArticulationPattern
+    @Published public var currentModalScheme: ModalScheme
+
+    // Conservatory Coach (Option 1) — 3-Step Practice Wizard state
+    @Published public var showPracticeWizard: Bool = false
+    @Published public var wizardDuration: PracticeWizardDuration = .min30
+    @Published public var wizardFocus: PracticeWizardFocus = .modes
+    @Published public var wizardTonic: Tonic = .doNatural
+    @Published public var wizardMode: ModeType = .ionian
 
     @Published public var currentAbcScore: String = ""
     @Published public var showCompletionDialog: Bool = false
@@ -77,16 +85,21 @@ public class PracticeViewModel: ObservableObject {
         self.currentR1Section = store.lastR1Section
         self.currentR5Articulation = store.lastR5Articulation
         self.currentR5Section = store.lastR5Section
+        self.currentModalScheme = store.lastModalScheme
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {
             self.currentTonic = lastT
             self.currentMode = lastM
             self.currentArticulation = lastA
+            self.wizardTonic = lastT
+            self.wizardMode = lastM
         } else {
             self.currentTonic = .doNatural
             self.currentMode = .ionian
             self.currentArticulation = .allSlurred
+            self.wizardTonic = .doNatural
+            self.wizardMode = .ionian
         }
 
         // Forward child ObservableObject changes to PracticeViewModel
@@ -249,7 +262,8 @@ public class PracticeViewModel: ObservableObject {
                 tonic: currentTonic,
                 mode: currentMode,
                 articulation: currentArticulation,
-                tempoBPM: metronome.tempoBPM
+                tempoBPM: metronome.tempoBPM,
+                scheme: currentModalScheme
             )
         }
     }
@@ -285,7 +299,8 @@ public class PracticeViewModel: ObservableObject {
                 tonic: currentTonic,
                 mode: currentMode,
                 articulation: currentArticulation,
-                tempoBPM: metronome.tempoBPM
+                tempoBPM: metronome.tempoBPM,
+                scheme: currentModalScheme
             )
         }
     }
@@ -604,18 +619,57 @@ public class PracticeViewModel: ObservableObject {
         }
     }
 
-    public func selectMode(tonic: Tonic, mode: ModeType) {
+    public func selectMode(tonic: Tonic, mode: ModeType, scheme: ModalScheme? = nil) {
         scorePlayer.stop()
         self.currentExercise = .modos
         self.currentTonic = tonic
         self.currentMode = mode
+        if let scheme = scheme {
+            self.currentModalScheme = scheme
+            store.lastModalScheme = scheme
+        }
         store.lastExerciseType = .modos
+        store.lastTonic = tonic
+        store.lastMode = mode
 
         let uncompleted = ArticulationPattern.allCases.filter {
             !store.isCompleted(tonic: tonic, mode: mode, articulation: $0)
         }
         self.currentArticulation = uncompleted.first ?? .allSlurred
+        store.lastArticulation = self.currentArticulation
+        store.saveProgress()
         updateScore()
+    }
+
+    public func selectModalScheme(_ scheme: ModalScheme) {
+        scorePlayer.stop()
+        self.currentModalScheme = scheme
+        store.lastModalScheme = scheme
+        store.saveProgress()
+        updateScore()
+    }
+
+    public var generatedRoutineBlocks: [PracticeRoutineBlock] {
+        PracticeRoutineBlock.generateRoutine(
+            duration: wizardDuration,
+            focus: wizardFocus,
+            tonic: wizardTonic,
+            mode: wizardMode
+        )
+    }
+
+    public func applyWizardRoutineBlock(_ block: PracticeRoutineBlock) {
+        scorePlayer.stop()
+        self.showPracticeWizard = false
+        if block.exerciseType == .modos {
+            selectMode(tonic: block.tonic, mode: block.mode, scheme: block.modalScheme)
+        } else {
+            self.currentTonic = block.tonic
+            self.currentMode = block.mode
+            self.currentModalScheme = block.modalScheme
+            store.lastModalScheme = block.modalScheme
+            selectExercise(block.exerciseType)
+        }
     }
 
     /// Advances to the NEXT MODE within the SAME tonic.

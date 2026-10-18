@@ -63,6 +63,7 @@ class PracticeStore(context: Context) {
     var lastTonic by mutableStateOf<Tonic?>(null)
     var lastMode by mutableStateOf<ModeType?>(null)
     var lastArticulation by mutableStateOf<ArticulationPattern?>(null)
+    var lastModalScheme by mutableStateOf(ModalScheme.EJ4)
 
     var keepScreenAwake by mutableStateOf(prefs.getBoolean("keep_screen_awake", true))
         private set
@@ -507,6 +508,7 @@ class PracticeStore(context: Context) {
         lastTonic?.let { editor.putString("last_tonic", it.name) }
         lastMode?.let { editor.putString("last_mode", it.name) }
         lastArticulation?.let { editor.putString("last_articulation", it.name) }
+        editor.putString("last_modal_scheme", lastModalScheme.name)
         editor.apply()
     }
 
@@ -670,9 +672,11 @@ class PracticeStore(context: Context) {
         val tStr = prefs.getString("last_tonic", null)
         val mStr = prefs.getString("last_mode", null)
         val aStr = prefs.getString("last_articulation", null)
+        val msStr = prefs.getString("last_modal_scheme", null)
 
         if (tStr != null) lastTonic = runCatching { Tonic.valueOf(tStr) }.getOrNull()
         if (mStr != null) lastMode = runCatching { ModeType.valueOf(mStr) }.getOrNull()
         if (aStr != null) lastArticulation = runCatching { ArticulationPattern.valueOf(aStr) }.getOrNull()
+        if (msStr != null) lastModalScheme = runCatching { ModalScheme.valueOf(msStr) }.getOrDefault(ModalScheme.EJ4)
     }
 }

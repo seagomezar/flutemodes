@@ -1,0 +1,101 @@
+%abc-2.1
+% Tónica 09_sol: Sol — 7 Modos Paralelos bajo el esquema R. 5
+% Reichert Op. 5 Nº 5 — Tresillos con Pedal Modal en 2/4 (M.-A. Reichert Op. 5 (págs. 10–13))
+
+X:1
+T:Modo 1: Sol Jónico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:G
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3ac'd'(3f'c'd') ((3ac'd'(3dc'd') | ((3fc'd'(3a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gbe'(3g'be') ((3fbd'(3a'bd') | ((3ebe'(3g'be') ((3cad'(3a'ad') | ((3dbd'(3g'bd') ((3dc'd'(3f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:2
+T:Modo 2: Sol Lidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Do♯ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:G
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3a^c'd'(3f'c'd') ((3ac'd'(3dc'd') | ((3f^c'd'(3a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gbe'(3g'be') ((3fbd'(3a'bd') | ((3ebe'(3g'be') ((3^cad'(3a'ad') | ((3dbd'(3g'bd') ((3d^c'd'(3f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:3
+T:Modo 3: Sol Mixolidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Fa♮ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:G
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3ac'd'(3=f'c'd') ((3ac'd'(3dc'd') | ((3=fc'd'(3a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gbe'(3g'be') ((3=fbd'(3a'bd') | ((3ebe'(3g'be') ((3cad'(3a'ad') | ((3dbd'(3g'bd') ((3dc'd'(3=f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:4
+T:Modo 4: Sol Dórico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Mi♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Gm
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3ac'd'(3f'c'd') ((3ac'd'(3dc'd') | ((3fc'd'(3a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gb=e'(3g'be') ((3fbd'(3a'bd') | ((3=eb=e'(3g'be') ((3cad'(3a'ad') | ((3dbd'(3g'bd') ((3dc'd'(3f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:5
+T:Modo 5: Sol Eólico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Gm
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3ac'd'(3f'c'd') ((3ac'd'(3dc'd') | ((3fc'd'(3a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gbe'(3g'be') ((3fbd'(3a'bd') | ((3ebe'(3g'be') ((3cad'(3a'ad') | ((3dbd'(3g'bd') ((3dc'd'(3f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:6
+T:Modo 6: Sol Frigio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 6/7 (Menor) | Segunda menor accidental: La♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Gm
+V:1 clef=treble
+%%score 1
+((3gbd'(3g'bd') ((3gbd'(3dbd') | ((3_ac'd'(3f'c'd') ((3ac'd'(3dc'd') | ((3fc'd'(3_a'c'd') ((3fc'd'(3dc'd') | ((3gbd'(3g'bd') ((3gbd'(3dbd') |
+((3gbe'(3g'be') ((3fbd'(3_a'bd') | ((3ebe'(3g'be') ((3c_ad'(3_a'ad') | ((3dbd'(3g'bd') ((3dc'd'(3f'c'd') | ((3gbd'(3g'bd') .g2 z2 |]
+
+X:7
+T:Modo 7: Sol Lócrio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 7/7 (Menor) | Segunda menor: La♭ y Quinta disminuida: Re♭ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Gm
+V:1 clef=treble
+%%score 1
+((3gb_d'(3g'bd') ((3gbd'(3_dbd') | ((3_ac'_d'(3f'c'd') ((3ac'd'(3_dc'd') | ((3fc'_d'(3_a'c'd') ((3fc'd'(3_dc'd') | ((3gb_d'(3g'bd') ((3gbd'(3_dbd') |
+((3gbe'(3g'be') ((3fb_d'(3_a'bd') | ((3ebe'(3g'be') ((3c_a_d'(3_a'ad') | ((3_db_d'(3g'bd') ((3dc'd'(3f'c'd') | ((3gb_d'(3g'bd') .g2 z2 |]

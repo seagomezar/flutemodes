@@ -1,0 +1,101 @@
+%abc-2.1
+% Tónica 10_la_bemol: La bemol (La♭) — 7 Modos Paralelos bajo el esquema R. 1
+% Reichert Op. 5 Nº 1 — Diseño Melódico Modal en 6/8 (M.-A. Reichert Op. 5 (págs. 2–3))
+
+X:1
+T:Modo 1: La♭ Jónico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Ab
+V:1 clef=treble
+%%score 1
+(aefgab) (c'abc'd'e') | (e'c'd'e'f'g') (a'g'f'e'd'c') |
+(f'e'd'c'ba) (gfedcB) | (Aceac'e') .a'2 z2 z2 |]
+
+X:2
+T:Modo 2: La♭ Lidio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Re♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Ab
+V:1 clef=treble
+%%score 1
+(aefgab) (c'abc'=d'e') | (e'c'=d'e'f'g') (a'g'f'e'd'c') |
+(f'e'=d'c'ba) (gfe=dcB) | (Aceac'e') .a'2 z2 z2 |]
+
+X:3
+T:Modo 3: La♭ Mixolidio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Sol♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Ab
+V:1 clef=treble
+%%score 1
+(aef_gab) (c'abc'd'e') | (e'c'd'e'f'_g') (a'g'f'e'd'c') |
+(f'e'd'c'ba) (_gfedcB) | (Aceac'e') .a'2 z2 z2 |]
+
+X:4
+T:Modo 4: La♭ Dórico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Fa♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Abm
+V:1 clef=treble
+%%score 1
+(ae=fgab) (c'abc'd'e') | (e'c'd'e'=f'g') (a'g'f'e'd'c') |
+(=f'e'd'c'ba) (g=fedcB) | (Aceac'e') .a'2 z2 z2 |]
+
+X:5
+T:Modo 5: La♭ Eólico (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Abm
+V:1 clef=treble
+%%score 1
+(aefgab) (c'abc'd'e') | (e'c'd'e'f'g') (a'g'f'e'd'c') |
+(f'e'd'c'ba) (gfedcB) | (Aceac'e') .a'2 z2 z2 |]
+
+X:6
+T:Modo 6: La♭ Frigio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 6/7 (Menor) | Segunda menor accidental: Si𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Abm
+V:1 clef=treble
+%%score 1
+(aefga__b) (c'abc'd'e') | (e'c'd'e'f'g') (a'g'f'e'd'c') |
+(f'e'd'c'__ba) (gfedc__B) | (Aceac'e') .a'2 z2 z2 |]
+
+X:7
+T:Modo 7: La♭ Lócrio (R. 1)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 2–3))
+% Modo 7/7 (Menor) | Segunda menor: Si𝄫 y Quinta disminuida: Mi𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:6/8
+L:1/16
+Q:1/4.=88
+K:Abm
+V:1 clef=treble
+%%score 1
+(a__efga__b) (c'abc'd'__e') | (__e'c'd'e'f'g') (a'g'f'e'd'c') |
+(f'__e'd'c'__ba) (gf__edc__B) | (Ac__eac'__e') .a'2 z2 z2 |]

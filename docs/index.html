@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FluteModes · Estudio de Modos Paralelos del Maestro León Giraldo</title>
+  <title>FluteModes · Taffanel & Gaubert, Reichert Op. 5 y 840 Modos Paralelos</title>
   <link rel="icon" type="image/jpeg" href="app_icon.jpg" />
   <script src="abcjs-basic-min.js"></script>
   <script src="modes_data.js"></script>
+  <script src="modes_variations_data.js"></script>
   <style>
     :root {
       --bg: #07080d;
@@ -186,7 +187,7 @@
       transform: translateY(-2px);
     }
 
-    /* Maestro Leon Giraldo Card */
+    /* Sistema Modal Paralelo Card */
     .maestro-section {
       margin: 40px 0 60px;
     }
@@ -251,7 +252,7 @@
       line-height: 1.5;
     }
 
-    /* Interactive Score Preview & Audio Player */
+    /*Interactive Score Preview & Audio Player */
     .score-section {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -488,6 +489,13 @@
     #paper svg path {
       fill: #000000 !important;
     }
+    .abcjs-highlight,
+    #paper svg .abcjs-highlight,
+    #paper svg .abcjs-highlight path,
+    #paper svg path.abcjs-highlight {
+      fill: #d97706 !important;
+      stroke: #d97706 !important;
+    }
 
     /* Features Grid */
     .features-grid {
@@ -703,6 +711,243 @@
       margin-top: 8px;
       color: #000000;
     }
+
+    /* Opción 1: Conservatory Coach Hero Card & 3-Step Practice Wizard */
+    .coach-section {
+      margin: 36px 0 46px;
+    }
+    .coach-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(99, 102, 241, 0.14) 55%, rgba(18, 20, 31, 0.92) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.38);
+      border-radius: 24px;
+      padding: 28px 32px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
+    .coach-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .coach-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .coach-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 4px;
+    }
+    .coach-sub {
+      color: #cbd5e1;
+      font-size: 14.5px;
+      margin: 0;
+    }
+    .coach-wizard-trigger {
+      background: linear-gradient(135deg, #10b981, #6366f1);
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .coach-wizard-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(99, 102, 241, 0.45);
+    }
+    .coach-resume-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      background: rgba(7, 8, 13, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .coach-resume-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .coach-resume-btn {
+      background: #10b981;
+      color: #04130d;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .coach-resume-btn:hover {
+      transform: scale(1.03);
+    }
+    .coach-presets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .coach-preset-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .coach-preset-card:hover {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.1);
+      transform: translateY(-2px);
+    }
+    .coach-preset-min {
+      font-size: 16px;
+      font-weight: 800;
+      color: #34d399;
+      margin-bottom: 2px;
+    }
+    .coach-preset-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .coach-preset-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Native <dialog closedby="any"> Practice Wizard Modal */
+    dialog#coach-wizard-dialog {
+      background: #0f121d;
+      color: var(--text);
+      border: 1px solid rgba(99, 102, 241, 0.45);
+      border-radius: 24px;
+      padding: 28px;
+      max-width: 780px;
+      width: calc(100% - 32px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+      overscroll-behavior: contain;
+    }
+    dialog#coach-wizard-dialog:modal {
+      overscroll-behavior: contain;
+    }
+    dialog#coach-wizard-dialog::backdrop {
+      background: rgba(4, 6, 12, 0.78);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+      overscroll-behavior: contain;
+    }
+    .wiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .wiz-step-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      margin: 14px 0 8px;
+    }
+    .wiz-chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .wiz-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .wiz-chip.active {
+      background: #6366f1;
+      border-color: #818cf8;
+      color: #fff;
+    }
+    .wiz-routine-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .wiz-routine-block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 16px;
+    }
+    .wiz-routine-badge {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .scheme-btn {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      padding: 7px 14px;
+      border-radius: 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .scheme-btn:hover {
+      background: rgba(99, 102, 241, 0.22);
+      color: #fff;
+    }
+    .scheme-btn.active {
+      background: #6366f1;
+      color: #ffffff;
+      border-color: #818cf8;
+      box-shadow: 0 2px 12px rgba(99, 102, 241, 0.45);
+    }
   </style>
 </head>
 <body>
@@ -716,8 +961,9 @@
         <span class="brand-title">FluteModes</span>
       </a>
       <div class="nav-links">
+        <a href="#coach" class="i18n" data-es="Asistente Coach" data-en="Practice Coach">Asistente Coach</a>
         <a href="#maestro" class="i18n" data-es="El Maestro" data-en="The Maestro">El Maestro</a>
-        <a href="#preview" class="i18n" data-es="Atril & Audio" data-en="Score & Audio">Atril & Audio</a>
+        <a href="#preview" class="i18n" data-es="Atril & 840 Modos" data-en="Stand & 840 Modes">Atril & 840 Modos</a>
         <a href="#features" class="i18n" data-es="Características" data-en="Features">Características</a>
         <a href="#downloads" class="i18n" data-es="Descargas" data-en="Downloads">Descargas</a>
         <a href="support.html" class="i18n" data-es="Soporte" data-en="Support">Soporte</a>
@@ -732,9 +978,9 @@
       <div class="hero-badge">
         <span>✨</span>
         <span class="i18n" 
-              data-es="TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (Nº 1, 2, 4 & 5) · SISTEMA PARALELO DEL MAESTRO LEÓN GIRALDO" 
-              data-en="TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (NO. 1, 2, 4 & 5) · MAESTRO LEÓN GIRALDO'S PARALLEL SYSTEM">
-          TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (Nº 1, 2, 4 & 5) · SISTEMA PARALELO DEL MAESTRO LEÓN GIRALDO
+              data-es="TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (Nº 1, 2, 4 & 5) · SISTEMA MODAL PARALELO (84 × 10)" 
+              data-en="TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (NO. 1, 2, 4 & 5) · PARALLEL MODAL SYSTEM (84 × 10)">
+          TAFFANEL & GAUBERT (E.J. 1, 2, 4, 5, 10 & 11) · REICHERT OP. 5 (Nº 1, 2, 4 & 5) · SISTEMA MODAL PARALELO (84 × 10)
         </span>
       </div>
       <h1 class="hero-title i18n" 
@@ -743,38 +989,46 @@
         Domina Taffanel & Gaubert, Reichert Op. 5 y los 84 Modos Paralelos
       </h1>
       <p class="hero-subtitle i18n"
-         data-es="Basado en el canon Urtext de Paul Taffanel & Philippe Gaubert (Ediciones Alphonse Leduc A. L. 16.588: E.J. 1, 2, 4, 5, 10 y 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5, B. Schott's Söhne 20623: Nº 1, 2, 4 y 5) y la visión pedagógica del Maestro León Giraldo. App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo."
-         data-en="Based on the Urtext canons of Paul Taffanel & Philippe Gaubert (Editions Alphonse Leduc A. L. 16.588: E.J. 1, 2, 4, 5, 10 & 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5, B. Schott's Söhne 20623: No. 1, 2, 4 & 5) and Maestro León Giraldo's pedagogical vision. Native iOS, iPadOS, Android & Web app with grand piano synthesis and milestone tracking.">
-        Basado en el canon Urtext de Paul Taffanel & Philippe Gaubert (Ediciones Alphonse Leduc A. L. 16.588: E.J. 1, 2, 4, 5, 10 y 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5, B. Schott's Söhne 20623: Nº 1, 2, 4 y 5) y la visión pedagógica del Maestro León Giraldo. App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo.
+         data-es="Basado en el repertorio técnico de Paul Taffanel & Philippe Gaubert (E.J. 1, 2, 4, 5, 10 y 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5: Nº 1, 2, 4 y 5) y el Sistema Modal Paralelo (84 Modos × 10 Esquemas). App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo."
+         data-en="Based on the technical repertoire of Paul Taffanel & Philippe Gaubert (E.J. 1, 2, 4, 5, 10 & 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5: No. 1, 2, 4 & 5) and the Parallel Modal System (84 Modes × 10 Schemes). Native iOS, iPadOS, Android & Web app with grand piano synthesis and milestone tracking.">
+        Basado en el repertorio técnico de Paul Taffanel & Philippe Gaubert (E.J. 1, 2, 4, 5, 10 y 11), Mathieu-André Reichert (7 Exercices Journaliers Op. 5: Nº 1, 2, 4 y 5) y el Sistema Modal Paralelo (84 Modos × 10 Esquemas). App nativa para iOS, iPadOS, Android y Web con sintetizador de piano de cola y seguimiento completo.
       </p>
       <div class="cta-group">
-        <a href="#preview" class="btn btn-primary">
+        <a href="propuestas_ux_wizard_modos.html" class="btn btn-primary">
+          <span>🎨</span>
+          <span class="i18n" data-es="4 Opciones UX: Dashboard, Wizard y Modos" data-en="4 UX Options: Dashboard, Wizard & Modes">4 Opciones UX: Dashboard, Wizard y Modos</span>
+        </a>
+        <a href="modos_variaciones.html" class="btn btn-primary">
+          <span>✨</span>
+          <span class="i18n" data-es="Validar 840 Modos (Taffanel + Reichert)" data-en="Validate 840 Modes (Taffanel + Reichert)">Validar 840 Modos (Taffanel + Reichert)</span>
+        </a>
+        <a href="#preview" class="btn btn-secondary">
           <span>🎼</span>
           <span class="i18n" data-es="Probar Atril & Audio en Vivo" data-en="Try Live Stand & Audio">Probar Atril & Audio en Vivo</span>
         </a>
         <a href="ej1.html" class="btn btn-secondary">
           <span>📘</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 1" data-en="E. J. 1 Urtext Viewer">Visor Urtext E. J. 1</span>
+          <span class="i18n" data-es="Visor E. J. 1" data-en="E. J. 1 Viewer">Visor E. J. 1</span>
         </a>
         <a href="ej2.html" class="btn btn-secondary">
           <span>📗</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 2" data-en="E. J. 2 Urtext Viewer">Visor Urtext E. J. 2</span>
+          <span class="i18n" data-es="Visor E. J. 2" data-en="E. J. 2 Viewer">Visor E. J. 2</span>
         </a>
         <a href="ej4.html" class="btn btn-secondary">
           <span>📕</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 4" data-en="E. J. 4 Urtext Viewer">Visor Urtext E. J. 4</span>
+          <span class="i18n" data-es="Visor E. J. 4" data-en="E. J. 4 Viewer">Visor E. J. 4</span>
         </a>
         <a href="ej5.html" class="btn btn-secondary">
           <span>📙</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 5" data-en="E. J. 5 Urtext Viewer">Visor Urtext E. J. 5</span>
+          <span class="i18n" data-es="Visor E. J. 5" data-en="E. J. 5 Viewer">Visor E. J. 5</span>
         </a>
         <a href="ej10.html" class="btn btn-secondary">
           <span>📓</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 10" data-en="E. J. 10 Urtext Viewer">Visor Urtext E. J. 10</span>
+          <span class="i18n" data-es="Visor E. J. 10" data-en="E. J. 10 Viewer">Visor E. J. 10</span>
         </a>
         <a href="ej11.html" class="btn btn-secondary">
           <span>📔</span>
-          <span class="i18n" data-es="Visor Urtext E. J. 11" data-en="E. J. 11 Urtext Viewer">Visor Urtext E. J. 11</span>
+          <span class="i18n" data-es="Visor E. J. 11" data-en="E. J. 11 Viewer">Visor E. J. 11</span>
         </a>
         <a href="r1.html" class="btn btn-secondary">
           <span>🎵</span>
@@ -796,26 +1050,26 @@
           <span>🍏</span>
           <span class="i18n" data-es="Probar en TestFlight (iOS)" data-en="Test on TestFlight (iOS)">Probar en TestFlight (iOS)</span>
         </a>
-        <a href="downloads/apk/FluteModes-v1.5.2-release.apk" download class="btn btn-secondary">
+        <a href="downloads/apk/FluteModes-v1.6.0-release.apk" download class="btn btn-secondary">
           <span>🤖</span>
-          <span class="i18n" data-es="Descargar APK v1.5.2 (Android)" data-en="Download APK v1.5.2 (Android)">Descargar APK v1.5.2 (Android)</span>
+          <span class="i18n" data-es="Descargar APK v1.6.0 (Android)" data-en="Download APK v1.6.0 (Android)">Descargar APK v1.6.0 (Android)</span>
         </a>
       </div>
     </section>
 
-    <!-- SECCIÓN MAESTRO LEÓN GIRALDO -->
+    <!-- SECCIÓN SISTEMA MODAL PARALELO -->
     <section id="maestro" class="maestro-section">
       <div class="maestro-card">
         <div class="maestro-badge i18n" data-es="METODOLOGÍA PEDAGÓGICA CANÓNICA" data-en="CANONICAL PEDAGOGICAL METHODOLOGY">METODOLOGÍA PEDAGÓGICA CANÓNICA</div>
         <h2 class="maestro-title i18n" 
-            data-es="La Visión Pedagógica del Maestro León Giraldo" 
-            data-en="The Pedagogical Vision of Maestro León Giraldo">
-          La Visión Pedagógica del Maestro León Giraldo
+            data-es="El Sistema Modal Paralelo (84 Modos × 10 Esquemas)" 
+            data-en="The Parallel Modal System (84 Modes × 10 Schemes)">
+          El Sistema Modal Paralelo (84 Modos × 10 Esquemas)
         </h2>
         <p class="maestro-text i18n"
-           data-es="En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Maestro León Giraldo concibió un sistema transformador para vientos madera: construir los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura."
-           data-en="In traditional academic flute education, musical modes are typically taught as relative permutations of a major scale, which dilutes the distinct harmonic flavor of each individual mode. Maestro León Giraldo developed a transformative woodwind methodology: constructing all 7 modes from the exact same fundamental root (parallel tonics). By anchoring the pitch and varying only the modal intervals, the flutist instantly internalizes scale colors, pitch sensitivity, and embouchure flexibility.">
-          En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Maestro León Giraldo concibió un sistema transformador para vientos madera: construir los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura.
+           data-es="En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Sistema Modal Paralelo construye los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura."
+           data-en="In traditional academic flute education, musical modes are typically taught as relative permutations of a major scale, which dilutes the distinct harmonic flavor of each individual mode. The Parallel Modal System constructs all 7 modes from the exact same fundamental root (parallel tonics). By anchoring the pitch and varying only the modal intervals, the flutist instantly internalizes scale colors, pitch sensitivity, and embouchure flexibility.">
+          En la enseñanza académica tradicional de la flauta traversa, los modos griegos se abordan casi exclusivamente como permutaciones relativas de una escala mayor, lo que adormece la percepción del color armónico específico de cada modo. El Sistema Modal Paralelo construye los 7 modos desde la misma nota fundamental (tónica paralela). Al anclar la altura y variar únicamente la interválica modal, el flautista interioriza de forma instantánea el color de la escala, la entonación de notas sensibles y la flexibilidad de la embocadura.
         </p>
         <div class="maestro-pillars">
           <div class="pillar-box">
@@ -826,7 +1080,7 @@
           <div class="pillar-box">
             <div class="pillar-num">02</div>
             <div class="pillar-title i18n" data-es="Mecánica Canónica (Taffanel & Reichert Op. 5)" data-en="Canonical Mechanics (Taffanel & Reichert Op. 5)">Mecánica Canónica (Taffanel & Reichert Op. 5)</div>
-            <p class="pillar-desc i18n" data-es="Integra los ejercicios diarios de Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 y 11 Urtext A.L. 16.588) y Mathieu-André Reichert (Op. 5 Nº 1, 2, 4 y 5 Schott 20623) junto al estudio de 84 modos paralelos." data-en="Integrates the daily exercises of Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 & 11 Urtext A.L. 16.588) and Mathieu-André Reichert (Op. 5 No. 1, 2, 4 & 5 Schott 20623) alongside the 84 parallel modes study.">Integra los ejercicios diarios de Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 y 11 Urtext A.L. 16.588) y Mathieu-André Reichert (Op. 5 Nº 1, 2, 4 y 5 Schott 20623) junto al estudio de 84 modos paralelos.</p>
+            <p class="pillar-desc i18n" data-es="Integra los ejercicios diarios de Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 y 11) y Mathieu-André Reichert (Op. 5 Nº 1, 2, 4 y 5) junto al estudio de 84 modos paralelos." data-en="Integrates the daily exercises of Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 & 11) and Mathieu-André Reichert (Op. 5 No. 1, 2, 4 & 5) alongside the 84 parallel modes study.">Integra los ejercicios diarios de Taffanel & Gaubert (E.J. 1, 2, 4, 5, 10 y 11) y Mathieu-André Reichert (Op. 5 Nº 1, 2, 4 y 5) junto al estudio de 84 modos paralelos.</p>
           </div>
           <div class="pillar-box">
             <div class="pillar-num">03</div>
@@ -837,19 +1091,115 @@
       </div>
     </section>
 
+    <!-- OPCIÓN 1: CONSERVATORY COACH (ASISTENTE DE ESTUDIO & PRACTICE WIZARD) -->
+    <section id="coach" class="coach-section">
+      <div class="coach-card">
+        <div class="coach-top-row">
+          <div>
+            <div class="coach-pill">
+              <span>✨</span>
+              <span class="i18n" data-es="CONSERVATORY COACH · ASISTENTE GUIADO" data-en="CONSERVATORY COACH · GUIDED ASSISTANT">CONSERVATORY COACH · ASISTENTE GUIADO</span>
+            </div>
+            <h2 class="coach-title i18n" data-es="Asistente de Estudio: ¿Qué debo practicar hoy?" data-en="Practice Coach: What should I practice today?">
+              Asistente de Estudio: ¿Qué debo practicar hoy?
+            </h2>
+            <p class="coach-sub i18n" data-es="Elige una rutina guiada por duración o diseña tu sesión personalizada en 3 pasos (Taffanel + Reichert + 840 Modos Paralelos)." data-en="Pick a duration-based routine or design your custom session in 3 steps (Taffanel + Reichert + 840 Parallel Modes).">
+              Elige una rutina guiada por duración o diseña tu sesión personalizada en 3 pasos (Taffanel + Reichert + 840 Modos Paralelos).
+            </p>
+          </div>
+          <button class="coach-wizard-trigger" onclick="openCoachWizard()">
+            <span>✨</span>
+            <span class="i18n" data-es="Practice Wizard (3 Pasos)" data-en="Practice Wizard (3 Steps)">Practice Wizard (3 Pasos)</span>
+          </button>
+        </div>
+
+        <!-- 1-Tap Resume Banner -->
+        <div class="coach-resume-banner">
+          <div class="coach-resume-info">
+            <span style="font-size: 22px;">⏱️</span>
+            <div>
+              <div style="font-size: 13.5px; font-weight: 800; color: #fff;" class="i18n" data-es="Continuar última sesión en 1 toque" data-en="Resume last session in 1 tap">Continuar última sesión en 1 toque</div>
+              <div id="coach-resume-subtitle" style="font-size: 12.5px; color: #34d399; font-weight: 600;">84 Modos Paralelos · Do Jónico (Mayor) · Esquema E.J. 4</div>
+            </div>
+          </div>
+          <button class="coach-resume-btn" onclick="resumeCoachSession()">
+            <span class="i18n" data-es="▶ Continuar en el Atril" data-en="▶ Resume on Stand">▶ Continuar en el Atril</span>
+          </button>
+        </div>
+
+        <!-- 3 Quick Duration Preset Cards -->
+        <div class="coach-presets-grid">
+          <button class="coach-preset-card" onclick="openCoachWizard(15)">
+            <div class="coach-preset-min">15 min</div>
+            <div class="coach-preset-desc i18n" data-es="Sonido + Taffanel + 1 modo paralelo" data-en="Tone + Taffanel + 1 parallel mode">Sonido + Taffanel + 1 modo paralelo</div>
+          </button>
+          <button class="coach-preset-card" onclick="openCoachWizard(30)">
+            <div class="coach-preset-min">30 min</div>
+            <div class="coach-preset-desc i18n" data-es="Taffanel + Reichert Op. 5 + Modos" data-en="Taffanel + Reichert Op. 5 + Modes">Taffanel + Reichert Op. 5 + Modos</div>
+          </button>
+          <button class="coach-preset-card" onclick="openCoachWizard(45)">
+            <div class="coach-preset-min">45 min</div>
+            <div class="coach-preset-desc i18n" data-es="Ciclo completo + 840 variaciones" data-en="Full cycle + 840 variations">Ciclo completo + 840 variaciones</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIALOG: 3-STEP PRACTICE WIZARD (Opción 1) -->
+    <dialog id="coach-wizard-dialog" closedby="any" aria-labelledby="coach-wizard-title">
+      <div class="wiz-header">
+        <div>
+          <div id="coach-wizard-title" style="font-size: 18px; font-weight: 800; color: #fff;" class="i18n" data-es="✨ Practice Wizard · Conservatorio (3 Pasos)" data-en="✨ Practice Wizard · Conservatory (3 Steps)">✨ Practice Wizard · Conservatorio (3 Pasos)</div>
+          <div style="font-size: 12.5px; color: var(--text-muted);" class="i18n" data-es="Configura tiempo, enfoque técnico y tónica/modo para abrir el atril al instante" data-en="Configure time, technical focus, and tonic/mode to launch the stand immediately">Configura tiempo, enfoque técnico y tónica/modo para abrir el atril al instante</div>
+        </div>
+        <button class="tool-btn" onclick="document.getElementById('coach-wizard-dialog').close()">✕</button>
+      </div>
+
+      <div class="wiz-step-title i18n" data-es="Paso 1 · Tiempo disponible hoy" data-en="Step 1 · Available time today">Paso 1 · Tiempo disponible hoy</div>
+      <div class="wiz-chip-row" id="wiz-duration-row">
+        <button class="wiz-chip" data-min="15" onclick="setWizardDuration(15)">15 min</button>
+        <button class="wiz-chip active" data-min="30" onclick="setWizardDuration(30)">30 min</button>
+        <button class="wiz-chip" data-min="45" onclick="setWizardDuration(45)">45 min</button>
+      </div>
+
+      <div class="wiz-step-title i18n" data-es="Paso 2 · Enfoque Técnico Principal" data-en="Step 2 · Primary Technical Focus">Paso 2 · Enfoque Técnico Principal</div>
+      <div class="wiz-chip-row" id="wiz-focus-row">
+        <button class="wiz-chip" data-focus="scales" onclick="setWizardFocus('scales')">🎼 Escalas / Igualdad (E.J. 1, 2, 4, 5)</button>
+        <button class="wiz-chip" data-focus="arpeggios" onclick="setWizardFocus('arpeggios')">🎹 Arpegios & Flexibilidad (E.J. 10, 11)</button>
+        <button class="wiz-chip" data-focus="reichert" onclick="setWizardFocus('reichert')">🎵 Agilidad Reichert Op. 5 (R. 1, 2, 4, 5)</button>
+        <button class="wiz-chip active" data-focus="modes" onclick="setWizardFocus('modes')">✨ Modos Paralelos (84 × 10 = 840)</button>
+      </div>
+
+      <div class="wiz-step-title i18n" data-es="Paso 3 · Tónica, Modo Paralelo y Rutina Sugerida (3 Bloques)" data-en="Step 3 · Tonic, Parallel Mode & Suggested Routine (3 Blocks)">Paso 3 · Tónica, Modo Paralelo y Rutina Sugerida (3 Bloques)</div>
+      <div class="wiz-chip-row" id="wiz-tonic-row" style="margin-bottom: 8px;"></div>
+      <div class="wiz-chip-row" id="wiz-mode-row" style="margin-bottom: 12px;"></div>
+
+      <div class="wiz-routine-list" id="wiz-routine-blocks"></div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px;">
+        <button class="btn btn-secondary" style="padding: 10px 20px; font-size: 13.5px;" onclick="document.getElementById('coach-wizard-dialog').close()">
+          <span class="i18n" data-es="Cerrar" data-en="Close">Cerrar</span>
+        </button>
+        <button class="coach-wizard-trigger" onclick="startWizardPrimaryBlock()">
+          <span>🚀</span>
+          <span class="i18n" data-es="Iniciar Rutina en el Atril" data-en="Start Routine on Stand">Iniciar Rutina en el Atril</span>
+        </button>
+      </div>
+    </dialog>
+
     <!-- ATRIL INTERACTIVO & REPRODUCTOR DE AUDIO -->
     <section id="preview" class="score-section">
       <div class="score-header-top">
         <div>
           <div class="score-title i18n" 
-               data-es="Atril Interactivo: Taffanel (E.J. 1–11), Reichert (R. 1–5) y 84 Modos" 
-               data-en="Interactive Stand: Taffanel (E.J. 1–11), Reichert (R. 1–5) & 84 Modes">
-            Atril Interactivo: Taffanel (E.J. 1–11), Reichert (R. 1–5) y 84 Modos
+               data-es="Atril Interactivo: Taffanel (E.J. 1–11), Reichert (R. 1–5) y 840 Modos Paralelos" 
+               data-en="Interactive Stand: Taffanel (E.J. 1–11), Reichert (R. 1–5) & 840 Parallel Modes">
+            Atril Interactivo: Taffanel (E.J. 1–11), Reichert (R. 1–5) y 840 Modos Paralelos
           </div>
           <div class="score-subtitle i18n" 
-               data-es="Renderizado directo de notación musical ABC Urtext (Leduc A. L. 16.588 & Schott 20623) con sintetizador de piano acústico en tiempo real" 
-               data-en="Live ABC Urtext music notation engraving (Leduc A. L. 16.588 & Schott 20623) with real-time acoustic grand piano synthesis">
-            Renderizado directo de notación musical ABC Urtext (Leduc A. L. 16.588 & Schott 20623) con sintetizador de piano acústico en tiempo real
+               data-es="Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real" 
+               data-en="Live ABC music notation engraving with real-time acoustic grand piano synthesis">
+            Renderizado directo de notación musical ABC con sintetizador de piano acústico en tiempo real
           </div>
         </div>
       </div>
@@ -857,8 +1207,8 @@
       <!-- 0. SELECTOR DE EJERCICIO -->
       <div class="selector-label i18n" data-es="0. Seleccionar Ejercicio:" data-en="0. Select Exercise:">0. Seleccionar Ejercicio:</div>
       <div class="mode-bar" id="exercise-buttons-container">
-        <button class="mode-btn active" onclick="setExercise('ej1', this)">🎼 E. J. 1 · Pentacordios Mayores (10 Arts.)</button>
-        <button class="mode-btn" onclick="setExercise('ej2', this)">🎼 E. J. 2 · Pentacordios Menores (10 Arts.)</button>
+        <button class="mode-btn active" id="ex-btn-ej1" onclick="setExercise('ej1', this)">🎼 E. J. 1 · Pentacordios Mayores (10 Arts.)</button>
+        <button class="mode-btn" id="ex-btn-ej2" onclick="setExercise('ej2', this)">🎼 E. J. 2 · Pentacordios Menores (10 Arts.)</button>
         <button class="mode-btn" onclick="window.location.href='ej4.html'">🎼 E. J. 4 · Escalas Diatónicas (24 Ton.)</button>
         <button class="mode-btn" onclick="window.location.href='ej5.html'">🎼 E. J. 5 · Escalas Cromáticas (10 Arts.)</button>
         <button class="mode-btn" onclick="window.location.href='ej10.html'">🎼 E. J. 10 · Arpegios (24 Ton.)</button>
@@ -867,34 +1217,42 @@
         <button class="mode-btn" onclick="window.location.href='r2.html'">🎶 R. 2 · Reichert Nº 2 en 2/4 (24 Ton.)</button>
         <button class="mode-btn" onclick="window.location.href='r4.html'">🎼 R. 4 · Reichert Nº 4 en 4/4 (24 Ton.)</button>
         <button class="mode-btn" onclick="window.location.href='r5.html'">🎹 R. 5 · Reichert Nº 5 Tresillos (24 Ton.)</button>
-        <button class="mode-btn" onclick="setExercise('ej4', this)">🎹 84 Modos Paralelos (León Giraldo)</button>
+        <button class="mode-btn" id="ex-btn-modos" onclick="setExercise('ej4', this)">🎹 84 Modos × 10 Esquemas (840 Modos)</button>
       </div>
 
       <!-- CONTROLES PARA E.J. 1 Y E.J. 2 (10 ARTICULACIONES) -->
       <div id="chromatic-selectors-wrapper">
-        <div class="selector-label i18n" data-es="Seleccionar Articulación Oficial (Ediciones Alphonse Leduc A. L. 16.588):" data-en="Select Official Articulation (Editions Alphonse Leduc A. L. 16.588):">Seleccionar Articulación Oficial (Ediciones Alphonse Leduc A. L. 16.588):</div>
+        <div class="selector-label i18n" data-es="Seleccionar Articulación Oficial:" data-en="Select Official Articulation:">Seleccionar Articulación Oficial:</div>
         <div class="tonic-bar" id="ej-art-buttons-container"></div>
       </div>
 
-      <!-- CONTROLES PARA E.J. 4 (TÓNICA Y MODO) -->
+      <!-- CONTROLES PARA EXPLORADOR DE 3 NIVELES DE MODOS (84 MODOS × 10 ESQUEMAS = 840) -->
       <div id="ej4-selectors-wrapper" style="display:none;">
-        <!-- 1. TÓNICA SELECTOR -->
-        <div class="selector-label i18n" data-es="1. Seleccionar Tónica (12 Notas Cromáticas):" data-en="1. Select Tonic (12 Chromatic Roots):">1. Seleccionar Tónica (12 Notas Cromáticas):</div>
+        <!-- NIVEL 1: TÓNICA SELECTOR -->
+        <div class="selector-label i18n" data-es="Nivel 1 · Seleccionar Tónica Cromática (12 Notas):" data-en="Level 1 · Select Chromatic Tonic (12 Roots):">Nivel 1 · Seleccionar Tónica Cromática (12 Notas):</div>
         <div class="tonic-bar" id="tonic-buttons-container">
           <!-- Rendered dynamically -->
         </div>
 
-        <!-- 2. MODO SELECTOR -->
-        <div class="selector-label i18n" data-es="2. Seleccionar Modo (Sistema Paralelo):" data-en="2. Select Mode (Parallel System):">2. Seleccionar Modo (Sistema Paralelo):</div>
+        <!-- NIVEL 2: MODO SELECTOR -->
+        <div class="selector-label i18n" data-es="Nivel 2 · Seleccionar Modo Paralelo (7 Modos):" data-en="Level 2 · Select Parallel Mode (7 Modes):">Nivel 2 · Seleccionar Modo Paralelo (7 Modos):</div>
         <div class="mode-bar" id="mode-buttons-container">
-          <button class="mode-btn active" onclick="setMode(1, this)">1. Jónico (Mayor)</button>
-          <button class="mode-btn" onclick="setMode(2, this)">2. Lidio (♯4)</button>
-          <button class="mode-btn" onclick="setMode(3, this)">3. Mixolidio (♭7)</button>
-          <button class="mode-btn" onclick="setMode(4, this)">4. Dórico (6)</button>
-          <button class="mode-btn" onclick="setMode(5, this)">5. Eólico (Menor)</button>
-          <button class="mode-btn" onclick="setMode(6, this)">6. Frigio (♭2)</button>
-          <button class="mode-btn" onclick="setMode(7, this)">7. Lócrio (♭2, ♭5)</button>
+          <button class="mode-btn active" data-mode="1" onclick="setMode(1, this)">1. Jónico (Mayor)</button>
+          <button class="mode-btn" data-mode="2" onclick="setMode(2, this)">2. Lidio (♯4)</button>
+          <button class="mode-btn" data-mode="3" onclick="setMode(3, this)">3. Mixolidio (♭7)</button>
+          <button class="mode-btn" data-mode="4" onclick="setMode(4, this)">4. Dórico (6)</button>
+          <button class="mode-btn" data-mode="5" onclick="setMode(5, this)">5. Eólico (Menor)</button>
+          <button class="mode-btn" data-mode="6" onclick="setMode(6, this)">6. Frigio (♭2)</button>
+          <button class="mode-btn" data-mode="7" onclick="setMode(7, this)">7. Lócrio (♭2, ♭5)</button>
         </div>
+
+        <!-- NIVEL 3: ESQUEMA TÉCNICO MODAL (10 ESQUEMAS: TAFFANEL + REICHERT = 840 VARIACIONES) -->
+        <div class="selector-label i18n" data-es="Nivel 3 · Seleccionar Esquema Técnico Modal (10 Esquemas: Taffanel E.J. 1–11 & Reichert R. 1–5 — 840 Variaciones):" data-en="Level 3 · Select Modal Technical Scheme (10 Schemes: Taffanel E.J. 1–11 & Reichert R. 1–5 — 840 Variations):">Nivel 3 · Seleccionar Esquema Técnico Modal (10 Esquemas: Taffanel E.J. 1–11 & Reichert R. 1–5 — 840 Variaciones):</div>
+        <div class="mode-bar" id="modal-scheme-buttons-container"></div>
+
+        <!-- NIVEL 4: ARTICULACIÓN DEL ESQUEMA MODAL -->
+        <div class="selector-label i18n" data-es="Articulación del Esquema Modal Activo:" data-en="Active Modal Scheme Articulation:">Articulación del Esquema Modal Activo:</div>
+        <div class="tonic-bar" id="modal-art-buttons-container"></div>
       </div>
 
       <!-- PLAYER CONTROLS BAR -->
@@ -930,7 +1288,7 @@
 
       <!-- SCORE META BANNER -->
       <div class="score-meta-card">
-        <div id="current-mode-title" class="meta-mode-name">E. J. 1 · Edición Original Leduc (A. L. 16.588)</div>
+        <div id="current-mode-title" class="meta-mode-name">E. J. 1 · Original</div>
         <div id="current-mode-formula" class="meta-formula">Pentacordios Mayores + 7ª Disminuida</div>
         <div id="current-mode-badge" class="meta-badge">31 Compases Cromáticos · Plicas ↑ (c.1–10) y ↓ (c.11–31) · 8va (c.25–31)</div>
       </div>
@@ -943,7 +1301,7 @@
     <section id="features" class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🎯</div>
-        <h3 class="feature-title i18n" data-es="Sistema Paralelo del Maestro León Giraldo" data-en="Maestro León Giraldo's Parallel System">Sistema Paralelo del Maestro León Giraldo</h3>
+        <h3 class="feature-title i18n" data-es="Sistema Modal Paralelo (84 × 10)" data-en="Parallel Modal System (84 × 10)">Sistema Modal Paralelo (84 × 10)</h3>
         <p class="feature-desc i18n"
            data-es="A diferencia de los modos relativos, todos los modos parten de la misma tónica con armadura fija de Mayor (Jónico, Lidio, Mixolidio) o Menor (Dórico, Eólico, Frigio, Lócrio) y sus alteraciones accidentales escritas en cada compás."
            data-en="Unlike relative modes, every mode stems from the exact same tonic using fixed Major or Minor key signatures with characteristic accidentals explicitly written measure by measure.">
@@ -1018,68 +1376,68 @@
         </thead>
         <tbody>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 1 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc)." data-en="Major Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official Leduc articulations).">Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc).</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 1</td>
+            <td class="i18n" data-es="Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales)." data-en="Major Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official articulations).">Pentacordios Mayores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej1_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ1_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej1.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 2 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc)." data-en="Minor Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official Leduc articulations).">Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales Leduc).</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 2</td>
+            <td class="i18n" data-es="Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales)." data-en="Minor Pentachords + Diminished 7th in chromatic progression (31 measures, exact stems, 8va, and 10 official articulations).">Pentacordios Menores + 7ª Disminuida en progresión cromática (31 compases, plicas exactas, 8va y 10 articulaciones oficiales).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej2_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ2_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej2.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 4 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales Leduc)." data-en="Diatonic Major & Minor Scales (Melodic asc. / Harmonic desc. in 1st & penultimate bars, 24 keys + Coda, 194 measures, pp. 111–114, and 8 official Leduc articulations).">Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales Leduc).</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 4</td>
+            <td class="i18n" data-es="Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales)." data-en="Diatonic Major & Minor Scales (Melodic asc. / Harmonic desc. in 1st & penultimate bars, 24 keys + Coda, 194 measures, pp. 111–114, and 8 official articulations).">Escalas Diatónicas Mayores y Menores (Melódica asc. / Armónica desc. en el 1.er y penúltimo compás, 24 tonalidades + Coda, 194 compases, págs. 111–114 y 8 articulaciones oficiales).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej4_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/09_Coleccion_Completa_Taffanel_EJ4_8_Articulaciones.abc" download>ABC (8 Arts.)</a> · <a href="ej4.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 5 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Escalas Cromáticas (Gammes Chromatiques): Ascenso/Descenso cromático (Do4–Do7) y Cromáticas por Octavas con los 10 golpes de lengua oficiales Leduc (pág. 115, 29 compases)." data-en="Chromatic Scales (Gammes Chromatiques): Chromatic Ascent/Descent (C4–C7) & Chromatic Octaves with all 10 official Leduc articulations (p. 115, 29 measures).">Escalas Cromáticas (Gammes Chromatiques): Ascenso/Descenso cromático (Do4–Do7) y Cromáticas por Octavas con los 10 golpes de lengua oficiales Leduc (pág. 115, 29 compases).</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 5</td>
+            <td class="i18n" data-es="Escalas Cromáticas (Gammes Chromatiques): Ascenso/Descenso cromático (Do4–Do7) y Cromáticas por Octavas con los 10 golpes de lengua oficiales (pág. 115, 29 compases)." data-en="Chromatic Scales (Gammes Chromatiques): Chromatic Ascent/Descent (C4–C7) & Chromatic Octaves with all 10 official articulations (p. 115, 29 measures).">Escalas Cromáticas (Gammes Chromatiques): Ascenso/Descenso cromático (Do4–Do7) y Cromáticas por Octavas con los 10 golpes de lengua oficiales (pág. 115, 29 compases).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej5_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ5_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej5.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 10 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Arpegios (Arpèges): 24 Tonalidades Mayores y Menores (3 octavas, 118 compases, págs. 120–121) con los 10 golpes de lengua oficiales Leduc." data-en="Arpeggios (Arpèges): 24 Major & Minor Keys (3 octaves, 118 measures, pp. 120–121) with all 10 official Leduc articulations.">Arpegios (Arpèges): 24 Tonalidades Mayores y Menores (3 octavas, 118 measures, págs. 120–121) con los 10 golpes de lengua oficiales Leduc.</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 10</td>
+            <td class="i18n" data-es="Arpegios (Arpèges): 24 Tonalidades Mayores y Menores (3 octavas, 118 compases, págs. 120–121) con los 10 golpes de lengua oficiales." data-en="Arpeggios (Arpèges): 24 Major & Minor Keys (3 octaves, 118 measures, pp. 120–121) with all 10 official articulations.">Arpegios (Arpèges): 24 Tonalidades Mayores y Menores (3 octavas, 118 measures, págs. 120–121) con los 10 golpes de lengua oficiales.</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej10_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ10_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej10.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 11 (Urtext A. L. 16.588)</td>
-            <td class="i18n" data-es="Arpegios Quebrados (Arpèges Brisés): 24 Tonalidades Mayores y Menores (215 compases, 4 páginas completas págs. 122–125) con los 10 golpes de lengua oficiales Leduc." data-en="Broken Arpeggios (Arpèges Brisés): 24 Major & Minor Keys (215 measures, 4 full pages pp. 122–125) with all 10 official Leduc articulations.">Arpegios Quebrados (Arpèges Brisés): 24 Tonalidades Mayores y Menores (215 compases, 4 páginas completas págs. 122–125) con los 10 golpes de lengua oficiales Leduc.</td>
+            <td style="font-weight: 700; color: #fff;">🎼 Taffanel & Gaubert — E. J. 11</td>
+            <td class="i18n" data-es="Arpegios Quebrados (Arpèges Brisés): 24 Tonalidades Mayores y Menores (215 compases, 4 páginas completas págs. 122–125) con los 10 golpes de lengua oficiales." data-en="Broken Arpeggios (Arpèges Brisés): 24 Major & Minor Keys (215 measures, 4 full pages pp. 122–125) with all 10 official articulations.">Arpegios Quebrados (Arpèges Brisés): 24 Tonalidades Mayores y Menores (215 compases, 4 páginas completas págs. 122–125) con los 10 golpes de lengua oficiales.</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/taffanel_ej11_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/11_Coleccion_Completa_Taffanel_EJ11_10_Articulaciones.abc" download>ABC (10 Arts.)</a> · <a href="ej11.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎵 M. A. Reichert — Op. 5 Nº 1 (R. 1 · Schott 20623)</td>
+            <td style="font-weight: 700; color: #fff;">🎵 M. A. Reichert — Op. 5 Nº 1 (R. 1)</td>
             <td class="i18n" data-es="7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 1 en 6/8 (♩. = 80–100): 24 Tonalidades Mayores y Menores + D.S. al Fine (100 compases, págs. 2–3 y 10 articulaciones)." data-en="7 Exercices Journaliers pour la Flûte, Op. 5 — No. 1 in 6/8 (♩. = 80–100): 24 Major & Minor Keys + D.S. al Fine (100 measures, pp. 2–3, and 10 articulations).">7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 1 en 6/8 (♩. = 80–100): 24 Tonalidades Mayores y Menores + D.S. al Fine (100 compases, págs. 2–3 y 10 articulaciones).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/reichert_r1_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/Reichert_R1_Coleccion_Completa.abc" download>ABC (10 Arts.)</a> · <a href="r1.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎶 M. A. Reichert — Op. 5 Nº 2 (R. 2 · Schott 20623)</td>
+            <td style="font-weight: 700; color: #fff;">🎶 M. A. Reichert — Op. 5 Nº 2 (R. 2)</td>
             <td class="i18n" data-es="7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 2 en 2/4 (♩ = 120–152): Arpegios modulantes con anacrusa en 24 Tonalidades + D.S. al Fine (200 compases, págs. 4–5 y 8 articulaciones)." data-en="7 Exercices Journaliers pour la Flûte, Op. 5 — No. 2 in 2/4 (♩ = 120–152): Modulating arpeggios with pickup across 24 Keys + D.S. al Fine (200 measures, pp. 4–5, and 8 articulations).">7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 2 en 2/4 (♩ = 120–152): Arpegios modulantes con anacrusa en 24 Tonalidades + D.S. al Fine (200 compases, págs. 4–5 y 8 articulaciones).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/reichert_r2_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/Reichert_R2_Coleccion_Completa.abc" download>ABC (8 Arts.)</a> · <a href="r2.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎼 M. A. Reichert — Op. 5 Nº 4 (R. 4 · Schott 20623)</td>
+            <td style="font-weight: 700; color: #fff;">🎼 M. A. Reichert — Op. 5 Nº 4 (R. 4)</td>
             <td class="i18n" data-es="7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 4 en 4/4 (♩ = 116–144): Escalas y saltos diatónicos en 24 Tonalidades + D.S. al Fine (100 compases, págs. 8–9 y 8 articulaciones)." data-en="7 Exercices Journaliers pour la Flûte, Op. 5 — No. 4 in 4/4 (♩ = 116–144): Diatonic scales and leaps across 24 Keys + D.S. al Fine (100 measures, pp. 8–9, and 8 articulations).">7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 4 en 4/4 (♩ = 116–144): Escalas y saltos diatónicos en 24 Tonalidades + D.S. al Fine (100 compases, págs. 8–9 y 8 articulaciones).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/reichert_r4_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/Reichert_R4_Coleccion_Completa.abc" download>ABC (8 Arts.)</a> · <a href="r4.html">Visor</a></td>
           </tr>
           <tr>
-            <td style="font-weight: 700; color: #fff;">🎹 M. A. Reichert — Op. 5 Nº 5 (R. 5 · Schott 20623)</td>
+            <td style="font-weight: 700; color: #fff;">🎹 M. A. Reichert — Op. 5 Nº 5 (R. 5)</td>
             <td class="i18n" data-es="7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 5 en 2/4 Tresillos (♪ = 144–184): Diseño en tresillos de semicorchea en 24 Tonalidades + D.S. al Fine (200 compases, págs. 10–13 y 10 articulaciones)." data-en="7 Exercices Journaliers pour la Flûte, Op. 5 — No. 5 in 2/4 Triplets (♪ = 144–184): Sixteenth-note triplet patterns across 24 Keys + D.S. al Fine (200 measures, pp. 10–13, and 10 articulations).">7 Exercices Journaliers pour la Flûte, Op. 5 — Nº 5 en 2/4 Tresillos (♪ = 144–184): Diseño en tresillos de semicorchea en 24 Tonalidades + D.S. al Fine (200 compases, págs. 10–13 y 10 articulaciones).</td>
             <td>PDF / ABC / Web</td>
             <td><a href="downloads/pdf/reichert_r5_transcripcion.pdf" download>📥 PDF</a> · <a href="downloads/abc/Reichert_R5_Coleccion_Completa.abc" download>ABC (10 Arts.)</a> · <a href="r5.html">Visor</a></td>
           </tr>
           <tr>
             <td style="font-weight: 700; color: #fff;">📘 Método Completo de Modos (84 Modos Paralelos)</td>
-            <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes by Maestro León Giraldo.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos del Maestro León Giraldo.</td>
+            <td class="i18n" data-es="Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos." data-en="Complete 36-page compendium covering all 12 tonics and 7 parallel modes.">Compendio íntegro de 36 páginas con las 12 tónicas y sus 7 modos paralelos.</td>
             <td>PDF (7.0 MB) / ABC</td>
             <td><a href="downloads/pdf/metodo_completo_modos_flauta.pdf" download>📥 Descargar PDF Maestro</a> · <a href="downloads/abc/00_Coleccion_Completa_84_Modos_EJ4.abc" download>ABC (84 Modos)</a></td>
           </tr>
@@ -1170,9 +1528,9 @@
         <a href="downloads/pdf/metodo_completo_modos_flauta.pdf">Descarga Directa PDF</a>
       </div>
       <p class="i18n"
-         data-es="FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme: E.J. 1, E.J. 2 y E.J. 4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez."
-         data-en="FluteModes · Pedagogical adaptation of Paul Taffanel & Philippe Gaubert (17 Daily Exercises: E.J. 1, E.J. 2 & E.J. 4) based on Maestro León Giraldo's routine. Arrangements and development by Sebastian Gomez.">
-        FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme: E.J. 1, E.J. 2 y E.J. 4) según la visión pedagógica del Maestro León Giraldo. Arreglos y desarrollo por Sebastián Gómez.
+         data-es="FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme), Mathieu-André Reichert (Op. 5) y el Sistema Modal Paralelo. Arreglos y desarrollo por Sebastián Gómez."
+         data-en="FluteModes · Pedagogical adaptation of Paul Taffanel & Philippe Gaubert (17 Daily Exercises), Mathieu-André Reichert (Op. 5) and the Parallel Modal System. Arrangements and development by Sebastian Gomez.">
+        FluteModes · Adaptación didáctica de Paul Taffanel & Philippe Gaubert (17 Grands Exercices Journaliers de Mécanisme), Mathieu-André Reichert (Op. 5) y el Sistema Modal Paralelo. Arreglos y desarrollo por Sebastián Gómez.
       </p>
       <p style="margin-top:8px;">© 2026 Sebastián Gómez. Todos los derechos reservados.</p>
     </div>
@@ -1191,22 +1549,22 @@
       updatePlayButton(isPlaying);
     }
 
-    // --- CHROMATIC EXERCISES DATA (E.J. 1 & E.J. 2 - Urtext A. L. 16.588) ---
+    // --- CHROMATIC EXERCISES DATA (E.J. 1 & E.J. 2) ---
     let currentExercise = 'ej1'; // 'ej1', 'ej2', or 'ej4'
     let currentChromaticArt = 0; // 0 = Original, 1..10 = Articulations
 
     const CHROMATIC_ART_LIST = [
-      { id: 0,  label: "Orig. Leduc",     name: "Original (Sin articulación fija — A. L. 16.588)", file1: "00_Taffanel_EJ1_Original_AL16588.abc", file2: "00_Taffanel_EJ2_Original_AL16588.abc" },
-      { id: 1,  label: "Art. 1 · (8)",    name: "1. A 8 ligadas (Toda ligada)", file1: "01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc", file2: "01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc" },
-      { id: 2,  label: "Art. 2 · (4)(4)", name: "2. A 4 y 4 ligadas", file1: "02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc", file2: "02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc" },
-      { id: 3,  label: "Art. 3 · ·(3)",   name: "3. 1 picada y 3 ligadas", file1: "03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc", file2: "03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc" },
-      { id: 4,  label: "Art. 4 · (3)·",   name: "4. 3 ligadas y 1 picada", file1: "04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc", file2: "04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc" },
-      { id: 5,  label: "Art. 5 · (2)··",  name: "5. 2 ligadas y 2 picadas", file1: "05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc", file2: "05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc" },
-      { id: 6,  label: "Art. 6 · ··(2)",  name: "6. 2 picadas y 2 ligadas", file1: "06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc", file2: "06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc" },
-      { id: 7,  label: "Art. 7 · ·(2)·",  name: "7. 1 picada, 2 ligadas y 1 picada", file1: "07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc", file2: "07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc" },
-      { id: 8,  label: "Art. 8 · 2+2",    name: "8. De 2 en 2 ligadas", file1: "08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc", file2: "08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc" },
-      { id: 9,  label: "Art. 9 · Sínc.",  name: "9. De 2 en 2 sincopadas (a contratiempo)", file1: "09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc", file2: "09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc" },
-      { id: 10, label: "Art. 10 · Stacc.",name: "10. Todo picado (Staccato)", file1: "10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc", file2: "10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc" }
+      { id: 0,  label: "Orig.",     name: "Original (Sin articulación fija)", file1: "00_Taffanel_EJ1_Original_AL16588.abc", file2: "00_Taffanel_EJ2_Original_AL16588.abc" },
+      { id: 1,  label: "8 Lig.",    name: "A 8 ligadas (Toda ligada)", file1: "01_Taffanel_EJ1_Articulacion_01_8_Ligadas.abc", file2: "01_Taffanel_EJ2_Articulacion_01_8_Ligadas.abc" },
+      { id: 2,  label: "4+4",       name: "A 4 y 4 ligadas", file1: "02_Taffanel_EJ1_Articulacion_02_4_y_4_Ligadas.abc", file2: "02_Taffanel_EJ2_Articulacion_02_4_y_4_Ligadas.abc" },
+      { id: 3,  label: "1P+3L",     name: "1 picada y 3 ligadas", file1: "03_Taffanel_EJ1_Articulacion_03_1_Picada_3_Ligadas.abc", file2: "03_Taffanel_EJ2_Articulacion_03_1_Picada_3_Ligadas.abc" },
+      { id: 4,  label: "3L+1P",     name: "3 ligadas y 1 picada", file1: "04_Taffanel_EJ1_Articulacion_04_3_Ligadas_1_Picada.abc", file2: "04_Taffanel_EJ2_Articulacion_04_3_Ligadas_1_Picada.abc" },
+      { id: 5,  label: "2L+2P",     name: "2 ligadas y 2 picadas", file1: "05_Taffanel_EJ1_Articulacion_05_2_Ligadas_2_Picadas.abc", file2: "05_Taffanel_EJ2_Articulacion_05_2_Ligadas_2_Picadas.abc" },
+      { id: 6,  label: "2P+2L",     name: "2 picadas y 2 ligadas", file1: "06_Taffanel_EJ1_Articulacion_06_2_Picadas_2_Ligadas.abc", file2: "06_Taffanel_EJ2_Articulacion_06_2_Picadas_2_Ligadas.abc" },
+      { id: 7,  label: "1P+2L+1P",  name: "1 picada, 2 ligadas y 1 picada", file1: "07_Taffanel_EJ1_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc", file2: "07_Taffanel_EJ2_Articulacion_07_1_Picada_2_Ligadas_1_Picada.abc" },
+      { id: 8,  label: "2 en 2",    name: "De 2 en 2 ligadas", file1: "08_Taffanel_EJ1_Articulacion_08_De_2_en_2_Ligadas.abc", file2: "08_Taffanel_EJ2_Articulacion_08_De_2_en_2_Ligadas.abc" },
+      { id: 9,  label: "Sinc.",     name: "De 2 en 2 sincopadas (a contratiempo)", file1: "09_Taffanel_EJ1_Articulacion_09_De_2_en_2_Sincopadas.abc", file2: "09_Taffanel_EJ2_Articulacion_09_De_2_en_2_Sincopadas.abc" },
+      { id: 10, label: "Stacc.",    name: "Todo picado (Staccato)", file1: "10_Taffanel_EJ1_Articulacion_10_Todo_Picado.abc", file2: "10_Taffanel_EJ2_Articulacion_10_Todo_Picado.abc" }
     ];
 
     const EJ1_ARTICULATIONS_ABC = [
@@ -1324,7 +1682,7 @@
       const lines = [
         "X:1",
         `T:E. J. ${ejNum} — ${artObj.name}`,
-        "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+        "C:Paul Taffanel & Philippe Gaubert",
         `% EJ${ejNum}_LEDUC_ART:${artId}`,
         "%%barsperstaff 1",
         "M:4/2",
@@ -1391,7 +1749,7 @@
         }
       }
 
-      html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
+      html += `</div>`;
       paper.innerHTML = html;
 
       ABCJS.renderAbc("ej1-art-score", artHeaderAbc, {
@@ -1505,13 +1863,103 @@
 
     let currentTonicId = "02_do";
     let currentModeNum = 1;
+    let currentModalSchemeId = "ej4";
+    let currentModalArtId = "a";
     let currentModeItem = null;
+
+    // --- CONSERVATORY COACH WIZARD STATE ---
+    let wizardDurationMin = 30;
+    let wizardFocusId = "modes";
+    let wizardTonicId = "02_do";
+    let wizardModeNum = 1;
+    let currentWizardBlocks = [];
+
+    const MODE_NAMES_MAP = {
+      1: "Jónico (Mayor)",
+      2: "Lidio (♯4)",
+      3: "Mixolidio (♭7)",
+      4: "Dórico (6)",
+      5: "Eólico (Menor)",
+      6: "Frigio (♭2)",
+      7: "Lócrio (♭2, ♭5)"
+    };
 
     // --- AUDIO SYNTHESIZER ENGINE ---
     let audioCtx = null;
     let isPlaying = false;
     let playTimeouts = [];
     let currentTempo = 90;
+
+    const WEB_SESSION_STORAGE_KEY = "flutemodes_web_session_v1";
+
+    function getModalTotalMeasures(schemeId) {
+      switch (schemeId) {
+        case "ej1":
+        case "ej2":
+        case "ej10":
+        case "ej11":
+          return 9;
+        case "ej5":
+          return 5;
+        case "r1":
+        case "r4":
+          return 4;
+        default:
+          return 8;
+      }
+    }
+
+    function saveWebSessionState() {
+      try {
+        localStorage.setItem(WEB_SESSION_STORAGE_KEY, JSON.stringify({
+          exercise: currentExercise,
+          chromaticArt: currentChromaticArt,
+          tonicId: currentTonicId,
+          modeNum: currentModeNum,
+          modalSchemeId: currentModalSchemeId,
+          modalArtId: currentModalArtId,
+          wizardDurationMin: wizardDurationMin,
+          wizardFocusId: wizardFocusId
+        }));
+      } catch (e) {}
+    }
+
+    function loadWebSessionState() {
+      try {
+        const raw = localStorage.getItem(WEB_SESSION_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.exercise) currentExercise = parsed.exercise;
+        if (typeof parsed.chromaticArt === "number") currentChromaticArt = parsed.chromaticArt;
+        if (parsed.tonicId) currentTonicId = parsed.tonicId;
+        if (typeof parsed.modeNum === "number") currentModeNum = parsed.modeNum;
+        if (parsed.modalSchemeId) currentModalSchemeId = parsed.modalSchemeId;
+        if (parsed.modalArtId) currentModalArtId = parsed.modalArtId;
+        if (typeof parsed.wizardDurationMin === "number") wizardDurationMin = parsed.wizardDurationMin;
+        if (parsed.wizardFocusId) wizardFocusId = parsed.wizardFocusId;
+      } catch (e) {}
+    }
+
+    function updateCoachResumeBanner() {
+      const sub = document.getElementById("coach-resume-subtitle");
+      if (!sub) return;
+      if (currentExercise === "ej1" || currentExercise === "ej2") {
+        const ejNum = currentExercise === "ej2" ? 2 : 1;
+        const artObj = CHROMATIC_ART_LIST.find(a => a.id === currentChromaticArt) || CHROMATIC_ART_LIST[0];
+        sub.innerText = `Taffanel E. J. ${ejNum} · ${artObj.label}`;
+      } else {
+        const tObj = TONIC_LIST.find(t => t.id === currentTonicId) || TONIC_LIST[1];
+        const mName = MODE_NAMES_MAP[currentModeNum] || "Jónico";
+        const sCode = currentModalSchemeId.toUpperCase().replace("EJ", "E.J. ").replace("R", "R. ");
+        sub.innerText = `840 Modos Paralelos · ${tObj.display} ${mName} · Esquema ${sCode}`;
+      }
+      saveWebSessionState();
+    }
+
+    function resumeCoachSession() {
+      const previewEl = document.getElementById("preview");
+      if (previewEl) previewEl.scrollIntoView({ behavior: "smooth" });
+    }
 
     function initChromaticArtButtons() {
       const container = document.getElementById("ej-art-buttons-container");
@@ -1527,6 +1975,7 @@
           container.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           renderActiveChromatic();
+          updateCoachResumeBanner();
         };
         container.appendChild(btn);
       });
@@ -1553,9 +2002,13 @@
       } else {
         chromWrap.style.display = "none";
         ej4Wrap.style.display = "block";
-        if (urtextBtn) urtextBtn.style.display = "none";
+        if (urtextBtn) {
+          urtextBtn.style.display = "inline-flex";
+          urtextBtn.href = "modos_variaciones.html";
+        }
         renderActiveMode();
       }
+      updateCoachResumeBanner();
     }
 
     function renderActiveChromatic() {
@@ -1582,6 +2035,7 @@
 
     function initTonicButtons() {
       const container = document.getElementById("tonic-buttons-container");
+      if (!container) return;
       container.innerHTML = "";
       TONIC_LIST.forEach(t => {
         const btn = document.createElement("button");
@@ -1593,6 +2047,65 @@
           container.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           renderActiveMode();
+          updateCoachResumeBanner();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function initModalSchemeButtons() {
+      const container = document.getElementById("modal-scheme-buttons-container");
+      if (!container) return;
+      container.innerHTML = "";
+      const schemes = (window.MODES_VARIATIONS_DATA && window.MODES_VARIATIONS_DATA.schemes) || [
+        { id: "ej1", code: "E.J. 1", shortName: "Taffanel E.J. 1", meter: "4/2" },
+        { id: "ej2", code: "E.J. 2", shortName: "Taffanel E.J. 2", meter: "4/2" },
+        { id: "ej4", code: "E.J. 4", shortName: "Taffanel E.J. 4", meter: "4/2" },
+        { id: "ej5", code: "E.J. 5", shortName: "Taffanel E.J. 5", meter: "6/8" },
+        { id: "ej10", code: "E.J. 10", shortName: "Taffanel E.J. 10", meter: "6/8" },
+        { id: "ej11", code: "E.J. 11", shortName: "Taffanel E.J. 11", meter: "9/8" },
+        { id: "r1", code: "R. 1", shortName: "Reichert Nº 1", meter: "6/8" },
+        { id: "r2", code: "R. 2", shortName: "Reichert Nº 2", meter: "2/4" },
+        { id: "r4", code: "R. 4", shortName: "Reichert Nº 4", meter: "C" },
+        { id: "r5", code: "R. 5", shortName: "Reichert Nº 5", meter: "2/4" }
+      ];
+      schemes.forEach(sc => {
+        const btn = document.createElement("button");
+        btn.className = "scheme-btn" + (sc.id === currentModalSchemeId ? " active" : "");
+        btn.innerText = `${sc.code} (${sc.meter})`;
+        btn.onclick = () => {
+          if (isPlaying) stopPlay();
+          currentModalSchemeId = sc.id;
+          currentModalArtId = "a";
+          container.querySelectorAll(".scheme-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          initModalArtButtons();
+          renderActiveMode();
+          updateCoachResumeBanner();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function initModalArtButtons() {
+      const container = document.getElementById("modal-art-buttons-container");
+      if (!container) return;
+      container.innerHTML = "";
+      const vData = window.MODES_VARIATIONS_DATA;
+      if (!vData || !vData.schemes || !vData.articulationCatalog) return;
+      const scObj = vData.schemes.find(s => s.id === currentModalSchemeId) || vData.schemes[2];
+      const arts = vData.articulationCatalog[scObj.articulationGroup] || [];
+      arts.forEach(art => {
+        const btn = document.createElement("button");
+        btn.className = "tonic-btn" + (art.id === currentModalArtId ? " active" : "");
+        btn.innerText = art.name;
+        btn.onclick = () => {
+          if (isPlaying) stopPlay();
+          currentModalArtId = art.id;
+          container.querySelectorAll(".tonic-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderActiveMode();
+          saveWebSessionState();
         };
         container.appendChild(btn);
       });
@@ -1602,28 +2115,44 @@
       if (isPlaying) stopPlay();
       currentModeNum = modeNum;
       document.querySelectorAll("#mode-buttons-container .mode-btn").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
+      if (btn) {
+        btn.classList.add("active");
+      } else {
+        const target = document.querySelector(`#mode-buttons-container .mode-btn[data-mode="${modeNum}"]`);
+        if (target) target.classList.add("active");
+      }
       renderActiveMode();
+      updateCoachResumeBanner();
     }
 
-    function getModeItem(tonicId, modeNum) {
+    function getModeItem(tonicId, modeNum, schemeId) {
+      const vData = window.MODES_VARIATIONS_DATA;
+      if (vData && vData.exercises) {
+        const key = `${schemeId || currentModalSchemeId}__${tonicId}__${modeNum}`;
+        if (vData.exercises[key]) return vData.exercises[key];
+      }
       if (!window.MODES_DATA) return null;
       return window.MODES_DATA.find(m => m.tonicId === tonicId && m.modeNum === modeNum);
     }
 
     function renderActiveMode() {
-      currentModeItem = getModeItem(currentTonicId, currentModeNum);
+      currentModeItem = getModeItem(currentTonicId, currentModeNum, currentModalSchemeId);
       if (!currentModeItem) return;
 
-      document.getElementById("current-mode-title").innerText = `${currentModeItem.tonicDisplay} ${currentModeItem.modeName}`;
-      document.getElementById("current-mode-formula").innerText = currentModeItem.formula;
-      document.getElementById("current-mode-badge").innerText = currentModeItem.badge;
-      document.getElementById("measure-indicator").innerText = "Compás: 1 / 8";
-      window.CURRENT_ABC_STRING = currentModeItem.abc;
+      const schemeLabel = currentModeItem.schemeCode || "E.J. 4";
+      const totalMeasures = getModalTotalMeasures(currentModalSchemeId);
+      const abcStr = (currentModeItem.abcByArticulation && currentModeItem.abcByArticulation[currentModalArtId]) || currentModeItem.abc;
 
-      // Render ABC Music Notation with ABCJS
-      ABCJS.renderAbc("paper", currentModeItem.abc, {
+      document.getElementById("current-mode-title").innerText = `${currentModeItem.tonicDisplay} ${currentModeItem.modeName} · ${schemeLabel}`;
+      document.getElementById("current-mode-formula").innerText = `${currentModeItem.formula} | Compás ${currentModeItem.meter || '4/2'}`;
+      document.getElementById("current-mode-badge").innerText = `${currentModeItem.badge} · ${currentModeItem.totalNotes || 127} notas`;
+      document.getElementById("measure-indicator").innerText = `Compás: 1 / ${totalMeasures}`;
+      window.CURRENT_ABC_STRING = abcStr;
+
+      // Render ABC Music Notation with ABCJS (add_classes: true enables real-time .abcjs-note highlighting)
+      ABCJS.renderAbc("paper", abcStr, {
         responsive: "resize",
+        add_classes: true,
         scale: 0.94,
         paddingtop: 0,
         paddingbottom: 0,
@@ -1637,6 +2166,150 @@
         dlBtn.href = `downloads/abc/modos_${currentTonicId}.abc`;
         dlBtn.setAttribute("download", `modos_${currentTonicId}.abc`);
       }
+    }
+
+    // --- OPCIÓN 1: 3-STEP PRACTICE WIZARD LOGIC ---
+    function buildWizardRoutineBlocks() {
+      const m1 = wizardDurationMin === 15 ? 4 : (wizardDurationMin === 30 ? 8 : 12);
+      const m2 = wizardDurationMin === 15 ? 6 : (wizardDurationMin === 30 ? 12 : 18);
+      const m3 = wizardDurationMin - m1 - m2;
+      const tObj = TONIC_LIST.find(t => t.id === wizardTonicId) || TONIC_LIST[1];
+      const mName = MODE_NAMES_MAP[wizardModeNum] || "Jónico (Mayor)";
+
+      if (wizardFocusId === "scales") {
+        return [
+          { min: m1, title: "Bloque 1 · Calentamiento Cromático (E.J. 1)", sub: "Pentacordios Mayores · Ligado de 8", ex: "ej1", scheme: "ej1" },
+          { min: m2, title: "Bloque 2 · Escalas Diatónicas (E.J. 4)", sub: `${tObj.display} · Por terceras diatónicas`, ex: "ej4", scheme: "ej4" },
+          { min: m3, title: `Bloque 3 · Aplicación Modal (${tObj.display} ${mName})`, sub: "Esquema Modal E.J. 4 (84 × 10)", ex: "ej4", scheme: "ej4" }
+        ];
+      } else if (wizardFocusId === "arpeggios") {
+        return [
+          { min: m1, title: "Bloque 1 · Flexibilidad de Embocadura (E.J. 10)", sub: `${tObj.display} · Arpegios en 6/8`, ex: "ej4", scheme: "ej10" },
+          { min: m2, title: "Bloque 2 · Arpegios Quebrados (E.J. 11)", sub: `${tObj.display} · Arpèges Brisés en 9/8`, ex: "ej4", scheme: "ej11" },
+          { min: m3, title: `Bloque 3 · Arpegios Modales (${tObj.display} ${mName})`, sub: "Esquema Modal E.J. 10 en 6/8", ex: "ej4", scheme: "ej10" }
+        ];
+      } else if (wizardFocusId === "reichert") {
+        return [
+          { min: m1, title: "Bloque 1 · Fluidez en 6/8 (Reichert Op. 5 Nº 1)", sub: `${tObj.display} ${mName} · Diseño melódico R. 1`, ex: "ej4", scheme: "r1" },
+          { min: m2, title: "Bloque 2 · Saltos y Bordaduras (Reichert Nº 2 & Nº 4)", sub: `${tObj.display} ${mName} · Esquema R. 2 en 2/4`, ex: "ej4", scheme: "r2" },
+          { min: m3, title: `Bloque 3 · Tresillos con Pedal (${tObj.display} ${mName})`, sub: "Esquema Modal Reichert Nº 5 (R. 5)", ex: "ej4", scheme: "r5" }
+        ];
+      } else {
+        return [
+          { min: m1, title: `Bloque 1 · Pentacordios Modales (${tObj.display} ${mName})`, sub: "Esquema Modal E.J. 1 (257 notas)", ex: "ej4", scheme: "ej1" },
+          { min: m2, title: `Bloque 2 · Escala Modal por Terceras (${tObj.display} ${mName})`, sub: "Esquema Modal E.J. 4 (127 notas)", ex: "ej4", scheme: "ej4" },
+          { min: m3, title: `Bloque 3 · Agilidad Modal en 6/8 (${tObj.display} ${mName})`, sub: "Esquema Modal Reichert Nº 1 (R. 1)", ex: "ej4", scheme: "r1" }
+        ];
+      }
+    }
+
+    function renderCoachWizard() {
+      // Duration chips
+      document.querySelectorAll("#wiz-duration-row .wiz-chip").forEach(btn => {
+        btn.classList.toggle("active", parseInt(btn.getAttribute("data-min")) === wizardDurationMin);
+      });
+      // Focus chips
+      document.querySelectorAll("#wiz-focus-row .wiz-chip").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-focus") === wizardFocusId);
+      });
+      // Tonic chips
+      const tRow = document.getElementById("wiz-tonic-row");
+      if (tRow) {
+        tRow.innerHTML = "";
+        TONIC_LIST.forEach(t => {
+          const b = document.createElement("button");
+          b.className = "wiz-chip" + (t.id === wizardTonicId ? " active" : "");
+          b.innerText = t.display;
+          b.onclick = () => {
+            wizardTonicId = t.id;
+            renderCoachWizard();
+          };
+          tRow.appendChild(b);
+        });
+      }
+      // Mode chips
+      const mRow = document.getElementById("wiz-mode-row");
+      if (mRow) {
+        mRow.innerHTML = "";
+        for (let m = 1; m <= 7; m++) {
+          const b = document.createElement("button");
+          b.className = "wiz-chip" + (m === wizardModeNum ? " active" : "");
+          b.innerText = `${m}. ${MODE_NAMES_MAP[m]}`;
+          b.onclick = () => {
+            wizardModeNum = m;
+            renderCoachWizard();
+          };
+          mRow.appendChild(b);
+        }
+      }
+      // Routine blocks
+      currentWizardBlocks = buildWizardRoutineBlocks();
+      const blocksWrap = document.getElementById("wiz-routine-blocks");
+      if (blocksWrap) {
+        blocksWrap.innerHTML = "";
+        currentWizardBlocks.forEach((blk, idx) => {
+          const row = document.createElement("div");
+          row.className = "wiz-routine-block";
+          row.innerHTML = `
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="wiz-routine-badge">${blk.min} min</span>
+              <div>
+                <div style="font-size:13.5px;font-weight:700;color:#fff;">${blk.title}</div>
+                <div style="font-size:12px;color:var(--text-muted);">${blk.sub}</div>
+              </div>
+            </div>
+            <button class="tool-btn" onclick="applyWizardBlock(${idx})">▶ Ir al Atril</button>
+          `;
+          blocksWrap.appendChild(row);
+        });
+      }
+    }
+
+    function openCoachWizard(durationMin) {
+      if (durationMin) wizardDurationMin = durationMin;
+      wizardTonicId = currentTonicId;
+      wizardModeNum = currentModeNum;
+      renderCoachWizard();
+      const dlg = document.getElementById("coach-wizard-dialog");
+      if (dlg && dlg.showModal) dlg.showModal();
+    }
+
+    function setWizardDuration(min) {
+      wizardDurationMin = min;
+      renderCoachWizard();
+    }
+
+    function setWizardFocus(focusId) {
+      wizardFocusId = focusId;
+      renderCoachWizard();
+    }
+
+    function applyWizardBlock(idx) {
+      const blk = currentWizardBlocks[idx] || currentWizardBlocks[0];
+      if (!blk) return;
+      currentTonicId = wizardTonicId;
+      currentModeNum = wizardModeNum;
+      currentModalSchemeId = blk.scheme || "ej4";
+      currentModalArtId = "a";
+
+      initTonicButtons();
+      initModalSchemeButtons();
+      initModalArtButtons();
+      setMode(currentModeNum);
+
+      if (blk.ex === "ej1") {
+        setExercise("ej1", document.getElementById("ex-btn-ej1"));
+      } else {
+        setExercise("ej4", document.getElementById("ex-btn-modos"));
+      }
+
+      const dlg = document.getElementById("coach-wizard-dialog");
+      if (dlg && dlg.open) dlg.close();
+      resumeCoachSession();
+    }
+
+    function startWizardPrimaryBlock() {
+      applyWizardBlock(0);
     }
 
     // Acoustic Grand Piano Synthesis in Web Audio
@@ -1705,6 +2378,31 @@
       }
     }
 
+    function clearNoteHighlights() {
+      document.querySelectorAll("#paper .abcjs-highlight").forEach(el => {
+        el.classList.remove("abcjs-highlight");
+      });
+    }
+
+    function parseAbcNoteStaccatos(abcStr, expectedCount) {
+      if (!abcStr) return [];
+      const bodyLines = abcStr.split("\n").filter(line => {
+        const t = line.trim();
+        return t && !/^[A-Za-z]:/.test(t) && !t.startsWith("%");
+      });
+      const body = bodyLines.join(" ").replace(/![^!]+!/g, " ");
+      const noteRegex = /(\.)?(?:\^{1,2}|_{1,2}|=)?[A-Ga-g][,']*\d*(?:\/\d*)?/g;
+      const staccatos = [];
+      let match;
+      while ((match = noteRegex.exec(body)) !== null) {
+        staccatos.push(Boolean(match[1]));
+      }
+      while (staccatos.length < expectedCount) {
+        staccatos.push(false);
+      }
+      return staccatos;
+    }
+
     function stopPlay() {
       isPlaying = false;
       playTimeouts.forEach(t => clearTimeout(t));
@@ -1713,8 +2411,10 @@
         audioCtx.close();
         audioCtx = null;
       }
+      clearNoteHighlights();
       updatePlayButton(false);
-      document.getElementById("measure-indicator").innerText = (currentExercise === 'ej1' || currentExercise === 'ej2') ? "Compás: 1 / 31" : "Compás: 1 / 8";
+      const totalMeasures = getModalTotalMeasures(currentModalSchemeId);
+      document.getElementById("measure-indicator").innerText = (currentExercise === 'ej1' || currentExercise === 'ej2') ? "Compás: 1 / 31" : `Compás: 1 / ${totalMeasures}`;
     }
 
     function startPlay() {
@@ -1730,26 +2430,41 @@
       updatePlayButton(true);
 
       const bpm = currentTempo;
-      // In 4/2 at Q:1/2=90, each 1/8 note is 1/4 of a half note -> duration = (60 / bpm) / 2
-      const noteDuration = (60 / bpm) / 2;
+      let noteDuration = (60 / bpm) / 2;
+      if (currentModalSchemeId === "ej5" || currentModalSchemeId === "ej10" || currentModalSchemeId === "ej11" || currentModalSchemeId === "r1" || currentModalSchemeId === "r5") {
+        noteDuration = (60 / bpm) / 6;
+      } else if (currentModalSchemeId === "ej1" || currentModalSchemeId === "ej2" || currentModalSchemeId === "r2" || currentModalSchemeId === "r4") {
+        noteDuration = (60 / bpm) / 4;
+      }
+      const totalMeasures = getModalTotalMeasures(currentModalSchemeId);
       const freqs = currentModeItem.frequencies;
+      const noteStaccatos = parseAbcNoteStaccatos(window.CURRENT_ABC_STRING, freqs.length);
+      const noteEls = Array.from(document.querySelectorAll("#paper .abcjs-note"));
+      const notesPerMeasure = Math.max(1, Math.floor((freqs.length - 1) / Math.max(1, totalMeasures - 1)));
       const now = audioCtx.currentTime + 0.06;
 
       freqs.forEach((freq, idx) => {
         const startTime = now + idx * noteDuration;
-        playAcousticPianoTone(audioCtx, freq, noteDuration, startTime);
+        const isLast = (idx === freqs.length - 1);
+        const isStacc = Boolean(noteStaccatos[idx]);
+        const playDur = isLast ? noteDuration * 2.5 : (isStacc ? noteDuration * 0.42 : noteDuration * 0.94);
+        playAcousticPianoTone(audioCtx, freq, playDur, startTime);
 
-        const measureIdx = Math.min(Math.floor(idx / 16) + 1, 8);
+        const measureIdx = isLast ? totalMeasures : Math.min(Math.floor(idx / notesPerMeasure) + 1, totalMeasures);
         const delayMs = (idx * noteDuration) * 1000;
         const tid = setTimeout(() => {
           if (isPlaying) {
-            document.getElementById("measure-indicator").innerText = `Compás: ${measureIdx} / 8`;
+            document.getElementById("measure-indicator").innerText = `Compás: ${measureIdx} / ${totalMeasures}`;
+            clearNoteHighlights();
+            if (noteEls[idx]) {
+              noteEls[idx].classList.add("abcjs-highlight");
+            }
           }
         }, delayMs);
         playTimeouts.push(tid);
       });
 
-      const totalMs = (freqs.length * noteDuration) * 1000;
+      const totalMs = ((freqs.length + 2) * noteDuration) * 1000;
       const finishTid = setTimeout(() => {
         stopPlay();
       }, totalMs);
@@ -1804,9 +2519,28 @@
 
     // --- INITIALIZATION ---
     window.addEventListener("DOMContentLoaded", () => {
+      loadWebSessionState();
       initChromaticArtButtons();
       initTonicButtons();
-      renderActiveChromatic();
+      initModalSchemeButtons();
+      initModalArtButtons();
+      if (currentExercise === "ej4") {
+        setMode(currentModeNum);
+        setExercise("ej4", document.getElementById("ex-btn-modos"));
+      } else if (currentExercise === "ej2") {
+        setExercise("ej2", document.getElementById("ex-btn-ej2"));
+      } else {
+        renderActiveChromatic();
+        updateCoachResumeBanner();
+      }
+
+      // Safari fallback for <dialog closedby="any"> (modern-web-guidance: light-dismiss-a-dialog)
+      const wizardDialog = document.getElementById("coach-wizard-dialog");
+      if (wizardDialog && !("closedBy" in HTMLDialogElement.prototype)) {
+        wizardDialog.addEventListener("click", (e) => {
+          if (e.target === wizardDialog) wizardDialog.close();
+        });
+      }
     });
   </script>
 </body>

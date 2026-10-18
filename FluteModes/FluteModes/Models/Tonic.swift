@@ -15,6 +15,7 @@ public enum Tonic: String, CaseIterable, Identifiable, Codable {
     case siBemol = "Si♭"
 
     public var id: String { rawValue }
+    public var displayName: String { rawValue }
 
     public var rootMidi: Int {
         switch self {

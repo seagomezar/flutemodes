@@ -1,0 +1,115 @@
+%abc-2.1
+% Tónica 10_la_bemol: La bemol (La♭) — 7 Modos Paralelos bajo el esquema E.J. 11
+% E.J. 11 — Arpegios Quebrados Modales en 9/8 (Taffanel & Gaubert (págs. 122–125))
+
+X:1
+T:Modo 1: La♭ Jónico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ab
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) |
+(Aecgec') (ge'c'g'c'e') (gc'egce) | (Afdafd') (af'd'a'd'f') (ad'fadf) |
+(Bgebge') (bg'e'b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(Bgdbgd') (bg'd'b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:2
+T:Modo 2: La♭ Lidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Re♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ab
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (Bf=dbf=d') (bf'd'b'd'f') (bd'fbdf) |
+(Aecgec') (ge'c'g'c'e') (gc'egce) | (Af=daf=d') (af'd'a'd'f') (ad'fadf) |
+(Bgebge') (bg'e'b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(Bg=dbg=d') (bg'd'b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:3
+T:Modo 3: La♭ Mixolidio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Sol♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Ab
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) |
+(Aec_gec') (ge'c'_g'c'e') (gc'egce) | (Afdafd') (af'd'a'd'f') (ad'fadf) |
+(B_gebge') (b_g'e'b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(B_gdbgd') (b_g'd'b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:4
+T:Modo 4: La♭ Dórico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Fa♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Abm
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (B=fdbfd') (b=f'd'b'd'f') (bd'fbdf) |
+(Aecgec') (ge'c'g'c'e') (gc'egce) | (A=fdafd') (a=f'd'a'd'f') (ad'fadf) |
+(Bgebge') (bg'e'b'e'g') (be'gbeg) | (A=fcafc') (a=f'c'a'c'f') (ac'facf) |
+(Bgdbgd') (bg'd'b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:5
+T:Modo 5: La♭ Eólico (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Abm
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (Bfdbfd') (bf'd'b'd'f') (bd'fbdf) |
+(Aecgec') (ge'c'g'c'e') (gc'egce) | (Afdafd') (af'd'a'd'f') (ad'fadf) |
+(Bgebge') (bg'e'b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(Bgdbgd') (bg'd'b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:6
+T:Modo 6: La♭ Frigio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 6/7 (Menor) | Segunda menor accidental: Si𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Abm
+V:1 clef=treble
+%%score 1
+(Aecaec') (ae'c'a'c'e') (ac'eace) | (__Bfd__bfd') (bf'd'__b'd'f') (bd'fbdf) |
+(Aecgec') (ge'c'g'c'e') (gc'egce) | (Afdafd') (af'd'a'd'f') (ad'fadf) |
+(__Bge__bge') (bg'e'__b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(__Bgd__bgd') (bg'd'__b'd'g') (bd'gbdg) | (Aecaec') (ae'c'a'c'e') (ac'eace) | A6 z3 z9 |]
+
+X:7
+T:Modo 7: La♭ Lócrio (E.J. 11)
+C:Taffanel & Gaubert · Adaptación Modal (Taffanel & Gaubert (págs. 122–125))
+% Modo 7/7 (Menor) | Segunda menor: Si𝄫 y Quinta disminuida: Mi𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 2
+M:9/8
+L:1/16
+Q:1/4.=60
+K:Abm
+V:1 clef=treble
+%%score 1
+(A__ecaec') (a__e'c'a'c'e') (ac'eace) | (__Bfd__bfd') (bf'd'__b'd'f') (bd'fbdf) |
+(A__ecgec') (g__e'c'g'c'e') (gc'egce) | (Afdafd') (af'd'a'd'f') (ad'fadf) |
+(__Bg__e__bg__e') (bg'e'__b'e'g') (be'gbeg) | (Afcafc') (af'c'a'c'f') (ac'facf) |
+(__Bgd__bgd') (bg'd'__b'd'g') (bd'gbdg) | (A__ecaec') (a__e'c'a'c'e') (ac'eace) | A6 z3 z9 |]

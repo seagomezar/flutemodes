@@ -38,11 +38,11 @@ public class ScoreAudioPlayer: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + accumTime, execute: clearItem)
     }
 
-    public func toggle(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
+    public func toggle(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int, scheme: ModalScheme = .ej4) {
         if isPlaying {
             stop()
         } else {
-            play(tonic: tonic, mode: mode, articulation: articulation, tempoBPM: tempoBPM)
+            play(tonic: tonic, mode: mode, articulation: articulation, tempoBPM: tempoBPM, scheme: scheme)
         }
     }
 
@@ -96,7 +96,7 @@ public class ScoreAudioPlayer: ObservableObject {
         isPlaying = false
     }
 
-    public func play(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int) {
+    public func play(tonic: Tonic, mode: ModeType, articulation: ArticulationPattern, tempoBPM: Int, scheme: ModalScheme = .ej4) {
         stop()
 
         AppAudioEngine.shared.ensureEngineRunning()
@@ -108,7 +108,8 @@ public class ScoreAudioPlayer: ObservableObject {
             mode: mode,
             articulation: articulation,
             tempoBPM: tempoBPM,
-            format: format
+            format: format,
+            scheme: scheme
         ) else { return }
 
         isPlaying = true
@@ -478,94 +479,110 @@ public class ScoreAudioPlayer: ObservableObject {
         mode: ModeType,
         articulation: ArticulationPattern,
         tempoBPM: Int,
-        format: AVAudioFormat
+        format: AVAudioFormat,
+        scheme: ModalScheme = .ej4
     ) -> AVAudioPCMBuffer? {
         let sampleRate = format.sampleRate
+        let midis = ExerciseGenerator.generateModalSchemeMidiNotes(
+            tonic: tonic,
+            mode: mode,
+            scheme: scheme
+        )
+        guard !midis.isEmpty else { return nil }
 
-        // Root MIDI note
-        let rootMidi: Int
-        switch tonic {
-        case .si: rootMidi = 59 // B3
-        case .doNatural: rootMidi = 60
-        case .doSostenido: rootMidi = 61
-        case .re: rootMidi = 62
-        case .miBemol: rootMidi = 63
-        case .mi: rootMidi = 64
-        case .fa: rootMidi = 65
-        case .faSostenido: rootMidi = 66
-        case .sol: rootMidi = 67
-        case .laBemol: rootMidi = 68
-        case .la: rootMidi = 69
-        case .siBemol: rootMidi = 70
+        func freqForMidi(_ midi: Int) -> Double {
+            440.0 * pow(2.0, (Double(midi) - 69.0) / 12.0)
         }
 
-        // Mode intervals from root (semitones)
-        let intervals: [Int]
-        switch mode {
-        case .ionian:     intervals = [0, 2, 4, 5, 7, 9, 11]
-        case .lydian:     intervals = [0, 2, 4, 6, 7, 9, 11]
-        case .mixolydian: intervals = [0, 2, 4, 5, 7, 9, 10]
-        case .dorian:     intervals = [0, 2, 3, 5, 7, 9, 10]
-        case .aeolian:    intervals = [0, 2, 3, 5, 7, 8, 10]
-        case .phrygian:   intervals = [0, 1, 3, 5, 7, 8, 10]
-        case .locrian:    intervals = [0, 1, 3, 5, 6, 8, 10]
-        }
-
-        func freqForIndex(_ idx: Int) -> Double {
-            let octave = idx / 7
-            let degree = idx % 7
-            let semitones = intervals[degree] + (octave * 12)
-            let midi = Double(rootMidi + semitones)
-            return 440.0 * pow(2.0, (midi - 69.0) / 12.0)
-        }
-
-        // Eighth note (corchea) duration in seconds
-        let eighthDuration = (60.0 / Double(tempoBPM)) / 4.0
-        let halfDuration = eighthDuration * 4.0
-
-        func isStaccatoAt(beatSubIndex: Int) -> Bool {
-            let i = beatSubIndex % 4
-            switch articulation {
-            case .allSlurred, .slurredFourAndFour: return false
-            case .slurTwoStaccatoTwo: return (i >= 2)
-            case .staccatoSlurTwoStaccato: return (i == 0 || i == 3)
-            case .staccatoTwoSlurTwo: return (i < 2)
-            case .staccatoOneSlurThree: return (i == 0)
-            case .slurThreeStaccatoOne: return (i == 3)
-            case .allStaccato: return true
+        func isStaccatoAt(beatSubIndex: Int, groupSize: Int = 4) -> Bool {
+            if groupSize == 6 {
+                let i = beatSubIndex % 6
+                switch articulation {
+                case .allSlurred, .slurredFourAndFour: return false
+                case .slurTwoStaccatoTwo: return (i == 4 || i == 5)
+                case .staccatoSlurTwoStaccato: return (i == 0 || i == 3)
+                case .staccatoTwoSlurTwo: return (i == 0 || i == 1)
+                case .staccatoOneSlurThree: return (i == 2 || i == 5)
+                case .slurThreeStaccatoOne: return (i >= 3)
+                case .allStaccato: return true
+                }
+            } else {
+                let i = beatSubIndex % 4
+                switch articulation {
+                case .allSlurred, .slurredFourAndFour: return false
+                case .slurTwoStaccatoTwo: return (i >= 2)
+                case .staccatoSlurTwoStaccato: return (i == 0 || i == 3)
+                case .staccatoTwoSlurTwo: return (i < 2)
+                case .staccatoOneSlurThree: return (i == 0)
+                case .slurThreeStaccatoOne: return (i == 3)
+                case .allStaccato: return true
+                }
             }
+        }
+
+        let baseNoteDuration: Double
+        let finalNoteDuration: Double
+        let groupSize: Int
+        let finalIsStaccato: Bool
+
+        switch scheme {
+        case .ej4:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 4.0
+            finalNoteDuration = baseNoteDuration * 4.0
+            groupSize = 4
+            finalIsStaccato = false
+        case .ej1, .ej2:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 4.0
+            finalNoteDuration = baseNoteDuration * 4.0
+            groupSize = 4
+            finalIsStaccato = false
+        case .ej5, .ej10:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 6.0
+            finalNoteDuration = baseNoteDuration * 4.0
+            groupSize = 6
+            finalIsStaccato = false
+        case .ej11:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 6.0
+            finalNoteDuration = baseNoteDuration * 6.0
+            groupSize = 6
+            finalIsStaccato = false
+        case .r1:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 6.0
+            finalNoteDuration = baseNoteDuration * 2.0
+            groupSize = 6
+            finalIsStaccato = true
+        case .r2, .r4:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 4.0
+            finalNoteDuration = baseNoteDuration * 2.0
+            groupSize = 4
+            finalIsStaccato = true
+        case .r5:
+            baseNoteDuration = (60.0 / Double(tempoBPM)) / 6.0
+            finalNoteDuration = (60.0 / Double(tempoBPM)) / 2.0
+            groupSize = 6
+            finalIsStaccato = true
         }
 
         var notes: [NoteDef] = []
-
-        func addNotes(_ indices: [Int]) {
-            for (subIdx, idx) in indices.enumerated() {
+        let count = midis.count
+        for (idx, midi) in midis.enumerated() {
+            if idx == count - 1 {
                 notes.append(NoteDef(
-                    freq: freqForIndex(idx),
-                    duration: eighthDuration,
-                    isStaccato: isStaccatoAt(beatSubIndex: subIdx)
+                    freq: freqForMidi(midi),
+                    duration: finalNoteDuration,
+                    isStaccato: finalIsStaccato
+                ))
+            } else {
+                let staccato = (scheme == .ej4 && idx >= 120)
+                    ? (articulation == .allStaccato)
+                    : isStaccatoAt(beatSubIndex: idx, groupSize: groupSize)
+                notes.append(NoteDef(
+                    freq: freqForMidi(midi),
+                    duration: baseNoteDuration,
+                    isStaccato: staccato
                 ))
             }
         }
-
-        // Measure 1
-        addNotes([0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1])
-        // Measure 2
-        addNotes([2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3])
-        // Measure 3
-        addNotes([4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 10, 9, 8, 7, 6, 5])
-        // Measure 4 (Peak)
-        addNotes([6, 7, 8, 9, 10, 11, 12, 13, 14, 13, 12, 11, 10, 9, 8, 7])
-        // Measure 5
-        addNotes([6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 10, 9, 8, 7, 6, 5])
-        // Measure 6
-        addNotes([4, 5, 6, 7, 8, 9, 10, 11, 10, 9, 8, 7, 6, 5, 4, 3])
-        // Measure 7
-        addNotes([2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4, 3, 2, 1])
-        // Measure 8
-        addNotes([0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1])
-        // Final tonic half note
-        notes.append(NoteDef(freq: freqForIndex(0), duration: halfDuration, isStaccato: false))
 
         return synthesizePianoNotes(notes, sampleRate: sampleRate, format: format)
     }

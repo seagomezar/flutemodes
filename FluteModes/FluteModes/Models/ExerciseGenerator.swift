@@ -42,7 +42,7 @@ public struct ExerciseGenerator {
         var lines: [String] = [
             "X:1",
             "T:E. J. 1 — \(articulation.title)",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ1_LEDUC_ART:\(articulation.rawValue)",
             "%%barsperstaff 1",
             "M:4/2",
@@ -112,7 +112,7 @@ public struct ExerciseGenerator {
         var lines: [String] = [
             "X:1",
             "T:E. J. 2 — \(articulation.title)",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ2_LEDUC_ART:\(articulation.rawValue)",
             "%%barsperstaff 1",
             "M:4/2",
@@ -142,91 +142,369 @@ public struct ExerciseGenerator {
         return lines.joined(separator: "\n")
     }
 
+    /// Returns (sBase, sAcc) for the 16 diatonic scale positions (0..15) of a Parallel Mode,
+    /// including Urtext double flats (__B, __E) for Mi♭ Locrian and La♭ Phrygian/Locrian.
+    public static func getModalScaleNotesPair(tonic: Tonic, mode: ModeType) -> (sBase: [String], sAcc: [String]) {
+        let sBase = tonic.abcNoteSequence
+        var accMap = tonic.accidentalMap(for: mode)
+        if tonic == .miBemol && mode == .locrian {
+            accMap[4] = "__"
+        } else if tonic == .laBemol && mode == .phrygian {
+            accMap[1] = "__"
+        } else if tonic == .laBemol && mode == .locrian {
+            accMap[1] = "__"
+            accMap[4] = "__"
+        }
+        var sAcc: [String] = []
+        for (idx, note) in sBase.enumerated() {
+            let degree = idx % 7
+            if let acc = accMap[degree] {
+                sAcc.append("\(acc)\(note)")
+            } else {
+                sAcc.append(note)
+            }
+        }
+        return (sBase, sAcc)
+    }
+
+    /// Applies Urtext engraving rule within a single measure: the first occurrence of an altered
+    /// scale position `d` in the measure carries its accidental (`sAcc[d]`), and subsequent
+    /// occurrences of the same `d` within that measure use `sBase[d]`.
+    public static func resolveMeasureGroups(
+        _ groupsOfIndices: [[Int]],
+        sBase: [String],
+        sAcc: [String]
+    ) -> [[String]] {
+        var seenInMeasure = Set<Int>()
+        var resolved: [[String]] = []
+        for idxList in groupsOfIndices {
+            var grp: [String] = []
+            for d in idxList {
+                if !seenInMeasure.contains(d) {
+                    grp.append(sAcc[d])
+                    seenInMeasure.insert(d)
+                } else {
+                    grp.append(sBase[d])
+                }
+            }
+            resolved.append(grp)
+        }
+        return resolved
+    }
+
+    /// Generates both the exact scale degree indices (0..15) and the ABC body lines for any of the 10 ModalSchemes.
+    public static func generateModalSchemeDegreesAndLines(
+        tonic: Tonic,
+        mode: ModeType,
+        scheme: ModalScheme,
+        articulation: ArticulationPattern
+    ) -> (degrees: [Int], lines: [String]) {
+        let (sBase, sAcc) = getModalScaleNotesPair(tonic: tonic, mode: mode)
+        var degrees: [Int] = []
+
+        switch scheme {
+        case .ej1:
+            var lines: [String] = []
+            for d in 0..<8 {
+                let idxStd = [d, d + 1, d + 2, d + 3, d + 4, d + 3, d + 2, d + 1]
+                let beatsIdx: [[Int]]
+                let barEnd: String
+                if d < 7 {
+                    beatsIdx = [idxStd, idxStd, idxStd, idxStd]
+                    barEnd = "|"
+                } else {
+                    let idxTurn = [d, d + 1, d + 2, d + 3, d + 4, d + 2, d + 1, d]
+                    beatsIdx = [idxStd, idxStd, idxStd, idxTurn]
+                    barEnd = "| \(sAcc[7])4 z4 z8 |]"
+                }
+                for b in beatsIdx { degrees.append(contentsOf: b) }
+                let beats = resolveMeasureGroups(beatsIdx, sBase: sBase, sAcc: sAcc)
+                let artStr = beats.map { articulation.apply16ths8(to: $0) }.joined(separator: " ")
+                lines.append("\(artStr) \(barEnd)")
+            }
+            degrees.append(7)
+            return (degrees, lines)
+
+        case .ej2:
+            let degreesArch = [0, 2, 4, 7, 10, 5, 3]
+            var lines: [String] = []
+            for d in degreesArch {
+                let idxStd = [d, d + 1, d + 2, d + 3, d + 4, d + 3, d + 2, d + 1]
+                let idxTurn = [d, d + 1, d + 2, d + 3, d + 4, d + 2, d + 1, d]
+                let beatsIdx = [idxStd, idxStd, idxStd, idxTurn]
+                for b in beatsIdx { degrees.append(contentsOf: b) }
+                let beats = resolveMeasureGroups(beatsIdx, sBase: sBase, sAcc: sAcc)
+                let artStr = beats.map { articulation.apply16ths8(to: $0) }.joined(separator: " ")
+                lines.append("\(artStr) |")
+            }
+            let idxII = [1, 2, 3, 4, 5, 4, 3, 2]
+            let idxI = [0, 1, 2, 3, 4, 3, 2, 1]
+            let idxITurn = [0, 1, 2, 3, 4, 2, 1, 0]
+            let c8BeatsIdx = [idxII, idxII, idxI, idxITurn]
+            for b in c8BeatsIdx { degrees.append(contentsOf: b) }
+            degrees.append(0)
+            let c8Beats = resolveMeasureGroups(c8BeatsIdx, sBase: sBase, sAcc: sAcc)
+            let artC8 = c8Beats.map { articulation.apply16ths8(to: $0) }.joined(separator: " ")
+            lines.append("\(artC8) | \(sAcc[0])4 z4 z8 |]")
+            return (degrees, lines)
+
+        case .ej4:
+            let groupsIdx: [([Int], [Int])] = [
+                (Array(0..<8),  [8, 7, 6, 5, 4, 3, 2, 1]),
+                (Array(2..<10), [10, 9, 8, 7, 6, 5, 4, 3]),
+                (Array(4..<12), [12, 11, 10, 9, 8, 7, 6, 5]),
+                (Array(6..<14), [14, 13, 12, 11, 10, 9, 8, 7]),
+                (Array(6..<14), [12, 11, 10, 9, 8, 7, 6, 5]),
+                (Array(4..<12), [10, 9, 8, 7, 6, 5, 4, 3]),
+                (Array(2..<10), [8, 7, 6, 5, 4, 3, 2, 1])
+            ]
+            var bars: [String] = []
+            for (gAsc, gDesc) in groupsIdx {
+                degrees.append(contentsOf: gAsc)
+                degrees.append(contentsOf: gDesc)
+                let resolved = resolveMeasureGroups([gAsc, gDesc], sBase: sBase, sAcc: sAcc)
+                bars.append("\(articulation.apply(to: resolved[0])) \(articulation.apply(to: resolved[1]))")
+            }
+            let c8AscIdx = Array(0..<8)
+            let c8DescIdx = [6, 5, 4, 3, 2, 1, 0]
+            degrees.append(contentsOf: c8AscIdx)
+            degrees.append(contentsOf: c8DescIdx)
+            let resolved8 = resolveMeasureGroups([c8AscIdx, c8DescIdx], sBase: sBase, sAcc: sAcc)
+            let n8Asc = resolved8[0]
+            let n8Desc = resolved8[1]
+            let c8Asc = articulation.apply(to: n8Asc)
+            let c8Desc: String
+            if articulation == .allStaccato {
+                c8Desc = ".\(n8Desc[0]).\(n8Desc[1]).\(n8Desc[2]).\(n8Desc[3]) .\(n8Desc[4]).\(n8Desc[5]).\(n8Desc[6])2"
+            } else {
+                c8Desc = "(\(n8Desc[0])\(n8Desc[1])\(n8Desc[2])\(n8Desc[3])\(n8Desc[4])\(n8Desc[5]) \(n8Desc[6])2)"
+            }
+            bars.append("\(c8Asc) \(c8Desc)")
+            return (degrees, [
+                "\(bars[0]) | \(bars[1]) |",
+                "\(bars[2]) | \(bars[3]) |",
+                "\(bars[4]) | \(bars[5]) |",
+                "\(bars[6]) | \(bars[7]) |]"
+            ])
+
+        case .ej5:
+            let measurePairs: [([Int], [Int])] = [
+                ([0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11]),
+                ([12, 13, 14, 13, 12, 11], [10, 9, 8, 7, 6, 5]),
+                ([4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 13]),
+                ([12, 11, 10, 9, 8, 7], [6, 5, 4, 3, 2, 1])
+            ]
+            var fmtBars: [String] = []
+            for (g1, g2) in measurePairs {
+                degrees.append(contentsOf: g1)
+                degrees.append(contentsOf: g2)
+                let res = resolveMeasureGroups([g1, g2], sBase: sBase, sAcc: sAcc)
+                fmtBars.append("\(articulation.apply16ths6(to: res[0])) \(articulation.apply16ths6(to: res[1]))")
+            }
+            degrees.append(0)
+            return (degrees, [
+                "\(fmtBars[0]) | \(fmtBars[1]) |",
+                "\(fmtBars[2]) | \(fmtBars[3]) | \(sAcc[0])4 z2 z6 |]"
+            ])
+
+        case .ej10, .ej11:
+            let chordDegrees: [[Int]] = [
+                [0, 2, 4, 7, 9, 11, 14],
+                [1, 3, 5, 8, 10, 12, 15],
+                [0, 2, 4, 6, 9, 11, 13],
+                [0, 3, 5, 7, 10, 12, 14],
+                [1, 4, 6, 8, 11, 13, 15],
+                [0, 2, 5, 7, 9, 12, 14],
+                [1, 3, 6, 8, 10, 13, 15],
+                [0, 2, 4, 7, 9, 11, 14]
+            ]
+            var bars: [String] = []
+            for cd in chordDegrees {
+                let d1 = cd[0], d2 = cd[1], d3 = cd[2], d4 = cd[3], d5 = cd[4], d6 = cd[5], d7 = cd[6]
+                if scheme == .ej10 {
+                    let g1Idx = [d1, d2, d3, d4, d5, d6]
+                    let g2Idx = [d7, d6, d5, d4, d3, d2]
+                    degrees.append(contentsOf: g1Idx)
+                    degrees.append(contentsOf: g2Idx)
+                    let res = resolveMeasureGroups([g1Idx, g2Idx], sBase: sBase, sAcc: sAcc)
+                    bars.append("\(articulation.apply16ths6(to: res[0])) \(articulation.apply16ths6(to: res[1]))")
+                } else {
+                    let g1Idx = [d1, d3, d2, d4, d3, d5]
+                    let g2Idx = [d4, d6, d5, d7, d5, d6]
+                    let g3Idx = [d4, d5, d3, d4, d2, d3]
+                    degrees.append(contentsOf: g1Idx)
+                    degrees.append(contentsOf: g2Idx)
+                    degrees.append(contentsOf: g3Idx)
+                    let res = resolveMeasureGroups([g1Idx, g2Idx, g3Idx], sBase: sBase, sAcc: sAcc)
+                    bars.append("\(articulation.apply16ths6(to: res[0])) \(articulation.apply16ths6(to: res[1])) \(articulation.apply16ths6(to: res[2]))")
+                }
+            }
+            degrees.append(0)
+            let closing = (scheme == .ej10) ? "\(sAcc[0])4 z2 z6 |]" : "\(sAcc[0])6 z3 z9 |]"
+            return (degrees, [
+                "\(bars[0]) | \(bars[1]) |",
+                "\(bars[2]) | \(bars[3]) |",
+                "\(bars[4]) | \(bars[5]) |",
+                "\(bars[6]) | \(bars[7]) | \(closing)"
+            ])
+
+        case .r1:
+            let m1G = [[7, 4, 5, 6, 7, 8], [9, 7, 8, 9, 10, 11]]
+            let m2G = [[11, 9, 10, 11, 12, 13], [14, 13, 12, 11, 10, 9]]
+            let m3G = [[12, 11, 10, 9, 8, 7], [6, 5, 4, 3, 2, 1]]
+            let m4G = [[0, 2, 4, 7, 9, 11], [14]]
+            for mG in [m1G, m2G, m3G, m4G] {
+                for g in mG { degrees.append(contentsOf: g) }
+            }
+            let m1N = resolveMeasureGroups(m1G, sBase: sBase, sAcc: sAcc)
+            let m2N = resolveMeasureGroups(m2G, sBase: sBase, sAcc: sAcc)
+            let m3N = resolveMeasureGroups(m3G, sBase: sBase, sAcc: sAcc)
+            let m4N = resolveMeasureGroups(m4G, sBase: sBase, sAcc: sAcc)
+            return (degrees, [
+                "\(articulation.apply16ths6(to: m1N[0])) \(articulation.apply16ths6(to: m1N[1])) | \(articulation.apply16ths6(to: m2N[0])) \(articulation.apply16ths6(to: m2N[1])) |",
+                "\(articulation.apply16ths6(to: m3N[0])) \(articulation.apply16ths6(to: m3N[1])) | \(articulation.apply16ths6(to: m4N[0])) .\(m4N[1][0])2 z2 z2 |]"
+            ])
+
+        case .r2:
+            let pickupIdx = [0, 2, 4, 7]
+            let measuresIdx: [[Int]] = [
+                [6, 4, 3, 1, 3, 4, 6, 8],
+                [7, 4, 2, 0, 2, 4, 7, 9],
+                [8, 6, 4, 3, 4, 6, 8, 10],
+                [9, 7, 4, 2, 4, 7, 9, 11],
+                [10, 8, 6, 4, 6, 8, 10, 11],
+                [11, 9, 7, 4, 7, 9, 11, 14],
+                [8, 6, 4, 3, 1, 3, 4, 6]
+            ]
+            degrees.append(contentsOf: pickupIdx)
+            for mIdx in measuresIdx { degrees.append(contentsOf: mIdx) }
+            degrees.append(7)
+            let pkNotes = resolveMeasureGroups([pickupIdx], sBase: sBase, sAcc: sAcc)[0]
+            let pickup = articulation.apply16ths4(to: pkNotes)
+            let mStrs = measuresIdx.map { mIdx -> String in
+                let notes = resolveMeasureGroups([mIdx], sBase: sBase, sAcc: sAcc)[0]
+                return articulation.apply(to: notes)
+            }
+            return (degrees, [
+                "\(pickup) | \(mStrs[0]) | \(mStrs[1]) | \(mStrs[2]) |",
+                "\(mStrs[3]) | \(mStrs[4]) | \(mStrs[5]) | \(mStrs[6]) | .\(sAcc[7])2 z2 |]"
+            ])
+
+        case .r4:
+            let barsIdx: [([Int], [Int])] = [
+                ([0, 2, 4, 5, 4, 3, 4, 2], [2, 4, 7, 8, 7, 6, 7, 4]),
+                ([4, 7, 9, 10, 9, 8, 9, 7], [7, 9, 11, 12, 11, 10, 11, 9]),
+                ([4, 7, 9, 10, 9, 8, 9, 7], [2, 4, 7, 8, 7, 6, 7, 4])
+            ]
+            let m4Hb1Idx = [0, 2, 4, 7, 9, 11, 7, 9]
+            let m4TailIdx = [4, 7, 2, 4]
+            let m4EndIdx = [0]
+
+            var barStrs: [String] = []
+            for (hb1, hb2) in barsIdx {
+                degrees.append(contentsOf: hb1)
+                degrees.append(contentsOf: hb2)
+                let res = resolveMeasureGroups([hb1, hb2], sBase: sBase, sAcc: sAcc)
+                barStrs.append("\(articulation.apply(to: res[0])) \(articulation.apply(to: res[1]))")
+            }
+            degrees.append(contentsOf: m4Hb1Idx)
+            degrees.append(contentsOf: m4TailIdx)
+            degrees.append(contentsOf: m4EndIdx)
+            let res4 = resolveMeasureGroups([m4Hb1Idx, m4TailIdx, m4EndIdx], sBase: sBase, sAcc: sAcc)
+            let m4Str = "\(articulation.apply(to: res4[0])) \(articulation.apply16ths4(to: res4[1])) .\(res4[2][0])2 z2 |]"
+            return (degrees, [
+                "\(barStrs[0]) | \(barStrs[1]) |",
+                "\(barStrs[2]) | \(m4Str)"
+            ])
+
+        case .r5:
+            let tripletPairsIdx: [([Int], [Int])] = [
+                ([7, 9, 11, 14, 9, 11], [7, 9, 11, 4, 9, 11]),
+                ([8, 10, 11, 13, 10, 11], [8, 10, 11, 4, 10, 11]),
+                ([6, 10, 11, 15, 10, 11], [6, 10, 11, 4, 10, 11]),
+                ([7, 9, 11, 14, 9, 11], [7, 9, 11, 4, 9, 11]),
+                ([7, 9, 12, 14, 9, 12], [6, 9, 11, 15, 9, 11]),
+                ([5, 9, 12, 14, 9, 12], [3, 8, 11, 15, 8, 11]),
+                ([4, 9, 11, 14, 9, 11], [4, 10, 11, 13, 10, 11])
+            ]
+            let m8Idx = [7, 9, 11, 14, 9, 11]
+            let m8EndIdx = [7]
+            var mStrs: [String] = []
+            for (p1, p2) in tripletPairsIdx {
+                degrees.append(contentsOf: p1)
+                degrees.append(contentsOf: p2)
+                let res = resolveMeasureGroups([p1, p2], sBase: sBase, sAcc: sAcc)
+                mStrs.append("\(articulation.applyTripletPair(to: res[0])) \(articulation.applyTripletPair(to: res[1]))")
+            }
+            degrees.append(contentsOf: m8Idx)
+            degrees.append(contentsOf: m8EndIdx)
+            let res8 = resolveMeasureGroups([m8Idx, m8EndIdx], sBase: sBase, sAcc: sAcc)
+            let m8Str = "\(articulation.applyTripletPair(to: res8[0])) .\(res8[1][0])2 z2"
+            return (degrees, [
+                "\(mStrs[0]) | \(mStrs[1]) | \(mStrs[2]) | \(mStrs[3]) |",
+                "\(mStrs[4]) | \(mStrs[5]) | \(mStrs[6]) | \(m8Str) |]"
+            ])
+        }
+    }
+
+    /// Computes the exact MIDI note sequence for any of the 840 modal combinations (12 tonics × 7 modes × 10 schemes).
+    public static func generateModalSchemeMidiNotes(
+        tonic: Tonic,
+        mode: ModeType,
+        scheme: ModalScheme = .ej4
+    ) -> [Int] {
+        let (degrees, _) = generateModalSchemeDegreesAndLines(
+            tonic: tonic,
+            mode: mode,
+            scheme: scheme,
+            articulation: .allSlurred
+        )
+        let intervals = mode.intervals
+        let rootMidi = tonic.rootMidi
+        return degrees.map { deg in
+            let octave = deg / 7
+            let step = deg % 7
+            return rootMidi + octave * 12 + intervals[step]
+        }
+    }
+
     public static func generateABC(
         tonic: Tonic,
         mode: ModeType,
         articulation: ArticulationPattern,
-        tempoBPM: Int = 90
+        tempoBPM: Int = 90,
+        scheme: ModalScheme = .ej4
     ) -> String {
         let keySig = mode.keySignature(for: tonic)
-        let accMap = tonic.accidentalMap(for: mode)
-        let baseNotes = tonic.abcNoteSequence
-
-        // Apply accidentals to each degree (0..6)
-        var s: [String] = []
-        for (idx, note) in baseNotes.enumerated() {
-            let degree = idx % 7
-            if let acc = accMap[degree] {
-                s.append("\(acc)\(note)")
-            } else {
-                s.append(note)
-            }
+        let (_, bodyLines) = generateModalSchemeDegreesAndLines(
+            tonic: tonic,
+            mode: mode,
+            scheme: scheme,
+            articulation: articulation
+        )
+        let tempoHeader: String
+        switch scheme {
+        case .ej4:
+            tempoHeader = "Q:1/2=\(tempoBPM)"
+        case .ej5, .ej10, .ej11, .r1:
+            tempoHeader = "Q:3/8=\(tempoBPM)"
+        default:
+            tempoHeader = "Q:1/4=\(tempoBPM)"
         }
-
-        func art(_ notes: [String]) -> String {
-            return articulation.apply(to: notes)
-        }
-
-        // Compas 1
-        let c1_asc = Array(s[0..<8])
-        let c1_desc = [s[8], s[7], s[6], s[5], s[4], s[3], s[2], s[1]]
-        let c1 = "\(art(c1_asc)) \(art(c1_desc))"
-
-        // Compas 2
-        let c2_asc = Array(s[2..<10])
-        let c2_desc = [s[10], s[9], s[8], s[7], s[6], s[5], s[4], s[3]]
-        let c2 = "\(art(c2_asc)) \(art(c2_desc))"
-
-        // Compas 3
-        let c3_asc = Array(s[4..<12])
-        let c3_desc = [s[12], s[11], s[10], s[9], s[8], s[7], s[6], s[5]]
-        let c3 = "\(art(c3_asc)) \(art(c3_desc))"
-
-        // Compas 4 (Peak)
-        let c4_asc = Array(s[6..<14])
-        let c4_desc = [s[14], s[13], s[12], s[11], s[10], s[9], s[8], s[7]]
-        let c4 = "\(art(c4_asc)) \(art(c4_desc))"
-
-        // Compas 5
-        let c5_asc = Array(s[6..<14])
-        let c5_desc = [s[12], s[11], s[10], s[9], s[8], s[7], s[6], s[5]]
-        let c5 = "\(art(c5_asc)) \(art(c5_desc))"
-
-        // Compas 6
-        let c6_asc = Array(s[4..<12])
-        let c6_desc = [s[10], s[9], s[8], s[7], s[6], s[5], s[4], s[3]]
-        let c6 = "\(art(c6_asc)) \(art(c6_desc))"
-
-        // Compas 7
-        let c7_asc = Array(s[2..<10])
-        let c7_desc = [s[8], s[7], s[6], s[5], s[4], s[3], s[2], s[1]]
-        let c7 = "\(art(c7_asc)) \(art(c7_desc))"
-
-        // Compas 8
-        let c8_asc = Array(s[0..<8])
-        let c8_desc_notes = [s[6], s[5], s[4], s[3], s[2], s[1]]
-        let finalTonic = "\(s[0])2"
-        let c8_desc_str = "(\(c8_desc_notes.joined()) \(finalTonic))"
-        let c8 = "\(art(c8_asc)) \(c8_desc_str)"
-
-        let abc = """
-        X:1
-        T:Modo \(mode.rawValue): \(tonic.rawValue) \(mode.name)
-        % \(mode.family.rawValue) | \(mode.accidentalBadge(for: tonic)) | Fórmula: \(mode.formula)
-        %%barsperstaff 2
-        M:4/2
-        L:1/8
-        Q:1/2=\(tempoBPM)
-        K:\(keySig)
-        V:1 clef=treble
-        %%score 1
-        \(c1) | \(c2) |
-        \(c3) | \(c4) |
-        \(c5) | \(c6) |
-        \(c7) | \(c8) |]
-        """
-
-        return abc
+        var headerLines: [String] = [
+            "X:1",
+            "T:Modo \(mode.rawValue): \(tonic.rawValue) \(mode.shortName) (\(scheme.pillLabel))",
+            "% \(mode.family.rawValue) | \(mode.accidentalBadge(for: tonic)) | Fórmula: \(mode.formula) | Esquema: \(scheme.code)",
+            "%%barsperstaff \(scheme.barsPerStaff)",
+            "M:\(scheme.meter)",
+            "L:\(scheme.unitLen)",
+            tempoHeader,
+            "K:\(keySig)",
+            "V:1 clef=treble",
+            "%%score 1"
+        ]
+        headerLines.append(contentsOf: bodyLines)
+        return headerLines.joined(separator: "\n")
     }
 
     // MARK: - E.J. 4 Urtext (Alphonse Leduc A. L. 16.588, pp. 111–114)
@@ -240,7 +518,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:E. J. 4 — \(sec.fullName) (\(articulation.title))",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 111–114)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ4_LEDUC_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:4/2",
             "L:1/8",
@@ -288,7 +566,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:E. J. 5 — \(sec.fullName) (\(articulation.title(for: .ej5)))",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588, pág. 115)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ5_LEDUC_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:6/8",
             "L:1/16",
@@ -323,7 +601,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:E. J. 10 — \(sec.fullName) (\(articulation.title(for: .ej10)))",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 120–121)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ10_LEDUC_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:6/8",
             "L:1/16",
@@ -358,7 +636,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:E. J. 11 — \(sec.fullName) (\(articulation.title(for: .ej11)))",
-            "C:Paul Taffanel & Philippe Gaubert (A. L. 16.588, págs. 122–125)",
+            "C:Paul Taffanel & Philippe Gaubert",
             "% EJ11_LEDUC_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:9/8",
             "L:1/16",
@@ -393,7 +671,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:Reichert Op. 5 Nº 1 — \(sec.fullName(for: .r1)) (\(articulation.title(for: .r1)))",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 2–3)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R1_SCHOTT_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:6/8",
             "L:1/16",
@@ -441,7 +719,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:Reichert Op. 5 Nº 2 — \(sec.fullName(for: .r2)) (\(articulation.title))",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 4–5)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R2_SCHOTT_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:2/4",
             "L:1/16",
@@ -489,7 +767,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:Reichert Op. 5 Nº 4 — \(sec.fullName(for: .r4)) (\(articulation.title))",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 8–9)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R4_SCHOTT_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:C",
             "L:1/16",
@@ -537,7 +815,7 @@ public struct ExerciseGenerator {
         return [
             "X:1",
             "T:Reichert Op. 5 Nº 5 — \(sec.fullName(for: .r5)) (\(articulation.title(for: .r5)))",
-            "C:Mathieu-André Reichert (Op. 5, B. Schott 20623, págs. 10–13)",
+            "C:Mathieu-André Reichert (Op. 5)",
             "% R5_SCHOTT_ART:\(articulation.rawValue):SEC:\(clampedSec)",
             "M:2/4",
             "L:1/16",

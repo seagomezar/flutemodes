@@ -7,10 +7,15 @@ public struct PracticeView: View {
     @ObservedObject var loc = LocalizationManager.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var navigateToMatrix = false
 
+    private var isLandscape: Bool {
+        verticalSizeClass == .compact
+    }
+
     private var isCompact: Bool {
-        horizontalSizeClass == .compact
+        horizontalSizeClass == .compact && !isLandscape
     }
 
     public init(viewModel: PracticeViewModel) {
@@ -25,6 +30,8 @@ public struct PracticeView: View {
             if isCompact {
                 mobileTopBar
                 mobileModeHeaderCard
+            } else if isLandscape {
+                mobileTopBar
             } else {
                 topBar
             }
@@ -40,7 +47,7 @@ public struct PracticeView: View {
                     abcString: viewModel.currentAbcScore,
                     highlightedNoteIndex: scorePlayer.currentNoteIndex
                 )
-                    .padding(isCompact ? 4 : 12)
+                    .padding(isLandscape ? 2 : (isCompact ? 4 : 12))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -211,7 +218,7 @@ public struct PracticeView: View {
             }
 
             Menu {
-                Section("Taffanel & Gaubert (A. L. 16.588)") {
+                Section("Taffanel & Gaubert") {
                     ForEach([ExerciseType.ej1, .ej2, .ej4, .ej5, .ej10, .ej11]) { ex in
                         Button {
                             viewModel.selectExercise(ex)
@@ -220,7 +227,7 @@ public struct PracticeView: View {
                         }
                     }
                 }
-                Section("M.-A. Reichert Op. 5 (Schott 20623)") {
+                Section("M.-A. Reichert Op. 5") {
                     ForEach([ExerciseType.r1, .r2, .r4, .r5]) { ex in
                         Button {
                             viewModel.selectExercise(ex)
@@ -229,7 +236,7 @@ public struct PracticeView: View {
                         }
                     }
                 }
-                Section("Sistema Modal (León Giraldo)") {
+                Section("Sistema Modal Paralelo (84 × 10)") {
                     Button {
                         viewModel.selectExercise(.modos)
                     } label: {
@@ -308,14 +315,6 @@ public struct PracticeView: View {
                 }
 
                 HStack(spacing: 6) {
-                    Text("A. L. 16.588")
-                        .font(.caption2.bold())
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color(uiColor: .tertiarySystemFill))
-                        .foregroundColor(.secondary)
-                        .cornerRadius(6)
-
                     Text(currentArt.formulaBadge)
                         .font(.caption2.weight(.medium).monospaced())
                         .foregroundColor(.secondary)
@@ -450,17 +449,13 @@ public struct PracticeView: View {
             .padding(.vertical, 8)
             .background(Color(uiColor: .systemBackground))
         } else {
-            VStack(spacing: 6) {
-                HStack(alignment: .firstTextBaseline) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.name)")
-                            .font(.system(size: 19, weight: .bold))
-                            .foregroundColor(.primary)
-
-                        Text(viewModel.currentMode.keyDescription(for: viewModel.currentTonic))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .center) {
+                    Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.localizedName) · \(viewModel.currentModalScheme.shortName)")
+                        .font(.system(size: 17, weight: .bold))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
 
                     Spacer()
 
@@ -473,24 +468,49 @@ public struct PracticeView: View {
                         .cornerRadius(8)
                 }
 
-                HStack(spacing: 6) {
-                    Text(viewModel.currentMode.family.rawValue)
-                        .font(.caption2.bold())
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color(uiColor: .tertiarySystemFill))
-                        .foregroundColor(.secondary)
-                        .cornerRadius(6)
+                Text("\(viewModel.currentModalScheme.title(loc)) · \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.55)
 
-                    Text(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))
-                        .font(.caption2.weight(.medium))
-                        .foregroundColor(.secondary)
-
-                    Spacer()
+                // Horizontal 10-Scheme Selector Bar (Taffanel & Gaubert + Reichert Op. 5)
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(ModalScheme.allCases) { scheme in
+                                let isSel = viewModel.currentModalScheme == scheme
+                                Button {
+                                    viewModel.selectModalScheme(scheme)
+                                } label: {
+                                    HStack(spacing: 4) {
+                                        Text(scheme.shortName)
+                                            .font(.system(size: 11, weight: .bold))
+                                        Text("(\(scheme.meter))")
+                                            .font(.system(size: 10, weight: .medium))
+                                    }
+                                    .padding(.horizontal, 9)
+                                    .padding(.vertical, 5)
+                                    .background(isSel ? (scheme.isReichert ? Color.indigo : Color.blue) : Color(uiColor: .tertiarySystemFill))
+                                    .foregroundColor(isSel ? .white : .primary)
+                                    .cornerRadius(10)
+                                }
+                                .id(scheme)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        proxy.scrollTo(viewModel.currentModalScheme, anchor: .center)
+                    }
+                    .onChange(of: viewModel.currentModalScheme) { _, newScheme in
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            proxy.scrollTo(newScheme, anchor: .center)
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.vertical, 8)
             .background(Color(uiColor: .systemBackground))
         }
     }
@@ -558,13 +578,6 @@ public struct PracticeView: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.primary)
 
-                        Text("A. L. 16.588")
-                            .font(.caption2.bold())
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color(uiColor: .tertiarySystemFill))
-                            .cornerRadius(6)
-
                         Text("\(completed)/10 \(loc.t("arts_count"))")
                             .font(.caption2.bold().monospacedDigit())
                             .padding(.horizontal, 6)
@@ -585,21 +598,12 @@ public struct PracticeView: View {
                 let currentArt = viewModel.currentEJ4TypeArticulation
                 let curSecIdx = viewModel.currentEJ4TypeSectionIndex
                 let curSec = EJ4Section.all[max(0, min(24, curSecIdx))]
-                let totalMeas = ex == .r2 ? "200" : (ex == .r4 ? "100" : "194")
-                let plateLabel = ex.isReichertExercise ? "Schott 20623" : "A. L. 16.588"
 
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
                         Text("\(ex.pillLabel) · \(curSec.fullName(for: ex))")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.primary)
-
-                        Text(plateLabel)
-                            .font(.caption2.bold())
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color(uiColor: .tertiarySystemFill))
-                            .cornerRadius(6)
 
                         Text("\(completed)/8 \(loc.t("arts_count"))")
                             .font(.caption2.bold().monospacedDigit())
@@ -610,7 +614,7 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(currentArt.title(for: ex)) | \(curSec.measureRange(for: ex)) de \(totalMeas)")
+                    Text(currentArt.title(for: ex))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -623,11 +627,6 @@ public struct PracticeView: View {
                 let fullName = ex.isReichertExercise
                     ? EJ4Section.all[max(0, min(24, curSecIdx))].fullName(for: ex)
                     : (ex == .ej5 ? EJ5Section.all[curSecIdx].fullName : EJ10Section.all[curSecIdx].fullName)
-                let mRange = ex.isReichertExercise
-                    ? EJ4Section.all[max(0, min(24, curSecIdx))].measureRange(for: ex)
-                    : (ex == .ej5 ? EJ5Section.all[curSecIdx].measureRange : EJ10Section.all[curSecIdx].measureRange)
-                let totalMeas = ex == .r1 ? "100" : (ex == .r5 ? "200" : (ex == .ej5 ? "60" : "121"))
-                let plateLabel = ex.isReichertExercise ? "Schott 20623" : "A. L. 16.588"
 
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
@@ -635,13 +634,6 @@ public struct PracticeView: View {
                             .font(.system(size: 17, weight: .bold))
                             .foregroundColor(.primary)
                             .lineLimit(1)
-
-                        Text(plateLabel)
-                            .font(.caption2.bold())
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color(uiColor: .tertiarySystemFill))
-                            .cornerRadius(6)
 
                         Text("\(completed)/10 \(loc.t("arts_count"))")
                             .font(.caption2.bold().monospacedDigit())
@@ -652,15 +644,15 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(currentArt.title(for: ex)) | \(mRange) de \(totalMeas)")
+                    Text(currentArt.title(for: ex))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
             } else {
-                // Mode Details Badge (Parallel System)
+                // Mode Details Badge (Parallel System + 10-Scheme Selector)
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
-                        Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name)")
+                        Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name) · \(viewModel.currentModalScheme.shortName)")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.primary)
 
@@ -680,7 +672,7 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
+                    Text("\(viewModel.currentModalScheme.title(loc)) | \(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -734,32 +726,34 @@ public struct PracticeView: View {
             let completedCount = viewModel.store.chromaticCompletedCount(for: ex)
             let isAllDone = viewModel.store.isChromaticFullyCompleted(for: ex)
 
-            VStack(spacing: 6) {
-                HStack {
-                    HStack(spacing: 6) {
-                        Text(loc.t("articulations_title"))
-                            .font(.caption.bold())
-                            .foregroundColor(.primary)
+            VStack(spacing: isLandscape ? 2 : 6) {
+                if !isLandscape {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Text(loc.t("articulations_title"))
+                                .font(.caption.bold())
+                                .foregroundColor(.primary)
 
-                        if isAllDone {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.green)
+                            if isAllDone {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.green)
+                            }
                         }
+
+                        Spacer()
+
+                        Text("\(completedCount)/10 " + loc.t("arts_count"))
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                            .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                            .cornerRadius(8)
                     }
-
-                    Spacer()
-
-                    Text("\(completedCount)/10 " + loc.t("arts_count"))
-                        .font(.caption.bold().monospacedDigit())
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
-                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
-                        .cornerRadius(8)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 4)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
@@ -791,7 +785,7 @@ public struct PracticeView: View {
                                         .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
                                 }
                                 .padding(.horizontal, 14)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, isLandscape ? 5 : 8)
                                 .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
                                 .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
                                 .cornerRadius(16)
@@ -803,7 +797,7 @@ public struct PracticeView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 6)
+                    .padding(.vertical, isLandscape ? 4 : 6)
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
@@ -814,7 +808,7 @@ public struct PracticeView: View {
             let curSecIdx = viewModel.currentEJ4TypeSectionIndex
             let selectArtKey = ex == .r2 ? "r2_select_art" : (ex == .r4 ? "r4_select_art" : "ej4_select_art")
 
-            VStack(spacing: 6) {
+            VStack(spacing: isLandscape ? 2 : 6) {
                 if !isCompact {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
@@ -826,7 +820,7 @@ public struct PracticeView: View {
                                     Text("\(sec.shortName(for: ex)) (\(sec.measureRange(for: ex)))")
                                         .font(.system(size: 11.5, weight: isSel ? .bold : .medium))
                                         .padding(.horizontal, 10)
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, isLandscape ? 3 : 5)
                                         .background(isSel ? Color.blue : Color(uiColor: .secondarySystemGroupedBackground))
                                         .foregroundColor(isSel ? .white : .primary)
                                         .cornerRadius(10)
@@ -838,31 +832,33 @@ public struct PracticeView: View {
                     }
                 }
 
-                HStack {
-                    HStack(spacing: 6) {
-                        Text(loc.t(selectArtKey))
-                            .font(.caption.bold())
-                            .foregroundColor(.primary)
+                if !isLandscape {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Text(loc.t(selectArtKey))
+                                .font(.caption.bold())
+                                .foregroundColor(.primary)
 
-                        if isAllDone {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.green)
+                            if isAllDone {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.green)
+                            }
                         }
+
+                        Spacer()
+
+                        Text("\(completedCount)/8 " + loc.t("arts_count"))
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                            .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                            .cornerRadius(8)
                     }
-
-                    Spacer()
-
-                    Text("\(completedCount)/8 " + loc.t("arts_count"))
-                        .font(.caption.bold().monospacedDigit())
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
-                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
-                        .cornerRadius(8)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 4)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
@@ -894,7 +890,7 @@ public struct PracticeView: View {
                                         .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
                                 }
                                 .padding(.horizontal, 14)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, isLandscape ? 5 : 8)
                                 .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
                                 .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
                                 .cornerRadius(16)
@@ -906,7 +902,7 @@ public struct PracticeView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 6)
+                    .padding(.bottom, isLandscape ? 4 : 6)
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
@@ -926,7 +922,7 @@ public struct PracticeView: View {
                 }
             }()
 
-            VStack(spacing: 6) {
+            VStack(spacing: isLandscape ? 2 : 6) {
                 if !isCompact {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
@@ -944,7 +940,7 @@ public struct PracticeView: View {
                                     Text("\(shortName) (\(mRange))")
                                         .font(.system(size: 11.5, weight: isSel ? .bold : .medium))
                                         .padding(.horizontal, 10)
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, isLandscape ? 3 : 5)
                                         .background(isSel ? Color.blue : Color(uiColor: .secondarySystemGroupedBackground))
                                         .foregroundColor(isSel ? .white : .primary)
                                         .cornerRadius(10)
@@ -956,31 +952,33 @@ public struct PracticeView: View {
                     }
                 }
 
-                HStack {
-                    HStack(spacing: 6) {
-                        Text(loc.t(selectArtKey))
-                            .font(.caption.bold())
-                            .foregroundColor(.primary)
+                if !isLandscape {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Text(loc.t(selectArtKey))
+                                .font(.caption.bold())
+                                .foregroundColor(.primary)
 
-                        if isAllDone {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.green)
+                            if isAllDone {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.green)
+                            }
                         }
+
+                        Spacer()
+
+                        Text("\(completedCount)/10 " + loc.t("arts_count"))
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                            .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
+                            .cornerRadius(8)
                     }
-
-                    Spacer()
-
-                    Text("\(completedCount)/10 " + loc.t("arts_count"))
-                        .font(.caption.bold().monospacedDigit())
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(isAllDone ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
-                        .foregroundColor(isAllDone ? .green : (completedCount > 0 ? .orange : .secondary))
-                        .cornerRadius(8)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 4)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
@@ -1012,7 +1010,7 @@ public struct PracticeView: View {
                                         .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
                                 }
                                 .padding(.horizontal, 14)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, isLandscape ? 5 : 8)
                                 .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
                                 .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
                                 .cornerRadius(16)
@@ -1024,7 +1022,7 @@ public struct PracticeView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 6)
+                    .padding(.bottom, isLandscape ? 4 : 6)
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
@@ -1032,32 +1030,61 @@ public struct PracticeView: View {
             let completedCount = viewModel.completedArticulationsInCurrentMode
             let isModeFull = completedCount == 8
 
-            VStack(spacing: 6) {
-                HStack {
-                    HStack(spacing: 6) {
-                        Text(loc.t("articulations_title"))
-                            .font(.caption.bold())
-                            .foregroundColor(.primary)
-
-                        if isModeFull {
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.green)
+            VStack(spacing: isLandscape ? 2 : 6) {
+                if !isCompact {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(ModalScheme.allCases) { scheme in
+                                let isSel = viewModel.currentModalScheme == scheme
+                                Button {
+                                    viewModel.selectModalScheme(scheme)
+                                } label: {
+                                    HStack(spacing: 4) {
+                                        Text(scheme.shortName)
+                                            .font(.system(size: 11.5, weight: .bold))
+                                        Text("(\(scheme.meter))")
+                                            .font(.system(size: 10.5, weight: .medium))
+                                    }
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, isLandscape ? 3 : 5)
+                                    .background(isSel ? (scheme.isReichert ? Color.indigo : Color.blue) : Color(uiColor: .secondarySystemGroupedBackground))
+                                    .foregroundColor(isSel ? .white : .primary)
+                                    .cornerRadius(10)
+                                }
+                            }
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
                     }
-
-                    Spacer()
-
-                    Text("\(completedCount)/8 " + loc.t("arts_count"))
-                        .font(.caption.bold().monospacedDigit())
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(isModeFull ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
-                        .foregroundColor(isModeFull ? .green : (completedCount > 0 ? .orange : .secondary))
-                        .cornerRadius(8)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 4)
+
+                if !isLandscape {
+                    HStack {
+                        HStack(spacing: 6) {
+                            Text(loc.t("articulations_title"))
+                                .font(.caption.bold())
+                                .foregroundColor(.primary)
+
+                            if isModeFull {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.green)
+                            }
+                        }
+
+                        Spacer()
+
+                        Text("\(completedCount)/8 " + loc.t("arts_count"))
+                            .font(.caption.bold().monospacedDigit())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(isModeFull ? Color.green.opacity(0.18) : (completedCount > 0 ? Color.orange.opacity(0.15) : Color(uiColor: .tertiarySystemFill)))
+                            .foregroundColor(isModeFull ? .green : (completedCount > 0 ? .orange : .secondary))
+                            .cornerRadius(8)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
+                }
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
@@ -1089,7 +1116,7 @@ public struct PracticeView: View {
                                         .font(.system(size: 13, weight: isCurrent ? .semibold : .regular))
                                 }
                                 .padding(.horizontal, 14)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, isLandscape ? 5 : 8)
                                 .background(isCurrent ? Color.primary : Color(uiColor: .secondarySystemGroupedBackground))
                                 .foregroundColor(isCurrent ? Color(uiColor: .systemBackground) : .primary)
                                 .cornerRadius(16)
@@ -1101,7 +1128,7 @@ public struct PracticeView: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 6)
+                    .padding(.bottom, isLandscape ? 4 : 6)
                 }
             }
             .background(Color(uiColor: .systemGroupedBackground))
@@ -1110,61 +1137,81 @@ public struct PracticeView: View {
 
     // MARK: - Control Toolbar
     private var controlToolbar: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: isLandscape ? 10 : 20) {
             // Metronome Play / Pause
             Button {
                 metronome.toggle()
             } label: {
                 Image(systemName: metronome.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                    .font(.system(size: 38))
+                    .font(.system(size: isLandscape ? 30 : 38))
                     .foregroundColor(.primary)
             }
 
             // 4 Visual Beat Indicators
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 ForEach(1...4, id: \.self) { beat in
                     Circle()
                         .fill(metronome.isPlaying && metronome.currentBeat == beat ? Color.primary : Color(uiColor: .tertiaryLabel))
-                        .frame(width: 10, height: 10)
+                        .frame(width: isLandscape ? 8 : 10, height: isLandscape ? 8 : 10)
                         .scaleEffect(metronome.isPlaying && metronome.currentBeat == beat ? 1.4 : 1.0)
                         .animation(.easeInOut(duration: 0.1), value: metronome.currentBeat)
                 }
             }
 
             // BPM Stepper
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 Button {
                     metronome.setTempo(metronome.tempoBPM - 2)
                     viewModel.updateScore()
                 } label: {
                     Image(systemName: "minus")
-                        .font(.system(size: 14, weight: .bold))
-                        .frame(width: 32, height: 32)
+                        .font(.system(size: 13, weight: .bold))
+                        .frame(width: isLandscape ? 28 : 32, height: isLandscape ? 28 : 32)
                         .background(Color(uiColor: .tertiarySystemFill))
                         .cornerRadius(8)
                 }
 
                 Text("\(metronome.tempoBPM) BPM")
                     .font(.subheadline.bold().monospacedDigit())
-                    .frame(minWidth: 70)
+                    .lineLimit(1)
+                    .frame(minWidth: 64)
 
                 Button {
                     metronome.setTempo(metronome.tempoBPM + 2)
                     viewModel.updateScore()
                 } label: {
                     Image(systemName: "plus")
-                        .font(.system(size: 14, weight: .bold))
-                        .frame(width: 32, height: 32)
+                        .font(.system(size: 13, weight: .bold))
+                        .frame(width: isLandscape ? 28 : 32, height: isLandscape ? 28 : 32)
                         .background(Color(uiColor: .tertiarySystemFill))
                         .cornerRadius(8)
                 }
             }
             .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(.vertical, 3)
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             .cornerRadius(12)
 
-            Spacer()
+            if isLandscape {
+                Button {
+                    viewModel.toggleScorePlayback()
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: scorePlayer.isPlaying ? "stop.circle.fill" : "pianokeys")
+                            .font(.system(size: 12, weight: .bold))
+                        Text("Piano")
+                            .font(.caption.bold())
+                            .lineLimit(1)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(scorePlayer.isPlaying ? Color.red : Color.indigo)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                }
+            }
+
+            Spacer(minLength: 4)
 
             if viewModel.currentExercise.isChromaticExercise {
                 let ex = viewModel.currentExercise
@@ -1178,14 +1225,15 @@ public struct PracticeView: View {
                             viewModel.showEJ1CompletionDialog = true
                         }
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 16))
+                                .font(.system(size: 15))
                             Text("✓ \(loc.t(ex == .ej2 ? "ej2_ten_arts_completed" : "ej1_ten_arts_completed"))")
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(20)
@@ -1195,19 +1243,21 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextChromaticArticulation()
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Text(loc.t("next_art"))
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                             Text("\(completedCount)/10 \(loc.t("arts_count"))")
                                 .font(.caption.bold().monospacedDigit())
+                                .lineLimit(1)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
                                 .background(Color(uiColor: .systemBackground).opacity(0.2))
                                 .clipShape(Capsule())
                             Image(systemName: "arrow.right")
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.primary)
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .cornerRadius(20)
@@ -1224,15 +1274,17 @@ public struct PracticeView: View {
                     HStack(spacing: 6) {
                         Text("Sig. Tonalidad")
                             .font(.subheadline.bold())
+                            .lineLimit(1)
                         Text("\(viewModel.currentEJ4TypeSectionIndex + 1)/25")
                             .font(.caption.bold().monospacedDigit())
+                            .lineLimit(1)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
                             .background(Color(uiColor: .tertiarySystemFill))
                             .clipShape(Capsule())
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, isLandscape ? 12 : 16)
+                    .padding(.vertical, isLandscape ? 7 : 12)
                     .background(Color(uiColor: .secondarySystemFill))
                     .foregroundColor(.primary)
                     .cornerRadius(20)
@@ -1242,14 +1294,15 @@ public struct PracticeView: View {
                     Button {
                         viewModel.showEJ4CompletionDialog = true
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 16))
+                                .font(.system(size: 15))
                             Text("✓ \(loc.t("ej4_eight_arts_completed"))")
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(20)
@@ -1259,19 +1312,21 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextEJ4Articulation()
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Text(loc.t("next_art"))
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                             Text("\(completedCount)/8 \(loc.t("arts_count"))")
                                 .font(.caption.bold().monospacedDigit())
+                                .lineLimit(1)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
                                 .background(Color(uiColor: .systemBackground).opacity(0.2))
                                 .clipShape(Capsule())
                             Image(systemName: "arrow.right")
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.primary)
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .cornerRadius(20)
@@ -1288,15 +1343,17 @@ public struct PracticeView: View {
                     HStack(spacing: 6) {
                         Text(ex.isReichertExercise ? "Sig. Tonalidad" : (ex == .ej5 ? "Sig. Escala" : "Sig. Serie"))
                             .font(.subheadline.bold())
+                            .lineLimit(1)
                         Text("\(viewModel.currentEJ5TypeSectionIndex + 1)/\(ex.sectionCount)")
                             .font(.caption.bold().monospacedDigit())
+                            .lineLimit(1)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
                             .background(Color(uiColor: .tertiarySystemFill))
                             .clipShape(Capsule())
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, isLandscape ? 12 : 16)
+                    .padding(.vertical, isLandscape ? 7 : 12)
                     .background(Color(uiColor: .secondarySystemFill))
                     .foregroundColor(.primary)
                     .cornerRadius(20)
@@ -1306,14 +1363,15 @@ public struct PracticeView: View {
                     Button {
                         viewModel.showEJ5TypeCompletionDialog = true
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 16))
+                                .font(.system(size: 15))
                             Text("✓ \(loc.t("ej1_ten_arts_completed"))")
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(20)
@@ -1323,19 +1381,21 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextEJ5TypeArticulation()
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Text(loc.t("next_art"))
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                             Text("\(completedCount)/10 \(loc.t("arts_count"))")
                                 .font(.caption.bold().monospacedDigit())
+                                .lineLimit(1)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
                                 .background(Color(uiColor: .systemBackground).opacity(0.2))
                                 .clipShape(Capsule())
                             Image(systemName: "arrow.right")
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.primary)
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .cornerRadius(20)
@@ -1346,18 +1406,20 @@ public struct PracticeView: View {
                 Button {
                     viewModel.advanceToNextArticulation()
                 } label: {
-                    HStack(spacing: 8) {
+                    HStack(spacing: 6) {
                         Text(loc.t("next_art"))
                             .font(.subheadline.bold())
+                            .lineLimit(1)
                         Text("\(viewModel.completedArticulationsInCurrentMode)/8 \(loc.t("arts_count"))")
                             .font(.caption.bold().monospacedDigit())
+                            .lineLimit(1)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
                             .background(Color(uiColor: .tertiarySystemFill))
                             .clipShape(Capsule())
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, isLandscape ? 12 : 16)
+                    .padding(.vertical, isLandscape ? 7 : 12)
                     .background(Color(uiColor: .secondarySystemFill))
                     .foregroundColor(.primary)
                     .cornerRadius(20)
@@ -1368,14 +1430,15 @@ public struct PracticeView: View {
                     Button {
                         viewModel.showCompletionDialog = true
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 16))
+                                .font(.system(size: 15))
                             Text("✓ \(loc.t("seven_modes_completed")) (\(viewModel.currentTonic.rawValue))")
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(20)
@@ -1385,21 +1448,23 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "checkmark.circle.fill")
-                                .font(.system(size: 14, weight: .bold))
+                                .font(.system(size: 13, weight: .bold))
                             Text(loc.t("mode_done"))
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                             Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
                                 .font(.caption.bold().monospacedDigit())
+                                .lineLimit(1)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
                                 .background(Color.white.opacity(0.25))
                                 .clipShape(Capsule())
                             Image(systemName: "arrow.right")
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(20)
@@ -1408,19 +1473,21 @@ public struct PracticeView: View {
                     Button {
                         viewModel.advanceToNextMode()
                     } label: {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Text(loc.t("next_mode"))
                                 .font(.subheadline.bold())
+                                .lineLimit(1)
                             Text("\(viewModel.practicedModesCountInCurrentTonic)/7 \(loc.t("modes_count"))")
                                 .font(.caption.bold().monospacedDigit())
+                                .lineLimit(1)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 3)
                                 .background(Color(uiColor: .systemBackground).opacity(0.2))
                                 .clipShape(Capsule())
                             Image(systemName: "arrow.right")
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, isLandscape ? 14 : 20)
+                        .padding(.vertical, isLandscape ? 7 : 12)
                         .background(Color.primary)
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .cornerRadius(20)
@@ -1428,8 +1495,8 @@ public struct PracticeView: View {
                 }
             }
         }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 12)
+        .padding(.horizontal, isLandscape ? 12 : 24)
+        .padding(.vertical, isLandscape ? 5 : 12)
         .background(Color(uiColor: .secondarySystemBackground))
     }
 

@@ -1,0 +1,101 @@
+%abc-2.1
+% Tónica 10_la_bemol: La bemol (La♭) — 7 Modos Paralelos bajo el esquema R. 5
+% Reichert Op. 5 Nº 5 — Tresillos con Pedal Modal en 2/4 (M.-A. Reichert Op. 5 (págs. 10–13))
+
+X:1
+T:Modo 1: La♭ Jónico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Ab
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3bd'e'(3g'd'e') ((3bd'e'(3ed'e') | ((3gd'e'(3b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'f'(3a'c'f') ((3gc'e'(3b'c'e') | ((3fc'f'(3a'c'f') ((3dbe'(3b'be') | ((3ec'e'(3a'c'e') ((3ed'e'(3g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:2
+T:Modo 2: La♭ Lidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Re♮ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Ab
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3b=d'e'(3g'd'e') ((3bd'e'(3ed'e') | ((3g=d'e'(3b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'f'(3a'c'f') ((3gc'e'(3b'c'e') | ((3fc'f'(3a'c'f') ((3=dbe'(3b'be') | ((3ec'e'(3a'c'e') ((3e=d'e'(3g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:3
+T:Modo 3: La♭ Mixolidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Sol♭ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Ab
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3bd'e'(3_g'd'e') ((3bd'e'(3ed'e') | ((3_gd'e'(3b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'f'(3a'c'f') ((3_gc'e'(3b'c'e') | ((3fc'f'(3a'c'f') ((3dbe'(3b'be') | ((3ec'e'(3a'c'e') ((3ed'e'(3_g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:4
+T:Modo 4: La♭ Dórico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Fa♮ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Abm
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3bd'e'(3g'd'e') ((3bd'e'(3ed'e') | ((3gd'e'(3b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'=f'(3a'c'f') ((3gc'e'(3b'c'e') | ((3=fc'=f'(3a'c'f') ((3dbe'(3b'be') | ((3ec'e'(3a'c'e') ((3ed'e'(3g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:5
+T:Modo 5: La♭ Eólico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Abm
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3bd'e'(3g'd'e') ((3bd'e'(3ed'e') | ((3gd'e'(3b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'f'(3a'c'f') ((3gc'e'(3b'c'e') | ((3fc'f'(3a'c'f') ((3dbe'(3b'be') | ((3ec'e'(3a'c'e') ((3ed'e'(3g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:6
+T:Modo 6: La♭ Frigio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 6/7 (Menor) | Segunda menor accidental: Si𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Abm
+V:1 clef=treble
+%%score 1
+((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') | ((3__bd'e'(3g'd'e') ((3bd'e'(3ed'e') | ((3gd'e'(3__b'd'e') ((3gd'e'(3ed'e') | ((3ac'e'(3a'c'e') ((3ac'e'(3ec'e') |
+((3ac'f'(3a'c'f') ((3gc'e'(3__b'c'e') | ((3fc'f'(3a'c'f') ((3d__be'(3__b'be') | ((3ec'e'(3a'c'e') ((3ed'e'(3g'd'e') | ((3ac'e'(3a'c'e') .a2 z2 |]
+
+X:7
+T:Modo 7: La♭ Lócrio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 7/7 (Menor) | Segunda menor: Si𝄫 y Quinta disminuida: Mi𝄫 | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:Abm
+V:1 clef=treble
+%%score 1
+((3ac'__e'(3a'c'e') ((3ac'e'(3__ec'e') | ((3__bd'__e'(3g'd'e') ((3bd'e'(3__ed'e') | ((3gd'__e'(3__b'd'e') ((3gd'e'(3__ed'e') | ((3ac'__e'(3a'c'e') ((3ac'e'(3__ec'e') |
+((3ac'f'(3a'c'f') ((3gc'__e'(3__b'c'e') | ((3fc'f'(3a'c'f') ((3d__b__e'(3__b'be') | ((3__ec'__e'(3a'c'e') ((3ed'e'(3g'd'e') | ((3ac'__e'(3a'c'e') .a2 z2 |]

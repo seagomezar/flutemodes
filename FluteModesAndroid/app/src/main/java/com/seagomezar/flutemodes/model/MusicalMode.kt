@@ -32,6 +32,19 @@ enum class ModeType(
         }
     }
 
+    fun getShortName(loc: LocalizationManager): String {
+        val isEn = loc.currentLanguage == AppLanguage.ENGLISH
+        return when (this) {
+            IONIAN -> if (isEn) "Ionian" else "Jónico"
+            LYDIAN -> if (isEn) "Lydian" else "Lidio"
+            MIXOLYDIAN -> if (isEn) "Mixolydian" else "Mixolidio"
+            DORIAN -> if (isEn) "Dorian" else "Dórico"
+            AEOLIAN -> if (isEn) "Aeolian" else "Eólico"
+            PHRYGIAN -> if (isEn) "Phrygian" else "Frigio"
+            LOCRIAN -> if (isEn) "Locrian" else "Lócrio"
+        }
+    }
+
     fun accidentalBadge(loc: LocalizationManager): String {
         return when (this) {
             IONIAN -> loc.t("acc_ionian")

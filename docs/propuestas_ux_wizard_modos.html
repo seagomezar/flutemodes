@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FluteModes v2.0 · Investigación de Usabilidad (Stitch) — 4 Opciones de Dashboard, Wizard y Modos</title>
+  <script src="abcjs-basic-min.js"></script>
+  <script src="modes_variations_data.js"></script>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --surface: #f7f3e9;
+      --ink: #1c1a17;
+      --ink-muted: #5c5346;
+      --gold: #8c6d1f;
+      --gold-bright: #d4af37;
+      --border: #ddd6c6;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    header.top-nav {
+      background: #181410;
+      color: #fdfbf7;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 2px solid var(--gold-bright);
+      position: sticky;
+      top: 0;
+      z-index: 60;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      background: var(--gold-bright);
+      color: #181410;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .brand h1 {
+      font-family: Georgia, serif;
+      font-size: 1.22rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-links a, .nav-links button {
+      color: #fdfbf7;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+    }
+    .nav-links a:hover, .nav-links a.active, .nav-links button.cta-wiz {
+      background: var(--gold-bright);
+      color: #181410;
+      border-color: var(--gold-bright);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 24px 70px;
+    }
+
+    /* Usability Research Findings Section */
+    .research-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(28, 26, 23, 0.04);
+    }
+    .research-box h2 {
+      font-family: Georgia, serif;
+      margin: 0 0 8px 0;
+      font-size: 1.45rem;
+    }
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .finding-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .finding-card h4 {
+      margin: 0 0 6px 0;
+      font-size: 0.95rem;
+      color: var(--gold);
+    }
+    .finding-card p {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--ink-muted);
+    }
+
+    /* 4 Options Comparison Cards */
+    .options-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .opt-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.16s ease;
+      cursor: pointer;
+    }
+    .opt-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(28, 26, 23, 0.09);
+    }
+    .opt-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35);
+    }
+    .opt-thumb-wrap {
+      position: relative;
+      height: 210px;
+      background: #181410;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .opt-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.3s ease;
+    }
+    .opt-card:hover .opt-thumb-wrap img {
+      transform: scale(1.03);
+    }
+    .opt-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(24, 20, 16, 0.86);
+      color: var(--gold-bright);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+    }
+    .opt-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .opt-body h3 {
+      font-family: Georgia, serif;
+      font-size: 1.12rem;
+      margin: 0 0 6px 0;
+    }
+    .opt-body p {
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+      margin: 0 0 10px 0;
+    }
+    .opt-specs {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+      font-size: 0.8rem;
+    }
+    .opt-specs li {
+      margin-bottom: 4px;
+    }
+    .opt-btn {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.83rem;
+      cursor: pointer;
+    }
+    .opt-card.selected .opt-btn {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* Interactive Prototype Simulator */
+    .simulator-shell {
+      border-radius: 18px;
+      padding: 24px;
+      border: 2px solid var(--border);
+      transition: all 0.25s ease;
+      margin-bottom: 32px;
+    }
+    /* Theme classes for the 4 Options */
+    .simulator-shell.theme-opt1 {
+      background: #fdfbf7;
+      color: #1c1a17;
+      border-color: #d4af37;
+      --sim-card: #f7f3e9;
+      --sim-accent: #8c6d1f;
+      --sim-accent-fg: #ffffff;
+      --sim-border: #ddd6c6;
+      --sim-muted: #5c5346;
+    }
+    .simulator-shell.theme-opt2 {
+      background: #0f141c;
+      color: #dee2ee;
+      border-color: #e5c158;
+      --sim-card: #1b2028;
+      --sim-accent: #e5c158;
+      --sim-accent-fg: #181410;
+      --sim-border: #30353e;
+      --sim-muted: #a6adbb;
+    }
+    .simulator-shell.theme-opt3 {
+      background: #f6f5f0;
+      color: #1b1c19;
+      border-color: #1e3a8a;
+      --sim-card: #ffffff;
+      --sim-accent: #1e3a8a;
+      --sim-accent-fg: #ffffff;
+      --sim-border: #c5c5d3;
+      --sim-muted: #444651;
+    }
+    .simulator-shell.theme-opt4 {
+      background: #f8fafc;
+      color: #191c1e;
+      border-color: #0d9488;
+      --sim-card: #ffffff;
+      --sim-accent: #0d9488;
+      --sim-accent-fg: #ffffff;
+      --sim-border: #cbd5e1;
+      --sim-muted: #475569;
+    }
+
+    .sim-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--sim-border);
+      margin-bottom: 20px;
+    }
+    .sim-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .sim-layout { grid-template-columns: 1fr; }
+    }
+    .sim-panel {
+      background: var(--sim-card);
+      border: 1px solid var(--sim-border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .sim-panel h3 {
+      margin: 0 0 10px 0;
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+    }
+    .sim-cta-btn {
+      background: var(--sim-accent);
+      color: var(--sim-accent-fg);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+    .sim-routine-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .sim-mini-card {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--sim-border);
+      background: rgba(128, 128, 128, 0.06);
+      cursor: pointer;
+    }
+    .sim-mini-card:hover {
+      border-color: var(--sim-accent);
+    }
+    .sim-chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .sim-chip {
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--sim-border);
+      background: transparent;
+      color: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .sim-chip.active {
+      background: var(--sim-accent);
+      color: var(--sim-accent-fg);
+      border-color: var(--sim-accent);
+    }
+    #sim-score-paper {
+      background: #ffffff;
+      color: #1c1a17;
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 190px;
+      overflow-x: auto;
+    }
+
+    /* Native Dialog for the 3-Step Practice Wizard (modern-web-guidance: closedby="any") */
+    dialog#practice-wizard-dialog {
+      max-width: 680px;
+      width: 92vw;
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      overscroll-behavior: contain;
+    }
+    dialog#practice-wizard-dialog:modal {
+      overscroll-behavior: contain;
+    }
+    dialog#practice-wizard-dialog::backdrop {
+      background: rgba(15, 20, 28, 0.65);
+      backdrop-filter: blur(3px);
+      overflow: hidden;
+      overscroll-behavior: contain;
+    }
+    .wiz-head {
+      background: #181410;
+      color: #fdfbf7;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--gold-bright);
+    }
+    .wiz-head h3 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: 1.2rem;
+    }
+    .wiz-body {
+      padding: 20px 24px;
+    }
+    .wiz-step {
+      margin-bottom: 16px;
+    }
+    .wiz-step-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .wiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+    }
+    .wiz-opt-btn {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.83rem;
+      font-weight: 600;
+    }
+    .wiz-opt-btn.active {
+      border-color: var(--gold);
+      background: #fef3c7;
+      color: #78350f;
+    }
+    .wiz-result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+    .wiz-foot {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <div class="brand">
+      <span class="brand-badge">Stitch Research · Project 14323574806802443450</span>
+      <h1>Investigación de Usabilidad: 4 Opciones de Dashboard, Wizard y Modos (Taffanel + Reichert)</h1>
+    </div>
+    <nav class="nav-links">
+      <button type="button" class="cta-wiz" id="open-wizard-top">✨ Probar Wizard de Práctica (3 Pasos)</button>
+      <a href="modos_variaciones.html">🎼 Validar las 840 Partituras de Modos</a>
+      <a href="index.html">🏛️ Portal Principal</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hallazgos de la investigación de usabilidad -->
+    <section class="research-box">
+      <h2>1. Diagnóstico de Usabilidad de la Pantalla Inicial Actual y Solución Propuesta</h2>
+      <p style="margin:0; font-size:0.92rem; color:var(--ink-muted);">
+        Al analizar la pantalla inicial actual de <code>FluteModes</code> (`HomeView.swift`) junto con el feedback de usuarios reales,
+        identificamos tres cuellos de botella cognitivos y funcionales que resuelven las 4 opciones diseñadas en <strong>Stitch</strong>:
+      </p>
+      <div class="findings-grid">
+        <div class="finding-card">
+          <h4>⚠️ Problema 1: Sobrecarga de Elección (Ley de Hick)</h4>
+          <p>
+            La pantalla actual muestra 12 botones de ejercicios al mismo nivel jerárquico (84 Modos, E.J. 1, 2, 4, 5, 10, 11, R. 1, 2, 4, 5)
+            más selectores de tónica y modo. El estudiante abre la app y no sabe por dónde empezar ni cómo armar su sesión diaria.
+          </p>
+        </div>
+        <div class="finding-card">
+          <h4>✨ Solución: Practice Wizard Guiado (3 Pasos)</h4>
+          <p>
+            Un asistente interactivo que pregunta <strong>1) Tiempo disponible (15/30/45 min)</strong>,
+            <strong>2) Meta técnica del día (Sonido/Escalas, Arpegios, Modos o Velocidad)</strong> y
+            <strong>3) Tónica del Día</strong>, generando una rutina de 3 bloques lista para tocar con un solo toque.
+          </p>
+        </div>
+        <div class="finding-card">
+          <h4>🎼 Solución: Pantalla de Modos 84 × 10 Esquemas</h4>
+          <p>
+            En lugar de limitar los 84 Modos Paralelos al esquema <strong>E.J. 4</strong>, la nueva pantalla de Modos integra un
+            selector de esquema técnico para tocar cualquier modo bajo <strong>Taffanel (E.J. 1, 2, 4, 5, 10, 11)</strong> y
+            <strong>Reichert (R. 1, 2, 4, 5)</strong> = <strong>840 ejercicios modales</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Las 4 Opciones generadas en Stitch -->
+    <h2 style="font-family:Georgia,serif; margin:0 0 12px 0;">2. Comparativa de las 4 Opciones de Diseño (Haz clic en cualquiera para probarla en vivo abajo)</h2>
+    <section class="options-overview-grid" id="options-cards-container">
+      <!-- Option 1 -->
+      <article class="opt-card selected" data-opt="opt1">
+        <div class="opt-thumb-wrap">
+          <span class="opt-tag">Opción 1 (Recomendada) · Urtext Parchment</span>
+          <img src="stitch_options/option1_conservatory_coach.png" alt="Opción 1 Conservatory Guided Coach" />
+        </div>
+        <div class="opt-body">
+          <div>
+            <h3>Opción 1: Conservatory Guided Coach</h3>
+            <p>Estética Urtext en pergamino cálido (<code>#FDFBF7</code>) y oro antiguo (<code>#D4AF37</code>). Mantiene la identidad clásica de Henle/Leduc pero simplifica el inicio.</p>
+            <ul class="opt-specs">
+              <li>✅ <strong>Dashboard:</strong> Tarjeta Hero <em>«¿Qué practicar hoy?»</em> + botón de 1 toque para continuar la última sesión y 3 tarjetas de foco.</li>
+              <li>✅ <strong>Wizard:</strong> Modal limpio de 3 pasos con generador de rutina de 3 bloques (Calentamiento + Modos + Arpegios).</li>
+              <li>✅ <strong>Pantalla de Modos:</strong> Selector de 12 tónicas + 7 modos + barra doble de chips para Taffanel (1, 2, 4, 5, 10, 11) y Reichert (1, 2, 4, 5).</li>
+            </ul>
+          </div>
+          <button type="button" class="opt-btn">Probar Opción 1 en el Simulador ↓</button>
+        </div>
+      </article>
+
+      <!-- Option 2 -->
+      <article class="opt-card" data-opt="opt2">
+        <div class="opt-thumb-wrap">
+          <span class="opt-tag">Opción 2 · OLED Concert Hall (Dark)</span>
+          <img src="stitch_options/option2_dark_stage_studio.png" alt="Opción 2 Dark Stage Focus Studio" />
+        </div>
+        <div class="opt-body">
+          <div>
+            <h3>Opción 2: Dark Stage Focus Studio</h3>
+            <p>Estética nocturna de atril de concierto en obsidiana (<code>#0F141C</code>) y oro champán (<code>#E5C158</code>) para eliminar fatiga visual en estudio prolongado.</p>
+            <ul class="opt-specs">
+              <li>✅ <strong>Dashboard:</strong> 3 tarjetas de rutina directa por tiempo (<em>15m Express, 30m Conservatorio, 45m Maestría</em>).</li>
+              <li>✅ <strong>Wizard:</strong> Asistente diagnóstico integrado en bandeja desplegable (Inline Drawer) sin cambiar de pantalla.</li>
+              <li>✅ <strong>Pantalla de Modos:</strong> Conmutador segmentado <code>[Taffanel 1·2·4·5·10·11]</code> vs <code>[Reichert 1·2·4·5]</code> con partitura de alto contraste.</li>
+            </ul>
+          </div>
+          <button type="button" class="opt-btn">Probar Opción 2 en el Simulador ↓</button>
+        </div>
+      </article>
+
+      <!-- Option 3 -->
+      <article class="opt-card" data-opt="opt3">
+        <div class="opt-thumb-wrap">
+          <span class="opt-tag">Opción 3 · Split-Workbench &amp; Matriz 2D</span>
+          <img src="stitch_options/option3_editorial_workbench.png" alt="Opción 3 Editorial Split-Workbench" />
+        </div>
+        <div class="opt-body">
+          <div>
+            <h3>Opción 3: Editorial Split-Workbench</h3>
+            <p>Banco de trabajo de doble panel en crema editorial (<code>#F6F5F0</code>) e índigo real (<code>#1E3A8A</code>), ideal para iPad/Tablet horizontal y Desktop.</p>
+            <ul class="opt-specs">
+              <li>✅ <strong>Dashboard:</strong> Barra lateral con Rueda Cromática de 12 Tónicas y diagnóstico rápido de técnica diaria.</li>
+              <li>✅ <strong>Wizard:</strong> Diagnóstico técnico (<em>¿Qué sientes hoy en tu embocadura y mecanismo?</em>) con prescripción algorítmica.</li>
+              <li>✅ <strong>Pantalla de Modos:</strong> Matriz bidimensional interactiva <strong>7 Modos × 10 Esquemas</strong> siempre visible junto al pentagrama.</li>
+            </ul>
+          </div>
+          <button type="button" class="opt-btn">Probar Opción 3 en el Simulador ↓</button>
+        </div>
+      </article>
+
+      <!-- Option 4 -->
+      <article class="opt-card" data-opt="opt4">
+        <div class="opt-thumb-wrap">
+          <span class="opt-tag">Opción 4 · Mastery Rings &amp; 4 Pestañas</span>
+          <img src="stitch_options/option4_nordic_mastery_rings.png" alt="Opción 4 Progressive Mastery Rings" />
+        </div>
+        <div class="opt-body">
+          <div>
+            <h3>Opción 4: Mastery Rings &amp; 4-Tab Nav</h3>
+            <p>Arquitectura moderna nórdica en alabastro (<code>#F8FAFC</code>), esmeralda (<code>#0D9488</code>) y ámbar (<code>#D97706</code>) con barra inferior de 4 pestañas.</p>
+            <ul class="opt-specs">
+              <li>✅ <strong>Dashboard:</strong> 3 Anillos de Dominio Diario (<em>Escalas, Arpegios, Modos</em>) y separación en 4 pestañas (<code>Hoy | Wizard | Modos | Método</code>).</li>
+              <li>✅ <strong>Wizard:</strong> Flujo conversacional tipo tarjetas con seguimiento de racha y cobertura de las 12 tónicas.</li>
+              <li>✅ <strong>Pantalla de Modos:</strong> Tarjetas agrupadas por compás (<code>4/2</code>, <code>6/8</code>, <code>9/8</code>, <code>2/4</code>, <code>4/4</code>) con insignias de conteo de notas.</li>
+            </ul>
+          </div>
+          <button type="button" class="opt-btn">Probar Opción 4 en el Simulador ↓</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Simulador Interactivo en Vivo de la Opción Seleccionada -->
+    <section class="simulator-shell theme-opt1" id="live-simulator">
+      <div class="sim-header">
+        <div>
+          <span style="font-size:0.76rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em;" id="sim-badge">
+            Simulador Interactivo en Vivo · Opción 1 Seleccionada
+          </span>
+          <h2 style="margin:4px 0 0 0; font-family:Georgia,serif;" id="sim-title">
+            Opción 1: Conservatory Guided Coach (Urtext Parchment &amp; Gold)
+          </h2>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="sim-cta-btn" id="sim-open-wizard">✨ Abrir Practice Wizard (3 Pasos)</button>
+          <a href="modos_variaciones.html" class="sim-cta-btn" style="text-decoration:none; opacity:0.9;">🎼 Ir al Visor de 840 Modos →</a>
+        </div>
+      </div>
+
+      <div class="sim-layout">
+        <!-- Columna Izquierda: Dashboard + Rutina Sugerida -->
+        <div class="sim-panel">
+          <h3 id="sim-dash-heading">Dashboard Inicial Simplificado: ¿Qué practicar hoy?</h3>
+          <p style="font-size:0.86rem; color:var(--sim-muted); margin:0 0 12px 0;" id="sim-dash-sub">
+            En lugar de 12 botones compitiendo por atención, el Dashboard ofrece continuidad inmediata o una rutina guiada según tu tiempo:
+          </p>
+
+          <div class="sim-routine-cards">
+            <div class="sim-mini-card" data-preset="express">
+              <strong>⏱️ 15 min · Express</strong>
+              <div style="font-size:0.78rem; color:var(--sim-muted); margin-top:4px;">
+                Pentacordios E.J. 1 + Modo del día en R. 1 (6/8)
+              </div>
+            </div>
+            <div class="sim-mini-card" data-preset="conservatorio">
+              <strong>🏛️ 30 min · Conservatorio</strong>
+              <div style="font-size:0.78rem; color:var(--sim-muted); margin-top:4px;">
+                Escala Modal E.J. 4 + Arpegio Modal E.J. 10 + Reichert Nº 2
+              </div>
+            </div>
+            <div class="sim-mini-card" data-preset="maestria">
+              <strong>👑 45 min · Maestría</strong>
+              <div style="font-size:0.78rem; color:var(--sim-muted); margin-top:4px;">
+                Ciclo Completo: E.J. 2, E.J. 5, E.J. 11 y Reichert Nº 5 (Tresillos)
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--sim-border);">
+            <div style="font-size:0.8rem; font-weight:700; margin-bottom:8px;">
+              📋 Rutina Activa Generada por el Wizard (<span id="active-routine-label">30 min · Conservatorio en Re Dórico</span>):
+            </div>
+            <div id="sim-routine-steps" style="display:grid; gap:8px;"></div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Nueva Pantalla de Modos con los 10 Esquemas -->
+        <div class="sim-panel">
+          <h3>Nueva Pantalla de Modos: 84 Modos × 10 Esquemas (Taffanel + Reichert)</h3>
+          <div style="font-size:0.78rem; color:var(--sim-muted); margin-bottom:6px;">Tónica Cromática:</div>
+          <div class="sim-chip-bar" id="sim-tonic-bar"></div>
+
+          <div style="font-size:0.78rem; color:var(--sim-muted); margin-bottom:6px;">Modo Paralelo (7 Modos):</div>
+          <div class="sim-chip-bar" id="sim-mode-bar"></div>
+
+          <div style="font-size:0.78rem; color:var(--sim-muted); margin-bottom:6px;">
+            Esquema Técnico — <strong>Taffanel (1, 2, 4, 5, 10, 11)</strong> y <strong>Reichert (1, 2, 4, 5)</strong>:
+          </div>
+          <div class="sim-chip-bar" id="sim-scheme-bar"></div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0;">
+            <strong id="sim-score-label" style="font-size:0.92rem;">Re Dórico — E.J. 10 (Arpegios 6/8)</strong>
+            <button type="button" class="sim-cta-btn" id="sim-play-btn" style="padding:6px 14px; font-size:0.8rem;">▶ Escuchar</button>
+          </div>
+
+          <div id="sim-score-paper"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Diálogo Nativo del Practice Wizard con closedby="any" (modern-web-guidance: platform-controls-dismiss-dialog) -->
+  <dialog id="practice-wizard-dialog" closedby="any" aria-labelledby="practice-wizard-title">
+    <div class="wiz-head">
+      <h3 id="practice-wizard-title">✨ Asistente de Práctica Guiada (Practice Wizard · 3 Pasos)</h3>
+      <button type="button" id="wiz-close-btn" style="background:transparent; border:1px solid #d4af37; color:#fdfbf7; border-radius:999px; padding:4px 12px; cursor:pointer;">✕ Cerrar</button>
+    </div>
+    <div class="wiz-body">
+      <div class="wiz-step">
+        <div class="wiz-step-label">Paso 1 · ¿Cuánto tiempo tienes para practicar hoy?</div>
+        <div class="wiz-options" id="wiz-time-opts">
+          <button type="button" class="wiz-opt-btn" data-time="15">⏱️ 15 min<br/><small>Mantenimiento Express</small></button>
+          <button type="button" class="wiz-opt-btn active" data-time="30">🏛️ 30 min<br/><small>Sesión Conservatorio</small></button>
+          <button type="button" class="wiz-opt-btn" data-time="45">👑 45 min<br/><small>Dominio Integral</small></button>
+        </div>
+      </div>
+
+      <div class="wiz-step">
+        <div class="wiz-step-label">Paso 2 · ¿Qué aspecto técnico quieres priorizar?</div>
+        <div class="wiz-options" id="wiz-focus-opts">
+          <button type="button" class="wiz-opt-btn" data-focus="escalas">🎵 Igualdad Digital<br/><small>E.J. 1, E.J. 2, E.J. 4, E.J. 5</small></button>
+          <button type="button" class="wiz-opt-btn active" data-focus="arpegios">🎶 Flexibilidad y Arpegios<br/><small>E.J. 10, E.J. 11, R. 2, R. 4</small></button>
+          <button type="button" class="wiz-opt-btn" data-focus="reichert">⚡ Agilidad y Saltos<br/><small>Reichert R. 1, R. 2, R. 4, R. 5</small></button>
+        </div>
+      </div>
+
+      <div class="wiz-step">
+        <div class="wiz-step-label">Paso 3 · Tónica y Modo Principal de la Sesión</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <select id="wiz-tonic-select" style="padding:8px 12px; border-radius:8px; border:1px solid var(--border); font-weight:600;"></select>
+          <select id="wiz-mode-select" style="padding:8px 12px; border-radius:8px; border:1px solid var(--border); font-weight:600;"></select>
+        </div>
+      </div>
+
+      <div class="wiz-result-box" id="wiz-preview-box"></div>
+    </div>
+    <div class="wiz-foot">
+      <span style="font-size:0.78rem; color:var(--ink-muted);">Puedes cerrar este diálogo con ESC o clic fuera (<code>closedby="any"</code>)</span>
+      <button type="button" class="sim-cta-btn" id="wiz-apply-btn" style="background:var(--gold); color:#fff;">Aplicar Rutina y Empezar a Tocar →</button>
+    </div>
+  </dialog>
+
+  <script>
+    (function() {
+      const DATA = window.MODES_VARIATIONS_DATA;
+      if (!DATA) return;
+
+      const OPT_META = {
+        opt1: {
+          theme: "theme-opt1",
+          badge: "Simulador Interactivo en Vivo · Opción 1 Seleccionada (Recomendada)",
+          title: "Opción 1: Conservatory Guided Coach (Urtext Parchment & Gold)",
+          dashHeading: "Dashboard Inicial: Hero Coach «¿Qué practicar hoy?» + Continuar Sesión",
+        },
+        opt2: {
+          theme: "theme-opt2",
+          badge: "Simulador Interactivo en Vivo · Opción 2 Seleccionada (Dark Stage)",
+          title: "Opción 2: Dark Stage Focus Studio (OLED Concert Hall #0F141C)",
+          dashHeading: "Dashboard Nocturno de Atril: 3 Rutinas por Tiempo + Wizard Inline",
+        },
+        opt3: {
+          theme: "theme-opt3",
+          badge: "Simulador Interactivo en Vivo · Opción 3 Seleccionada (Split-Workbench)",
+          title: "Opción 3: Editorial Split-Workbench & Matriz Modal 7×10",
+          dashHeading: "Panel Izquierdo de Trabajo: Rueda Cromática + Diagnóstico Técnico",
+        },
+        opt4: {
+          theme: "theme-opt4",
+          badge: "Simulador Interactivo en Vivo · Opción 4 Seleccionada (4-Tab & Rings)",
+          title: "Opción 4: Progressive Mastery Rings & Arquitectura de 4 Pestañas",
+          dashHeading: "Pestaña «Hoy»: 3 Anillos de Dominio Diario + Asistente Conversacional",
+        }
+      };
+
+      let simState = {
+        opt: "opt1",
+        tonicId: "04_re",
+        modeNum: 4, // Dórico
+        schemeId: "ej10",
+        wizTime: "30",
+        wizFocus: "arpegios",
+        routineBlocks: [
+          { schemeId: "ej1", label: "Bloque 1 (Calentamiento · 8 min): Pentacordios Modales E.J. 1" },
+          { schemeId: "ej10", label: "Bloque 2 (Núcleo · 12 min): Arpegios Modales Diatónicos E.J. 10 en 6/8" },
+          { schemeId: "r2", label: "Bloque 3 (Agilidad · 10 min): Reichert Op. 5 Nº 2 en 2/4" },
+        ]
+      };
+
+      let audioCtx = null;
+      let simTimers = [];
+
+      function stopSimAudio() {
+        simTimers.forEach(t => clearTimeout(t));
+        simTimers = [];
+        document.getElementById("sim-play-btn").textContent = "▶ Escuchar";
+      }
+
+      function playSimScore() {
+        if (simTimers.length > 0) {
+          stopSimAudio();
+          return;
+        }
+        const ex = DATA.exercises[`${simState.schemeId}__${simState.tonicId}__${simState.modeNum}`];
+        if (!ex) return;
+        if (!audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AC();
+        }
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        document.getElementById("sim-play-btn").textContent = "⏹ Detener";
+        const noteDur = 0.16;
+        const t0 = audioCtx.currentTime + 0.05;
+        ex.frequencies.slice(0, 48).forEach((f, i) => {
+          const osc = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(f, t0 + i * noteDur);
+          g.gain.setValueAtTime(0.001, t0 + i * noteDur);
+          g.gain.linearRampToValueAtTime(0.2, t0 + i * noteDur + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.001, t0 + (i + 0.9) * noteDur);
+          osc.connect(g);
+          g.connect(audioCtx.destination);
+          osc.start(t0 + i * noteDur);
+          osc.stop(t0 + (i + 0.95) * noteDur);
+        });
+        simTimers.push(setTimeout(() => stopSimAudio(), Math.min(48, ex.frequencies.length) * noteDur * 1000 + 200));
+      }
+
+      function buildRoutineBlocks(time, focus) {
+        if (focus === "escalas") {
+          return [
+            { schemeId: "ej1", label: `Bloque 1 (${time === "15" ? "5" : "10"} min): Pentacordios por Grados E.J. 1` },
+            { schemeId: "ej4", label: `Bloque 2 (${time === "15" ? "5" : "10"} min): Escalas Modales por Terceras E.J. 4` },
+            { schemeId: "ej5", label: `Bloque 3 (${time === "15" ? "5" : "10"} min): Escala Continua en 6/8 E.J. 5` },
+          ];
+        } else if (focus === "reichert") {
+          return [
+            { schemeId: "r1", label: `Bloque 1 (${time === "15" ? "5" : "10"} min): Reichert Op. 5 Nº 1 en 6/8` },
+            { schemeId: "r4", label: `Bloque 2 (${time === "15" ? "5" : "10"} min): Reichert Op. 5 Nº 4 (Bordaduras Modales)` },
+            { schemeId: "r5", label: `Bloque 3 (${time === "15" ? "5" : "10"} min): Reichert Op. 5 Nº 5 (Tresillos con Pedal)` },
+          ];
+        }
+        return [
+          { schemeId: "ej2", label: `Bloque 1 (${time === "15" ? "5" : "10"} min): Pentacordios con Giro E.J. 2` },
+          { schemeId: "ej10", label: `Bloque 2 (${time === "15" ? "5" : "10"} min): Arpegios Modales en 6/8 E.J. 10` },
+          { schemeId: "ej11", label: `Bloque 3 (${time === "15" ? "5" : "10"} min): Arpegios Quebrados en 9/8 E.J. 11` },
+        ];
+      }
+
+      function renderSimulator() {
+        const meta = OPT_META[simState.opt];
+        const shell = document.getElementById("live-simulator");
+        shell.className = `simulator-shell ${meta.theme}`;
+        document.getElementById("sim-badge").textContent = meta.badge;
+        document.getElementById("sim-title").textContent = meta.title;
+        document.getElementById("sim-dash-heading").textContent = meta.dashHeading;
+
+        // Render routine blocks
+        const stepsContainer = document.getElementById("sim-routine-steps");
+        stepsContainer.innerHTML = "";
+        simState.routineBlocks.forEach(b => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "sim-mini-card";
+          btn.style.textAlign = "left";
+          btn.style.color = "inherit";
+          btn.style.borderColor = (b.schemeId === simState.schemeId) ? "var(--sim-accent)" : "var(--sim-border)";
+          btn.innerHTML = `<strong>${b.label}</strong> <span style="float:right; font-size:0.78rem;">Cargar →</span>`;
+          btn.onclick = () => {
+            stopSimAudio();
+            simState.schemeId = b.schemeId;
+            renderSimulator();
+          };
+          stepsContainer.appendChild(btn);
+        });
+
+        // Render tonic chips
+        const tBar = document.getElementById("sim-tonic-bar");
+        tBar.innerHTML = "";
+        DATA.tonics.forEach(t => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "sim-chip" + (t.id === simState.tonicId ? " active" : "");
+          b.textContent = t.display;
+          b.onclick = () => { stopSimAudio(); simState.tonicId = t.id; renderSimulator(); };
+          tBar.appendChild(b);
+        });
+
+        // Render mode chips
+        const mBar = document.getElementById("sim-mode-bar");
+        mBar.innerHTML = "";
+        DATA.modes.forEach(m => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "sim-chip" + (m.num === simState.modeNum ? " active" : "");
+          b.textContent = `${m.num}. ${m.name}`;
+          b.onclick = () => { stopSimAudio(); simState.modeNum = m.num; renderSimulator(); };
+          mBar.appendChild(b);
+        });
+
+        // Render scheme chips (all 10: Taffanel 1,2,4,5,10,11 + Reichert 1,2,4,5)
+        const sBar = document.getElementById("sim-scheme-bar");
+        sBar.innerHTML = "";
+        DATA.schemes.forEach(s => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "sim-chip" + (s.id === simState.schemeId ? " active" : "");
+          b.textContent = `${s.code} (${s.meter})`;
+          b.onclick = () => { stopSimAudio(); simState.schemeId = s.id; renderSimulator(); };
+          sBar.appendChild(b);
+        });
+
+        const ex = DATA.exercises[`${simState.schemeId}__${simState.tonicId}__${simState.modeNum}`];
+        const scheme = DATA.schemes.find(s => s.id === simState.schemeId);
+        if (ex && scheme) {
+          document.getElementById("sim-score-label").textContent =
+            `${ex.tonicDisplay} ${ex.modeName} — ${scheme.title} (${ex.totalNotes} notas)`;
+          document.getElementById("active-routine-label").textContent =
+            `${simState.wizTime} min · ${ex.tonicDisplay} ${ex.modeName}`;
+          if (window.ABCJS) {
+            ABCJS.renderAbc("sim-score-paper", ex.abc, {
+              responsive: "resize",
+              staffwidth: 680,
+              scale: 0.82,
+            });
+          }
+        }
+      }
+
+      // Option card selection
+      document.querySelectorAll(".opt-card").forEach(card => {
+        card.addEventListener("click", () => {
+          document.querySelectorAll(".opt-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          simState.opt = card.getAttribute("data-opt");
+          renderSimulator();
+          document.getElementById("live-simulator").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+
+      // Preset routine cards in simulator
+      document.querySelectorAll("[data-preset]").forEach(card => {
+        card.addEventListener("click", () => {
+          const p = card.getAttribute("data-preset");
+          if (p === "express") {
+            simState.wizTime = "15";
+            simState.wizFocus = "escalas";
+          } else if (p === "conservatorio") {
+            simState.wizTime = "30";
+            simState.wizFocus = "arpegios";
+          } else {
+            simState.wizTime = "45";
+            simState.wizFocus = "reichert";
+          }
+          simState.routineBlocks = buildRoutineBlocks(simState.wizTime, simState.wizFocus);
+          simState.schemeId = simState.routineBlocks[0].schemeId;
+          renderSimulator();
+        });
+      });
+
+      document.getElementById("sim-play-btn").addEventListener("click", playSimScore);
+
+      // Setup Practice Wizard Dialog
+      const dialog = document.getElementById("practice-wizard-dialog");
+      const wizTonicSel = document.getElementById("wiz-tonic-select");
+      const wizModeSel = document.getElementById("wiz-mode-select");
+
+      DATA.tonics.forEach(t => {
+        const o = document.createElement("option");
+        o.value = t.id;
+        o.textContent = `Tónica: ${t.name}`;
+        if (t.id === simState.tonicId) o.selected = true;
+        wizTonicSel.appendChild(o);
+      });
+      DATA.modes.forEach(m => {
+        const o = document.createElement("option");
+        o.value = m.num;
+        o.textContent = `Modo ${m.num}: ${m.name} (${m.family})`;
+        if (m.num === simState.modeNum) o.selected = true;
+        wizModeSel.appendChild(o);
+      });
+
+      function updateWizardPreview() {
+        const blocks = buildRoutineBlocks(simState.wizTime, simState.wizFocus);
+        const tObj = DATA.tonics.find(t => t.id === wizTonicSel.value) || DATA.tonics[0];
+        const mObj = DATA.modes.find(m => String(m.num) === String(wizModeSel.value)) || DATA.modes[0];
+        document.getElementById("wiz-preview-box").innerHTML = `
+          <strong>🎯 Plan Generado (${simState.wizTime} min) en ${tObj.display} ${mObj.name}:</strong>
+          <ul style="margin:6px 0 0 18px; padding:0; font-size:0.84rem;">
+            ${blocks.map(b => `<li>${b.label}</li>`).join("")}
+          </ul>
+        `;
+      }
+
+      document.querySelectorAll("#wiz-time-opts .wiz-opt-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#wiz-time-opts .wiz-opt-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          simState.wizTime = btn.getAttribute("data-time");
+          updateWizardPreview();
+        });
+      });
+
+      document.querySelectorAll("#wiz-focus-opts .wiz-opt-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#wiz-focus-opts .wiz-opt-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          simState.wizFocus = btn.getAttribute("data-focus");
+          updateWizardPreview();
+        });
+      });
+
+      wizTonicSel.addEventListener("change", updateWizardPreview);
+      wizModeSel.addEventListener("change", updateWizardPreview);
+
+      function openWizard() {
+        updateWizardPreview();
+        if (typeof dialog.showModal === "function") dialog.showModal();
+        else dialog.setAttribute("open", "open");
+      }
+
+      document.getElementById("open-wizard-top").addEventListener("click", openWizard);
+      document.getElementById("sim-open-wizard").addEventListener("click", openWizard);
+      document.getElementById("wiz-close-btn").addEventListener("click", () => dialog.close());
+      if (dialog && !("closedBy" in HTMLDialogElement.prototype)) {
+        dialog.addEventListener("click", (e) => {
+          if (e.target === dialog) dialog.close();
+        });
+      }
+      document.getElementById("wiz-apply-btn").addEventListener("click", () => {
+        simState.tonicId = wizTonicSel.value;
+        simState.modeNum = parseInt(wizModeSel.value, 10);
+        simState.routineBlocks = buildRoutineBlocks(simState.wizTime, simState.wizFocus);
+        simState.schemeId = simState.routineBlocks[0].schemeId;
+        dialog.close();
+        renderSimulator();
+      });
+
+      renderSimulator();
+    })();
+  </script>
+</body>
+</html>

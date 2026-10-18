@@ -1,0 +1,101 @@
+%abc-2.1
+% Tónica 08_fa_sostenido: Fa sostenido (Fa♯) — 7 Modos Paralelos bajo el esquema R. 5
+% Reichert Op. 5 Nº 5 — Tresillos con Pedal Modal en 2/4 (M.-A. Reichert Op. 5 (págs. 10–13))
+
+X:1
+T:Modo 1: Fa♯ Jónico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 1/7 (Mayor) | Escala mayor base | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3gbc'(3e'bc') ((3gbc'(3cbc') | ((3ebc'(3g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fad'(3f'ad') ((3eac'(3g'ac') | ((3dad'(3f'ad') ((3Bgc'(3g'gc') | ((3cac'(3f'ac') ((3cbc'(3e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:2
+T:Modo 2: Fa♯ Lidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 2/7 (Mayor) | Cuarta aumentada accidental: Si♯ | Fórmula: 1 - 2 - 3 - ♯4 - 5 - 6 - 7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3g^bc'(3e'bc') ((3gbc'(3cbc') | ((3e^bc'(3g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fad'(3f'ad') ((3eac'(3g'ac') | ((3dad'(3f'ad') ((3^Bgc'(3g'gc') | ((3cac'(3f'ac') ((3c^bc'(3e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:3
+T:Modo 3: Fa♯ Mixolidio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 3/7 (Mayor) | Séptima menor accidental: Mi♮ | Fórmula: 1 - 2 - 3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3gbc'(3=e'bc') ((3gbc'(3cbc') | ((3=ebc'(3g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fad'(3f'ad') ((3=eac'(3g'ac') | ((3dad'(3f'ad') ((3Bgc'(3g'gc') | ((3cac'(3f'ac') ((3cbc'(3=e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:4
+T:Modo 4: Fa♯ Dórico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 4/7 (Menor) | Sexta mayor accidental: Re♯ | Fórmula: 1 - 2 - ♭3 - 4 - 5 - 6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#m
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3gbc'(3e'bc') ((3gbc'(3cbc') | ((3ebc'(3g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fa^d'(3f'ad') ((3eac'(3g'ac') | ((3^da^d'(3f'ad') ((3Bgc'(3g'gc') | ((3cac'(3f'ac') ((3cbc'(3e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:5
+T:Modo 5: Fa♯ Eólico (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 5/7 (Menor) | Escala menor natural base | Fórmula: 1 - 2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#m
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3gbc'(3e'bc') ((3gbc'(3cbc') | ((3ebc'(3g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fad'(3f'ad') ((3eac'(3g'ac') | ((3dad'(3f'ad') ((3Bgc'(3g'gc') | ((3cac'(3f'ac') ((3cbc'(3e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:6
+T:Modo 6: Fa♯ Frigio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 6/7 (Menor) | Segunda menor accidental: Sol♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - 5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#m
+V:1 clef=treble
+%%score 1
+((3fac'(3f'ac') ((3fac'(3cac') | ((3=gbc'(3e'bc') ((3gbc'(3cbc') | ((3ebc'(3=g'bc') ((3ebc'(3cbc') | ((3fac'(3f'ac') ((3fac'(3cac') |
+((3fad'(3f'ad') ((3eac'(3=g'ac') | ((3dad'(3f'ad') ((3B=gc'(3=g'gc') | ((3cac'(3f'ac') ((3cbc'(3e'bc') | ((3fac'(3f'ac') .f2 z2 |]
+
+X:7
+T:Modo 7: Fa♯ Lócrio (R. 5)
+C:M. A. Reichert Op. 5 · Adaptación Modal (M.-A. Reichert Op. 5 (págs. 10–13))
+% Modo 7/7 (Menor) | Segunda menor: Sol♮ y Quinta disminuida: Do♮ | Fórmula: 1 - ♭2 - ♭3 - 4 - ♭5 - ♭6 - ♭7
+%%barsperstaff 4
+M:2/4
+L:1/16
+Q:1/4=76
+K:F#m
+V:1 clef=treble
+%%score 1
+((3fa=c'(3f'ac') ((3fac'(3=cac') | ((3=gb=c'(3e'bc') ((3gbc'(3=cbc') | ((3eb=c'(3=g'bc') ((3ebc'(3=cbc') | ((3fa=c'(3f'ac') ((3fac'(3=cac') |
+((3fad'(3f'ad') ((3ea=c'(3=g'ac') | ((3dad'(3f'ad') ((3B=g=c'(3=g'gc') | ((3=ca=c'(3f'ac') ((3cbc'(3e'bc') | ((3fa=c'(3f'ac') .f2 z2 |]

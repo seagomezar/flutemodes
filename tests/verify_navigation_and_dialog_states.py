@@ -370,9 +370,9 @@ def run_verification():
     swift_entries = re.findall(swift_entry_pattern, loc_swift_src)
     swift_keys = {k: (es, en) for k, es, en in swift_entries}
 
-    check(len(kt_keys) == 209, f"Kotlin dictionary has exactly 209 keys (found {len(kt_keys)})")
-    check(len(swift_keys_list) == 209, f"Swift dictionary has exactly 209 keys (found {len(swift_keys_list)})")
-    check(len(swift_keys) == 209, f"Swift dictionary parsed all 209 key-value pairs (found {len(swift_keys)})")
+    check(len(kt_keys) == 226, f"Kotlin dictionary has exactly 226 keys (found {len(kt_keys)})")
+    check(len(swift_keys_list) == 226, f"Swift dictionary has exactly 226 keys (found {len(swift_keys_list)})")
+    check(len(swift_keys) == 226, f"Swift dictionary parsed all 226 key-value pairs (found {len(swift_keys)})")
 
     kt_set = set(kt_keys.keys())
     swift_set = set(swift_keys_list)

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FluteModes · Validación de 840 Variaciones Modales (Taffanel &amp; Gaubert + Reichert Op. 5)</title>
+  <script src="abcjs-basic-min.js"></script>
+  <script src="docs/modes_variations_data.js"></script>
+  <style>
+    :root {
+      --bg: #fdfbf7;
+      --surface: #f7f3e9;
+      --surface-elev: #efe9d9;
+      --ink: #1c1a17;
+      --ink-muted: #5c5346;
+      --gold: #8c6d1f;
+      --gold-bright: #d4af37;
+      --indigo: #1e3a8a;
+      --emerald: #0d9488;
+      --border: #ddd6c6;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header.top-nav {
+      background: #181410;
+      color: #fdfbf7;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 2px solid var(--gold-bright);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      background: var(--gold-bright);
+      color: #181410;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .brand h1 {
+      font-family: Georgia, "EB Garamond", serif;
+      font-size: 1.25rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: #fdfbf7;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      transition: all 0.15s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--gold-bright);
+      color: #181410;
+      border-color: var(--gold-bright);
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 20px 24px 60px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #f7f3e9 0%, #efe7d3 100%);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-banner h2 {
+      font-family: Georgia, serif;
+      margin: 0 0 6px 0;
+      font-size: 1.4rem;
+      color: var(--ink);
+    }
+    .hero-banner p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      max-width: 820px;
+    }
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .stat-pill strong {
+      display: block;
+      font-size: 1.15rem;
+      color: var(--gold);
+    }
+    .stat-pill span {
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .control-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+    .panel-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scheme-groups {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 960px) {
+      .scheme-groups { grid-template-columns: 1fr; }
+    }
+    .scheme-group-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .scheme-group-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    button.chip {
+      appearance: none;
+      border: 1px solid #cfc6b4;
+      background: #fdfbf7;
+      color: var(--ink);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.14s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button.chip:hover {
+      border-color: var(--gold);
+      background: #f5eedc;
+    }
+    button.chip.active {
+      background: var(--gold);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 2px 6px rgba(140, 109, 31, 0.28);
+    }
+    button.chip.reichert.active {
+      background: var(--indigo);
+      border-color: var(--indigo);
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.28);
+    }
+    button.chip small {
+      opacity: 0.82;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .selectors-two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 960px) {
+      .selectors-two-col { grid-template-columns: 1fr; }
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+    .toolbar-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .toolbar-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+    select.std-select {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid #c9bfa9;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .btn-play {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .btn-play:hover { background: #715614; }
+    .btn-stop {
+      background: #9a4228;
+      color: #fff;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { background: var(--surface-elev); }
+
+    .score-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: 0 4px 16px rgba(28, 26, 23, 0.05);
+      margin-bottom: 24px;
+    }
+    .score-meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .score-meta-bar h3 {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      margin: 0 0 4px 0;
+    }
+    .score-meta-bar .pedagogy-note {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      margin: 0;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .meta-badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .meta-badge.highlight {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #78350f;
+    }
+
+    #score-paper {
+      width: 100%;
+      overflow-x: auto;
+      min-height: 220px;
+    }
+    .abcjs-highlight {
+      fill: #d97706 !important;
+      stroke: #d97706 !important;
+    }
+
+    .abc-source-details {
+      margin-top: 14px;
+      border-top: 1px dashed var(--border);
+      padding-top: 10px;
+    }
+    .abc-source-details summary {
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    pre#abc-raw-box {
+      background: #1c1a17;
+      color: #f7f3e9;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    .all-schemes-section {
+      margin-top: 28px;
+    }
+    .all-schemes-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .all-schemes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(410px, 1fr));
+      gap: 16px;
+    }
+    .mini-scheme-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
+    .mini-scheme-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(28, 26, 23, 0.08);
+    }
+    .mini-scheme-card.active-card {
+      border: 2px solid var(--gold);
+      background: #fffdf8;
+    }
+    .mini-scheme-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .mini-scheme-head h4 {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--ink);
+    }
+    .mini-scheme-sub {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+    }
+    .download-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 28px;
+    }
+    .download-strip h3 {
+      margin: 0 0 10px 0;
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+    }
+    .download-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <div class="brand">
+      <span class="brand-badge">FluteModes v2.0</span>
+      <h1>Validación de las 840 Variaciones Modales (Taffanel &amp; Gaubert + Reichert Op. 5)</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="docs/propuestas_ux_wizard_modos.html">🎨 Ver 4 Opciones UX (Dashboard, Wizard y Modos)</a>
+      <a href="docs/modos_variaciones.html" class="active">🎼 Validar 840 Ejercicios de Modos</a>
+      <a href="docs/index.html">🏛️ Portal Principal</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero-banner">
+      <div>
+        <h2>Laboratorio Completo de Modos Paralelos: 12 Tónicas × 7 Modos × 10 Esquemas Técnicos</h2>
+        <p>
+          Antes sólo existía el esquema <strong>E.J. 4</strong> para los 84 modos paralelos. Ahora puedes tocar, visualizar y escuchar
+          cualquiera de los <strong>84 modos paralelos</strong> bajo todos los esquemas de <strong>Taffanel &amp; Gaubert (E.J. 1, 2, 4, 5, 10 y 11)</strong>
+          y <strong>M. A. Reichert Op. 5 (R. 1, 2, 4 y 5)</strong> con sus articulaciones oficiales y tesitura verificada (Si3–Do7).
+        </p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-pill"><strong>840</strong><span>Partituras Modales</span></div>
+        <div class="stat-pill"><strong>10</strong><span>Esquemas T&amp;G + Reichert</span></div>
+        <div class="stat-pill"><strong>12 × 7</strong><span>Tónicas × Modos Paralelos</span></div>
+        <div class="stat-pill"><strong>7,896</strong><span>Variantes Articuladas</span></div>
+      </div>
+    </section>
+
+    <section class="control-grid">
+      <div class="control-panel">
+        <div class="panel-label">
+          <span>1. Selecciona el Esquema Técnico (Taffanel &amp; Gaubert o Reichert Op. 5)</span>
+          <span id="active-scheme-source">Taffanel & Gaubert</span>
+        </div>
+        <div class="scheme-groups">
+          <div class="scheme-group-box">
+            <div class="scheme-group-title">
+              <span>🇫🇷 P. Taffanel &amp; Ph. Gaubert — 17 Grands Exercices Journaliers</span>
+              <span>6 Esquemas</span>
+            </div>
+            <div class="pill-row" id="taffanel-scheme-pills"></div>
+          </div>
+          <div class="scheme-group-box">
+            <div class="scheme-group-title" style="color: var(--indigo);">
+              <span>🇧🇪 M. A. Reichert — 7 Exercices Journaliers, Op. 5</span>
+              <span>4 Esquemas</span>
+            </div>
+            <div class="pill-row" id="reichert-scheme-pills"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="selectors-two-col">
+        <div class="control-panel">
+          <div class="panel-label">
+            <span>2. Selecciona la Tónica Cromática (12 Tónicas: Si3 a Si♭4)</span>
+            <span id="active-tonic-label">Do</span>
+          </div>
+          <div class="pill-row" id="tonic-pills"></div>
+        </div>
+
+        <div class="control-panel">
+          <div class="panel-label">
+            <span>3. Selecciona el Modo Paralelo (Orden Pedagógico por Familia Mayor / Menor)</span>
+            <span id="active-family-label">Familia Mayor</span>
+          </div>
+          <div class="pill-row" id="mode-pills"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar-row">
+      <div class="toolbar-group">
+        <button class="btn-play" id="btn-play-score" type="button">▶ Escuchar Ejercicio Modal</button>
+        <button class="btn-stop" id="btn-stop-score" type="button" style="display:none;">⏹ Detener</button>
+        <span id="playback-status" style="font-size:0.82rem; font-weight:600; color:var(--gold);">Listo para reproducir</span>
+      </div>
+
+      <div class="toolbar-group">
+        <label for="art-select">Articulación Oficial:</label>
+        <select id="art-select" class="std-select"></select>
+
+        <label for="bpm-input">Tempo (BPM):</label>
+        <input id="bpm-input" type="range" min="48" max="144" value="84" style="width:110px;" />
+        <span id="bpm-val" style="font-size:0.84rem; font-weight:700; min-width:58px;">84 BPM</span>
+      </div>
+    </section>
+
+    <section class="score-card">
+      <div class="score-meta-bar">
+        <div>
+          <h3 id="score-title">Do Jónico (Mayor) — E.J. 4</h3>
+          <p class="pedagogy-note" id="score-pedagogy"></p>
+        </div>
+        <div class="badge-row" id="score-badges"></div>
+      </div>
+
+      <div id="score-paper"></div>
+
+      <details class="abc-source-details">
+        <summary>Ver código fuente ABC exacto de esta variación modal</summary>
+        <pre id="abc-raw-box"></pre>
+      </details>
+    </section>
+
+    <section class="all-schemes-section">
+      <div class="all-schemes-header">
+        <div>
+          <h3 style="margin:0; font-family:Georgia,serif;">Vista Comparativa: Los 10 Esquemas para <span id="compare-mode-label">Do Jónico (Mayor)</span></h3>
+          <p style="margin:2px 0 0 0; font-size:0.86rem; color:var(--ink-muted);">
+            Haz clic en cualquier tarjeta para cargarla en el reproductor principal o escucharla directamente.
+          </p>
+        </div>
+      </div>
+      <div class="all-schemes-grid" id="comparison-grid"></div>
+    </section>
+
+    <section class="download-strip">
+      <h3>📥 Descarga Directa de las 10 Colecciones Maestras ABC (84 Modos por Esquema = 840 Ejercicios)</h3>
+      <div class="download-links">
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ1.abc" download>📄 84 Modos · E.J. 1 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ2.abc" download>📄 84 Modos · E.J. 2 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ4.abc" download>📄 84 Modos · E.J. 4 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ5.abc" download>📄 84 Modos · E.J. 5 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ10.abc" download>📄 84 Modos · E.J. 10 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_EJ11.abc" download>📄 84 Modos · E.J. 11 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_R1.abc" download>📄 84 Modos · Reichert 1 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_R2.abc" download>📄 84 Modos · Reichert 2 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_R4.abc" download>📄 84 Modos · Reichert 4 (ABC)</a>
+        <a class="btn-secondary" href="docs/downloads/abc/00_Coleccion_84_Modos_R5.abc" download>📄 84 Modos · Reichert 5 (ABC)</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const DATA = window.MODES_VARIATIONS_DATA;
+      if (!DATA) return;
+
+      let state = {
+        schemeId: "ej1",
+        tonicId: "02_do",
+        modeNum: 1,
+        artId: "a",
+        bpm: 84,
+      };
+
+      // Parse URL params if provided (e.g. ?scheme=ej10&tonic=04_re&mode=4)
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("scheme") && DATA.schemes.some(s => s.id === params.get("scheme"))) {
+        state.schemeId = params.get("scheme");
+      }
+      if (params.get("tonic") && DATA.tonics.some(t => t.id === params.get("tonic"))) {
+        state.tonicId = params.get("tonic");
+      }
+      if (params.get("mode") && DATA.modes.some(m => String(m.num) === params.get("mode"))) {
+        state.modeNum = parseInt(params.get("mode"), 10);
+      }
+
+      let audioCtx = null;
+      let activeTimers = [];
+      let isPlaying = false;
+
+      function stopPlayback() {
+        activeTimers.forEach(id => clearTimeout(id));
+        activeTimers = [];
+        isPlaying = false;
+        document.getElementById("btn-play-score").style.display = "inline-flex";
+        document.getElementById("btn-stop-score").style.display = "none";
+        document.getElementById("playback-status").textContent = "Listo para reproducir";
+        document.querySelectorAll("#score-paper .abcjs-note").forEach(el => el.classList.remove("abcjs-highlight"));
+      }
+
+      function playFluteNote(freq, startTime, durationSec, isStaccato) {
+        if (!audioCtx) return;
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.type = "sine";
+        osc2.type = "triangle";
+        osc1.frequency.setValueAtTime(freq, startTime);
+        osc2.frequency.setValueAtTime(freq * 2, startTime);
+
+        const g2 = audioCtx.createGain();
+        g2.gain.setValueAtTime(0.12, startTime);
+
+        const effDur = isStaccato ? Math.max(0.05, durationSec * 0.55) : Math.max(0.07, durationSec * 0.92);
+        gain.gain.setValueAtTime(0.001, startTime);
+        gain.gain.linearRampToValueAtTime(0.24, startTime + Math.min(0.025, effDur * 0.25));
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + effDur);
+
+        osc1.connect(gain);
+        osc2.connect(g2);
+        g2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(startTime);
+        osc2.start(startTime);
+        osc1.stop(startTime + effDur + 0.02);
+        osc2.stop(startTime + effDur + 0.02);
+      }
+
+      function getCurrentScheme() {
+        return DATA.schemes.find(s => s.id === state.schemeId) || DATA.schemes[0];
+      }
+
+      function getCurrentExercise() {
+        const key = `${state.schemeId}__${state.tonicId}__${state.modeNum}`;
+        return DATA.exercises[key];
+      }
+
+      function renderSchemePills() {
+        const tContainer = document.getElementById("taffanel-scheme-pills");
+        const rContainer = document.getElementById("reichert-scheme-pills");
+        tContainer.innerHTML = "";
+        rContainer.innerHTML = "";
+
+        DATA.schemes.forEach(s => {
+          const btn = document.createElement("button");
+          const isReichert = s.id.startsWith("r");
+          btn.className = "chip" + (isReichert ? " reichert" : "") + (s.id === state.schemeId ? " active" : "");
+          btn.innerHTML = `<span>${s.code}</span> <small>${s.meter} · ${s.totalNotes}n</small>`;
+          btn.onclick = () => {
+            stopPlayback();
+            state.schemeId = s.id;
+            const arts = DATA.articulationCatalog[s.articulationGroup] || [];
+            if (!arts.some(a => a.id === state.artId)) {
+              state.artId = "a";
+            }
+            updateUI();
+          };
+          if (isReichert) rContainer.appendChild(btn);
+          else tContainer.appendChild(btn);
+        });
+      }
+
+      function renderTonicPills() {
+        const container = document.getElementById("tonic-pills");
+        container.innerHTML = "";
+        DATA.tonics.forEach(t => {
+          const btn = document.createElement("button");
+          btn.className = "chip" + (t.id === state.tonicId ? " active" : "");
+          btn.textContent = t.display;
+          btn.onclick = () => {
+            stopPlayback();
+            state.tonicId = t.id;
+            updateUI();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      function renderModePills() {
+        const container = document.getElementById("mode-pills");
+        container.innerHTML = "";
+        DATA.modes.forEach(m => {
+          const btn = document.createElement("button");
+          btn.className = "chip" + (m.num === state.modeNum ? " active" : "");
+          btn.innerHTML = `<span>${m.num}. ${m.name}</span> <small>(${m.family})</small>`;
+          btn.onclick = () => {
+            stopPlayback();
+            state.modeNum = m.num;
+            updateUI();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      function renderArticulationSelect() {
+        const scheme = getCurrentScheme();
+        const arts = DATA.articulationCatalog[scheme.articulationGroup] || [];
+        const sel = document.getElementById("art-select");
+        sel.innerHTML = "";
+        arts.forEach(a => {
+          const opt = document.createElement("option");
+          opt.value = a.id;
+          opt.textContent = `${a.name} — ${a.desc}`;
+          if (a.id === state.artId) opt.selected = true;
+          sel.appendChild(opt);
+        });
+      }
+
+      function renderMainScore() {
+        const scheme = getCurrentScheme();
+        const ex = getCurrentExercise();
+        if (!ex) return;
+
+        document.getElementById("active-scheme-source").textContent = `${scheme.tradition} · ${scheme.sourceRef}`;
+        document.getElementById("active-tonic-label").textContent = ex.tonicName;
+        document.getElementById("active-family-label").textContent = `Familia ${ex.family} (Armadura: K:${ex.keySig})`;
+
+        document.getElementById("score-title").textContent =
+          `${ex.tonicDisplay} ${ex.modeName} — Esquema ${scheme.code} (${scheme.title})`;
+        document.getElementById("score-pedagogy").textContent = scheme.pedagogy;
+
+        const badgesEl = document.getElementById("score-badges");
+        badgesEl.innerHTML = `
+          <span class="meta-badge highlight">${ex.badge}</span>
+          <span class="meta-badge">Fórmula: ${ex.formula}</span>
+          <span class="meta-badge">Armadura: K:${ex.keySig}</span>
+          <span class="meta-badge">Compás: ${scheme.meter}</span>
+          <span class="meta-badge">${ex.totalNotes} notas (MIDI ${ex.minMidi}–${ex.maxMidi})</span>
+        `;
+
+        const abcStr = (ex.abcByArticulation && ex.abcByArticulation[state.artId]) || ex.abc;
+        document.getElementById("abc-raw-box").textContent = abcStr;
+
+        if (window.ABCJS) {
+          ABCJS.renderAbc("score-paper", abcStr, {
+            responsive: "resize",
+            staffwidth: 1080,
+            scale: 0.95,
+            add_classes: true,
+          });
+        }
+      }
+
+      function renderComparisonGrid() {
+        const grid = document.getElementById("comparison-grid");
+        grid.innerHTML = "";
+        const currentEx = getCurrentExercise();
+        if (currentEx) {
+          document.getElementById("compare-mode-label").textContent =
+            `${currentEx.tonicDisplay} ${currentEx.modeName}`;
+        }
+
+        DATA.schemes.forEach((s, idx) => {
+          const ex = DATA.exercises[`${s.id}__${state.tonicId}__${state.modeNum}`];
+          if (!ex) return;
+          const card = document.createElement("div");
+          card.className = "mini-scheme-card" + (s.id === state.schemeId ? " active-card" : "");
+          const paperId = `mini-paper-${idx}`;
+          card.innerHTML = `
+            <div class="mini-scheme-head">
+              <h4>${s.code} · ${s.shortName}</h4>
+              <span class="meta-badge">${s.meter} · ${s.totalNotes} notas</span>
+            </div>
+            <div class="mini-scheme-sub">${s.title}</div>
+            <div id="${paperId}" style="overflow-x:auto;"></div>
+            <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:0.75rem; color:var(--ink-muted);">${ex.badge}</span>
+              <button type="button" class="btn-secondary" data-scheme="${s.id}">Seleccionar y Escuchar →</button>
+            </div>
+          `;
+          card.querySelector("button").onclick = () => {
+            stopPlayback();
+            state.schemeId = s.id;
+            updateUI();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          };
+          grid.appendChild(card);
+
+          if (window.ABCJS) {
+            ABCJS.renderAbc(paperId, ex.abc, {
+              responsive: "resize",
+              staffwidth: 520,
+              scale: 0.68,
+            });
+          }
+        });
+      }
+
+      function startPlayback() {
+        stopPlayback();
+        const ex = getCurrentExercise();
+        const scheme = getCurrentScheme();
+        if (!ex) return;
+
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContextClass();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+
+        isPlaying = true;
+        document.getElementById("btn-play-score").style.display = "none";
+        document.getElementById("btn-stop-score").style.display = "inline-flex";
+
+        const bpm = state.bpm;
+        let noteDur = (60 / bpm) / 4; // default 1/16
+        if (scheme.id === "ej4") {
+          noteDur = (60 / bpm) / 2;
+        } else if (scheme.id === "r5") {
+          noteDur = (60 / bpm) / 6; // sixteenth triplets
+        } else if (scheme.meter === "6/8" || scheme.meter === "9/8") {
+          noteDur = (60 / bpm) / 3;
+        }
+
+        const abcStr = (ex.abcByArticulation && ex.abcByArticulation[state.artId]) || ex.abc;
+        const bodyText = abcStr
+          .split("\n")
+          .filter(line => !/^[XTCMQLK]:|^%/.test(line.trim()))
+          .join(" ");
+        const noteStaccatos = Array.from(
+          bodyText.matchAll(/(\.?)(?:\^\^|__|[\^_=])?[A-Ga-g][',]*/g),
+          m => m[1] === "."
+        );
+        const freqs = ex.frequencies;
+        const noteEls = Array.from(document.querySelectorAll("#score-paper .abcjs-note"));
+        const baseTime = audioCtx.currentTime + 0.08;
+
+        freqs.forEach((f, idx) => {
+          const isLast = idx === freqs.length - 1;
+          const dur = isLast ? noteDur * 2.5 : noteDur;
+          const tStart = baseTime + idx * noteDur;
+          const noteIsStaccato = !isLast && Boolean(noteStaccatos[idx]);
+          playFluteNote(f, tStart, dur, noteIsStaccato);
+
+          const delayMs = Math.max(0, (tStart - audioCtx.currentTime) * 1000);
+          const tid = setTimeout(() => {
+            if (!isPlaying) return;
+            document.getElementById("playback-status").textContent =
+              `Reproduciendo nota ${idx + 1}/${freqs.length} (${f.toFixed(1)} Hz)`;
+            noteEls.forEach(el => el.classList.remove("abcjs-highlight"));
+            if (noteEls[idx]) noteEls[idx].classList.add("abcjs-highlight");
+          }, delayMs);
+          activeTimers.push(tid);
+        });
+
+        const totalMs = (freqs.length * noteDur + 0.4) * 1000;
+        activeTimers.push(setTimeout(() => stopPlayback(), totalMs));
+      }
+
+      function updateUI() {
+        renderSchemePills();
+        renderTonicPills();
+        renderModePills();
+        renderArticulationSelect();
+        renderMainScore();
+        renderComparisonGrid();
+      }
+
+      document.getElementById("art-select").addEventListener("change", (e) => {
+        stopPlayback();
+        state.artId = e.target.value;
+        renderMainScore();
+      });
+
+      document.getElementById("bpm-input").addEventListener("input", (e) => {
+        state.bpm = parseInt(e.target.value, 10) || 84;
+        document.getElementById("bpm-val").textContent = `${state.bpm} BPM`;
+      });
+
+      document.getElementById("btn-play-score").addEventListener("click", startPlayback);
+      document.getElementById("btn-stop-score").addEventListener("click", stopPlayback);
+
+      updateUI();
+    })();
+  </script>
+</body>
+</html>

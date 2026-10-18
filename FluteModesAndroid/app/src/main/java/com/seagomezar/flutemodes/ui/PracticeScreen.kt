@@ -1,10 +1,12 @@
 package com.seagomezar.flutemodes.ui
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -83,6 +85,7 @@ fun PracticeScreen(
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
+    var currentModalScheme by remember { mutableStateOf(store.lastModalScheme) }
     var showCompletionDialog by remember { mutableStateOf(false) }
     var showEJ1CompletionDialog by remember { mutableStateOf(false) }
     var showEJ2CompletionDialog by remember { mutableStateOf(false) }
@@ -115,6 +118,7 @@ fun PracticeScreen(
         currentTonic,
         currentMode,
         currentArticulation,
+        currentModalScheme,
         metronome.tempoBPM,
         loc.currentLanguage
     ) {
@@ -174,7 +178,8 @@ fun PracticeScreen(
                 mode = currentMode,
                 articulation = currentArticulation,
                 tempoBPM = metronome.tempoBPM,
-                loc = loc
+                loc = loc,
+                scheme = currentModalScheme
             )
         }
     }
@@ -909,11 +914,13 @@ fun PracticeScreen(
             }
         }
     ) { padding ->
+        val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
+            if (!isLandscape) {
             // Mode / Exercise Header Card
             Surface(
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
@@ -966,7 +973,7 @@ fun PracticeScreen(
                                 color = MaterialTheme.colorScheme.surfaceVariant
                             ) {
                                 Text(
-                                    text = "A. L. 16.588",
+                                    text = "Taffanel & Gaubert",
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
@@ -1265,7 +1272,7 @@ fun PracticeScreen(
                 } else {
                     Column(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -1310,17 +1317,67 @@ fun PracticeScreen(
                                 )
                             }
 
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = Color(0xFF6366F1).copy(alpha = 0.15f)
+                            ) {
+                                Text(
+                                    text = currentModalScheme.shortName,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    color = Color(0xFF6366F1)
+                                )
+                            }
+
                             Text(
                                 text = "${currentMode.keyDescription(currentTonic)} | ${currentMode.accidentalBadge(loc)}",
                                 fontSize = 11.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
+                        }
+
+                        // 10-Scheme Modal Technical Selector Bar (84 x 10 = 840)
+                        val schemeListState = rememberLazyListState()
+                        LaunchedEffect(currentModalScheme) {
+                            val idx = ModalScheme.entries.indexOf(currentModalScheme).coerceAtLeast(0)
+                            schemeListState.animateScrollToItem(idx)
+                        }
+                        LazyRow(
+                            state = schemeListState,
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            items(ModalScheme.entries) { scheme ->
+                                val isSel = scheme == currentModalScheme
+                                Surface(
+                                    onClick = {
+                                        scorePlayer.stop()
+                                        currentModalScheme = scheme
+                                        store.lastModalScheme = scheme
+                                        store.saveLastSelection()
+                                    },
+                                    shape = RoundedCornerShape(10.dp),
+                                    color = if (isSel) Color(0xFF6366F1) else MaterialTheme.colorScheme.surfaceVariant
+                                ) {
+                                    Text(
+                                        text = "${scheme.shortName} (${scheme.meter})",
+                                        fontSize = 11.sp,
+                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
 
             HorizontalDivider()
+            }
 
             // Main Interactive Sheet Music Area
             Box(
@@ -1920,7 +1977,8 @@ fun PracticeScreen(
                                         tonic = currentTonic,
                                         mode = currentMode,
                                         articulation = currentArticulation,
-                                        tempoBPM = metronome.tempoBPM
+                                        tempoBPM = metronome.tempoBPM,
+                                        scheme = currentModalScheme
                                     )
                                 }
                             },
