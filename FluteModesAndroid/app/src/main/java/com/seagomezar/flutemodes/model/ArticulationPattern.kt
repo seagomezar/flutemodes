@@ -706,7 +706,7 @@ enum class PracticeWizardFocus(val id: String) {
             SCALES -> if (isEn) "Scales & Finger Evenness" else "Escalas e Igualdad Digital"
             ARPEGGIOS -> if (isEn) "Arpeggios & Register leaps" else "Arpegios y Flexibilidad"
             REICHERT -> if (isEn) "Reichert Op. 5 Agility" else "Agilidad Reichert Op. 5"
-            MODES840 -> if (isEn) "840 Parallel Modes Lab" else "Laboratorio 840 Modos"
+            MODES840 -> if (isEn) "Parallel Modes (84)" else "Modos Paralelos (84)"
         }
     }
 
@@ -716,7 +716,7 @@ enum class PracticeWizardFocus(val id: String) {
             SCALES -> "T&G E.J. 1, 2, 4, 5"
             ARPEGGIOS -> "T&G E.J. 10, 11 · Reichert 2, 4"
             REICHERT -> "Op. 5 · Nº 1, 2, 4, 5"
-            MODES840 -> if (isEn) "12 Tonics × 7 Modes × 10 Schemes" else "12 Tónicas × 7 Modos × 10 Esquemas"
+            MODES840 -> if (isEn) "12 Tonics × 7 Parallel Modes" else "12 Tónicas × 7 Modos Paralelos"
         }
     }
 
@@ -783,10 +783,10 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 1,
                         minutes = m1,
-                        title = if (isEn) "1. Sound & Diatonic Scale (E.J. 1)" else "1. Sonido y Escala Diatónica (E.J. 1)",
-                        detail = if (isEn) "Long tones & legato equality in ${tonic.displayName}" else "Sonoridad e igualdad ligada sobre ${tonic.displayName}",
+                        title = if (isEn) "1. Sound & Pentachords (E.J. 1)" else "1. Sonido y Pentacordios (E.J. 1)",
+                        detail = if (isEn) "Long tones & legato equality" else "Sonoridad e igualdad ligada",
                         exercise = ExerciseType.EJ1,
-                        modalScheme = ModalScheme.EJ1,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
                         sectionIndex = 0
@@ -794,7 +794,7 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 2,
                         minutes = m2,
-                        title = if (isEn) "2. Interrupted Scales & 3rds (E.J. 4)" else "2. Escalas en Terceras (E.J. 4)",
+                        title = if (isEn) "2. Diatonic Scales (E.J. 4)" else "2. Escalas Diatónicas (E.J. 4)",
                         detail = if (isEn) "24 Keys · Section ${secIdx + 1} (${tonic.displayName})" else "24 Tonalidades · Sección ${secIdx + 1} (${tonic.displayName})",
                         exercise = ExerciseType.EJ4,
                         modalScheme = ModalScheme.EJ4,
@@ -805,34 +805,34 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 3,
                         minutes = m3,
-                        title = if (isEn) "3. Modal Application (${tonic.displayName} $modeName)" else "3. Aplicación Modal (${tonic.displayName} $modeName)",
-                        detail = if (isEn) "Parallel mode in E.J. 5 (6/8 fluency)" else "Modo paralelo con esquema E.J. 5 (6/8)",
-                        exercise = ExerciseType.MODOS,
-                        modalScheme = ModalScheme.EJ5,
+                        title = if (isEn) "3. Chromatic Scales (E.J. 5)" else "3. Escalas Cromáticas (E.J. 5)",
+                        detail = if (isEn) "12 Chromatic Scales in 6/8" else "12 Escalas Cromáticas en 6/8",
+                        exercise = ExerciseType.EJ5,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
-                        sectionIndex = 0
+                        sectionIndex = secIdx % 12
                     )
                 )
                 PracticeWizardFocus.ARPEGGIOS -> listOf(
                     PracticeRoutineBlock(
                         stepNumber = 1,
                         minutes = m1,
-                        title = if (isEn) "1. Progressive Arpeggios (E.J. 10)" else "1. Arpegios Progresivos (E.J. 10)",
-                        detail = if (isEn) "6/8 flexible embouchure across 12 series" else "Flexibilidad de embocadura en 6/8",
-                        exercise = ExerciseType.EJ10,
-                        modalScheme = ModalScheme.EJ10,
+                        title = if (isEn) "1. Minor Pentachords (E.J. 2)" else "1. Pentacordios Menores (E.J. 2)",
+                        detail = if (isEn) "Chromatic minor pentachord equality" else "Igualdad en pentacordios menores",
+                        exercise = ExerciseType.EJ2,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
-                        sectionIndex = secIdx % 12
+                        sectionIndex = 0
                     ),
                     PracticeRoutineBlock(
                         stepNumber = 2,
                         minutes = m2,
-                        title = if (isEn) "2. Broken 7th Chords (E.J. 11)" else "2. Arpegios Quebrados (E.J. 11)",
-                        detail = if (isEn) "9/8 wide intervals & register control" else "Control de intervalos amplios en 9/8",
-                        exercise = ExerciseType.EJ11,
-                        modalScheme = ModalScheme.EJ11,
+                        title = if (isEn) "2. Progressive Arpeggios (E.J. 10)" else "2. Arpegios Progresivos (E.J. 10)",
+                        detail = if (isEn) "6/8 flexible embouchure across 12 series" else "Flexibilidad de embocadura en 6/8",
+                        exercise = ExerciseType.EJ10,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
                         sectionIndex = secIdx % 12
@@ -840,13 +840,13 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 3,
                         minutes = m3,
-                        title = if (isEn) "3. Modal Arpeggio (${tonic.displayName} $modeName · E.J. 10)" else "3. Arpegio Modal (${tonic.displayName} $modeName · E.J. 10)",
-                        detail = if (isEn) "Modal triads in parallel system" else "Tríadas del modo en sistema paralelo",
-                        exercise = ExerciseType.MODOS,
-                        modalScheme = ModalScheme.EJ10,
+                        title = if (isEn) "3. Broken Arpeggios (E.J. 11)" else "3. Arpegios Quebrados (E.J. 11)",
+                        detail = if (isEn) "9/8 wide intervals & register control" else "Control de intervalos amplios en 9/8",
+                        exercise = ExerciseType.EJ11,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
-                        sectionIndex = 0
+                        sectionIndex = secIdx % 12
                     )
                 )
                 PracticeWizardFocus.REICHERT -> listOf(
@@ -856,7 +856,7 @@ data class PracticeRoutineBlock(
                         title = if (isEn) "1. Reichert Op. 5 Nº 1 (6/8 Fluency)" else "1. Reichert Op. 5 Nº 1 (Fluidez 6/8)",
                         detail = if (isEn) "Op. 5 · Key ${secIdx + 1}/25" else "Op. 5 · Tonalidad ${secIdx + 1}/25",
                         exercise = ExerciseType.R1,
-                        modalScheme = ModalScheme.R1,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
                         sectionIndex = secIdx
@@ -867,7 +867,7 @@ data class PracticeRoutineBlock(
                         title = if (isEn) "2. Reichert Op. 5 Nº 2 & Nº 4 (Intervals)" else "2. Reichert Op. 5 Nº 2 y Nº 4 (Intervalos)",
                         detail = if (isEn) "Wide leaps & diatonic thirds" else "Saltos de octava y terceras diatónicas",
                         exercise = ExerciseType.R2,
-                        modalScheme = ModalScheme.R2,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
                         sectionIndex = secIdx
@@ -875,23 +875,23 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 3,
                         minutes = m3,
-                        title = if (isEn) "3. Modal Reichert (${tonic.displayName} $modeName · R. 5)" else "3. Reichert Modal (${tonic.displayName} $modeName · R. 5)",
-                        detail = if (isEn) "Op. 5 Nº 5 triplets adapted to ${tonic.displayName} $modeName" else "Tresillos Op. 5 Nº 5 en ${tonic.displayName} $modeName",
-                        exercise = ExerciseType.MODOS,
-                        modalScheme = ModalScheme.R5,
+                        title = if (isEn) "3. Reichert Op. 5 Nº 5 (Triplets)" else "3. Reichert Op. 5 Nº 5 (Tresillos)",
+                        detail = if (isEn) "Op. 5 Nº 5 triplets in 24 keys" else "Tresillos Op. 5 Nº 5 en 24 tonalidades",
+                        exercise = ExerciseType.R5,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
-                        sectionIndex = 0
+                        sectionIndex = secIdx
                     )
                 )
                 PracticeWizardFocus.MODES840 -> listOf(
                     PracticeRoutineBlock(
                         stepNumber = 1,
                         minutes = m1,
-                        title = if (isEn) "1. Modal Scale (${tonic.displayName} $modeName · E.J. 1)" else "1. Escala Modal (${tonic.displayName} $modeName · E.J. 1)",
-                        detail = if (isEn) "Intonation & characteristic modal degrees" else "Afinación y grados característicos del modo",
-                        exercise = ExerciseType.MODOS,
-                        modalScheme = ModalScheme.EJ1,
+                        title = if (isEn) "1. Warmup Pentachords (E.J. 1)" else "1. Calentamiento (E.J. 1)",
+                        detail = if (isEn) "Intonation & finger equality" else "Afinación e igualdad digital",
+                        exercise = ExerciseType.EJ1,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
                         sectionIndex = 0
@@ -899,8 +899,8 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 2,
                         minutes = m2,
-                        title = if (isEn) "2. Modal Thirds & Arpeggios (E.J. 4 & E.J. 10)" else "2. Terceras y Arpegios Modales (E.J. 4 / E.J. 10)",
-                        detail = if (isEn) "Taffanel & Gaubert patterns in ${tonic.displayName} $modeName" else "Patrones Taffanel & Gaubert en ${tonic.displayName} $modeName",
+                        title = if (isEn) "2. Parallel Mode (${tonic.displayName} $modeName)" else "2. Modo Paralelo (${tonic.displayName} $modeName)",
+                        detail = if (isEn) "2-Octave Modal Scale (84 Modes)" else "Escala Modal en 2 Octavas (84 Modos)",
                         exercise = ExerciseType.MODOS,
                         modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
@@ -910,13 +910,13 @@ data class PracticeRoutineBlock(
                     PracticeRoutineBlock(
                         stepNumber = 3,
                         minutes = m3,
-                        title = if (isEn) "3. Modal Reichert Op. 5 (${tonic.displayName} $modeName · R. 1)" else "3. Reichert Op. 5 Modal (${tonic.displayName} $modeName · R. 1)",
-                        detail = if (isEn) "6/8 virtuoso pattern in parallel mode" else "Virtuosismo en 6/8 sobre modo paralelo",
-                        exercise = ExerciseType.MODOS,
-                        modalScheme = ModalScheme.R1,
+                        title = if (isEn) "3. Reichert Op. 5 Nº 1 (6/8)" else "3. Reichert Op. 5 Nº 1 (6/8)",
+                        detail = if (isEn) "24 Major & Minor Keys" else "24 Tonalidades Mayores y Menores",
+                        exercise = ExerciseType.R1,
+                        modalScheme = ModalScheme.EJ4,
                         tonic = tonic,
                         mode = mode,
-                        sectionIndex = 0
+                        sectionIndex = secIdx
                     )
                 )
             }

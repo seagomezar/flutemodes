@@ -678,8 +678,8 @@ public class LocalizationManager: ObservableObject {
         "coach_badge": ["CONSERVATORY COACH · ASISTENTE GUIADO", "CONSERVATORY COACH · GUIDED ASSISTANT"],
         "coach_title": ["Asistente de Estudio: ¿Qué debo practicar hoy?", "Study Assistant: What should I practice today?"],
         "coach_subtitle": [
-            "Rutina guiada combinando Taffanel & Gaubert, Reichert Op. 5 y las 840 Variaciones de Modos Paralelos.",
-            "Guided daily routine combining Taffanel & Gaubert, Reichert Op. 5, and the 840 Parallel Modal Variations."
+            "Rutina guiada combinando Taffanel & Gaubert, Reichert Op. 5 y los 84 Modos Paralelos.",
+            "Guided daily routine combining Taffanel & Gaubert, Reichert Op. 5, and the 84 Parallel Modes."
         ],
         "coach_open_wizard": ["Practice Wizard (3 Pasos)", "Practice Wizard (3 Steps)"],
         "coach_wizard_title": ["Asistente de Práctica · Conservatory Coach", "Conservatory Practice Wizard"],

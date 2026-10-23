@@ -845,29 +845,6 @@
         }
       }
 
-      const focusCard = document.getElementById("focus-card");
-      if (currentSecIdx >= 0) {
-        const sec = EX_SECTIONS[currentSecIdx];
-        const art = EX_ARTS[currentArtId];
-        focusCard.classList.add("visible");
-        document.getElementById("focus-title").textContent = `🎯 Tonalidad Activa: ${sec.titleEs} — ${art.name}`;
-        const minM = Math.min(...sec.midis);
-        const maxM = Math.max(...sec.midis);
-        document.getElementById("focus-badge").textContent = `Compases ${sec.startMeasure}–${sec.endMeasure} · ${sec.midis.length} notas (MIDI ${minM}–${maxM})`;
-        const focusAbc = [
-          "X:500",
-          "%%stretchlast 1",
-          `M:${getActiveMeter(currentArtId, true)}`,
-          "L:1/16",
-          `K:${sec.keySig}`,
-          "V:1 clef=treble",
-          buildSectionAbcBody(currentSecIdx, currentArtId, (EX_CODE === "R2" || EX_CODE === "R4") ? 2 : -1)
-        ].join("\n");
-        renderStaffLine("focus-staff", focusAbc, 1650, 2);
-      } else {
-        focusCard.classList.remove("visible");
-      }
-
       document.getElementById("abc-source-box").value = buildFullAbcText(currentArtId);
       const dlLink = document.getElementById("download-abc-link");
       if (dlLink) dlLink.href = "downloads/abc/" + EX_ARTS[currentArtId].fname;
@@ -886,17 +863,29 @@
       renderAll();
     }
 
-    function highlightActiveSection(secIdx) {
+    function highlightActiveSection(secIdx, scrollIntoView = false) {
+      let firstRow = null;
       if (EX_CODE === "R5") {
         for (let sysId = 0; sysId < 50; sysId++) {
           const r = document.getElementById(`sys-row-${sysId}`);
-          if (r) r.classList.toggle("active-system", Math.floor(sysId / 2) === secIdx);
+          const active = Math.floor(sysId / 2) === secIdx;
+          if (r) {
+            r.classList.toggle("active-system", active);
+            if (active && !firstRow) firstRow = r;
+          }
         }
       } else {
         for (let s = 0; s < 25; s++) {
           const r = document.getElementById(`sys-row-${s}`);
-          if (r) r.classList.toggle("active-system", s === secIdx);
+          const active = (s === secIdx);
+          if (r) {
+            r.classList.toggle("active-system", active);
+            if (active && !firstRow) firstRow = r;
+          }
         }
+      }
+      if (scrollIntoView && firstRow) {
+        firstRow.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }
 
@@ -908,7 +897,7 @@
         const btn = document.getElementById(`sec-btn-${sec.id}`);
         if (btn) btn.classList.toggle("active-sec", sec.id === secIdx);
       });
-      highlightActiveSection(secIdx);
+      highlightActiveSection(secIdx, secIdx >= 0);
       const badge = document.getElementById("measure-badge");
       if (secIdx >= 0) {
         const sec = EX_SECTIONS[secIdx];

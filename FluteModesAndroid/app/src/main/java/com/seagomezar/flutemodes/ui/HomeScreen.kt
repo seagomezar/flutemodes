@@ -58,7 +58,7 @@ fun HomeScreen(
     var selectedR5Section by remember { mutableStateOf(store.lastR5Section) }
     var selectedTonic by remember { mutableStateOf(store.lastTonic ?: Tonic.DO_NATURAL) }
     var selectedMode by remember { mutableStateOf(store.lastMode ?: ModeType.IONIAN) }
-    var selectedModalScheme by remember { mutableStateOf(store.lastModalScheme) }
+    var selectedModalScheme by remember { mutableStateOf(ModalScheme.EJ4) }
     var showPracticeWizard by remember { mutableStateOf(false) }
     var wizardDuration by remember { mutableStateOf(PracticeWizardDuration.MIN_30) }
     var wizardFocus by remember { mutableStateOf(PracticeWizardFocus.MODES840) }
@@ -170,7 +170,7 @@ fun HomeScreen(
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = if (selectedExercise == ExerciseType.MODOS) selectedModalScheme.title(loc) else if (selectedExercise.isReichertExercise) "M.-A. Reichert · Op. 5" else "Taffanel & Gaubert",
+                            text = if (selectedExercise == ExerciseType.MODOS) loc.t("app_title") else if (selectedExercise.isReichertExercise) "M.-A. Reichert · Op. 5" else "Taffanel & Gaubert",
                             fontSize = 11.5.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
@@ -417,7 +417,7 @@ fun HomeScreen(
                             ExerciseType.R2 -> loc.t("r2_title")
                             ExerciseType.R4 -> loc.t("r4_title")
                             ExerciseType.R5 -> loc.t("r5_title")
-                            ExerciseType.MODOS -> selectedModalScheme.title(loc)
+                            ExerciseType.MODOS -> loc.t("app_title")
                         },
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
@@ -1277,27 +1277,12 @@ fun HomeScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
-
-                // Nivel 3 · Esquema Técnico (10 · 840 Variaciones)
-                ModalSchemesSelectorCard(
-                    loc = loc,
-                    selectedTonic = selectedTonic,
-                    selectedMode = selectedMode,
-                    selectedModalScheme = selectedModalScheme,
-                    onSelectScheme = { scheme ->
-                        selectedModalScheme = scheme
-                        store.lastModalScheme = scheme
-                        store.saveLastSelection()
-                    }
-                )
-
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Start Practice Button
                 Button(
                     onClick = {
-                        store.lastModalScheme = selectedModalScheme
+                        store.lastModalScheme = ModalScheme.EJ4
                         store.saveLastSelection()
                         onStartPractice(selectedTonic, selectedMode)
                     },
@@ -1306,13 +1291,13 @@ fun HomeScreen(
                         .height(56.dp),
                     shape = RoundedCornerShape(18.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selectedModalScheme.isReichert) Color(0xFF6366F1) else MaterialTheme.colorScheme.primary
+                        containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
                     Icon(Icons.Default.PlayArrow, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)} · ${selectedModalScheme.shortName})",
+                        text = "${loc.t("start_practice")} (${selectedTonic.displayName} ${selectedMode.getName(loc)})",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1
@@ -1426,7 +1411,7 @@ fun ConservatoryCoachHeroCard(
     onOpenWizard: () -> Unit
 ) {
     val resumeLabel = when (selectedExercise) {
-        ExerciseType.MODOS -> "${selectedTonic.displayName} ${selectedMode.getName(loc)} · ${selectedModalScheme.shortName}"
+        ExerciseType.MODOS -> "${selectedTonic.displayName} ${selectedMode.getName(loc)}"
         else -> selectedExercise.displayTitle(loc)
     }
 

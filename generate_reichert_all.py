@@ -360,7 +360,7 @@ def generate_r2_section_measures(sec_id):
         (b_oct, 9, 0, False),
         (b_oct, 11, 0, False),
     ]
-    # M.5 (V7 3rd inv -> root): 4(mid)-2(mid)-7(low)-5(low) | 7(low)-2(mid)-4(mid)-5(mid)
+    # M.5 (V7 3rd inv -> vii°7/V7b9): 4(mid)-2(mid)-7(low)-5(low) | 7(low)-2(mid)-4(mid)-6(mid)
     m5_specs = [
         (b_oct, 10, 0, False),
         (b_oct, 8, 0, False),
@@ -369,18 +369,18 @@ def generate_r2_section_measures(sec_id):
         (b_oct, 6, c7_lead, False),
         (b_oct, 8, 0, False),
         (b_oct, 10, 0, False),
-        (b_oct, 11, 0, False),
+        (b_oct, 12, 0, False),
     ]
-    # M.6 (I 2nd inv -> root high): 5(mid)-3(mid)-1(mid)-5(low) | 1(mid)-3(mid)-5(mid)-1(high)
+    # M.6 (I 2nd inv -> 1st inv): 5(mid)-3(mid)-1(mid)-5(low) | 3(low)-5(low)-1(mid)-3(mid)
     m6_specs = [
         (b_oct, 11, 0, False),
         (b_oct, 9, 0, False),
         (b_oct, 7, 0, False),
         (b_oct, 4, 0, False),
+        (b_oct, 2, 0, False),
+        (b_oct, 4, 0, False),
         (b_oct, 7, 0, False),
         (b_oct, 9, 0, False),
-        (b_oct, 11, 0, False),
-        (b_oct, 14, 0, False),
     ]
     # M.7 (V7 descent & turnaround): 2(mid)-7(low)-5(low)-4(low) | 2(low)-4(low)-5(low)-7(low)
     m7_specs = [

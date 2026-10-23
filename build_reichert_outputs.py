@@ -1096,29 +1096,6 @@ def generate_web_player_html(code, sections_data):
         }}
       }}
 
-      const focusCard = document.getElementById("focus-card");
-      if (currentSecIdx >= 0) {{
-        const sec = EX_SECTIONS[currentSecIdx];
-        const art = EX_ARTS[currentArtId];
-        focusCard.classList.add("visible");
-        document.getElementById("focus-title").textContent = `🎯 Tonalidad Activa: ${{sec.titleEs}} — ${{art.name}}`;
-        const minM = Math.min(...sec.midis);
-        const maxM = Math.max(...sec.midis);
-        document.getElementById("focus-badge").textContent = `Compases ${{sec.startMeasure}}–${{sec.endMeasure}} · ${{sec.midis.length}} notas (MIDI ${{minM}}–${{maxM}})`;
-        const focusAbc = [
-          "X:500",
-          "%%stretchlast 1",
-          `M:${{getActiveMeter(currentArtId, true)}}`,
-          "L:1/16",
-          `K:${{sec.keySig}}`,
-          "V:1 clef=treble",
-          buildSectionAbcBody(currentSecIdx, currentArtId, (EX_CODE === "R2" || EX_CODE === "R4") ? 2 : -1)
-        ].join("\\n");
-        renderStaffLine("focus-staff", focusAbc, 1650, 2);
-      }} else {{
-        focusCard.classList.remove("visible");
-      }}
-
       document.getElementById("abc-source-box").value = buildFullAbcText(currentArtId);
       const dlLink = document.getElementById("download-abc-link");
       if (dlLink) dlLink.href = "downloads/abc/" + EX_ARTS[currentArtId].fname;
@@ -1137,17 +1114,29 @@ def generate_web_player_html(code, sections_data):
       renderAll();
     }}
 
-    function highlightActiveSection(secIdx) {{
+    function highlightActiveSection(secIdx, scrollIntoView = false) {{
+      let firstRow = null;
       if (EX_CODE === "R5") {{
         for (let sysId = 0; sysId < 50; sysId++) {{
           const r = document.getElementById(`sys-row-${{sysId}}`);
-          if (r) r.classList.toggle("active-system", Math.floor(sysId / 2) === secIdx);
+          const active = Math.floor(sysId / 2) === secIdx;
+          if (r) {{
+            r.classList.toggle("active-system", active);
+            if (active && !firstRow) firstRow = r;
+          }}
         }}
       }} else {{
         for (let s = 0; s < 25; s++) {{
           const r = document.getElementById(`sys-row-${{s}}`);
-          if (r) r.classList.toggle("active-system", s === secIdx);
+          const active = (s === secIdx);
+          if (r) {{
+            r.classList.toggle("active-system", active);
+            if (active && !firstRow) firstRow = r;
+          }}
         }}
+      }}
+      if (scrollIntoView && firstRow) {{
+        firstRow.scrollIntoView({{ behavior: "smooth", block: "center" }});
       }}
     }}
 
@@ -1159,7 +1148,7 @@ def generate_web_player_html(code, sections_data):
         const btn = document.getElementById(`sec-btn-${{sec.id}}`);
         if (btn) btn.classList.toggle("active-sec", sec.id === secIdx);
       }});
-      highlightActiveSection(secIdx);
+      highlightActiveSection(secIdx, secIdx >= 0);
       const badge = document.getElementById("measure-badge");
       if (secIdx >= 0) {{
         const sec = EX_SECTIONS[secIdx];
@@ -1444,20 +1433,12 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">REICHERT Op. 5, Nº 1 — <em>EXERCICE JOURNALIER (6/8)</em></div>
+            <div class="ej1-title">REICHERT Op. 5, Nº 1 — <em>${{sec.titleEs}} (6/8)</em></div>
             <div class="ej1-active-badge">${{art.name}} (${{art.meter}})</div>
           </div>
           <div class="ej1-subtitle">Edición Urtext B. Schott's Söhne (Plate 20623, págs. 2–3) · 24 Tonalidades Mayores y Menores:</div>
           <div id="r1-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
           <div id="r1-art-row-2" class="ej1-art-row"></div>
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">🎯 Tonalidad Activa: ${{sec.titleEs}}</span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">Compases ${{sec.startMeasure}}–${{sec.endMeasure}} de 100</span>
-            </div>
-            <div id="r1-focus-score" class="ej1-staff-row"></div>
-          </div>
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">Partitura Urtext Completa · B. Schott's Söhne Plate 20623 (Págs. 2–3)</div>
       `;
       for (let i = 0; i < 25; i++) {{
         const hl = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
@@ -1468,9 +1449,13 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
 
       ABCJS.renderAbc("r1-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       ABCJS.renderAbc("r1-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
-      ABCJS.renderAbc("r1-focus-score", buildR1SecAbc(secIdx, artId, true), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
         ABCJS.renderAbc(`r1-sec-row-${{i}}`, buildR1SecAbc(i, artId, i === 0), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      }}
+      const activeRow = document.getElementById(`r1-sec-row-${{secIdx}}`);
+      window.activeSectionNotes = activeRow ? Array.from(activeRow.querySelectorAll(".abcjs-note")) : [];
+      if (secIdx > 0 && activeRow) {{
+        setTimeout(() => activeRow.scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
     }}
 
@@ -1513,19 +1498,11 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">REICHERT Op. 5, Nº 2 — <em>ARPÈGES MODULANTS (2/4)</em></div>
+            <div class="ej1-title">REICHERT Op. 5, Nº 2 — <em>${{sec.titleEs}}${{sec.is8va ? " (8va)" : ""}} (2/4)</em></div>
             <div class="ej1-active-badge">${{art.name}} (2/4)</div>
           </div>
           <div class="ej1-subtitle">Edición Urtext B. Schott's Söhne (Plate 20623, págs. 4–5) · 24 Tonalidades Mayores y Menores:</div>
           <div id="r2-art-score" class="ej1-art-row"></div>
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">🎯 Tonalidad Activa: ${{sec.titleEs}}${{sec.is8va ? " (8va)" : ""}}</span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">Compases ${{sec.startMeasure}}–${{sec.endMeasure}} de 200</span>
-            </div>
-            <div id="r2-focus-score" class="ej1-staff-row"></div>
-          </div>
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">Partitura Urtext Completa · B. Schott's Söhne Plate 20623 (Págs. 4–5)</div>
       `;
       for (let i = 0; i < 25; i++) {{
         const hl = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
@@ -1535,9 +1512,13 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       paper.innerHTML = html;
 
       ABCJS.renderAbc("r2-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
-      ABCJS.renderAbc("r2-focus-score", buildR2SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
         ABCJS.renderAbc(`r2-sec-row-${{i}}`, buildR2SecAbc(i, artId, false), {{ staffwidth: 1080, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      }}
+      const activeRow = document.getElementById(`r2-sec-row-${{secIdx}}`);
+      window.activeSectionNotes = activeRow ? Array.from(activeRow.querySelectorAll(".abcjs-note")) : [];
+      if (secIdx > 0 && activeRow) {{
+        setTimeout(() => activeRow.scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
     }}
 
@@ -1582,19 +1563,11 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">REICHERT Op. 5, Nº 4 — <em>EXERCICE D'AGILITÉ (4/4)</em></div>
+            <div class="ej1-title">REICHERT Op. 5, Nº 4 — <em>${{sec.titleEs}}${{sec.is8va ? " (8va)" : ""}} (4/4)</em></div>
             <div class="ej1-active-badge">${{art.name}} (4/4)</div>
           </div>
           <div class="ej1-subtitle">Edición Urtext B. Schott's Söhne (Plate 20623, págs. 8–9) · 24 Tonalidades Mayores y Menores:</div>
           <div id="r4-art-score" class="ej1-art-row"></div>
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">🎯 Tonalidad Activa: ${{sec.titleEs}}${{sec.is8va ? " (8va)" : ""}}</span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">Compases ${{sec.startMeasure}}–${{sec.endMeasure}} de 100</span>
-            </div>
-            <div id="r4-focus-score" class="ej1-staff-row"></div>
-          </div>
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">Partitura Urtext Completa · B. Schott's Söhne Plate 20623 (Págs. 8–9)</div>
       `;
       for (let i = 0; i < 25; i++) {{
         const hl = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
@@ -1604,9 +1577,13 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       paper.innerHTML = html;
 
       ABCJS.renderAbc("r4-art-score", EJ4_ARTICULATIONS_ABC, {{ staffwidth: 920, paddingtop: 2, paddingbottom: 2, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
-      ABCJS.renderAbc("r4-focus-score", buildR4SecAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
         ABCJS.renderAbc(`r4-sec-row-${{i}}`, buildR4SecAbc(i, artId, false), {{ staffwidth: 1040, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      }}
+      const activeRow = document.getElementById(`r4-sec-row-${{secIdx}}`);
+      window.activeSectionNotes = activeRow ? Array.from(activeRow.querySelectorAll(".abcjs-note")) : [];
+      if (secIdx > 0 && activeRow) {{
+        setTimeout(() => activeRow.scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
     }}
 
@@ -1654,20 +1631,12 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">REICHERT Op. 5, Nº 5 — <em>ARPÈGES EN TRIOLETS (2/4)</em></div>
+            <div class="ej1-title">REICHERT Op. 5, Nº 5 — <em>${{sec.titleEs}} (2/4)</em></div>
             <div class="ej1-active-badge">${{art.name}} (2/4)</div>
           </div>
           <div class="ej1-subtitle">Edición Urtext B. Schott's Söhne (Plate 20623, págs. 10–13) · 24 Tonalidades Mayores y Menores:</div>
           <div id="r5-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
           <div id="r5-art-row-2" class="ej1-art-row"></div>
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">🎯 Tonalidad Activa: ${{sec.titleEs}}</span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">Compases ${{sec.startMeasure}}–${{sec.endMeasure}} de 200</span>
-            </div>
-            <div id="r5-focus-score" class="ej1-staff-row"></div>
-          </div>
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">Partitura Urtext Completa · B. Schott's Söhne Plate 20623 (Págs. 10–13)</div>
       `;
       for (let i = 0; i < 25; i++) {{
         const hl = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
@@ -1678,34 +1647,46 @@ def update_score_template(r1_data, r2_data, r4_data, r5_data):
 
       ABCJS.renderAbc("r5-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       ABCJS.renderAbc("r5-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
-      ABCJS.renderAbc("r5-focus-score", buildR5SecAbc(secIdx, artId), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize", add_classes: true }});
       for (let i = 0; i < 25; i++) {{
         ABCJS.renderAbc(`r5-sec-row-${{i}}`, buildR5SecAbc(i, artId), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      }}
+      const activeRow = document.getElementById(`r5-sec-row-${{secIdx}}`);
+      window.activeSectionNotes = activeRow ? Array.from(activeRow.querySelectorAll(".abcjs-note")) : [];
+      if (secIdx > 0 && activeRow) {{
+        setTimeout(() => activeRow.scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
     }}
 // === END REICHERT OP5 SCHOTT ===
 """
 
-    target_hook = "function renderScore(abcString) {"
-    dispatch_hooks = """function renderScore(abcString) {
+    target_hook = "    function renderScore(abcString) {\n      window.activeSectionNotes = null;"
+    dispatch_hooks = """    function renderScore(abcString) {
+      if (typeof abcString === "string" && abcString.length < 50000) {
+        window.lastAbc = abcString;
+      }
+      window.activeSectionNotes = null;
       const r1Match = abcString && abcString.match(/%\\s*R1_SCHOTT_ART:(\\d+):SEC:(\\d+)/);
       if (r1Match) {
         renderR1Schott(parseInt(r1Match[1], 10) || 0, parseInt(r1Match[2], 10) || 0);
+        normalizeAllSvgs();
         return;
       }
       const r2Match = abcString && abcString.match(/%\\s*R2_SCHOTT_ART:(\\d+):SEC:(\\d+)/);
       if (r2Match) {
         renderR2Schott(parseInt(r2Match[1], 10) || 0, parseInt(r2Match[2], 10) || 0);
+        normalizeAllSvgs();
         return;
       }
       const r4Match = abcString && abcString.match(/%\\s*R4_SCHOTT_ART:(\\d+):SEC:(\\d+)/);
       if (r4Match) {
         renderR4Schott(parseInt(r4Match[1], 10) || 0, parseInt(r4Match[2], 10) || 0);
+        normalizeAllSvgs();
         return;
       }
       const r5Match = abcString && abcString.match(/%\\s*R5_SCHOTT_ART:(\\d+):SEC:(\\d+)/);
       if (r5Match) {
         renderR5Schott(parseInt(r5Match[1], 10) || 0, parseInt(r5Match[2], 10) || 0);
+        normalizeAllSvgs();
         return;
       }"""
 

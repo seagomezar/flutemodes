@@ -886,7 +886,7 @@ public enum PracticeWizardFocus: String, CaseIterable, Identifiable {
         case .scales:    return "E.J. 1 · 2 · 4 · 5"
         case .arpeggios: return "E.J. 10 · 11 · R. 2 · 4"
         case .reichert:  return "R. 1 · 2 · 4 · 5"
-        case .modes:     return "84 × 10 (840)"
+        case .modes:     return "84 Modos"
         }
     }
 
@@ -905,7 +905,7 @@ public enum PracticeWizardFocus: String, CaseIterable, Identifiable {
         case .scales:    return isEn ? "Scales & Finger Equality" : "Escalas / Igualdad Digital"
         case .arpeggios: return isEn ? "Arpeggios & Flexibility" : "Arpegios & Flexibilidad"
         case .reichert:  return isEn ? "Reichert Op. 5 Agility" : "Agilidad Reichert Op. 5"
-        case .modes:     return isEn ? "Parallel Modes (84 × 10)" : "Modos Paralelos (84 × 10)"
+        case .modes:     return isEn ? "Parallel Modes (84)" : "Modos Paralelos (84)"
         }
     }
 
@@ -915,7 +915,7 @@ public enum PracticeWizardFocus: String, CaseIterable, Identifiable {
         case .scales:    return isEn ? "Pentachords, Diatonic & Chromatic" : "Pentacordios, Diatónicas y Cromáticas"
         case .arpeggios: return isEn ? "Progressive & Broken Arpeggios" : "Arpegios Progresivos y Quebrados"
         case .reichert:  return isEn ? "6/8 Gruppetti, 2/4, 4/4 & Triplets" : "Grupetos 6/8, Anacrusa, 4/4 y Tresillos"
-        case .modes:     return isEn ? "12 Tonics × 7 Modes · 10 Schemes" : "12 Tónicas × 7 Modos · 10 Esquemas"
+        case .modes:     return isEn ? "12 Tonics × 7 Parallel Modes" : "12 Tónicas × 7 Modos Paralelos"
         }
     }
 }
@@ -945,7 +945,7 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
 
         let phase1 = isEn ? "1. Warmup & Sound" : "1. Calentamiento y Sonido"
         let phase2 = isEn ? "2. Technical Core" : "2. Núcleo Técnico"
-        let phase3 = isEn ? "3. Modal Agility & Closure" : "3. Agilidad Modal y Cierre"
+        let phase3 = isEn ? "3. Agility & Closure" : "3. Agilidad y Cierre"
 
         switch focus {
         case .scales:
@@ -954,10 +954,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 1,
                     phaseTitle: phase1,
                     minutes: duration.warmupMinutes,
-                    exerciseTitle: isEn ? "Taffanel E.J. 1 (Chromatic Pentachords)" : "Taffanel E.J. 1 (Pentacordios Cromáticos)",
+                    exerciseTitle: isEn ? "Taffanel E.J. 1 (Major Pentachords)" : "Taffanel E.J. 1 (Pentacordios Mayores)",
                     detailSubtitle: isEn ? "Art. 1 (All slurred) · ♩ = 72 BPM" : "Art. 1 (Toda ligada) · ♩ = 72 BPM",
                     exerciseType: .ej1,
-                    modalScheme: .ej1,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -965,9 +965,9 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 2,
                     phaseTitle: phase2,
                     minutes: duration.coreMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 4",
-                    detailSubtitle: isEn ? "Canonical 2-Octave Modal Scale · ♩ = 88 BPM" : "Escala Modal Canónica en 2 Octavas · ♩ = 88 BPM",
-                    exerciseType: .modos,
+                    exerciseTitle: isEn ? "Taffanel E.J. 4 (Diatonic Scales)" : "Taffanel E.J. 4 (Escalas Diatónicas)",
+                    detailSubtitle: isEn ? "24 Major & Minor Keys · ♩ = 88 BPM" : "24 Tonalidades Mayores y Menores · ♩ = 88 BPM",
+                    exerciseType: .ej4,
                     modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
@@ -976,10 +976,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 3,
                     phaseTitle: phase3,
                     minutes: duration.agilityMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 5 (6/8)",
-                    detailSubtitle: isEn ? "Continuous 6/8 Modal Scale · ♩. = 84 BPM" : "Escala Modal Continua en 6/8 · ♩. = 84 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .ej5,
+                    exerciseTitle: isEn ? "Taffanel E.J. 5 (Chromatic Scales)" : "Taffanel E.J. 5 (Escalas Cromáticas)",
+                    detailSubtitle: isEn ? "12 Chromatic Scales in 6/8 · ♩. = 84 BPM" : "12 Escalas Cromáticas en 6/8 · ♩. = 84 BPM",
+                    exerciseType: .ej5,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 )
@@ -990,10 +990,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 1,
                     phaseTitle: phase1,
                     minutes: duration.warmupMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 2",
-                    detailSubtitle: isEn ? "Modal Pentachords over I–III–V · ♩ = 76 BPM" : "Pentacordios Modales sobre I–III–V · ♩ = 76 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .ej2,
+                    exerciseTitle: isEn ? "Taffanel E.J. 2 (Minor Pentachords)" : "Taffanel E.J. 2 (Pentacordios Menores)",
+                    detailSubtitle: isEn ? "Chromatic Minor Pentachords · ♩ = 76 BPM" : "Pentacordios Menores Cromáticos · ♩ = 76 BPM",
+                    exerciseType: .ej2,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -1001,10 +1001,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 2,
                     phaseTitle: phase2,
                     minutes: duration.coreMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 10",
-                    detailSubtitle: isEn ? "2-Octave Modal 7th Arpeggios (6/8) · ♩. = 76 BPM" : "Arpegios Modales de 7ª en 2 Octavas (6/8) · ♩. = 76 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .ej10,
+                    exerciseTitle: isEn ? "Taffanel E.J. 10 (Progressive Arpeggios)" : "Taffanel E.J. 10 (Arpegios Progresivos)",
+                    detailSubtitle: isEn ? "120 Arpeggios in 6/8 · ♩. = 76 BPM" : "120 Arpegios en 6/8 · ♩. = 76 BPM",
+                    exerciseType: .ej10,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -1012,10 +1012,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 3,
                     phaseTitle: phase3,
                     minutes: duration.agilityMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 11 (9/8)",
-                    detailSubtitle: isEn ? "Broken Modal Arpeggios · ♩. = 72 BPM" : "Arpegios Modales Quebrados (9/8) · ♩. = 72 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .ej11,
+                    exerciseTitle: isEn ? "Taffanel E.J. 11 (Broken Arpeggios)" : "Taffanel E.J. 11 (Arpegios Quebrados)",
+                    detailSubtitle: isEn ? "120 Broken Arpeggios in 9/8 · ♩. = 72 BPM" : "120 Arpegios Quebrados en 9/8 · ♩. = 72 BPM",
+                    exerciseType: .ej11,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 )
@@ -1026,10 +1026,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 1,
                     phaseTitle: phase1,
                     minutes: duration.warmupMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · R. 1 (6/8)",
-                    detailSubtitle: isEn ? "Reichert Op. 5 No. 1 Gruppetti · ♩. = 84 BPM" : "Grupetos Modales Reichert Nº 1 · ♩. = 84 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .r1,
+                    exerciseTitle: "Reichert Op. 5, Nº 1 (6/8)",
+                    detailSubtitle: isEn ? "Melodic Gruppetti in 24 Keys · ♩. = 84 BPM" : "Grupetos Melódicos en 24 Tonalidades · ♩. = 84 BPM",
+                    exerciseType: .r1,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -1037,10 +1037,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 2,
                     phaseTitle: phase2,
                     minutes: duration.coreMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · R. 2 & R. 4",
-                    detailSubtitle: isEn ? "Reichert Pickup Arpeggios & Diatonic Leaps · ♩ = 112 BPM" : "Arpegios con Anacrusa y Saltos Reichert · ♩ = 112 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .r2,
+                    exerciseTitle: "Reichert Op. 5, Nº 2 & Nº 4",
+                    detailSubtitle: isEn ? "Modulating Arpeggios & Diatonic Leaps · ♩ = 112 BPM" : "Arpegios Modulantes y Saltos Diatónicos · ♩ = 112 BPM",
+                    exerciseType: .r2,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -1048,10 +1048,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 3,
                     phaseTitle: phase3,
                     minutes: duration.agilityMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · R. 5 (2/4)",
-                    detailSubtitle: isEn ? "Reichert Sixteenth-Note Triplets · ♩ = 88 BPM" : "Tresillos de Semicorchea Reichert Nº 5 · ♩ = 88 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .r5,
+                    exerciseTitle: "Reichert Op. 5, Nº 5 (2/4)",
+                    detailSubtitle: isEn ? "Sixteenth-Note Triplets in 24 Keys · ♩ = 88 BPM" : "Tresillos de Semicorchea en 24 Tonalidades · ♩ = 88 BPM",
+                    exerciseType: .r5,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 )
@@ -1062,10 +1062,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 1,
                     phaseTitle: phase1,
                     minutes: duration.warmupMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 1",
-                    detailSubtitle: isEn ? "Modal Pentachords I–VIII · ♩ = 80 BPM" : "Pentacordios Modales por Grados I–VIII · ♩ = 80 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .ej1,
+                    exerciseTitle: isEn ? "Taffanel E.J. 1 (Warmup)" : "Taffanel E.J. 1 (Calentamiento)",
+                    detailSubtitle: isEn ? "Chromatic Pentachords · ♩ = 80 BPM" : "Pentacordios Cromáticos · ♩ = 80 BPM",
+                    exerciseType: .ej1,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 ),
@@ -1073,8 +1073,8 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 2,
                     phaseTitle: phase2,
                     minutes: duration.coreMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · E.J. 4 & E.J. 10",
-                    detailSubtitle: isEn ? "Canonical Scale + Modal Arpeggios · ♩ = 90 BPM" : "Escala Canónica + Arpegios del Modo · ♩ = 90 BPM",
+                    exerciseTitle: "\(tonicName) \(modeName)",
+                    detailSubtitle: isEn ? "2-Octave Parallel Modal Scale (84 Modes) · ♩ = 90 BPM" : "Escala Modal Paralela en 2 Octavas (84 Modos) · ♩ = 90 BPM",
                     exerciseType: .modos,
                     modalScheme: .ej4,
                     tonic: tonic,
@@ -1084,10 +1084,10 @@ public struct PracticeRoutineBlock: Identifiable, Equatable {
                     id: 3,
                     phaseTitle: phase3,
                     minutes: duration.agilityMinutes,
-                    exerciseTitle: "\(tonicName) \(modeName) · R. 1 & R. 5",
-                    detailSubtitle: isEn ? "Reichert Op. 5 Modal Integration · ♩. = 88 BPM" : "Integración Modal Reichert Op. 5 · ♩. = 88 BPM",
-                    exerciseType: .modos,
-                    modalScheme: .r1,
+                    exerciseTitle: "Reichert Op. 5, Nº 1 (6/8)",
+                    detailSubtitle: isEn ? "24 Major & Minor Keys · ♩. = 88 BPM" : "24 Tonalidades Mayores y Menores · ♩. = 88 BPM",
+                    exerciseType: .r1,
+                    modalScheme: .ej4,
                     tonic: tonic,
                     mode: mode
                 )

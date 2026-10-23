@@ -856,18 +856,6 @@ HTML_TEMPLATE = f"""<!DOCTYPE html>
         renderStaffSingleLine(`ej5-staff-${{idx}}`, abc, 2180, 0);
       }});
 
-      const focusCard = document.getElementById("focus-card");
-      if (currentScaleIdx >= 0) {{
-        const sc = EJ5_SCALES[currentScaleIdx];
-        const art = EJ5_ARTS[currentArtId];
-        focusCard.classList.add("visible");
-        document.getElementById("focus-title").textContent = `🎯 Escala Activa: ${{sc.titleEs}} — ${{art.name}}`;
-        document.getElementById("focus-badge").textContent = `Armadura: K:${{sc.keySig}} · Compás: ${{art.meter}} · 5 Compases (MIDI ${{sc.rootMidi}} → ${{sc.rootMidi + 24}} → ${{sc.rootMidi}})`;
-        renderStaffSingleLine("ej5-focus-staff", buildSingleScaleAbc(currentScaleIdx, currentArtId, true), 1820, 3);
-      }} else {{
-        focusCard.classList.remove("visible");
-      }}
-
       const fullAbc = buildFullAbcText(currentArtId);
       document.getElementById("abc-source-box").value = fullAbc;
       const dlLink = document.getElementById("download-abc-link");
@@ -897,7 +885,12 @@ HTML_TEMPLATE = f"""<!DOCTYPE html>
         const btn = document.getElementById(`scale-btn-${{sc.id}}`);
         if (btn) btn.classList.toggle("active-scale", sc.id === scaleIdx);
         const row = document.getElementById(`scale-row-${{sc.id}}`);
-        if (row) row.classList.toggle("selected-row", sc.id === scaleIdx);
+        if (row) {{
+          row.classList.toggle("selected-row", sc.id === scaleIdx);
+          if (sc.id === scaleIdx) {{
+            row.scrollIntoView({{ behavior: "smooth", block: "center" }});
+          }}
+        }}
       }});
       const badge = document.getElementById("measure-badge");
       if (scaleIdx >= 0) {{

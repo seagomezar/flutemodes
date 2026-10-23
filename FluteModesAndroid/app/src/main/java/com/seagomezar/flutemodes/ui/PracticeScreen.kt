@@ -85,7 +85,7 @@ fun PracticeScreen(
     var currentTonic by remember { mutableStateOf(initialTonic) }
     var currentMode by remember { mutableStateOf(initialMode) }
     var currentArticulation by remember { mutableStateOf(ArticulationPattern.ALL_SLURRED) }
-    var currentModalScheme by remember { mutableStateOf(store.lastModalScheme) }
+    var currentModalScheme by remember { mutableStateOf(ModalScheme.EJ4) }
     var showCompletionDialog by remember { mutableStateOf(false) }
     var showEJ1CompletionDialog by remember { mutableStateOf(false) }
     var showEJ2CompletionDialog by remember { mutableStateOf(false) }
@@ -1317,19 +1317,6 @@ fun PracticeScreen(
                                 )
                             }
 
-                            Surface(
-                                shape = RoundedCornerShape(6.dp),
-                                color = Color(0xFF6366F1).copy(alpha = 0.15f)
-                            ) {
-                                Text(
-                                    text = currentModalScheme.shortName,
-                                    fontSize = 10.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                    color = Color(0xFF6366F1)
-                                )
-                            }
-
                             Text(
                                 text = "${currentMode.keyDescription(currentTonic)} | ${currentMode.accidentalBadge(loc)}",
                                 fontSize = 11.sp,
@@ -1337,40 +1324,6 @@ fun PracticeScreen(
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
-                        }
-
-                        // 10-Scheme Modal Technical Selector Bar (84 x 10 = 840)
-                        val schemeListState = rememberLazyListState()
-                        LaunchedEffect(currentModalScheme) {
-                            val idx = ModalScheme.entries.indexOf(currentModalScheme).coerceAtLeast(0)
-                            schemeListState.animateScrollToItem(idx)
-                        }
-                        LazyRow(
-                            state = schemeListState,
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            items(ModalScheme.entries) { scheme ->
-                                val isSel = scheme == currentModalScheme
-                                Surface(
-                                    onClick = {
-                                        scorePlayer.stop()
-                                        currentModalScheme = scheme
-                                        store.lastModalScheme = scheme
-                                        store.saveLastSelection()
-                                    },
-                                    shape = RoundedCornerShape(10.dp),
-                                    color = if (isSel) Color(0xFF6366F1) else MaterialTheme.colorScheme.surfaceVariant
-                                ) {
-                                    Text(
-                                        text = "${scheme.shortName} (${scheme.meter})",
-                                        fontSize = 11.sp,
-                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
-                                        color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                                    )
-                                }
-                            }
                         }
                     }
                 }

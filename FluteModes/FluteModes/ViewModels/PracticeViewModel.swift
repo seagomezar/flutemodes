@@ -85,7 +85,8 @@ public class PracticeViewModel: ObservableObject {
         self.currentR1Section = store.lastR1Section
         self.currentR5Articulation = store.lastR5Articulation
         self.currentR5Section = store.lastR5Section
-        self.currentModalScheme = store.lastModalScheme
+        self.currentModalScheme = .ej4
+        store.lastModalScheme = .ej4
 
         // Restore last session if available, otherwise default to Do Jonico
         if let lastT = store.lastTonic, let lastM = store.lastMode, let lastA = store.lastArticulation {

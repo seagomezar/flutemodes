@@ -57,14 +57,14 @@ EJ11_SECTIONS = [
         [
             ("=D", "=F", "_B"),   # m.21 (3,8)
             ("D", "F", "=B"),     # m.22 (3,9)
-            ("D", "G", "_B"),     # m.23 (5,8)
+            ("D", "=F", "_A"),    # m.23 (3,6)
             ("D", "^F", "^A"),    # m.24 (4,8)
             ("D", "^F", "=A"),    # m.25 (4,7)
-            ("D", "G", "B"),      # m.26 (5,9)
+            ("D", "G", "=B"),     # m.26 (5,9)
             ("D", "=F", "A"),     # m.27 (3,7)
             ("D", "^G", "B"),     # m.28 (6,9)
-            ("D", "=F", "_A"),    # m.29 (3,6) -- inicio de pág. 123
-            ("D", "^F", "B"),     # m.30 (4,9)
+            ("D", "=G", "_B"),    # m.29 (5,8) -- inicio de pág. 123
+            ("D", "^F", "=B"),    # m.30 (4,9)
         ]
     ),
     (
@@ -73,13 +73,13 @@ EJ11_SECTIONS = [
             ("^D", "^F", "A"),    # m.31 (3,6)
             ("_E", "_G", "_B"),   # m.32 (3,7)
             ("_E", "_G", "_c"),   # m.33 (3,8)
-            ("_E", "=G", "_B"),   # m.34 (4,7)
-            ("_E", "G", "=c"),    # m.35 (4,9)
+            ("_E", "=G", "=B"),   # m.34 (4,8)
+            ("_E", "G", "_B"),    # m.35 (4,7)
             ("_E", "_A", "c"),    # m.36 (5,9)
-            ("_E", "_G", "c"),    # m.37 (3,9)
+            ("_E", "_G", "=c"),   # m.37 (3,9)
             ("_E", "=A", "c"),    # m.38 (6,9)
             ("_E", "_A", "_c"),   # m.39 (5,8)
-            ("_E", "=G", "=B"),   # m.40 (4,8)
+            ("_E", "=G", "=c"),   # m.40 (4,9)
         ]
     ),
     (
@@ -115,16 +115,16 @@ EJ11_SECTIONS = [
     (
         6, "Fa♯", "7 · Bajo en Fa♯", "7 · Bass on F♯", "7 · Fa♯", 66,
         [
-            ("^F", "A", "^c"),    # m.61 (3,7) -- inicio de pág. 124
-            ("^F", "^A", "^c"),   # m.62 (4,7)
-            ("^F", "=A", "d"),    # m.63 (3,8)
+            ("^F", "=A", "=c"),   # m.61 (3,6) -- inicio de pág. 124
+            ("^F", "A", "^c"),    # m.62 (3,7)
+            ("^F", "A", "d"),     # m.63 (3,8)
             ("^F", "^A", "^^c"),  # m.64 (4,8)
             ("^F", "^A", "^d"),   # m.65 (4,9)
             ("^F", "B", "^d"),    # m.66 (5,9)
             ("^F", "=A", "^d"),   # m.67 (3,9)
-            ("^F", "B", "=d"),    # m.68 (5,8)
-            ("^F", "A", "=c"),    # m.69 (3,6)
-            ("^F", "^B", "^d"),   # m.70 (6,9)
+            ("^F", "^B", "^d"),   # m.68 (6,9)
+            ("^F", "=B", "=d"),   # m.69 (5,8)
+            ("^F", "^A", "^c"),   # m.70 (4,7)
         ]
     ),
     (
@@ -146,15 +146,15 @@ EJ11_SECTIONS = [
         8, "Sol♯/La♭", "9 · Bajo en Sol♯ / La♭", "9 · Bass on G♯ / A♭", "9 · Sol♯/La♭", 68,
         [
             ("^G", "B", "d"),     # m.81 (3,6)
-            ("^G", "^B", "^d"),   # m.82 (4,7)
-            ("^G", "=B", "e"),    # m.83 (3,8)
+            ("^G", "B", "^d"),    # m.82 (3,7)
+            ("^G", "B", "e"),     # m.83 (3,8)
             ("_A", "c", "f"),     # m.84 (4,9)
             ("_A", "_d", "f"),    # m.85 (5,9)
             ("_A", "_c", "f"),    # m.86 (3,9)
-            ("_A", "_d", "_f"),   # m.87 (5,8)
-            ("_A", "=d", "=f"),   # m.88 (6,9)
-            ("_A", "_c", "_e"),   # m.89 (3,7)
-            ("_A", "=c", "=e"),   # m.90 (4,8) -- fin de pág. 124
+            ("_A", "=c", "=e"),   # m.87 (4,8)
+            ("_A", "=d", "f"),    # m.88 (6,9)
+            ("_A", "_d", "_f"),   # m.89 (5,8)
+            ("_A", "=c", "_e"),   # m.90 (4,7) -- fin de pág. 124
         ]
     ),
     (
@@ -176,7 +176,7 @@ EJ11_SECTIONS = [
         10, "La♯/Si♭", "11 · Bajo en La♯ / Si♭", "11 · Bass on A♯ / B♭", "11 · La♯/Si♭", 70,
         [
             ("^A", "^c", "^f"),   # m.101 (3,8)
-            ("_B", "_d", "g"),    # m.102 (3,9)
+            ("^A", "^c", "g"),    # m.102 (3,9)
             ("_B", "_d", "_f"),   # m.103 (3,6)
             ("_B", "=d", "^f"),   # m.104 (4,8)
             ("_B", "d", "=f"),    # m.105 (4,7)
@@ -1215,29 +1215,6 @@ HTML_TEMPLATE = f"""<!DOCTYPE html>
         renderStaffLine(`ej11-sys-${{sysIdx}}`, abc, sysIdx === 59 ? 1960 : 1840, 0);
       }}
 
-      const focusCard = document.getElementById("focus-card");
-      if (currentSecIdx >= 0) {{
-        const sec = EJ11_SECTIONS[currentSecIdx];
-        const art = EJ11_ARTS[currentArtId];
-        focusCard.classList.add("visible");
-        document.getElementById("focus-title").textContent = `🎯 Sección Activa: ${{sec.titleEs}} — ${{art.name}}`;
-        document.getElementById("focus-badge").textContent = `Compases ${{sec.startMeasure}}–${{sec.endMeasure}} · Pedal MIDI ${{sec.bassMidi}} · Compás ${{art.meter}}`;
-
-        const grid = document.getElementById("focus-chords-grid");
-        grid.innerHTML = "";
-        const slice = EJ11_MEASURES.slice(sec.id * 10, sec.id * 10 + 10);
-        slice.forEach(m => {{
-          const pill = document.createElement("div");
-          pill.className = "chord-pill";
-          pill.innerHTML = `<strong>c.${{m.measureNum}}:</strong> <code>${{m.triad.join("–")}}</code> · ${{m.chordDesc}}`;
-          grid.appendChild(pill);
-        }});
-
-        renderStaffLine("ej11-focus-staff", buildSectionFocusAbc(currentSecIdx, currentArtId), 1840, 2);
-      }} else {{
-        focusCard.classList.remove("visible");
-      }}
-
       const fullAbc = buildFullAbcText(currentArtId);
       document.getElementById("abc-source-box").value = fullAbc;
       const dlLink = document.getElementById("download-abc-link");
@@ -1267,6 +1244,7 @@ HTML_TEMPLATE = f"""<!DOCTYPE html>
         const btn = document.getElementById(`sec-btn-${{sec.id}}`);
         if (btn) btn.classList.toggle("active-sec", sec.id === secIdx);
       }});
+      let firstActiveRow = null;
       for (let sysIdx = 0; sysIdx < 60; sysIdx++) {{
         const r = document.getElementById(`sys-row-${{sysIdx}}`);
         if (!r) continue;
@@ -1279,7 +1257,11 @@ HTML_TEMPLATE = f"""<!DOCTYPE html>
           const sysEnd = sysIdx * 2 + 2;
           const overlaps = sysStart <= endM && sysEnd >= startM;
           r.classList.toggle("active-system", overlaps);
+          if (overlaps && !firstActiveRow) firstActiveRow = r;
         }}
+      }}
+      if (firstActiveRow) {{
+        firstActiveRow.scrollIntoView({{ behavior: "smooth", block: "center" }});
       }}
       const badge = document.getElementById("measure-badge");
       if (secIdx >= 0) {{

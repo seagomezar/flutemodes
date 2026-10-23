@@ -177,28 +177,12 @@ js_injection = f"""// === BEGIN EJ5_10_11 LEDUC ===
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">E. J. 5 — <em>GAMMES CHROMATIQUES</em></div>
+            <div class="ej1-title">E. J. 5 — <em>GAMMES CHROMATIQUES (${{sc.titleEs}})</em></div>
             <div class="ej1-active-badge">${{art.name}} (${{art.meter}})</div>
           </div>
           <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
           <div id="ej5-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
           <div id="ej5-art-row-2" class="ej1-art-row"></div>
-
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
-                🎯 Escala Activa: ${{sc.titleEs}}
-              </span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
-                Compases ${{secIdx * 5 + 1}}–${{secIdx * 5 + 5}} de 60 (2 Octavas Cromáticas)
-              </span>
-            </div>
-            <div id="ej5-focus-score" class="ej1-staff-row"></div>
-          </div>
-
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
-            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Pág. 115 · 12 Escalas A–L)
-          </div>
       `;
       for (let i = 0; i < EJ5_SCALES_DATA.length; i++) {{
         const highlight = (i === secIdx) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
@@ -207,32 +191,17 @@ js_injection = f"""// === BEGIN EJ5_10_11 LEDUC ===
       html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("ej5-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej5-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej5-focus-score", buildEj5SingleScaleAbc(secIdx, artId, true), {{ staffwidth: 900, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("ej5-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("ej5-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
 
       for (let i = 0; i < EJ5_SCALES_DATA.length; i++) {{
-        ABCJS.renderAbc(`ej5-scale-row-${{i}}`, buildEj5SingleScaleAbc(i, artId, i === 0), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        ABCJS.renderAbc(`ej5-scale-row-${{i}}`, buildEj5SingleScaleAbc(i, artId, i === 0), {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
       }}
-    }}
-
-    function buildEj10SectionFocusAbc(secIdx, artId) {{
-      const art = EJ10_ARTS_DATA[artId] || EJ10_ARTS_DATA[0];
-      const startM = secIdx * 10;
-      const slice = EJ10_MEASURES_DATA.slice(startM, startM + 10);
-      const row1 = slice.slice(0, 5).map(m => `"[c.${{m.m}}]" ` + formatEj5_10Measure12(m.n, artId) + " |").join(" ");
-      const row2 = slice.slice(5, 10).map((m, i) => `"[c.${{m.m}}]" ` + formatEj5_10Measure12(m.n, artId) + (i === 4 ? " ||" : " |")).join(" ");
-      const extraFinal = (secIdx === 11) ? " B4 z4 |]" : "";
-      return [
-        "X:200",
-        "%%stretchlast 1",
-        `M:${{art.meter}}`,
-        "L:1/16",
-        "K:C",
-        "V:1 clef=treble",
-        row1,
-        row2 + extraFinal
-      ].join("\\n");
+      const activeRow = document.getElementById(`ej5-scale-row-${{secIdx}}`);
+      window.activeSectionNotes = activeRow ? Array.from(activeRow.querySelectorAll(".abcjs-note")) : [];
+      if (secIdx > 0 && activeRow) {{
+        setTimeout(() => activeRow.scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
+      }}
     }}
 
     function buildEj10SystemAbc(sysIdx, artId) {{
@@ -261,75 +230,51 @@ js_injection = f"""// === BEGIN EJ5_10_11 LEDUC ===
       const paper = document.getElementById("paper");
       const art = EJ10_ARTS_DATA[artId] || EJ10_ARTS_DATA[0];
       const sec = EJ10_SECTIONS_DATA[secIdx] || EJ10_SECTIONS_DATA[0];
-      const endM = (secIdx === 11) ? 121 : sec.endMeasure;
 
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">E. J. 10 — <em>ARPÈGES (EXERCICES SUR LES ACCORDS)</em></div>
+            <div class="ej1-title">E. J. 10 — <em>ARPÈGES (${{sec.titleEs}})</em></div>
             <div class="ej1-active-badge">${{art.name}} (${{art.meter}})</div>
           </div>
           <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
           <div id="ej10-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
           <div id="ej10-art-row-2" class="ej1-art-row"></div>
-
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
-                🎯 Sección Activa: ${{sec.titleEs}} (10 Tríadas y Séptimas)
-              </span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
-                Compases ${{sec.startMeasure}}–${{endM}} de 121
-              </span>
-            </div>
-            <div id="ej10-focus-score" class="ej1-staff-row"></div>
-          </div>
-
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
-            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Págs. 120–121 · 121 Compases)
-          </div>
           <div style="font-size:11px; font-weight:bold; color:#334155; margin:4px 4px 2px 4px;">Pág. 120 (Sistemas 1–14 · c. 1–56)</div>
       `;
+      const startM = secIdx * 10 + 1;
+      const endM = (secIdx === 11) ? 121 : secIdx * 10 + 10;
       for (let s = 0; s < 30; s++) {{
         if (s === 14) {{
           html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 121 (Sistemas 15–30 · c. 57–121)</div>`;
         }}
-        html += `<div id="ej10-sys-${{s}}" class="ej1-staff-row"></div>`;
+        const sysStart = s * 4 + 1;
+        const sysEnd = (s === 29) ? 121 : s * 4 + 4;
+        const hl = (sysStart <= endM && sysEnd >= startM) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
+        html += `<div id="ej10-sys-${{s}}" class="ej1-staff-row" style="${{hl}}"></div>`;
       }}
       html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("ej10-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej10-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej10-focus-score", buildEj10SectionFocusAbc(secIdx, artId), {{ staffwidth: 920, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("ej10-art-row-1", EJ5_10_ART_ROW1_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("ej10-art-row-2", EJ5_10_ART_ROW2_ABC, {{ staffwidth: 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
 
+      const allSysNotes = [];
       for (let s = 0; s < 30; s++) {{
-        ABCJS.renderAbc(`ej10-sys-${{s}}`, buildEj10SystemAbc(s, artId), {{ staffwidth: s === 29 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        const divId = `ej10-sys-${{s}}`;
+        ABCJS.renderAbc(divId, buildEj10SystemAbc(s, artId), {{ staffwidth: s === 29 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+        const sysEl = document.getElementById(divId);
+        if (sysEl) {{
+          const sNotes = sysEl.querySelectorAll(".abcjs-note");
+          for (let k = 0; k < sNotes.length; k++) allSysNotes.push(sNotes[k]);
+        }}
       }}
-    }}
-
-    function buildEj11SectionFocusAbc(secIdx, artId) {{
-      const art = EJ11_ARTS_DATA[artId] || EJ11_ARTS_DATA[0];
-      const startM = secIdx * 10;
-      const slice = EJ11_MEASURES_DATA.slice(startM, startM + 10);
-      const lines = [
-        "X:300",
-        "%%stretchlast 1",
-        `M:${{art.meter}}`,
-        "L:1/16",
-        "K:C",
-        "V:1 clef=treble"
-      ];
-      for (let i = 0; i < 10; i += 2) {{
-        const m1 = slice[i];
-        const m2 = slice[i + 1];
-        const b1 = `"[c.${{m1.m}}]" ` + formatEj11Measure18(m1.n, artId) + " |";
-        const isLast = (i === 8);
-        const extraFinal = (isLast && secIdx === 11) ? " B4 z4 z10 |]" : "";
-        const b2 = `"[c.${{m2.m}}]" ` + formatEj11Measure18(m2.n, artId) + (isLast ? " ||" : " |") + extraFinal;
-        lines.push(b1 + " " + b2);
+      const startNote = secIdx * 120;
+      const endNote = (secIdx === 11) ? startNote + 121 : startNote + 120;
+      window.activeSectionNotes = allSysNotes.slice(startNote, endNote);
+      if (secIdx > 0 && window.activeSectionNotes.length > 0) {{
+        setTimeout(() => window.activeSectionNotes[0].scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
-      return lines.join("\\n");
     }}
 
     function buildEj11SystemAbc(sysIdx, artId) {{
@@ -358,35 +303,20 @@ js_injection = f"""// === BEGIN EJ5_10_11 LEDUC ===
       const paper = document.getElementById("paper");
       const art = EJ11_ARTS_DATA[artId] || EJ11_ARTS_DATA[0];
       const sec = EJ11_SECTIONS_DATA[secIdx] || EJ11_SECTIONS_DATA[0];
-      const endM = (secIdx === 11) ? 121 : sec.endMeasure;
 
       let html = `
         <div class="ej1-leduc-wrapper">
           <div class="ej1-top-header">
-            <div class="ej1-title">E. J. 11 — <em>ARPÈGES BRISÉS</em></div>
+            <div class="ej1-title">E. J. 11 — <em>ARPÈGES BRISÉS (${{sec.titleEs}})</em></div>
             <div class="ej1-active-badge">${{art.name}} (${{art.meter}})</div>
           </div>
           <div class="ej1-subtitle">A travailler successivement avec chacune des articulations suivantes:</div>
           <div id="ej11-art-row-1" class="ej1-art-row" style="border-bottom:none; margin-bottom:0;"></div>
           <div id="ej11-art-row-2" class="ej1-art-row"></div>
-
-          <div style="margin: 8px 0 12px 0; padding: 8px 8px 4px 8px; border: 1.5px solid #2563eb; border-radius: 10px; background: #f8fafc;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:4px;">
-              <span style="font-family:-apple-system,sans-serif; font-size:12px; font-weight:700; color:#1e3a8a;">
-                🎯 Sección Activa: ${{sec.titleEs}} (10 Arpegios Quebrados en 9/8 · 3/4)
-              </span>
-              <span style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:600; color:#475569; background:#e2e8f0; padding:2px 8px; border-radius:999px;">
-                Compases ${{sec.startMeasure}}–${{endM}} de 121
-              </span>
-            </div>
-            <div id="ej11-focus-score" class="ej1-staff-row"></div>
-          </div>
-
-          <div style="font-family:-apple-system,sans-serif; font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.6px; margin: 12px 4px 6px 4px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
-            Partitura Urtext Completa · Alphonse Leduc A. L. 16.588 (Págs. 122–125 · 121 Compases)
-          </div>
           <div style="font-size:11px; font-weight:bold; color:#334155; margin:4px 4px 2px 4px;">Pág. 122 (Sistemas 1–14 · c. 1–28)</div>
       `;
+      const startM = secIdx * 10 + 1;
+      const endM = (secIdx === 11) ? 121 : secIdx * 10 + 10;
       for (let s = 0; s < 60; s++) {{
         if (s === 14) {{
           html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 123 (Sistemas 15–30 · c. 29–60)</div>`;
@@ -395,17 +325,32 @@ js_injection = f"""// === BEGIN EJ5_10_11 LEDUC ===
         }} else if (s === 45) {{
           html += `<div style="font-size:11px; font-weight:bold; color:#334155; margin:10px 4px 2px 4px; border-top:1px dashed #cbd5e1; padding-top:6px;">Pág. 125 (Sistemas 46–60 · c. 91–121)</div>`;
         }}
-        html += `<div id="ej11-sys-${{s}}" class="ej1-staff-row"></div>`;
+        const sysStart = s * 2 + 1;
+        const sysEnd = (s === 59) ? 121 : s * 2 + 2;
+        const hl = (sysStart <= endM && sysEnd >= startM) ? "background:#eff6ff; border-left:3px solid #2563eb; padding-left:4px; border-radius:4px;" : "";
+        html += `<div id="ej11-sys-${{s}}" class="ej1-staff-row" style="${{hl}}"></div>`;
       }}
       html += `<div class="ej1-plate-footer">A. L. 16.588</div></div>`;
       paper.innerHTML = html;
 
-      ABCJS.renderAbc("ej11-art-row-1", EJ11_ART_ROW1_ABC, {{ staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej11-art-row-2", EJ11_ART_ROW2_ABC, {{ staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
-      ABCJS.renderAbc("ej11-focus-score", buildEj11SectionFocusAbc(secIdx, artId), {{ staffwidth: 940, paddingtop: 3, paddingbottom: 3, paddingleft: 2, paddingright: 2, responsive: "resize" }});
+      ABCJS.renderAbc("ej11-art-row-1", EJ11_ART_ROW1_ABC, {{ staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+      ABCJS.renderAbc("ej11-art-row-2", EJ11_ART_ROW2_ABC, {{ staffwidth: 980, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
 
+      const allSysNotes = [];
       for (let s = 0; s < 60; s++) {{
-        ABCJS.renderAbc(`ej11-sys-${{s}}`, buildEj11SystemAbc(s, artId), {{ staffwidth: s === 59 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize" }});
+        const divId = `ej11-sys-${{s}}`;
+        ABCJS.renderAbc(divId, buildEj11SystemAbc(s, artId), {{ staffwidth: s === 59 ? 1020 : 960, paddingtop: 1, paddingbottom: 1, paddingleft: 0, paddingright: 0, responsive: "resize", add_classes: true }});
+        const sysEl = document.getElementById(divId);
+        if (sysEl) {{
+          const sNotes = sysEl.querySelectorAll(".abcjs-note");
+          for (let k = 0; k < sNotes.length; k++) allSysNotes.push(sNotes[k]);
+        }}
+      }}
+      const startNote = secIdx * 180;
+      const endNote = (secIdx === 11) ? startNote + 181 : startNote + 180;
+      window.activeSectionNotes = allSysNotes.slice(startNote, endNote);
+      if (secIdx > 0 && window.activeSectionNotes.length > 0) {{
+        setTimeout(() => window.activeSectionNotes[0].scrollIntoView({{ behavior: "smooth", block: "center" }}), 60);
       }}
     }}
 // === END EJ5_10_11 LEDUC ===
@@ -417,11 +362,13 @@ target_render_score = """    function renderScore(abcString) {
 
 replacement_render_score = js_injection + """
     function renderScore(abcString) {
+      window.activeSectionNotes = null;
       const ej5Match = abcString && abcString.match(/%\\s*EJ5_LEDUC_ART:(\\d+):SEC:(\\d+)/);
       if (ej5Match) {
         const artId = parseInt(ej5Match[1], 10) || 0;
         const secIdx = parseInt(ej5Match[2], 10) || 0;
         renderEj5Leduc(artId, secIdx);
+        normalizeAllSvgs();
         return;
       }
       const ej10Match = abcString && abcString.match(/%\\s*EJ10_LEDUC_ART:(\\d+):SEC:(\\d+)/);
@@ -429,6 +376,7 @@ replacement_render_score = js_injection + """
         const artId = parseInt(ej10Match[1], 10) || 0;
         const secIdx = parseInt(ej10Match[2], 10) || 0;
         renderEj10Leduc(artId, secIdx);
+        normalizeAllSvgs();
         return;
       }
       const ej11Match = abcString && abcString.match(/%\\s*EJ11_LEDUC_ART:(\\d+):SEC:(\\d+)/);
@@ -436,6 +384,7 @@ replacement_render_score = js_injection + """
         const artId = parseInt(ej11Match[1], 10) || 0;
         const secIdx = parseInt(ej11Match[2], 10) || 0;
         renderEj11Leduc(artId, secIdx);
+        normalizeAllSvgs();
         return;
       }
       const ej4Match = abcString && abcString.match(/%\\s*EJ4_LEDUC_ART:(\\d+):SEC:(\\d+)/);"""

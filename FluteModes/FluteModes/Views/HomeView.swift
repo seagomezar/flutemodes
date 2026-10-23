@@ -402,9 +402,6 @@ public struct HomeView: View {
                                 }
                             }
 
-                            // LEVEL 3: SELECT TECHNICAL SCHEME (10 Schemes: Taffanel E.J. 1-11 & Reichert R. 1-5)
-                            modalSchemesSelectorCard
-
                             // TWO PARALLEL FAMILIES (Mayor & Menor)
                             if isCompact {
                                 VStack(spacing: 14) {
@@ -425,7 +422,7 @@ public struct HomeView: View {
                                 } label: {
                                     HStack(spacing: 10) {
                                         Image(systemName: "play.fill")
-                                        Text("\(loc.t("start_practice")) (\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.localizedName) · \(viewModel.currentModalScheme.shortName))")
+                                        Text("\(loc.t("start_practice")) (\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.localizedName))")
                                             .font(.headline)
                                             .lineLimit(1)
                                             .minimumScaleFactor(0.8)
@@ -645,7 +642,7 @@ public struct HomeView: View {
         case .r2: return loc.t("r2_title")
         case .r4: return loc.t("r4_title")
         case .r5: return loc.t("r5_title")
-        case .modos: return viewModel.currentModalScheme.title(loc)
+        case .modos: return loc.t("app_title")
         }
     }
 
@@ -1135,7 +1132,7 @@ public struct HomeView: View {
                 : (viewModel.currentExercise == .ej5 ? EJ5Section.all[idx].shortName : EJ10Section.all[idx].shortName)
             return "\(viewModel.currentExercise.shortBadge) · \(secName)"
         case .modos:
-            return "\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.localizedName) · \(viewModel.currentModalScheme.shortName)"
+            return "\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.localizedName)"
         }
     }
 
@@ -1278,109 +1275,6 @@ public struct HomeView: View {
             RoundedRectangle(cornerRadius: 18)
                 .stroke(Color.indigo.opacity(0.35), lineWidth: 1)
         )
-    }
-
-    // MARK: - Level 3: 10 Modal Technical Schemes Card (6 Taffanel + 4 Reichert = 840 Variations)
-    private var modalSchemesSelectorCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text(CoachStrings.level3SchemeLabel(loc))
-                    .font(.caption.bold())
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text("\(viewModel.currentModalScheme.totalNotes) notes · M:\(viewModel.currentModalScheme.meter)")
-                    .font(.caption2.bold().monospacedDigit())
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(Color.indigo.opacity(0.14))
-                    .foregroundColor(.indigo)
-                    .cornerRadius(8)
-            }
-            .padding(.horizontal, 4)
-
-            VStack(alignment: .leading, spacing: 10) {
-                // Taffanel & Gaubert (6 Schemes: E.J. 1, 2, 4, 5, 10, 11)
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(CoachStrings.taffanelGroupLabel(loc))
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(.secondary)
-
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: isCompact ? 3 : 6), spacing: 6) {
-                        ForEach(ModalScheme.taffanelSchemes) { scheme in
-                            modalSchemeChip(scheme)
-                        }
-                    }
-                }
-
-                // Reichert Op. 5 (4 Schemes: R. 1, 2, 4, 5)
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(CoachStrings.reichertGroupLabel(loc))
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundColor(.indigo)
-
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 4), spacing: 6) {
-                        ForEach(ModalScheme.reichertSchemes) { scheme in
-                            modalSchemeChip(scheme)
-                        }
-                    }
-                }
-
-                Divider()
-
-                // Active Scheme Pedagogical Description
-                HStack(alignment: .top, spacing: 10) {
-                    Image(systemName: viewModel.currentModalScheme.isReichert ? "sparkles" : "music.quarternote.3")
-                        .font(.subheadline.bold())
-                        .foregroundColor(viewModel.currentModalScheme.isReichert ? .indigo : .accentColor)
-                        .padding(.top, 2)
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(viewModel.currentModalScheme.title(loc))
-                            .font(.subheadline.bold())
-                            .foregroundColor(.primary)
-                        Text(viewModel.currentModalScheme.pedagogy(loc))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-
-                    Spacer()
-                }
-            }
-            .padding(12)
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
-            .cornerRadius(14)
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .stroke(Color(uiColor: .separator), lineWidth: 0.5)
-            )
-        }
-    }
-
-    private func modalSchemeChip(_ scheme: ModalScheme) -> some View {
-        let isSelected = viewModel.currentModalScheme == scheme
-        let activeColor: Color = scheme.isReichert ? .indigo : .primary
-        let activeFg: Color = scheme.isReichert ? .white : Color(uiColor: .systemBackground)
-
-        return Button {
-            viewModel.selectModalScheme(scheme)
-        } label: {
-            VStack(spacing: 2) {
-                Text(scheme.shortName)
-                    .font(.system(size: 12.5, weight: .bold))
-                Text("M:\(scheme.meter)")
-                    .font(.system(size: 9.5, weight: .medium).monospacedDigit())
-                    .opacity(0.8)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 7)
-            .background(isSelected ? activeColor : Color(uiColor: .systemBackground))
-            .foregroundColor(isSelected ? activeFg : .primary)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(isSelected ? Color.clear : Color(uiColor: .separator), lineWidth: 1)
-            )
-        }
     }
 
     // MARK: - 3-Step Practice Wizard Sheet

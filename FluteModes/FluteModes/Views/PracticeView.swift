@@ -451,7 +451,7 @@ public struct PracticeView: View {
         } else {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .center) {
-                    Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.localizedName) · \(viewModel.currentModalScheme.shortName)")
+                    Text("\(viewModel.currentTonic.rawValue) · \(viewModel.currentMode.localizedName)")
                         .font(.system(size: 17, weight: .bold))
                         .foregroundColor(.primary)
                         .lineLimit(1)
@@ -468,46 +468,11 @@ public struct PracticeView: View {
                         .cornerRadius(8)
                 }
 
-                Text("\(viewModel.currentModalScheme.title(loc)) · \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
+                Text("\(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) · \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.55)
-
-                // Horizontal 10-Scheme Selector Bar (Taffanel & Gaubert + Reichert Op. 5)
-                ScrollViewReader { proxy in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 6) {
-                            ForEach(ModalScheme.allCases) { scheme in
-                                let isSel = viewModel.currentModalScheme == scheme
-                                Button {
-                                    viewModel.selectModalScheme(scheme)
-                                } label: {
-                                    HStack(spacing: 4) {
-                                        Text(scheme.shortName)
-                                            .font(.system(size: 11, weight: .bold))
-                                        Text("(\(scheme.meter))")
-                                            .font(.system(size: 10, weight: .medium))
-                                    }
-                                    .padding(.horizontal, 9)
-                                    .padding(.vertical, 5)
-                                    .background(isSel ? (scheme.isReichert ? Color.indigo : Color.blue) : Color(uiColor: .tertiarySystemFill))
-                                    .foregroundColor(isSel ? .white : .primary)
-                                    .cornerRadius(10)
-                                }
-                                .id(scheme)
-                            }
-                        }
-                    }
-                    .onAppear {
-                        proxy.scrollTo(viewModel.currentModalScheme, anchor: .center)
-                    }
-                    .onChange(of: viewModel.currentModalScheme) { _, newScheme in
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            proxy.scrollTo(newScheme, anchor: .center)
-                        }
-                    }
-                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
@@ -649,10 +614,10 @@ public struct PracticeView: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                // Mode Details Badge (Parallel System + 10-Scheme Selector)
+                // Mode Details Badge (Parallel System)
                 VStack(spacing: 3) {
                     HStack(spacing: 8) {
-                        Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name) · \(viewModel.currentModalScheme.shortName)")
+                        Text("\(viewModel.currentTonic.rawValue) \(viewModel.currentMode.name)")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.primary)
 
@@ -672,7 +637,7 @@ public struct PracticeView: View {
                             .cornerRadius(6)
                     }
 
-                    Text("\(viewModel.currentModalScheme.title(loc)) | \(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
+                    Text("\(viewModel.currentMode.keyDescription(for: viewModel.currentTonic)) | \(viewModel.currentMode.accidentalBadge(for: viewModel.currentTonic))")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -1031,33 +996,6 @@ public struct PracticeView: View {
             let isModeFull = completedCount == 8
 
             VStack(spacing: isLandscape ? 2 : 6) {
-                if !isCompact {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 6) {
-                            ForEach(ModalScheme.allCases) { scheme in
-                                let isSel = viewModel.currentModalScheme == scheme
-                                Button {
-                                    viewModel.selectModalScheme(scheme)
-                                } label: {
-                                    HStack(spacing: 4) {
-                                        Text(scheme.shortName)
-                                            .font(.system(size: 11.5, weight: .bold))
-                                        Text("(\(scheme.meter))")
-                                            .font(.system(size: 10.5, weight: .medium))
-                                    }
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, isLandscape ? 3 : 5)
-                                    .background(isSel ? (scheme.isReichert ? Color.indigo : Color.blue) : Color(uiColor: .secondarySystemGroupedBackground))
-                                    .foregroundColor(isSel ? .white : .primary)
-                                    .cornerRadius(10)
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 4)
-                    }
-                }
-
                 if !isLandscape {
                     HStack {
                         HStack(spacing: 6) {
